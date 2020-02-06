@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Faculty Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+    <style>
+        body {
+            background: #8B0000;
+        }
+        .form {
+            max-width: 450px;
+            padding: 30px;
+            margin: 40px auto;
+            background: #FFF;
+            border-radius: 10px;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.13);
+            -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.13);
+            -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.13);
+        }
+            .form .inner-section {
+                padding:10px;
+                background: #F8F8F8;
+                border-radius: 6px; 
+                margin-bottom: 5px;
+            }
+            .form h1 {
+                background: #808080;
+                padding: 20px 30px 15px 30px;
+                margin: -30px -30px 30px -30px;
+                border-radius: 10px 10px 0 0;
+                -webkit-border-radius: 10px 10px 0 0;
+                -moz-border-radius: 10px 10px 0 0;
+                color: #fff;
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.12);
+                font: normal 30px 'Bitter', serif;
+                -moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+                -webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+                box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+                border: 1px solid #000000;
+            }
+            .form h1 > span {
+                display: block;
+                margin-top: 2px;
+                font: 13px Arial, Helvetica, sans-serif;
+            }
+			.form h4
+			{
+				font:15px Arial, Helvetica, sans-serif;
+			}
+            
+            .form textarea{
+            display: block;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            width: 100%;
+            padding: 8px;
+            border-radius: 10px;
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            border: 2px solid #fff;
+            box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.33);
+            -moz-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.33);
+            -webkit-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.33);
+        }
+            .form .section {
+                font: normal 20px 'Bitter', serif;
+                color: #000000;
+                margin-bottom:5px;
+            }
+            .form .comment-section {
+                font: normal 20px 'Bitter', serif;
+                color: #000000;
+                margin-top:10px;
+                margin-bottom: 5px;
+            }
+                a:link {
+                    color: #db2424;
+                    font: 15px 'Bitter', serif;
+                    text-decoration: none;
+                }
+                a:visited{
+                    color:#6f5858;
+                }
+                a:hover{
+                    color: #941212;
+                }
+            .form input[type="button"],
+            .form input[type="submit"] {
+                background: #808080;
+                padding: 8px 20px 8px 20px;
+                border-radius: 5px;
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                color: #fff;
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.12);
+                font: normal 30px 'Bitter', serif;
+                -moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+                -webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+                box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+                border: 1px solid #257C9E;
+                font-size: 15px;
+            }
+
+                .form input[type="button"]:hover,
+                .form input[type="submit"]:hover {
+                    background: #808080;
+                    border: 1px solid #8B0000;
+                    -moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
+                    -webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
+                    box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
+                }
+				.logout{
+				float: right;
+				background: #F8F8F8;
+                padding: 8px 20px 8px 20px;
+                border-radius: 5px;
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                color: #000000;
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.12);
+                font: normal 30px 'Bitter', serif;
+                -moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+                -webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+                box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+                border: 1px solid #257C9E;
+                font-size: 15px;
+			}
+			.logout:hover{
+                background: #F8F8F8;
+                border: 1px solid #8B0000;
+                    -moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
+                    -webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
+                    box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
+			}
+
+       
+        
+    </style>
+	<?php
+	$database = parse_ini_file("../config.ini");
+	$host = $database['host'];
+	$db = $database['db'];
+	$user = $database['user'];
+	$pass = $database['pass'];
+	$charset = 'utf8mb4';
+	$dsn  = "mysql:host=$host;dbname=$db;charset=$charset";
+	$opt = [
+    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    PDO::ATTR_EMULATE_PREPARES   => false,
+	];
+	try{
+		 $pdo = new PDO($dsn, $user, $pass, $options);
+	}catch(\PDOException $e)
+	{
+		 throw new \PDOException($e->getMessage(), (int)$e->getCode());
+	}
+    $id = intval($_GET['id']);
+    /*
+    * CHANGE SO THAT THE APPLICAITON TABLE NAME MATCHES
+    */
+    $sth = $pdo->prepare("SELECT Deadline FROM Settings");
+    $sth->execute();
+    $date_array = $sth->fetch();
+    $deadline = $date_array[0];
+    $temp = explode("-", $deadline);
+    $year = $temp[0];
+    $month = $temp[1];
+    $tableName = 'Applications'.$month.$year;
+	$sth = $pdo->prepare("SELECT * FROM `$tableName` WHERE ApplicationNum=$id");
+	$sth->execute();
+	$application = $sth->fetch();
+	$sid = $application['SID'];
+	$pTitle = $application['PTitle'];
+	$pObjective = $application['Objective'];
+	$timeline = $application['Timeline'];
+	$budget = $application['Budget'];
+	$requested = $application['RequestedBudget'];
+	$sources = $application['FundingSources'];
+	$results = $application['Anticipatedresults'];
+	$justification = $application['Justification'];
+    $filePathTemp = $application['BudgetFilePath'];
+    $filePath = "../".$filePathTemp;
+
+	$sth = $pdo->prepare("SELECT * FROM Student WHERE SID=$sid");
+	$sth->execute();
+	$student = $sth->fetch();
+	$sName = $student[1];
+	$sEmail = $student[2];
+	$gpa = $student[3];
+	$major = $student[4];
+    $gradDate = $student[5];
+    header("Content-type: application/pdf '");
+    header("Content-Disposition: attachment; filename=$file");
+
+	?>
+</head>
+
+<script>
+function enable() {
+    document.getElementById("submit").disabled = false;
+}
+function messageBoxGrant() {
+    confirm("Press a button!");
+}
+</script>
+<body>
+    <div class="form">
+		<form method = "POST">
+		<input type = "hidden" value = "ApplicationAward" name = "emailType" id = "emailType"/>
+		<button class="logout" type="submit" formaction="../index.php?logout=true">Logout</button>
+		</form>
+        <h1>Grant Fund Application<span>Faculty Approval</span></h1>
+		<h4>Please review the student's application to confirm their project is relevant to the STEM program and that they meet the academic standard required to be considered for this grant.</h4>
+        <form method="post" action="formsubmit.php?id=<?php echo $id?>">
+        <a href='grantRequirements.php' target='_blank'>View Grant Requirements</a>    
+        <div class="section"><br>Student's Name:</div>
+            <div class="inner-section">
+                <p><?php echo htmlSpecialChars($sName)?></p>
+            </div>
+
+            <div class="section"><br>Student's Email:</div>
+
+            <div class="inner-section">
+                <p><?php echo htmlSpecialChars($sEmail)?></p>
+            </div>
+
+            <div class="section"><br>Project Title:</div>
+
+            <div class="inner-section">
+                <p><?php echo htmlSpecialChars($pTitle); ?></p>
+            </div>
+
+            <div class="section"><br>Student's Major:</div>
+
+            <div class="inner-section">
+                <p><?php echo htmlSpecialChars($major)?></p>
+            </div>
+
+            <div class="section"><br>Student's GPA:</div>
+
+            <div class="inner-section">
+                <p><?php echo htmlSpecialChars($gpa)?></p>
+            </div>
+
+            <div class="section"><br>Student's Estimated Graduation Date:</div>
+
+            <div class="inner-section">
+                <p><?php echo htmlSpecialChars($gradDate)?></p>
+            </div>
+
+            <div class="section"><br>Project Objective:</div>
+
+            <div class="inner-section">
+                <p><?php echo htmlSpecialChars($pObjective); ?></p>
+            </div>
+
+            <div class="section"><br>Project Timeline:</div>
+
+            <div class="inner-section">
+                <p><?php echo htmlSpecialChars($timeline); ?></p>
+            </div>
+
+            <div class="section"><br>Project Budget:</div>
+
+            <div class="inner-section">
+                <p><?php echo htmlSpecialChars($budget); ?></p>
+            </div>
+			<div class="section"><br>Requested Budget:</div>
+
+            <div class="inner-section">
+                <p><?php echo htmlSpecialChars($requested);?></p>
+            </div>
+
+            <a href='<?php echo $filePath ?>' download>Budget Spreedsheet</a>
+			
+			<div class="section"><br>Anticipated Results:</div>
+
+            <div class="inner-section">
+                <p><?php echo htmlSpecialChars($results); ?></p>
+            </div>
+			<div class="section"><br>Project Justification:</div>
+
+            <div class="inner-section">
+                <p><?php echo htmlSpecialChars($justification); ?></p>
+            </div>
+			<h4><br>If the application requires changes, any comments will be sent to the student as feedback.</h4>
+            <div class="comment-section">Comments:</div>
+
+            <div class="inner-section">
+                <textarea name="comments"></textarea>
+
+            </div>
+		<div class="section">Please select one:</div>
+		<div class="inner-section">
+		  <input type="radio" name="group" id="Approved" value="Approved" onclick="enable()">Approve Application<br>
+		<input type="radio" name="group" id="Not Approved"value="Not Approved" onclick="enable()">Student does not meet grant requirements<br>
+		<input type="radio" name="group" id="Update" value="Update"onclick="enable()">Student needs to make changes to the application<br>
+	</div>
+            <div class="button">
+				 <input type="submit" id= "submit" name="submit" value="Submit" disabled />
+				
+
+	 </div>
+        </form>
+
+    </div>
+</body>
+</html>
