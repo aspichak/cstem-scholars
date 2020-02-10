@@ -1,5 +1,9 @@
 <!DOCTYPE HTML>
-<?php include 'check.php';?>
+<?php
+require_once '../includes/init.php';
+authorize('student');
+include 'check.php';
+?>
 <html>
         <head>
                 <meta http-equiv="Content-Type">

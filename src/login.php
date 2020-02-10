@@ -55,6 +55,7 @@ if (defined('DEBUG') && DEBUG) {
 		$_SESSION["id"] = $identities[$user];
 		$_SESSION["email"] = "$user@ewu.edu";
 		$_SESSION["user"] = $user;
+		$_SESSION["role"] = $role;
 		redirect($locations[$role]);
 	}
 ?>
@@ -104,8 +105,6 @@ if (defined('DEBUG') && DEBUG) {
 	phpCAS::setNoCasServerValidation();
 	phpCAS::handleLogoutRequests();
 	phpCAS::forceAuthentication();
-
-
 	
 	$user = phpCAS::getUser();
 	$attributes = phpCAS::getAttributes();
@@ -114,24 +113,34 @@ if (defined('DEBUG') && DEBUG) {
 	$_SESSION["id"] = $attributes["Ewuid"];
 	$_SESSION["email"] = $email;
 	$_SESSION["user"] = $user;
+	$_SESSION["role"] = "student";
+
+	if (DB::count("Advisor", "AEmail = ?", $attributes["Email"]) == 1)
+		$_SESSION["role"] = "faculty";
+
+	if (DB::count("Reviewers", "REmail = ? AND Active = 1", $attributes["Email"]) == 1)
+		$_SESSION["role"] = "reviewer";
+
+	if ($email == "lcornick@ewu.edu")
+		$_SESSION["role"] = "admin";
 	
 	$database = parse_ini_file("config.ini");
 	$host = $database['host'];
 	$db = $database['db'];
 	$user = $database['user'];
 	$pass = $database['pass'];
-    $charset = 'utf8mb4';
-    $dsn  = "mysql:host=$host;dbname=$db;charset=$charset";
-    $opt = [
+	$charset = 'utf8mb4';
+	$dsn  = "mysql:host=$host;dbname=$db;charset=$charset";
+	$opt = [
 		PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
 		PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
 		PDO::ATTR_EMULATE_PREPARES   => false,
-    ];
-    try{
-             $pdo = new PDO($dsn, $user, $pass, $options);
-    }catch(\PDOException $e)
-    {
-             throw new \PDOException($e->getMessage(), (int)$e->getCode());
+	];
+	try{
+			 $pdo = new PDO($dsn, $user, $pass, $options);
+	}catch(\PDOException $e)
+	{
+			 throw new \PDOException($e->getMessage(), (int)$e->getCode());
 	}
 	$sth = $pdo->prepare("SELECT BeginDate, Deadline, AdvisorDeadline FROM Settings");
 	$sth->execute();
