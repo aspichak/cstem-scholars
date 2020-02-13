@@ -3,69 +3,98 @@
   * "Lazy" database class. Database connection will not be estabilished until it is needed.
   */
 class DB {
-    private static $source;
-    private static $username;
-    private static $password;
-    private static $options;
-    private static $pdo;
+	private static $source;
+	private static $username;
+	private static $password;
+	private static $options;
+	private static $pdo;
 
-    static function configure($source, $username, $password, $options = NULL) {
-        self::$source   = $source;
-        self::$username = $username;
-        self::$password = $password;
-        self::$options  = $options;
-        self::$pdo      = NULL;
-    }
+	static function configure($source, $username, $password, $options = NULL) {
+		self::$source   = $source;
+		self::$username = $username;
+		self::$password = $password;
+		self::$options  = $options;
+		self::$pdo      = NULL;
+	}
 
-    static function pdo() {
-        if (!isset(self::$pdo) || self::$pdo == NULL)
-            self::$pdo = new PDO(self::$source, self::$username, self::$password, self::$options);
+	static function pdo() {
+		if (!isset(self::$pdo) || self::$pdo == NULL)
+			self::$pdo = new PDO(self::$source, self::$username, self::$password, self::$options);
 
-        // TODO: Handle exception
+		// TODO: Handle exception
 
-        return self::$pdo;
-    }
+		return self::$pdo;
+	}
 
-    /**
-      * Execute a query and return number of affected rows. Use this function 
-      * for DELETE, INSERT, or UPDATE statements.
-      */
-    static function execute($query, ...$params) {
-        return self::exec($query, $params)->rowCount();
-    }
+	/**
+	  * Query database and return all rows.
+	  *
+	  * Example:
+	  * 	DB::query('SELECT * FROM Advisor WHERE AEmail = ? OR AName = ?', 'alex@ewu.edu', 'Alex');
+	  * 	DB::query('SELECT * FROM Advisor WHERE AEmail = :email', ['email' => 'alex@ewu.edu']); // Named parameters
+	  */
+	static function query($query, ...$params) {
+		return self::exec($query, ...$params)->fetchAll();
+	}
 
-    /**
-      * Query database and return all rows.
-      */
-    static function query($query, ...$params) {
-        return self::exec($query, $params)->fetchAll();
-    }
+	/**
+	  * Query database and return a single row.
+	  */
+	static function querySingle($query, ...$params) {
+		return self::exec($query . " LIMIT 1", ...$params)->fetch();
+	}
 
-    /**
-      * Query database and return a single row.
-      */
-    static function querySingle($query, ...$params) {
-        return self::exec($query . " LIMIT 1", $params)->fetch();
-    }
+	/**
+	  * Count number of rows satisfying $conditions.
+	  * WARNING: Do not allow unescaped user input in $table or $conditions.
+	  *
+	  * Example: DB::count("Advisor", "AEmail = ?", 'email@ewu.edu');
+	  */
+	static function count($table, $conditions = "", ...$params) {
+		return self::exec("SELECT COUNT(*) FROM $table WHERE $conditions", ...$params)->fetchColumn();
+	}
 
-    /**
-      * Count number of rows satisfying $conditions.
-      * WARNING: Do not allow unescaped user input in $table or $conditions.
-      */
-    static function count($table, $conditions = "", ...$params) {
-        return self::exec("SELECT COUNT(*) FROM $table WHERE $conditions", $params)->fetchColumn();
-    }
+	/**
+	  * Execute a query and return number of affected rows. Use this function for DELETE, INSERT, or UPDATE statements.
+	  */
+	static function execute($query, ...$params) {
+		return self::exec($query, ...$params)->rowCount();
+	}
 
-    /**
-      * Execute a query and return a PDOStatement object.
-      */
-    private static function exec($query, $params) {
-        // Allow associative arrays
-        if (sizeof($params) == 1 && is_array($params[0]))
-            $params = $params[0];
+	/**
+	  * Insert a row into $table. $values is an associative array where each key is a column name in the table.
+	  * Returns true if the row was inserted successfully; false otherwise.
+	  *
+	  * Example: DB::insert('advisor', ['AEmail' => 'advisor@ewu.edu', 'AName' => 'Advisor']);
+	  */
+	static function insert($table, $values) {
+		// Keys = column names
+		$columns = array_keys($values);
 
-        $stmt = self::pdo()->prepare($query);
-        $stmt->execute($params);
-        return $stmt;
-    }
+		// Wrap each column in backticks to allow spaces or reserved keywords in column names
+		$columns = array_map(function ($k) { 
+			return "`$k`"; 
+		}, $columns);
+
+		$columns = implode(', ', $columns);
+
+		// Fill $valuePlaceholders with '?, ?, ?, ... , ?'
+		$valuePlaceholders = implode(', ', array_fill(0, count($values), '?'));
+
+		return self::execute("INSERT INTO $table ($columns) VALUES ($valuePlaceholders)", array_values($values)) > 0;
+	}
+
+	/**
+	  * Execute a query and return a PDOStatement object.
+	  */
+	private static function exec($query, ...$params) {
+		// Allow associative arrays
+		if (sizeof($params) == 1 && is_array($params[0]))
+			$params = $params[0];
+
+		$stmt = self::pdo()->prepare($query);
+		$stmt->execute($params);
+
+		return $stmt;
+	}
 }
