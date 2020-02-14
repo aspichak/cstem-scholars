@@ -45,6 +45,26 @@ class DB {
 	}
 
 	/**
+	  * Select all rows (all columns) from $table satisfying $conditions.
+	  *
+	  * Example: DB::select('Advisor, 'AEmail = ? OR AName = ?', 'alex@ewu.edu', 'Alex');
+	  */
+	static function select($table, $conditions = NULL, ...$params) {
+		$where = empty($conditions) ? '' : 'WHERE';
+		return self::query("SELECT * FROM $table $where $conditions", ...$params);
+	}
+
+	/**
+	  * Select a single row (all columns) from $table satisfying $conditions.
+  	  *
+	  * Example: DB::selectSingle('Advisor, 'AEmail = ? OR AName = ?', 'alex@ewu.edu', 'Alex');
+	  */
+	static function selectSingle($table, $conditions = NULL, ...$params) {
+		$where = empty($conditions) ? '' : 'WHERE';
+		return self::querySingle("SELECT * FROM $table $where $conditions", ...$params);
+	}
+
+	/**
 	  * Count number of rows satisfying $conditions.
 	  * WARNING: Do not allow unescaped user input in $table or $conditions.
 	  *
