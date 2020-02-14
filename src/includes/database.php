@@ -49,7 +49,7 @@ class DB {
 	  *
 	  * Example: DB::select('Advisor, 'AEmail = ? OR AName = ?', 'alex@ewu.edu', 'Alex');
 	  */
-	static function select($table, $conditions = NULL, ...$params) {
+	static function select($table, $conditions = '', ...$params) {
 		$where = empty($conditions) ? '' : 'WHERE';
 		return self::query("SELECT * FROM $table $where $conditions", ...$params);
 	}
@@ -59,7 +59,7 @@ class DB {
   	  *
 	  * Example: DB::selectSingle('Advisor, 'AEmail = ? OR AName = ?', 'alex@ewu.edu', 'Alex');
 	  */
-	static function selectSingle($table, $conditions = NULL, ...$params) {
+	static function selectSingle($table, $conditions = '', ...$params) {
 		$where = empty($conditions) ? '' : 'WHERE';
 		return self::querySingle("SELECT * FROM $table $where $conditions", ...$params);
 	}
@@ -70,8 +70,18 @@ class DB {
 	  *
 	  * Example: DB::count("Advisor", "AEmail = ?", 'email@ewu.edu');
 	  */
-	static function count($table, $conditions = "", ...$params) {
-		return self::exec("SELECT COUNT(*) FROM $table WHERE $conditions", ...$params)->fetchColumn();
+	static function count($table, $conditions = '', ...$params) {
+		$where = empty($conditions) ? '' : 'WHERE';
+		return (int)self::exec("SELECT COUNT(*) FROM $table $where $conditions", ...$params)->fetchColumn();
+	}
+
+	/**
+	  * Check if there are any rows in $table satisfying $conditions.
+	  *
+	  * Example: if (DB::contains("Advisor", "AEmail = ?", 'email@ewu.edu')) { ... }
+	  */
+	static function contains($table, $conditions = '', ...$params) {
+		return self::count($table, $conditions, ...$params) > 0;
 	}
 
 	/**
