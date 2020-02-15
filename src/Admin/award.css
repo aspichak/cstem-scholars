@@ -1,5 +1,4 @@
 @import "index.css";
-
 legend {
     background-color: #000;
     color: #fff;
@@ -20,9 +19,10 @@ label {
     width: 20%;
 }
 
-select.search{
-	margin-right:15px;
-	}
-	input{
-		width :300px;}
-	
+select.search {
+    margin-right: 15px;
+}
+
+input {
+    width: 300px;
+}
