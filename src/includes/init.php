@@ -10,7 +10,7 @@ function path($file) {
 require_once path('config.php');
 require_once path('vendor/autoload.php');
 
-DB::configure(DB_CONNECTION_STRING, DB_USERNAME, DB_PASSWORD, NULL);
+DB::configure(DB_CONNECTION_STRING, DB_USERNAME, DB_PASSWORD, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 
 function authorize($role) {
 	if (!isset($_SESSION) || $_SESSION['role'] != $role) {
@@ -18,6 +18,26 @@ function authorize($role) {
 		require path('infoPages/unauthorized.php');
 		exit();
 	}
+}
+
+function redirect($url, $flash = null) {
+	if ($flash) {
+		$_SESSION['flash'] = serialize($flash);
+	}
+
+	header("Location: $url");
+	exit();
+}
+
+function getFlash() {
+	$flash = null;
+	
+	if (isset($_SESSION['flash'])) {
+		$flash = unserialize($_SESSION['flash']);
+		$_SESSION['flash'] = null;
+	}
+
+	return $flash;
 }
 
 function isPost() {

@@ -98,20 +98,25 @@ class DB {
 	  * Example: DB::insert('advisor', ['AEmail' => 'advisor@ewu.edu', 'AName' => 'Advisor']);
 	  */
 	static function insert($table, $values) {
-		// Keys = column names
-		$columns = array_keys($values);
+		$valuesFragment = self::makeValueList($values);
+		return self::execute("INSERT INTO $table $valuesFragment", array_values($values)) > 0;
+	}
 
-		// Wrap each column in backticks to allow spaces or reserved keywords in column names
-		$columns = array_map(function ($k) { 
-			return "`$k`"; 
-		}, $columns);
+	static function replace($table, $values) {
+		$valuesFragment = self::makeValueList($values);
+		return self::execute("REPLACE INTO $table $valuesFragment", array_values($values)) > 0;
+	}
+
+	static function update($table, $values, $where, ...$params) {
+		$columns = [];
+
+		foreach ($values as $k => $v) {
+			$columns[] = "`$k` = ?";
+		}
 
 		$columns = implode(', ', $columns);
 
-		// Fill $valuePlaceholders with '?, ?, ?, ... , ?'
-		$valuePlaceholders = implode(', ', array_fill(0, count($values), '?'));
-
-		return self::execute("INSERT INTO $table ($columns) VALUES ($valuePlaceholders)", array_values($values)) > 0;
+		return self::execute("UPDATE $table SET $columns WHERE $where", array_merge(array_values($values), $params)) > 0;
 	}
 
 	/**
@@ -126,5 +131,22 @@ class DB {
 		$stmt->execute($params);
 
 		return $stmt;
+	}
+
+	private static function makeValueList($values) {
+		// Keys = column names
+		$columns = array_keys($values);
+
+		// Wrap each column in backticks to allow spaces or reserved keywords in column names
+		$columns = array_map(function ($k) { 
+			return "`$k`"; 
+		}, $columns);
+
+		$columns = implode(', ', $columns);
+
+		// Fill $valuePlaceholders with '?, ?, ?, ... , ?'
+		$valuePlaceholders = implode(', ', array_fill(0, count($values), '?'));
+
+		return "($columns) VALUES ($valuePlaceholders)";
 	}
 }
