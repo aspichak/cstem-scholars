@@ -157,9 +157,7 @@ $state = null;
 if (post('submit')) {
 	if (validate($form, $validators)) {
 		saveApplication($form, true);
-
-		// TODO: Send email
-
+		email($form['advisor_email'], 'CSTEM Scholars Grant Application Needs Review', render('emails/application.php', $form))->send();
 		redirect('ThankYouPage.php');
 	}
 } else if (post('save')) {
@@ -171,10 +169,8 @@ if (post('submit')) {
 	if (validate($form, $validators)) {
 		saveApplication($form, false);
 		$state = 'saved';
-		// $message = '<span class="success">Your application was successfully saved. Please note that it will <strong>NOT</strong> be reviewed until you submit it.</span>';
 	} else {
 		$state = 'error';
-		// $message = '<span class="error">Your application was <strong>NOT</strong> saved. Please review your application for errors and try saving again.</span>';
 	}
 }
 ?>
