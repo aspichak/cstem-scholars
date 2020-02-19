@@ -13,8 +13,11 @@
  * @license  http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  * @link     https://wiki.jasig.org/display/CASC/phpCAS
  */ ?>
-    <dl style='border: 1px dotted; padding: 5px;'>
-      <dt>Current script</dt><dd><?php print basename($_SERVER['SCRIPT_NAME']); ?></dd>
-      <dt>session_name():</dt><dd> <?php print session_name(); ?></dd>
-      <dt>session_id():</dt><dd> <?php print session_id(); ?></dd>
-    </dl>
+<dl style='border: 1px dotted; padding: 5px;'>
+    <dt>Current script</dt>
+    <dd><?php print basename($_SERVER['SCRIPT_NAME']); ?></dd>
+    <dt>session_name():</dt>
+    <dd> <?php print session_name(); ?></dd>
+    <dt>session_id():</dt>
+    <dd> <?php print session_id(); ?></dd>
+</dl>

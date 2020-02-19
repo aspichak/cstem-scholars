@@ -42,7 +42,6 @@
  *
  * @ingroup internalPGTStorage
  */
-
 abstract class CAS_PGTStorage_AbstractStorage
 {
     /**
@@ -67,7 +66,7 @@ abstract class CAS_PGTStorage_AbstractStorage
     function __construct($cas_parent)
     {
         phpCAS::traceBegin();
-        if ( !$cas_parent->isProxy() ) {
+        if (!$cas_parent->isProxy()) {
             phpCAS::error(
                 'defining PGT storage makes no sense when not using a CAS proxy'
             );
@@ -89,7 +88,7 @@ abstract class CAS_PGTStorage_AbstractStorage
      */
     function getStorageType()
     {
-        phpCAS::error(__CLASS__.'::'.__FUNCTION__.'() should never be called');
+        phpCAS::error(__CLASS__ . '::' . __FUNCTION__ . '() should never be called');
     }
 
     /**
@@ -102,7 +101,7 @@ abstract class CAS_PGTStorage_AbstractStorage
      */
     function getStorageInfo()
     {
-        phpCAS::error(__CLASS__.'::'.__FUNCTION__.'() should never be called');
+        phpCAS::error(__CLASS__ . '::' . __FUNCTION__ . '() should never be called');
     }
 
     // ########################################################################
@@ -116,7 +115,7 @@ abstract class CAS_PGTStorage_AbstractStorage
      * @hideinitializer
      * @deprecated not used.
      */
-    var $_error_message=false;
+    var $_error_message = false;
 
     /**
      * This method sets en error message, which can be read later by
@@ -187,7 +186,7 @@ abstract class CAS_PGTStorage_AbstractStorage
     /**
      * This virtual method stores a PGT and its corresponding PGT Iuo.
      *
-     * @param string $pgt     the PGT
+     * @param string $pgt the PGT
      * @param string $pgt_iou the PGT iou
      *
      * @return void
@@ -195,9 +194,9 @@ abstract class CAS_PGTStorage_AbstractStorage
      * @note Should never be called.
      *
      */
-    function write($pgt,$pgt_iou)
+    function write($pgt, $pgt_iou)
     {
-        phpCAS::error(__CLASS__.'::'.__FUNCTION__.'() should never be called');
+        phpCAS::error(__CLASS__ . '::' . __FUNCTION__ . '() should never be called');
     }
 
     /**
@@ -212,7 +211,7 @@ abstract class CAS_PGTStorage_AbstractStorage
      */
     function read($pgt_iou)
     {
-        phpCAS::error(__CLASS__.'::'.__FUNCTION__.'() should never be called');
+        phpCAS::error(__CLASS__ . '::' . __FUNCTION__ . '() should never be called');
     }
 
     /** @} */

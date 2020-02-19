@@ -31,7 +31,7 @@ function CAS_autoload($class)
     }
     // Setup the include path if it's not already set from a previous call
     if (empty($include_path)) {
-        $include_path = array(dirname(dirname(__FILE__)), dirname(dirname(__FILE__)) . '/../test/' );
+        $include_path = array(dirname(dirname(__FILE__)), dirname(dirname(__FILE__)) . '/../test/');
     }
 
     // Declare local variable to store the expected full path to the file
@@ -44,11 +44,11 @@ function CAS_autoload($class)
             include $file_path;
             if (!class_exists($class, false) && !interface_exists($class, false)) {
                 die(
-                    new Exception(
-                        'Class ' . $class . ' was not present in ' .
-                        $file_path .
-                        ' [CAS_autoload]'
-                    )
+                new Exception(
+                    'Class ' . $class . ' was not present in ' .
+                    $file_path .
+                    ' [CAS_autoload]'
+                )
                 );
             }
             return true;
@@ -57,7 +57,7 @@ function CAS_autoload($class)
     $e = new Exception(
         'Class ' . $class . ' could not be loaded from ' .
         $file_path . ', file does not exist (Path="'
-        . implode(':', $include_path) .'") [CAS_autoload]'
+        . implode(':', $include_path) . '") [CAS_autoload]'
     );
     $trace = $e->getTrace();
     if (isset($trace[2]) && isset($trace[2]['function'])
@@ -70,7 +70,7 @@ function CAS_autoload($class)
     ) {
         return false;
     }
-    die ((string) $e);
+    die ((string)$e);
 }
 
 // set up __autoload

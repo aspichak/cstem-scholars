@@ -40,7 +40,6 @@
  * @sa @link internalLang Internationalization @endlink
  * @ingroup internalLang
  */
-
 interface CAS_Languages_LanguageInterface
 {
     /**
@@ -93,4 +92,5 @@ interface CAS_Languages_LanguageInterface
     public function getServiceUnavailable();
 
 }
+
 ?>

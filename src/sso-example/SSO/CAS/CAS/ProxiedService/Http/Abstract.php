@@ -39,7 +39,7 @@
  * @link     https://wiki.jasig.org/display/CASC/phpCAS
  */
 abstract class CAS_ProxiedService_Http_Abstract extends
-CAS_ProxiedService_Abstract implements CAS_ProxiedService_Http
+    CAS_ProxiedService_Abstract implements CAS_ProxiedService_Http
 {
     /**
      * The HTTP request mechanism talking to the target service.
@@ -59,20 +59,21 @@ CAS_ProxiedService_Abstract implements CAS_ProxiedService_Http
      * Constructor.
      *
      * @param CAS_Request_RequestInterface $requestHandler request handler object
-     * @param CAS_CookieJar                $cookieJar      cookieJar object
+     * @param CAS_CookieJar $cookieJar cookieJar object
      *
      * @return void
      */
     public function __construct(CAS_Request_RequestInterface $requestHandler,
-        CAS_CookieJar $cookieJar
-    ) {
+                                CAS_CookieJar $cookieJar
+    )
+    {
         $this->requestHandler = $requestHandler;
         $this->_cookieJar = $cookieJar;
     }
 
     /**
      * The target service url.
-     * @var string $_url;
+     * @var string $_url ;
      */
     private $_url;
 
@@ -129,10 +130,10 @@ CAS_ProxiedService_Abstract implements CAS_ProxiedService_Http
      * @return void
      * @throws CAS_OutOfSequenceException If called multiple times.
      * @throws CAS_ProxyTicketException If there is a proxy-ticket failure.
-     *		The code of the Exception will be one of:
-     *			PHPCAS_SERVICE_PT_NO_SERVER_RESPONSE
-     *			PHPCAS_SERVICE_PT_BAD_SERVER_RESPONSE
-     *			PHPCAS_SERVICE_PT_FAILURE
+     *        The code of the Exception will be one of:
+     *            PHPCAS_SERVICE_PT_NO_SERVER_RESPONSE
+     *            PHPCAS_SERVICE_PT_BAD_SERVER_RESPONSE
+     *            PHPCAS_SERVICE_PT_FAILURE
      * @throws CAS_ProxiedService_Exception If there is a failure sending the
      * request to the target service.
      */
@@ -166,28 +167,28 @@ CAS_ProxiedService_Abstract implements CAS_ProxiedService_Http
     /**
      * Indicator of the number of requests (including redirects performed.
      *
-     * @var int $_numRequests;
+     * @var int $_numRequests ;
      */
     private $_numRequests = 0;
 
     /**
      * The response headers.
      *
-     * @var array $_responseHeaders;
+     * @var array $_responseHeaders ;
      */
     private $_responseHeaders = array();
 
     /**
      * The response status code.
      *
-     * @var string $_responseStatusCode;
+     * @var string $_responseStatusCode ;
      */
     private $_responseStatusCode = '';
 
     /**
      * The response headers.
      *
-     * @var string $_responseBody;
+     * @var string $_responseBody ;
      */
     private $_responseBody = '';
 
@@ -198,10 +199,10 @@ CAS_ProxiedService_Abstract implements CAS_ProxiedService_Http
      *
      * @return void
      * @throws CAS_ProxyTicketException If there is a proxy-ticket failure.
-     *		The code of the Exception will be one of:
-     *			PHPCAS_SERVICE_PT_NO_SERVER_RESPONSE
-     *			PHPCAS_SERVICE_PT_BAD_SERVER_RESPONSE
-     *			PHPCAS_SERVICE_PT_FAILURE
+     *        The code of the Exception will be one of:
+     *            PHPCAS_SERVICE_PT_NO_SERVER_RESPONSE
+     *            PHPCAS_SERVICE_PT_BAD_SERVER_RESPONSE
+     *            PHPCAS_SERVICE_PT_FAILURE
      * @throws CAS_ProxiedService_Exception If there is a failure sending the
      * request to the target service.
      */
@@ -229,7 +230,7 @@ CAS_ProxiedService_Abstract implements CAS_ProxiedService_Http
         phpCAS::trace('Performing proxied service request to \'' . $url . '\'');
         if (!$request->send()) {
             $message = 'Could not perform proxied service request to URL`'
-            . $url . '\'. ' . $request->getErrorMessage();
+                . $url . '\'. ' . $request->getErrorMessage();
             phpCAS::trace($message);
             throw new CAS_ProxiedService_Exception($message);
         }
@@ -272,7 +273,7 @@ CAS_ProxiedService_Abstract implements CAS_ProxiedService_Http
     {
         // Check for the redirect after authentication
         foreach ($responseHeaders as $header) {
-            if ( preg_match('/^(Location:|URI:)\s*([^\s]+.*)$/', $header, $matches)
+            if (preg_match('/^(Location:|URI:)\s*([^\s]+.*)$/', $header, $matches)
             ) {
                 return trim(array_pop($matches));
             }
@@ -357,4 +358,5 @@ CAS_ProxiedService_Abstract implements CAS_ProxiedService_Http
     }
 
 }
+
 ?>

@@ -40,8 +40,8 @@
  * @link     https://wiki.jasig.org/display/CASC/phpCAS
  */
 class CAS_ProxyChain_Trusted
-extends CAS_ProxyChain
-implements CAS_ProxyChain_Interface
+    extends CAS_ProxyChain
+    implements CAS_ProxyChain_Interface
 {
 
     /**
@@ -51,7 +51,7 @@ implements CAS_ProxyChain_Interface
      *
      * @return bool
      */
-    protected function isSizeValid (array $list)
+    protected function isSizeValid(array $list)
     {
         return (sizeof($this->chain) <= sizeof($list));
     }

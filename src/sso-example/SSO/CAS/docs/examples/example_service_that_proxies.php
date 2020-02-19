@@ -76,29 +76,28 @@ phpCAS::forceAuthentication();
 // permit to gain accesses to new services.
 
 
-
 ?>
 <html>
-  <head>
+<head>
     <title>phpCAS proxied proxy service example</title>
     <link rel="stylesheet" type='text/css' href='example.css'/>
-  </head>
-  <body>
-    <h1>I am a service that can be proxied. In turn, I proxy another service.</h1>
-    <?php require 'script_info.php' ?>
-    <p>the user's login is <b><?php echo phpCAS::getUser(); ?></b>.</p>
-    <h2>Response from service <?php echo $serviceUrl; ?></h2>
+</head>
+<body>
+<h1>I am a service that can be proxied. In turn, I proxy another service.</h1>
+<?php require 'script_info.php' ?>
+<p>the user's login is <b><?php echo phpCAS::getUser(); ?></b>.</p>
+<h2>Response from service <?php echo $serviceUrl; ?></h2>
 <?php
-  flush();
-  // call a service and change the color depending on the result
-if ( phpCAS::serviceWeb($serviceUrl, $err_code, $output) ) {
+flush();
+// call a service and change the color depending on the result
+if (phpCAS::serviceWeb($serviceUrl, $err_code, $output)) {
     echo '<div class="success">';
 } else {
     echo '<div class="error">';
 }
-  echo $output;
-  echo '</div>';
+echo $output;
+echo '</div>';
 ?>
-  </body>
+</body>
 </html>
 

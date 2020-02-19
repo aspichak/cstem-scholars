@@ -37,7 +37,6 @@
  * @license  http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  * @link     https://wiki.jasig.org/display/CASC/phpCAS
  *
-
  * @sa @link internalLang Internationalization @endlink
  * @ingroup internalLang
  */
@@ -114,4 +113,5 @@ class CAS_Languages_Spanish implements CAS_Languages_LanguageInterface
         return 'El servicio `<b>%s</b>\' no está disponible (<b>%s</b>).';
     }
 }
+
 ?>

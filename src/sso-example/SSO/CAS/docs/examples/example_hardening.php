@@ -52,10 +52,10 @@ if (isset($_REQUEST['logout'])) {
 }
 ?>
 <html>
-  <head>
+<head>
     <title>Advanced SAML 1.1 example</title>
-  </head>
-  <body>
+</head>
+<body>
 <h2>Advanced SAML 1.1 example</h2>
 <?php require 'script_info.php' ?>
 
@@ -64,18 +64,18 @@ Authentication succeeded for user
 
 <h3>User Attributes</h3>
 <ul>
-<?php
-foreach (phpCAS::getAttributes() as $key => $value) {
-    if (is_array($value)) {
-        echo '<li>', $key, ':<ol>';
-        foreach ($value as $item) {
-            echo '<li><strong>', $item, '</strong></li>';
+    <?php
+    foreach (phpCAS::getAttributes() as $key => $value) {
+        if (is_array($value)) {
+            echo '<li>', $key, ':<ol>';
+            foreach ($value as $item) {
+                echo '<li><strong>', $item, '</strong></li>';
+            }
+            echo '</ol></li>';
+        } else {
+            echo '<li>', $key, ': <strong>', $value, '</strong></li>' . PHP_EOL;
         }
-        echo '</ol></li>';
-    } else {
-        echo '<li>', $key, ': <strong>', $value, '</strong></li>' . PHP_EOL;
     }
-}
     ?>
 </ul>
 <p><a href="?logout=">Logout</a></p>

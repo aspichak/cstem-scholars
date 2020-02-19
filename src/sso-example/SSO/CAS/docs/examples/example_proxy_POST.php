@@ -47,15 +47,15 @@ $serviceUrl = $curbase . $curdir . 'example_service_POST.php';
 
 ?>
 <html>
-  <head>
+<head>
     <title>phpCAS proxy POST example</title>
     <link rel="stylesheet" type='text/css' href='example.css'/>
-  </head>
-  <body>
-    <h1>phpCAS proxy POST example</h1>
-    <?php require 'script_info.php' ?>
-    <p>the user's login is <b><?php echo phpCAS::getUser(); ?></b>.</p>
-    <h2>Response from service <?php echo $serviceUrl; ?></h2>
+</head>
+<body>
+<h1>phpCAS proxy POST example</h1>
+<?php require 'script_info.php' ?>
+<p>the user's login is <b><?php echo phpCAS::getUser(); ?></b>.</p>
+<h2>Response from service <?php echo $serviceUrl; ?></h2>
 <?php
 flush();
 
@@ -74,7 +74,7 @@ try {
         // The service responded with an error code 404, 500, etc.
         echo '<div class="error">';
         echo 'The service responded with a '
-        . $service->getResponseStatusCode() . ' error.';
+            . $service->getResponseStatusCode() . ' error.';
         echo $service->getResponseBody();
         echo '</div>';
     }
@@ -96,6 +96,6 @@ try {
     throw $e;
 }
 
-                                                             ?>
-  </body>
+?>
+</body>
 </html>
