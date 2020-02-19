@@ -38,7 +38,7 @@ if (defined('DEBUG') && DEBUG) {
 	];
 
 	$locations = [
-		'student'  => '/students/studentFormView.php',
+		'student'  => '/students',
 		'faculty'  => '/faculty/facultylandingpage.php',
 		'reviewer' => '/reviewers/ReviewStudents.php',
 		'admin'    => '/Admin/index.php'
@@ -115,10 +115,10 @@ if (defined('DEBUG') && DEBUG) {
 	$_SESSION["user"] = $user;
 	$_SESSION["role"] = "student";
 
-	if (DB::count("Advisor", "AEmail = ?", $attributes["Email"]) == 1)
+	if (DB::contains("Advisor", "AEmail = ?", $attributes["Email"]))
 		$_SESSION["role"] = "faculty";
 
-	if (DB::count("Reviewers", "REmail = ? AND Active = 1", $attributes["Email"]) == 1)
+	if (DB::contains("Reviewers", "REmail = ? AND Active = 1", $attributes["Email"]))
 		$_SESSION["role"] = "reviewer";
 
 	if ($email == "lcornick@ewu.edu")
@@ -168,7 +168,7 @@ if (defined('DEBUG') && DEBUG) {
 		if($userType == 'Employee')header("location:infoPages/NotStudent.php");
 		elseif($today <= $deadLine && $today >= $beginDate)
 		{
-			header("location:/students/studentFormView.php");
+			header("location:/students");
 		}
 		else
 		{
