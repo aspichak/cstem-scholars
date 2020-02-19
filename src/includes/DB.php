@@ -11,19 +11,20 @@ class DB
     private static $options;
     private static $pdo;
 
-    static function configure($source, $username, $password, $options = NULL)
+    static function configure($source, $username, $password, $options = null)
     {
         self::$source = $source;
         self::$username = $username;
         self::$password = $password;
         self::$options = $options;
-        self::$pdo = NULL;
+        self::$pdo = null;
     }
 
     static function pdo()
     {
-        if (!isset(self::$pdo) || self::$pdo == NULL)
+        if (!isset(self::$pdo) || self::$pdo == null) {
             self::$pdo = new PDO(self::$source, self::$username, self::$password, self::$options);
+        }
 
         // TODO: Handle exception
 
@@ -130,7 +131,10 @@ class DB
 
         $columns = implode(', ', $columns);
 
-        return self::execute("UPDATE $table SET $columns WHERE $where", array_merge(array_values($values), $params)) > 0;
+        return self::execute(
+                "UPDATE $table SET $columns WHERE $where",
+                array_merge(array_values($values), $params)
+            ) > 0;
     }
 
     /**
@@ -139,8 +143,9 @@ class DB
     private static function exec($query, ...$params)
     {
         // Allow associative arrays
-        if (sizeof($params) == 1 && is_array($params[0]))
+        if (sizeof($params) == 1 && is_array($params[0])) {
             $params = $params[0];
+        }
 
         $stmt = self::pdo()->prepare($query);
         $stmt->execute($params);
@@ -154,9 +159,12 @@ class DB
         $columns = array_keys($values);
 
         // Wrap each column in backticks to allow spaces or reserved keywords in column names
-        $columns = array_map(function ($k) {
-            return "`$k`";
-        }, $columns);
+        $columns = array_map(
+            function ($k) {
+                return "`$k`";
+            },
+            $columns
+        );
 
         $columns = implode(', ', $columns);
 

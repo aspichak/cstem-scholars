@@ -63,10 +63,10 @@ abstract class CAS_ProxiedService_Http_Abstract extends
      *
      * @return void
      */
-    public function __construct(CAS_Request_RequestInterface $requestHandler,
-                                CAS_CookieJar $cookieJar
-    )
-    {
+    public function __construct(
+        CAS_Request_RequestInterface $requestHandler,
+        CAS_CookieJar $cookieJar
+    ) {
         $this->requestHandler = $requestHandler;
         $this->_cookieJar = $cookieJar;
     }
@@ -244,7 +244,6 @@ abstract class CAS_ProxiedService_Http_Abstract extends
             phpCAS::trace('Found redirect:' . $redirectUrl);
             $this->makeRequest($redirectUrl);
         } else {
-
             $this->_responseHeaders = $request->getResponseHeaders();
             $this->_responseBody = $request->getResponseBody();
             $this->_responseStatusCode = $request->getResponseStatusCode();

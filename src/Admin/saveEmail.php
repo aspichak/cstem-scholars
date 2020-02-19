@@ -1,4 +1,5 @@
 <?php
+
 $database = parse_ini_file("config.ini");
 $host = $database['host'];
 $db = $database['db'];

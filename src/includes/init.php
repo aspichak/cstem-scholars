@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 define('ROOT', __DIR__ . '/..');
@@ -52,12 +53,12 @@ function isPost()
     return $_SERVER['REQUEST_METHOD'] == 'POST';
 }
 
-function get($param, $default = NULL)
+function get($param, $default = null)
 {
     return $_GET[$param] ?? $default;
 }
 
-function post($param, $default = NULL)
+function post($param, $default = null)
 {
     return $_POST[$param] ?? $default;
 }

@@ -1,16 +1,17 @@
 <?php
+
 session_start();
 
 require_once __DIR__ . "/config.php";
 require_once __DIR__ . "/sso-example/SSO/CAS/CAS.php";
 require_once __DIR__ . "/sso-example/SSO/config.php";
 
-function get($field, $default = NULL)
+function get($field, $default = null)
 {
     return isset($_GET[$field]) ? $_GET[$field] : $default;
 }
 
-function whitelist($value, $allowedValues, $default = NULL)
+function whitelist($value, $allowedValues, $default = null)
 {
     return in_array($value, $allowedValues) ? $value : $default;
 }
@@ -118,14 +119,17 @@ if (defined('DEBUG') && DEBUG) {
     $_SESSION["user"] = $user;
     $_SESSION["role"] = "student";
 
-    if (DB::contains("Advisor", "AEmail = ?", $attributes["Email"]))
+    if (DB::contains("Advisor", "AEmail = ?", $attributes["Email"])) {
         $_SESSION["role"] = "faculty";
+    }
 
-    if (DB::contains("Reviewers", "REmail = ? AND Active = 1", $attributes["Email"]))
+    if (DB::contains("Reviewers", "REmail = ? AND Active = 1", $attributes["Email"])) {
         $_SESSION["role"] = "reviewer";
+    }
 
-    if ($email == "lcornick@ewu.edu")
+    if ($email == "lcornick@ewu.edu") {
         $_SESSION["role"] = "admin";
+    }
 
     $database = parse_ini_file("config.ini");
     $host = $database['host'];
@@ -161,26 +165,26 @@ if (defined('DEBUG') && DEBUG) {
     $type = $_GET["id"];
 
     if ($type == "admin") {
-        if ($email == "lcornick@ewu.edu") header("location:/Admin/index.php");
-        else {
+        if ($email == "lcornick@ewu.edu") {
+            header("location:/Admin/index.php");
+        } else {
             header("location:infoPages/NotAdmin.php");
         }
     } elseif ($type == 'student') {
-        if ($userType == 'Employee') header("location:infoPages/NotStudent.php");
-        elseif ($today <= $deadLine && $today >= $beginDate) {
+        if ($userType == 'Employee') {
+            header("location:infoPages/NotStudent.php");
+        } elseif ($today <= $deadLine && $today >= $beginDate) {
             header("location:/students");
         } else {
             header("location:infoPages/closedStudent.php");
         }
     } elseif ($type == 'faculty') {
-        if ($userType == 'Student') header("location:infoPages/NotAdvisor.php");
-        elseif ($today <= $advisorDeadLine && $today >= $beginDate) {
-
+        if ($userType == 'Student') {
+            header("location:infoPages/NotAdvisor.php");
+        } elseif ($today <= $advisorDeadLine && $today >= $beginDate) {
             foreach ($advisorEmails as $value) {
-
                 if ($value["AEmail"] == $email) {
                     $isAdvisor = true;
-
                 }
             }
             if ($isAdvisor) {
@@ -191,13 +195,13 @@ if (defined('DEBUG') && DEBUG) {
         } else {
             header("location:infoPages/closedFaculty.php");
         }
-
     } elseif ($type == "reviewer") {
-        if ($userType == 'Student') header("location:infoPages/notReviewer.php");
+        if ($userType == 'Student') {
+            header("location:infoPages/notReviewer.php");
+        }
         foreach ($reviewerEmails as $value) {
             if ($value["REmail"] == $email) {
                 $isReviewer = true;
-
             }
         }
         if ($isReviewer) {

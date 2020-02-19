@@ -64,10 +64,16 @@ class CAS_AuthenticationException
      * @param int $err_code the error code given by the CAS server
      * @param string $err_msg the error message given by the CAS server
      */
-    public function __construct($client, $failure, $cas_url, $no_response,
-                                $bad_response = '', $cas_response = '', $err_code = '', $err_msg = ''
-    )
-    {
+    public function __construct(
+        $client,
+        $failure,
+        $cas_url,
+        $no_response,
+        $bad_response = '',
+        $cas_response = '',
+        $err_code = '',
+        $err_msg = ''
+    ) {
         phpCAS::traceBegin();
         $lang = $client->getLangObj();
         $client->printHTMLHeader($lang->getAuthenticationFailed());

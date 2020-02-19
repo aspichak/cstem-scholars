@@ -5,6 +5,7 @@
  */
 
 namespace SSO\SingleSignOn;
+
 $message = "wrong answer";
 echo "<script type='text/javascript'>alert('$message');</script>";
 
@@ -64,8 +65,9 @@ class SSOClient
             \phpCAS::setCasServerCACert($this->cas_server_ca_cert_path);
         } else //initialized, just need to check to see if CAS servers have already been set
         {
-            if (!isset($this->cas_real_hosts))
+            if (!isset($this->cas_real_hosts)) {
                 $this->cas_real_hosts = false;
+            }
         }
 
         //restore the default session
@@ -89,8 +91,9 @@ class SSOClient
         $this->username = \phpCAS::getUser();
 
         //are there attributes associated with this user?
-        if (\phpCAS::hasAttributes())
+        if (\phpCAS::hasAttributes()) {
             $this->attributes = \phpCAS::getAttributes();
+        }
 
 
         //are we debugging?

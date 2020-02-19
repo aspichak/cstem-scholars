@@ -100,7 +100,10 @@ define("SAML_XML_HEADER", '<?xml version="1.0" encoding="UTF-8"?>');
 /**
  * SOAP envelope for SAML POST
  */
-define("SAML_SOAP_ENV", '<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Header/>');
+define(
+    "SAML_SOAP_ENV",
+    '<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Header/>'
+);
 
 /**
  * SOAP body for SAML POST
@@ -110,7 +113,10 @@ define("SAML_SOAP_BODY", '<SOAP-ENV:Body>');
 /**
  * SAMLP request
  */
-define("SAMLP_REQUEST", '<samlp:Request xmlns:samlp="urn:oasis:names:tc:SAML:1.0:protocol"  MajorVersion="1" MinorVersion="1" RequestID="_192.168.16.51.1024506224022" IssueInstant="2002-06-19T17:03:44.022Z">');
+define(
+    "SAMLP_REQUEST",
+    '<samlp:Request xmlns:samlp="urn:oasis:names:tc:SAML:1.0:protocol"  MajorVersion="1" MinorVersion="1" RequestID="_192.168.16.51.1024506224022" IssueInstant="2002-06-19T17:03:44.022Z">'
+);
 define("SAMLP_REQUEST_CLOSE", '</samlp:Request>');
 
 /**
@@ -314,13 +320,18 @@ class phpCAS
      * called, only once, and before all other methods (except phpCAS::getVersion()
      * and phpCAS::setDebug()).
      */
-    public static function client($server_version, $server_hostname,
-                                  $server_port, $server_uri, $changeSessionID = true
-    )
-    {
+    public static function client(
+        $server_version,
+        $server_hostname,
+        $server_port,
+        $server_uri,
+        $changeSessionID = true
+    ) {
         phpCAS:: traceBegin();
         if (is_object(self::$_PHPCAS_CLIENT)) {
-            phpCAS:: error(self::$_PHPCAS_INIT_CALL['method'] . '() has already been called (at ' . self::$_PHPCAS_INIT_CALL['file'] . ':' . self::$_PHPCAS_INIT_CALL['line'] . ')');
+            phpCAS:: error(
+                self::$_PHPCAS_INIT_CALL['method'] . '() has already been called (at ' . self::$_PHPCAS_INIT_CALL['file'] . ':' . self::$_PHPCAS_INIT_CALL['line'] . ')'
+            );
         }
 
         // store where the initializer is called from
@@ -359,13 +370,18 @@ class phpCAS
      * called, only once, and before all other methods (except phpCAS::getVersion()
      * and phpCAS::setDebug()).
      */
-    public static function proxy($server_version, $server_hostname,
-                                 $server_port, $server_uri, $changeSessionID = true
-    )
-    {
+    public static function proxy(
+        $server_version,
+        $server_hostname,
+        $server_port,
+        $server_uri,
+        $changeSessionID = true
+    ) {
         phpCAS:: traceBegin();
         if (is_object(self::$_PHPCAS_CLIENT)) {
-            phpCAS:: error(self::$_PHPCAS_INIT_CALL['method'] . '() has already been called (at ' . self::$_PHPCAS_INIT_CALL['file'] . ':' . self::$_PHPCAS_INIT_CALL['line'] . ')');
+            phpCAS:: error(
+                self::$_PHPCAS_INIT_CALL['method'] . '() has already been called (at ' . self::$_PHPCAS_INIT_CALL['file'] . ':' . self::$_PHPCAS_INIT_CALL['line'] . ')'
+            );
         }
 
         // store where the initialzer is called from
@@ -414,7 +430,6 @@ class phpCAS
         }
         if ($filename === false) {
             self::$_PHPCAS_DEBUG['filename'] = false;
-
         } else {
             if (empty ($filename)) {
                 if (preg_match('/^Win.*/', getenv('OS'))) {
@@ -463,15 +478,17 @@ class phpCAS
                 @chmod(self::$_PHPCAS_DEBUG['filename'], 0600);
             }
             for ($i = 0; $i < self::$_PHPCAS_DEBUG['indent']; $i++) {
-
                 $indent_str .= '|    ';
             }
             // allow for multiline output with proper identing. Usefull for
             // dumping cas answers etc.
             $str2 = str_replace("\n", "\n" . self::$_PHPCAS_DEBUG['unique_id'] . ' ' . $indent_str, $str);
-            error_log(self::$_PHPCAS_DEBUG['unique_id'] . ' ' . $indent_str . $str2 . "\n", 3, self::$_PHPCAS_DEBUG['filename']);
+            error_log(
+                self::$_PHPCAS_DEBUG['unique_id'] . ' ' . $indent_str . $str2 . "\n",
+                3,
+                self::$_PHPCAS_DEBUG['filename']
+            );
         }
-
     }
 
     /**
@@ -500,7 +517,9 @@ class phpCAS
                 }
             }
         }
-        echo "<br />\n<b>phpCAS error</b>: <font color=\"FF0000\"><b>" . __CLASS__ . "::" . $function . '(): ' . htmlentities($msg) . "</b></font> in <b>" . $file . "</b> on line <b>" . $line . "</b><br />\n";
+        echo "<br />\n<b>phpCAS error</b>: <font color=\"FF0000\"><b>" . __CLASS__ . "::" . $function . '(): ' . htmlentities(
+                $msg
+            ) . "</b></font> in <b>" . $file . "</b> on line <b>" . $line . "</b><br />\n";
         phpCAS:: trace($msg);
         phpCAS:: traceEnd();
 
@@ -745,10 +764,13 @@ class phpCAS
      *
      * @return void
      */
-    public static function setPGTStorageDb($dsn_or_pdo, $username = '',
-                                           $password = '', $table = '', $driver_options = null
-    )
-    {
+    public static function setPGTStorageDb(
+        $dsn_or_pdo,
+        $username = '',
+        $password = '',
+        $table = '',
+        $driver_options = null
+    ) {
         phpCAS:: traceBegin();
         phpCAS::_validateProxyExists();
 
@@ -1346,14 +1368,18 @@ class phpCAS
         $parsedParams = array();
         if ($params != "") {
             if (is_string($params)) {
-                phpCAS:: error('method `phpCAS::logout($url)\' is now deprecated, use `phpCAS::logoutWithUrl($url)\' instead');
+                phpCAS:: error(
+                    'method `phpCAS::logout($url)\' is now deprecated, use `phpCAS::logoutWithUrl($url)\' instead'
+                );
             }
             if (!is_array($params)) {
                 phpCAS:: error('type mismatched for parameter $params (should be `array\')');
             }
             foreach ($params as $key => $value) {
                 if ($key != "service" && $key != "url") {
-                    phpCAS:: error('only `url\' and `service\' parameters are allowed for method `phpCAS::logout($params)\'');
+                    phpCAS:: error(
+                        'only `url\' and `service\' parameters are allowed for method `phpCAS::logout($params)\''
+                    );
                 }
                 $parsedParams[$key] = $value;
             }
@@ -1399,7 +1425,9 @@ class phpCAS
         trigger_error('Function deprecated for cas servers >= 3.3.5.1', E_USER_DEPRECATED);
         phpCAS:: traceBegin();
         if (!is_object(self::$_PHPCAS_CLIENT)) {
-            phpCAS:: error('this method should only be called after ' . __CLASS__ . '::client() or' . __CLASS__ . '::proxy()');
+            phpCAS:: error(
+                'this method should only be called after ' . __CLASS__ . '::client() or' . __CLASS__ . '::proxy()'
+            );
         }
         if (!is_string($url)) {
             phpCAS:: error('type mismatched for parameter $url (should be `string\')');
@@ -1552,7 +1580,9 @@ class phpCAS
         phpCAS:: traceBegin();
         phpCAS::_validateClientExists();
 
-        phpCAS:: trace('You have configured no validation of the legitimacy of the cas server. This is not recommended for production use.');
+        phpCAS:: trace(
+            'You have configured no validation of the legitimacy of the cas server. This is not recommended for production use.'
+        );
         self::$_PHPCAS_CLIENT->setNoCasServerValidation();
         phpCAS:: traceEnd();
     }

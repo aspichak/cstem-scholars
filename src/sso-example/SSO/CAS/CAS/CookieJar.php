@@ -257,7 +257,6 @@ class CAS_CookieJar
         // Discard any old versions of this cookie.
         $this->discardCookie($cookie);
         $this->_cookies[] = $cookie;
-
     }
 
     /**

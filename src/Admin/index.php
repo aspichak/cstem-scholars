@@ -82,7 +82,9 @@
                 <div class='w3-right'>
                     <h3>
                         <?php
-                        $sth = $pdo->prepare("SELECT COUNT(ApplicationNum) FROM " . $tableName . " WHERE Submitted = 1");
+                        $sth = $pdo->prepare(
+                            "SELECT COUNT(ApplicationNum) FROM " . $tableName . " WHERE Submitted = 1"
+                        );
                         $sth->execute();
                         $row = $sth->fetch(PDO::FETCH_ASSOC);
                         echo $row['COUNT(ApplicationNum)'];
@@ -99,7 +101,9 @@
                 <div class='w3-right'>
                     <h3>
                         <?php
-                        $sth = $pdo->prepare("SELECT COUNT(A1.ApplicationNum) FROM " . $tableName . " A1 WHERE Submitted = 1 AND AdvisorApproved = 1");
+                        $sth = $pdo->prepare(
+                            "SELECT COUNT(A1.ApplicationNum) FROM " . $tableName . " A1 WHERE Submitted = 1 AND AdvisorApproved = 1"
+                        );
                         $sth->execute();
                         $row = $sth->fetch(PDO::FETCH_ASSOC);
                         echo $row['COUNT(A1.ApplicationNum)'];
@@ -121,7 +125,9 @@
                 <td><b>Major</td>
             </tr>
             <?php
-            $sth = $pdo->prepare("SELECT A3.SName, A2.PTitle, A3.Major FROM " . $tableName . " A2, Student A3 WHERE AdvisorApproved = 1 AND A3.SID = A2.SID AND A2.Submitted = 1");
+            $sth = $pdo->prepare(
+                "SELECT A3.SName, A2.PTitle, A3.Major FROM " . $tableName . " A2, Student A3 WHERE AdvisorApproved = 1 AND A3.SID = A2.SID AND A2.Submitted = 1"
+            );
             $sth->execute();
             foreach ($sth->fetchAll(PDO::FETCH_ASSOC) as $row):?>
                 <tr>

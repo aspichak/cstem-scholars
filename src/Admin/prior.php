@@ -27,9 +27,11 @@
         throw new \PDOException($e->getMessage(), (int)$e->getCode());
     }
 
-    $sth = $pdo->prepare("SELECT TABLE_NAME
+    $sth = $pdo->prepare(
+        "SELECT TABLE_NAME
 	FROM INFORMATION_SCHEMA.TABLES 
-	WHERE TABLE_NAME LIKE 'Applications%'");
+	WHERE TABLE_NAME LIKE 'Applications%'"
+    );
     $sth->execute();
     $result = $sth->fetchAll();
     reset($result);

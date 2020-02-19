@@ -84,7 +84,6 @@ class CAS_Request_CurlRequest
             $this->storeResponseBody($buf);
             phpCAS::trace("Response Body: \n" . $buf . "\n");
             $res = true;
-
         }
         // close the CURL session
         curl_close($ch);

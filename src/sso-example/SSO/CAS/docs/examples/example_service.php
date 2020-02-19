@@ -58,7 +58,8 @@ phpCAS::setNoCasServerValidation();
 phpCAS::allowProxyChain(new CAS_ProxyChain(array($pgtUrlRegexp)));
 phpCAS::allowProxyChain(
     new CAS_ProxyChain(
-        array('/^' . $pgtBase . 'example_service_that_proxies.php$/',
+        array(
+            '/^' . $pgtBase . 'example_service_that_proxies.php$/',
             '/^' . $pgtBase . 'example_proxy_serviceWeb_chaining.php$/'
         )
     )

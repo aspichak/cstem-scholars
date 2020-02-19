@@ -333,7 +333,8 @@ abstract class CAS_Request_AbstractRequest
 
         if (!preg_match(
             '/HTTP\/[0-9.]+\s+([0-9]+)\s*(.*)/',
-            $this->_responseHeaders[0], $matches
+            $this->_responseHeaders[0],
+            $matches
         )
         ) {
             throw new CAS_Request_Exception(

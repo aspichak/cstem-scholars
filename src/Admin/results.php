@@ -36,11 +36,13 @@
     $appTabe = 'Applications' . $month . $year;
 
 
-    $sth = $pdo->prepare("SELECT Student.SName,a1.ApplicationNum, Student.SID,Student.Major, Student.SEmail, a1.Objective,
+    $sth = $pdo->prepare(
+        "SELECT Student.SName,a1.ApplicationNum, Student.SID,Student.Major, Student.SEmail, a1.Objective,
  a1.RequestedBudget, AVG(r1.QATotal), a1.Awarded, a1.AmountGranted FROM Student, " . $tableName . " r1 ," . $appTabe . " a1 
 WHERE a1.Submitted=1 and Student.SID=a1.SID and a1.ApplicationNum = r1.ApplicationNum 
 GROUP BY a1.ApplicationNum
-ORDER BY AVG(r1.QATotal) ASC");
+ORDER BY AVG(r1.QATotal) ASC"
+    );
     ?>
 </head>
 <body>

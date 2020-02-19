@@ -207,7 +207,9 @@ class CAS_ProxiedService_Imap
         $this->initializeProxyTicket();
         phpCAS::trace('opening IMAP mailbox `' . $this->_mailbox . '\'...');
         $this->_stream = @imap_open(
-            $this->_mailbox, $this->_username, $this->getProxyTicket(),
+            $this->_mailbox,
+            $this->_username,
+            $this->getProxyTicket(),
             $this->_options
         );
         if ($this->_stream) {

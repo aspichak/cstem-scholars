@@ -135,10 +135,13 @@ class CAS_PGTStorage_Db extends CAS_PGTStorage_AbstractStorage
      * connecting to the database
      */
     public function __construct(
-        $cas_parent, $dsn_or_pdo, $username = '', $password = '', $table = '',
+        $cas_parent,
+        $dsn_or_pdo,
+        $username = '',
+        $password = '',
+        $table = '',
         $driver_options = null
-    )
-    {
+    ) {
         phpCAS::traceBegin();
         // call the ancestor's constructor
         parent::__construct($cas_parent);

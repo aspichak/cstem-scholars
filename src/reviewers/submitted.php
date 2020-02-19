@@ -26,7 +26,9 @@ $month = $temp[1];
 $revTable = 'ReviewedApps' . $month . $year;
 echo $app_id;
 
-$stmt = $pdo->prepare("UPDATE  `$revTable` SET QAComments='$comments',QA1=$Q1,QA2=$Q2,QA3=$Q3,QA4=$Q4,QA5=$Q5,QA6=$Q6,QATotal=$QATotal,FundRecommend='$fund',submitted='1' WHERE ApplicationNum=$app_id AND REmail='$email'");
+$stmt = $pdo->prepare(
+    "UPDATE  `$revTable` SET QAComments='$comments',QA1=$Q1,QA2=$Q2,QA3=$Q3,QA4=$Q4,QA5=$Q5,QA6=$Q6,QATotal=$QATotal,FundRecommend='$fund',submitted='1' WHERE ApplicationNum=$app_id AND REmail='$email'"
+);
 $stmt->execute();
 $user = $stmt->fetch();
 

@@ -52,9 +52,12 @@ class CAS_TypeMismatchException
      * @return void
      */
     public function __construct(
-        $argument, $argumentName, $type, $message = '', $code = 0
-    )
-    {
+        $argument,
+        $argumentName,
+        $type,
+        $message = '',
+        $code = 0
+    ) {
         if (is_object($argument)) {
             $foundType = get_class($argument) . ' object';
         } else {
@@ -64,7 +67,8 @@ class CAS_TypeMismatchException
         parent::__construct(
             'type mismatched for parameter '
             . $argumentName . ' (should be \'' . $type . ' \'), '
-            . $foundType . ' given. ' . $message, $code
+            . $foundType . ' given. ' . $message,
+            $code
         );
     }
 }

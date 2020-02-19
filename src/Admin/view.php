@@ -29,7 +29,9 @@
     $table = $_GET['table'];
 
 
-    $sth = $pdo->prepare("SELECT * FROM Student, " . $table . " a1 WHERE a1.SID = Student.SID AND a1.ApplicationNum =" . $app);
+    $sth = $pdo->prepare(
+        "SELECT * FROM Student, " . $table . " a1 WHERE a1.SID = Student.SID AND a1.ApplicationNum =" . $app
+    );
     ?>
 </head>
 <body>

@@ -40,7 +40,9 @@
     $year = $temp[0];
     $month = $temp[1];
     $tableName = 'Applications' . $month . $year;
-    $sth = $pdo->prepare("UPDATE " . $tableName . " SET Awarded =1, AmountGranted = " . $amount . " WHERE ApplicationNum = " . $app);
+    $sth = $pdo->prepare(
+        "UPDATE " . $tableName . " SET Awarded =1, AmountGranted = " . $amount . " WHERE ApplicationNum = " . $app
+    );
     $sth->execute();
     ?>
 </head>

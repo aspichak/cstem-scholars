@@ -36,7 +36,9 @@
     $month = $temp[1];
     $appTable = 'Applications' . $month . $year;
 
-    $sth = $pdo->prepare("SELECT * FROM Student, " . $appTable . " a1 WHERE a1.SID = Student.SID AND a1.ApplicationNum =" . $app);
+    $sth = $pdo->prepare(
+        "SELECT * FROM Student, " . $appTable . " a1 WHERE a1.SID = Student.SID AND a1.ApplicationNum =" . $app
+    );
     ?>
 </head>
 <body>

@@ -30,9 +30,11 @@
     $sth->execute();
     $result = $sth->fetch();
     $id = $result[0];
-    $sth = $pdo->prepare("SELECT TABLE_NAME
+    $sth = $pdo->prepare(
+        "SELECT TABLE_NAME
 	FROM INFORMATION_SCHEMA.TABLES 
-	WHERE TABLE_NAME LIKE 'Applications%'");
+	WHERE TABLE_NAME LIKE 'Applications%'"
+    );
     $sth->execute();
     $result = $sth->fetchAll();
     reset($result);

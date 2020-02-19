@@ -88,7 +88,6 @@ if (function_exists('spl_autoload_register')) {
         }
     }
 } elseif (!function_exists('__autoload')) {
-
     /**
      * Autoload a class
      *

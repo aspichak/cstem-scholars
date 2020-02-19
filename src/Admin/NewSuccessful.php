@@ -42,22 +42,29 @@
     $month = date("m", $end);
     $y = date("Y", $end);
     $name = $month . $y;
-    $sql = $pdo->prepare("UPDATE Settings SET Deadline= '$deadline', BeginDate= '$start', AdvisorDeadline='$year', DistributedApps = 0 WHERE 1");
+    $sql = $pdo->prepare(
+        "UPDATE Settings SET Deadline= '$deadline', BeginDate= '$start', AdvisorDeadline='$year', DistributedApps = 0 WHERE 1"
+    );
     $sql->execute();
-    $sql = $pdo->prepare("CREATE TABLE Applications" . $name . "
+    $sql = $pdo->prepare(
+        "CREATE TABLE Applications" . $name . "
   (ApplicationNum int AUTO_INCREMENT,SID int, PTitle varchar(50), Objective varchar(9000), Timeline varchar(500), 
    Budget double, RequestedBudget double, FundingSources varchar(1000), 
    Anticipatedresults varchar(1000), Justification varchar(1000), BudgetFilePath varchar(100), 
-   Submitted boolean, Awarded boolean, AmountGranted int, AdvisorApproved boolean, AdvisorComments varchar(9000), AEmail varchar(30), PRIMARY KEY(ApplicationNum))");
+   Submitted boolean, Awarded boolean, AmountGranted int, AdvisorApproved boolean, AdvisorComments varchar(9000), AEmail varchar(30), PRIMARY KEY(ApplicationNum))"
+    );
 
     $sql->execute();
-    $sql = $pdo->prepare("CREATE TABLE ReviewedApps" . $name . " (ApplicationNum int, REmail varchar(50), QAComments varchar(1000),
- QA1 int, QA2 int, QA3 int, QA4 int, QA5 int, QA6 int, QATotal int, FundRecommend int, Submitted boolean, primary key (ApplicationNum, REmail))");
+    $sql = $pdo->prepare(
+        "CREATE TABLE ReviewedApps" . $name . " (ApplicationNum int, REmail varchar(50), QAComments varchar(1000),
+ QA1 int, QA2 int, QA3 int, QA4 int, QA5 int, QA6 int, QATotal int, FundRecommend int, Submitted boolean, primary key (ApplicationNum, REmail))"
+    );
     $sql->execute();
     $files = glob('../students/uploads/*');
     foreach ($files as $file) {
-        if (is_file($file))
+        if (is_file($file)) {
             unlink($file);
+        }
     }
     $end = ($result[1]);
 

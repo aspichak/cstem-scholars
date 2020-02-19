@@ -37,7 +37,9 @@
     $appTableName = 'Applications' . $month . $year;
     $revTableName = 'ReviewedApps' . $month . $year;
 
-    $sth = $pdo->prepare("SELECT * FROM " . $revTableName . " r1, Reviewers WHERE  Reviewers.REmail = r1.REmail AND ApplicationNum =" . $app);
+    $sth = $pdo->prepare(
+        "SELECT * FROM " . $revTableName . " r1, Reviewers WHERE  Reviewers.REmail = r1.REmail AND ApplicationNum =" . $app
+    );
     ?>
 </head>
 <body>

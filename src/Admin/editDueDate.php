@@ -47,7 +47,9 @@
     $oldMonth = $temp[1];
     $oldApp = 'Applications' . $oldMonth . $oldYear;
     $oldReviewed = 'ReviewedApps' . $oldMonth . $oldYear;
-    $sth = $pdo->prepare("RENAME TABLE  " . $oldApp . " TO " . $appName . ", " . $oldReviewed . " TO " . $reviewedName . ";");
+    $sth = $pdo->prepare(
+        "RENAME TABLE  " . $oldApp . " TO " . $appName . ", " . $oldReviewed . " TO " . $reviewedName . ";"
+    );
     $sth->execute();
     date_default_timezone_set('America/Boise');
     $today = date('Y-m-d');

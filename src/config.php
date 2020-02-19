@@ -1,4 +1,5 @@
 <?php
+
 define('DEBUG', true);
 
 define('DB_HOST', 'localhost');

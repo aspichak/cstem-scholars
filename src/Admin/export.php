@@ -1,4 +1,5 @@
 <?php
+
 $database = parse_ini_file("../config.ini");
 $host = $database['host'];
 $db = $database['db'];
@@ -40,13 +41,24 @@ if (isset($_POST["Export"])) {
     $sth->execute();
     $query = $sth->fetch();
     $approved = $query['Approved'];
-    $sth = $pdo->prepare("SELECT COUNT(ApplicationNum) as 'Awarded', SUM(AmountGranted) as 'Total' From " . $appTabe . " where Awarded=1");
+    $sth = $pdo->prepare(
+        "SELECT COUNT(ApplicationNum) as 'Awarded', SUM(AmountGranted) as 'Total' From " . $appTabe . " where Awarded=1"
+    );
     $sth->execute();
     $query = $sth->fetch();
     $awarded = $query['Awarded'];
     $amount = $query['Total'];
     $output = fopen("php://output", "w");
-    fputcsv($output, array('Started Applications', 'Submitted Applications', 'Advior Approved Applications', 'Awarded Applications', 'Total Amount Awarded'));
+    fputcsv(
+        $output,
+        array(
+            'Started Applications',
+            'Submitted Applications',
+            'Advior Approved Applications',
+            'Awarded Applications',
+            'Total Amount Awarded'
+        )
+    );
 
 
     fputcsv($output, array($startedApps, $submitted, $approved, $awarded, $amount));

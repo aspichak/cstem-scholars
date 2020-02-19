@@ -73,7 +73,9 @@
     <br>
 
     <?php
-    $sth = $pdo->prepare("SELECT ApplicationSubmission, ChangesRequested, ApplicationApproval, ApplicationAward FROM Settings");
+    $sth = $pdo->prepare(
+        "SELECT ApplicationSubmission, ChangesRequested, ApplicationApproval, ApplicationAward FROM Settings"
+    );
     $sth->execute();
     $rows = $sth->fetch(PDO::FETCH_ASSOC);
     ?>

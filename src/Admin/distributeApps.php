@@ -1,4 +1,5 @@
 <?php
+
 $database = parse_ini_file("config.ini");
 $host = $database['host'];
 $db = $database['db'];
@@ -35,7 +36,9 @@ $month = $temp[1];
 $appTableName = 'Applications' . $month . $year;
 $revTableName = 'ReviewedApps' . $month . $year;
 
-$appsQuery = $pdo->prepare("SELECT ApplicationNum, Department, AEmail FROM `$appTableName` A1, Student S1 WHERE A1.SID = S1.SID AND A1.Submitted = 1 AND A1.AdvisorApproved = 1");
+$appsQuery = $pdo->prepare(
+    "SELECT ApplicationNum, Department, AEmail FROM `$appTableName` A1, Student S1 WHERE A1.SID = S1.SID AND A1.Submitted = 1 AND A1.AdvisorApproved = 1"
+);
 $appsQuery->execute();
 
 foreach ($appsQuery->fetchAll(PDO::FETCH_ASSOC) as $student) {
@@ -45,27 +48,33 @@ foreach ($appsQuery->fetchAll(PDO::FETCH_ASSOC) as $student) {
     $curEvals = "";
 
     for ($x = 0; $x < 3; $x++) {
-        $evaluatorsQuery = $pdo->prepare("SELECT COUNT(REmail) FROM Reviewers WHERE Active = 1 AND Major != :studMajor AND REmail != :aEmail" . $curEvals);
+        $evaluatorsQuery = $pdo->prepare(
+            "SELECT COUNT(REmail) FROM Reviewers WHERE Active = 1 AND Major != :studMajor AND REmail != :aEmail" . $curEvals
+        );
         $evaluatorsQuery->bindValue(":studMajor", $studentMajor);
         $evaluatorsQuery->bindValue(":aEmail", $advisorEmail);
         $evaluatorsQuery->execute();
         $evalCount = $evaluatorsQuery->fetch(PDO::FETCH_ASSOC);
         if ($evalCount['COUNT(REmail)'] > 0) {
-            $evaluatorsQuery = $pdo->prepare("SELECT REmail FROM Reviewers WHERE Active = 1 AND Major != :studMajor AND REmail != :aEmail" . $curEvals);
+            $evaluatorsQuery = $pdo->prepare(
+                "SELECT REmail FROM Reviewers WHERE Active = 1 AND Major != :studMajor AND REmail != :aEmail" . $curEvals
+            );
             $evaluatorsQuery->bindValue(':studMajor', $studentMajor);
             $evaluatorsQuery->bindValue(':aEmail', $advisorEmail);
             $evaluatorsQuery->execute();
-
         } else {
-            $evaluatorsQuery = $pdo->prepare("SELECT COUNT(REmail) FROM Reviewers WHERE Active = 1 AND REmail != :aEmail" . $curEvals);
+            $evaluatorsQuery = $pdo->prepare(
+                "SELECT COUNT(REmail) FROM Reviewers WHERE Active = 1 AND REmail != :aEmail" . $curEvals
+            );
             $evaluatorsQuery->bindValue(':aEmail', $advisorEmail);
             $evaluatorsQuery->execute();
             $evalCount = $evaluatorsQuery->fetch(PDO::FETCH_ASSOC);
 
-            $evaluatorsQuery = $pdo->prepare("SELECT REmail FROM Reviewers WHERE Active = 1 AND REmail != :aEmail" . $curEvals);
+            $evaluatorsQuery = $pdo->prepare(
+                "SELECT REmail FROM Reviewers WHERE Active = 1 AND REmail != :aEmail" . $curEvals
+            );
             $evaluatorsQuery->bindValue(':aEmail', $advisorEmail);
             $evaluatorsQuery->execute();
-
         }
 
         $num = rand(0, (int)$evalCount['COUNT(REmail)'] - 1);
@@ -77,13 +86,13 @@ foreach ($appsQuery->fetchAll(PDO::FETCH_ASSOC) as $student) {
             $i++;
         }
         $curEvals = $curEvals . " AND REmail != '" . $evaluator['REmail'] . "'";
-        $reviewerTableQ = $pdo->prepare("INSERT INTO `$revTableName` (ApplicationNum, REmail, QATotal, Submitted) VALUES(:appNum, :REmail, 0, 0)");
+        $reviewerTableQ = $pdo->prepare(
+            "INSERT INTO `$revTableName` (ApplicationNum, REmail, QATotal, Submitted) VALUES(:appNum, :REmail, 0, 0)"
+        );
         $reviewerTableQ->bindValue(':appNum', $appNum);
         $reviewerTableQ->bindValue(':REmail', $evaluator['REmail']);
         $reviewerTableQ->execute();
-
     }
-
 }
 //$sth = $pdo->prepare("UPDATE Settings SET DistributedApps = 1 WHERE 1");
 //$sth->execute();

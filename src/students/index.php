@@ -1,4 +1,5 @@
 <?php
+
 require_once '../includes/init.php';
 authorize('student');
 
@@ -44,7 +45,9 @@ $validators = [
 
     // Advisor Information
     'advisor' => v::alwaysValid(),
-    'advisor_email' => v::callback('validateAdvisorEmail')->setTemplate('There doesn\'t appear to be an advisor associated with that email'),
+    'advisor_email' => v::callback('validateAdvisorEmail')->setTemplate(
+        'There doesn\'t appear to be an advisor associated with that email'
+    ),
 
     // Objective & Results
     'objective' => v::length(3, 6000)->setName('Objective'),
@@ -70,7 +73,11 @@ foreach (array_keys($validators) as $field) {
 }
 
 if (!isPost()) {
-    $application = DB::selectSingle("$applicationsTable NATURAL JOIN Student NATURAL JOIN Advisor", 'SID = ?', $_SESSION['id']);
+    $application = DB::selectSingle(
+        "$applicationsTable NATURAL JOIN Student NATURAL JOIN Advisor",
+        'SID = ?',
+        $_SESSION['id']
+    );
 
     if ($application) {
         $form = [
@@ -161,20 +168,26 @@ $state = null;
 if (post('submit')) {
     if (validate($form, $validators)) {
         saveApplication($form, true);
-        email($form['advisor_email'], 'CSTEM Scholars Grant Application Needs Review', render('emails/application.php', $form))->send();
+        email(
+            $form['advisor_email'],
+            'CSTEM Scholars Grant Application Needs Review',
+            render('emails/application.php', $form)
+        )->send();
         redirect('ThankYouPage.php');
     }
-} else if (post('save')) {
-    // Make all fields optional
-    foreach ($validators as $k => $v) {
-        $validators[$k] = v::optional($v);
-    }
+} else {
+    if (post('save')) {
+        // Make all fields optional
+        foreach ($validators as $k => $v) {
+            $validators[$k] = v::optional($v);
+        }
 
-    if (validate($form, $validators)) {
-        saveApplication($form, false);
-        $state = 'saved';
-    } else {
-        $state = 'error';
+        if (validate($form, $validators)) {
+            saveApplication($form, false);
+            $state = 'saved';
+        } else {
+            $state = 'error';
+        }
     }
 }
 ?>

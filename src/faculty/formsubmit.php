@@ -1,4 +1,5 @@
 <?php
+
 $end = false;
 $database = parse_ini_file("../config.ini");
 $host = $database['host'];
@@ -31,17 +32,23 @@ if (isset($_POST['submit'])) {
 
     switch ($_POST["group"]) {
         case "Approved":
-            $query = $pdo->prepare("UPDATE `$tableName` SET AdvisorApproved='1', AdvisorComments='$advisorComments'  WHERE ApplicationNum=$id");
+            $query = $pdo->prepare(
+                "UPDATE `$tableName` SET AdvisorApproved='1', AdvisorComments='$advisorComments'  WHERE ApplicationNum=$id"
+            );
             $query->execute();
             $end = true;
             break;
         case "Not Approved":
-            $query = $pdo->prepare("UPDATE `$tableName` SET AdvisorApproved='3', AdvisorComments='$advisorComments'  WHERE ApplicationNum=$id");
+            $query = $pdo->prepare(
+                "UPDATE `$tableName` SET AdvisorApproved='3', AdvisorComments='$advisorComments'  WHERE ApplicationNum=$id"
+            );
             $query->execute();
             $end = true;
             break;
         case "Update":
-            $query = $pdo->prepare("UPDATE `$tableName` SET AdvisorApproved='2', AdvisorComments='$advisorComments'  WHERE ApplicationNum=$id");
+            $query = $pdo->prepare(
+                "UPDATE `$tableName` SET AdvisorApproved='2', AdvisorComments='$advisorComments'  WHERE ApplicationNum=$id"
+            );
             $query->execute();
             $end = true;
             break;
