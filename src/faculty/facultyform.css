@@ -38,7 +38,7 @@ body {
     border: 1px solid #000000;
 }
 
-.form h1>span {
+.form h1 > span {
     display: block;
     margin-top: 2px;
     font: 13px Arial, Helvetica, sans-serif;
