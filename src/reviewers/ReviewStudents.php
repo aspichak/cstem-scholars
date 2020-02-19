@@ -6,7 +6,7 @@
 	<title>Student Reviews</title>
 	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
 
-	<link rel="stylesheet" href="ReviewStudents.css">
+	<link rel="stylesheet" href="css/ReviewStudents.css">
 </head>
 
     <body>

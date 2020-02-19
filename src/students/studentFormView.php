@@ -9,7 +9,7 @@ include 'check.php';
                 <meta http-equiv="Content-Type">
                         <title>Application Form</title>
                                 <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
-                                <link href="students.css" rel="stylesheet">
+                                <link href="css/students.css" rel="stylesheet">
       </head>
 
       <body>

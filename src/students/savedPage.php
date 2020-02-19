@@ -5,7 +5,7 @@
 <title>Thank you!</title>
 <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<link type="text/css" rel="stylesheet" href="savedPage.css">
+<link type="text/css" rel="stylesheet" href="css/savedPage.css">
 </head>
 
 <body>
