@@ -15,6 +15,13 @@ body {
     -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.13);
 }
 
+.form .inner-section {
+    padding: 10px;
+    background: #F8F8F8;
+    border-radius: 6px;
+    margin-bottom: 5px;
+}
+
 .form h1 {
     background: #808080;
     padding: 20px 30px 15px 30px;
@@ -35,6 +42,10 @@ body {
     display: block;
     margin-top: 2px;
     font: 13px Arial, Helvetica, sans-serif;
+}
+
+.form h2 {
+    color: #c70505;
 }
 
 .logout {
