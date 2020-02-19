@@ -160,3 +160,35 @@ body {
 .tooltip:hover .tooltiptext {
     visibility: visible;
 }
+
+.message {
+    margin-bottom: 2em;
+}
+
+.message h2 {
+    font-size: 1.25em;
+}
+
+.message.success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border: 3px solid #d6e9c6;
+    border-radius: 3px;
+    padding: 1em 3em;
+    display: block;
+}
+
+.message.error {
+    color: #a94442;
+    background-color: #f2dede;
+    border: 3px solid #ebccd1;
+    border-radius: 3px;
+    padding: 1em 3em;
+    display: block;
+    font-weight: normal;
+}
+
+.error {
+    font-weight: bold;
+    color: #990000;
+}
