@@ -180,19 +180,17 @@ if (post('submit')) {
         )->send();
         redirect('ThankYouPage.php');
     }
-} else {
-    if (post('save')) {
-        // Make all fields optional
-        foreach ($validators as $k => $v) {
-            $validators[$k] = v::optional($v);
-        }
+} elseif (post('save')) {
+    // Make all fields optional
+    foreach ($validators as $k => $v) {
+        $validators[$k] = v::optional($v);
+    }
 
-        if (validate($form, $validators)) {
-            saveApplication($form, false);
-            $state = 'saved';
-        } else {
-            $state = 'error';
-        }
+    if (validate($form, $validators)) {
+        saveApplication($form, false);
+        $state = 'saved';
+    } else {
+        $state = 'error';
     }
 }
 ?>
