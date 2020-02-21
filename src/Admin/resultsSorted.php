@@ -53,8 +53,7 @@ ORDER BY " . $sort . " ASC"
 <form method="post">
     <div class="sidenav">
         <img src="img/ewueagle.png" height=125px; width=185px;>
-        <br>
-        <br>
+        <br><br>
         <a href="index.php">Home</a>
         <br>
         <a href="edit.php">Edit</a>
@@ -66,9 +65,7 @@ ORDER BY " . $sort . " ASC"
         <a href="search.php">Search</a>
         <br>
         <a href="new.php">New</a>
-        <br>
-        <br>
-        <br>
+        <br><br><br>
         <a href="../index.php?logout=true">Logout</a>
     </div>
     <div class="main">
@@ -131,8 +128,7 @@ ORDER BY " . $sort . " ASC"
             <br>
         </div>
     </div>
-    <br>
-    <br>
+    <br><br>
 </form>
 </body>
 </html>
