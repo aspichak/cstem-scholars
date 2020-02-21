@@ -1,10 +1,11 @@
 <?php
 
 require_once '../includes/init.php';
-authorize('student');
 
 use Respect\Validation\Validator as v;
 use Respect\Validation\Exceptions\ValidationException;
+
+authorize('student');
 
 $deadline = DB::selectSingle("Settings")['Deadline'];
 $date = date("M j, Y", strtotime($deadline));
@@ -12,6 +13,10 @@ $temp = explode('-', $deadline);
 $year = $temp[0];
 $month = $temp[1];
 $applicationsTable = 'Applications' . $month . $year;
+
+if (strtotime('today') > strtotime($deadline)) {
+    redirect('../infoPages/closedStudent.php');
+}
 
 $departments = [
     'Biology',

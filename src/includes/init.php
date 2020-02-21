@@ -63,7 +63,7 @@ function post($param, $default = null)
     return $_POST[$param] ?? $default;
 }
 
-function render($template, $v)
+function render($template, $v = null)
 {
     ob_start();
     require path($template);

@@ -14,3 +14,5 @@ define('SMTP_USERNAME', '');
 define('SMTP_PASSWORD', '');
 define('SMTP_FROM_EMAIL', 'noreply@ewu.edu');
 define('SMTP_FROM_NAME', 'EWU CSTEM Scholars');
+
+date_default_timezone_set('America/Los_Angeles');
