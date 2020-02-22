@@ -51,10 +51,9 @@
 
     ?>
 </head>
+<body>
 <form action="awardSuccessful.php" method="post">
-    <body>
     <?php include_once 'sidenav.php';?>
-
     <div class="main">
         <div class="w3-container">
             <h1>Award</h1>
@@ -82,6 +81,6 @@
             <br>
         </div>
     </div>
-    </body>
 </form>
+</body>
 </html>
