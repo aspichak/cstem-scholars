@@ -261,7 +261,8 @@ if (post('submit')) {
                             Department----
                         </option>
                         <?php foreach ($departments as $department) { ?>
-                            <option value="<?= $department ?>" <?= $form['department'] == $department ? 'selected' : '' ?>><?= $department ?></option>
+                            <option value="<?= $department ?>" <?= $form['department'] == $department ? 'selected' : '' ?>>
+                                <?= $department ?></option>
                         <?php } ?>
                     </select>
                 </label>

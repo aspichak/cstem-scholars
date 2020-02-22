@@ -35,26 +35,7 @@
     ?>
 </head>
 <body>
-<div class="sidenav">
-    <img src="img/ewueagle.png" height=125px; width=185px;>
-    <br>
-    <br>
-    <a href="index.php">Home</a>
-    <br>
-    <a href="edit.php">Edit</a>
-    <br>
-    <a href="results.php">Results</a>
-    <br>
-    <a href="prior.php">Prior Awards</a>
-    <br>
-    <a href="search.php">Search</a>
-    <br>
-    <a href="new.php">New</a>
-    <br>
-    <br>
-    <br>
-    <a href="../index.php?logout=true">Logout</a>
-</div>
+<?php include_once 'sidenav.php';?>
 <div class="main">
     <div class="w3-container">
         <?php $sth->execute();
@@ -62,25 +43,35 @@
             <form>
                 <fieldset>
                     <legend><h1><?php echo $row['SName'] ?></h1></legend>
-                    <b>Student ID</b><br>
+                    <b>Student ID</b>
+                    <br>
                     <p><?php echo $row['SID'] ?> </p>
-                    <b> Student Email</b><br>
+                    <b> Student Email</b>
+                    <br>
                     <p><?php echo $row['SEmail'] ?> </p>
-                    <b>Major</b><br>
+                    <b>Major</b>
+                    <br>
                     <p><?php echo $row['Major'] ?></p>
-                    <b>GPA</b><br>
+                    <b>GPA</b>
+                    <br>
                     <p><?php echo $row['GPA'] ?> </p>
-                    <b>Graduation Date</b><br>
+                    <b>Graduation Date</b>
+                    <br>
                     <p><?php echo $row['PTitle'] ?></p>
-                    <b>Objective</b><br>
+                    <b>Objective</b>
+                    <br>
                     <p><?php echo $row['Objective'] ?></p>
-                    <b>Timeline</b><br>
+                    <b>Timeline</b>
+                    <br>
                     <p><?php echo $row['Timeline'] ?></p>
-                    <b>Funding Sources</b><br>
+                    <b>Funding Sources</b>
+                    <br>
                     <p><?php echo $row['FundingSources'] ?></p>
-                    <b>Anticipated Results</b><br>
+                    <b>Anticipated Results</b>
+                    <br>
                     <p><?php echo $row['Anticipatedresults'] ?></p>
-                    <b>Justification</b><br>
+                    <b>Justification</b>
+                    <br>
                     <p><?php echo $row['Justification'] ?></p>
                 </fieldset>
                 <br>
@@ -88,10 +79,10 @@
         <?php endforeach; ?>
         <a href="prior.php">
             <button>Back</button>
+        </a>
     </div>
 </div>
-<br>
-<br>
+<br><br>
 </body>
 </html>
 

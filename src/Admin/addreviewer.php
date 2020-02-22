@@ -31,26 +31,7 @@
 
 </head>
 <body>
-<div class="sidenav">
-    <img src="img/ewueagle.png" height=125px; width=185px;>
-    <br>
-    <br>
-    <a href="index.php">Home</a>
-    <br>
-    <a href="edit.php">Edit</a>
-    <br>
-    <a href="results.php">Results</a>
-    <br>
-    <a href="prior.php">Prior Awards</a>
-    <br>
-    <a href="search.php">Search</a>
-    <br>
-    <a href="new.php">New</a>
-    <br>
-    <br>
-    <br>
-    <a href="../index.php?logout=true">Logout</a>
-</div>
+<?php include_once 'sidenav.php';?>
 
 <div class="main">
     <div class="w3-container">
@@ -90,8 +71,11 @@
 
             <tr>
                 <form method="POST">
-                    <td><input id='Name' name='Name' type='Name' placeholder="Full Name"></td>
-                    <td><select name='Department' id='Department' required>
+                    <td>
+                        <input id='Name' name='Name' type='Name' placeholder="Full Name">
+                    </td>
+                    <td>
+                        <select name='Department' id='Department' required>
                             <option disabled selected value>Department</option>
                             <option value="Biology">Biology</option>
                             <option value="Chemistry">Chemistry or Biochemistry</option>
@@ -103,9 +87,12 @@
                             <option value="Mathematics">Mathematics</option>
                             <option value="Natural Science">Natural Science</option>
                             <option value="Physics">Physics</option>
-                        </select></td>
-                    <td><input id='email' name='email' type='email' placeholder="EWU Email"
-                               pattern="^([a-zA-Z0-9_\-\.]+)@ewu.edu)$"></td>
+                        </select>
+                    </td>
+                    <td>
+                        <input id='email' name='email' type='email' placeholder="EWU Email"
+                               pattern="^([a-zA-Z0-9_\-\.]+)@ewu.edu)$">
+                    </td>
                     <td>
                         <button type="submit" formaction="reviewerAdded.php">Add</button>
                     </td>

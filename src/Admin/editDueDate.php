@@ -3,7 +3,6 @@
 <head>
     <title>Admin</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/award.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php
@@ -59,26 +58,7 @@
 </head>
 <body>
 <form method="post">
-    <div class="sidenav">
-        <img src="img/ewueagle.png" height=125px; width=185px;>
-        <br>
-        <br>
-        <a href="index.php">Home</a>
-        <br>
-        <a href="edit.php">Edit</a>
-        <br>
-        <a href="results.php">Results</a>
-        <br>
-        <a href="prior.php">Prior Awards</a>
-        <br>
-        <a href="search.php">Search</a>
-        <br>
-        <a href="new.php">New</a>
-        <br>
-        <br>
-        <br>
-        <a href="../index.php?logout=true">Logout</a>
-    </div>
+    <?php include_once 'sidenav.php';?>
 
     <div class="main">
         <div class="w3-container">
@@ -90,14 +70,12 @@
                 <div>
                     <label for="start">Begin Date</label>
                     <input type="date" min=<?php echo $today ?>id="start" name="start"
-                           value= <?php echo htmlspecialchars($begin); ?>
-                    />
+                           value= <?php echo htmlspecialchars($begin); ?>/>
                 </div>
                 <div>
                     <label for="end">Deadline</label>
                     <input type="date" min=<?php echo $today ?> id="end" name="end"
-                           value= <?php echo htmlspecialchars($deadline); ?>
-                    />
+                           value= <?php echo htmlspecialchars($deadline); ?>/>
                 </div>
                 <button type="submit" <?php if ($today < $end) {
                     echo "disabled";
@@ -115,8 +93,7 @@
                 <div>
                     <label for="budget">Budget</label>
                     <input type="number" min="0" id="budget" name="budget"
-                           value= <?php echo $budget; ?>
-                    />
+                           value= <?php echo $budget; ?>/>
                 </div>
                 <button type="submit" formaction="editBudget.php">Submit</button>
 
@@ -130,8 +107,7 @@
                 <div>
                     <label for="newDue">New Deadline</label>
                     <input type="date" min=<?php echo $today ?> id="newDue" name="newDue"
-                           value= <?php echo htmlspecialchars($deadline); ?>
-                    />
+                           value= <?php echo htmlspecialchars($deadline); ?>/>
                     <h5> New due date set </h5>
                 </div>
                 <br>

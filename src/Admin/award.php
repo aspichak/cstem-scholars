@@ -51,52 +51,27 @@
 
     ?>
 </head>
+<body>
 <form action="awardSuccessful.php" method="post">
-    <body>
-    <div class="sidenav">
-        <img src="img/ewueagle.png" height=125px; width=185px;>
-        <br>
-        <br>
-        <a href="index.php">Home</a>
-        <br>
-        <a href="edit.php">Edit</a>
-        <br>
-        <a href="results.php">Results</a>
-        <br>
-        <a href="prior.php">Prior Awards</a>
-        <br>
-        <a href="search.php">Search</a>
-        <br>
-        <a href="new.php">New</a>
-        <br>
-        <br>
-        <br>
-        <a href="../index.php?logout=true">Logout</a>
-    </div>
-
+    <?php include_once 'sidenav.php';?>
     <div class="main">
         <div class="w3-container">
             <h1>Award</h1>
             <h4> To award this student, select an amount and click confirm.</h4>
             <fieldset>
                 <legend>Award</legend>
-
                 <div>
                     <label for="amountRemaining">Remaining Amount</label>
                     <input type="number" id="amountRemaining" name="amountRemaining" disabled
-                           value= <?php echo $remaining; ?>
-                    />
-
+                           value= <?php echo $remaining; ?>/>
                 </div>
 
                 <div>
                     <label for="amount">Award Amount</label>
                     <input type="number" id="amount" name="amount"
-                           value= <?php echo $currentAward ?>
-                    />
+                           value= <?php echo $currentAward ?>/>
                     <input type="hidden" id="app" name="app"
-                           value=<?php echo $app ?>
-                    />
+                           value=<?php echo $app ?>/>
                 </div>
             </fieldset>
             <br><br>
@@ -104,3 +79,8 @@
             <button type="submit" formaction="results.php">Cancel</button>
 
             <br>
+        </div>
+    </div>
+</form>
+</body>
+</html>
