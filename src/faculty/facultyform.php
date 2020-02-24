@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Faculty Form</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/facultyform.css">
     <?php
+    require_once '../includes/init.php';
+    authorize('faculty');
     $database = parse_ini_file("../config.ini");
     $host = $database['host'];
     $db = $database['db'];

@@ -1,6 +1,11 @@
-<?php session_start(); ?>
+<?php
+
+session_start();
+require_once '../includes/init.php';
+authorize('faculty');
+?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 
     <title>Faculty Form</title>
