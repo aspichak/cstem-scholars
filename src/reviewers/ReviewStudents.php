@@ -1,5 +1,7 @@
 <?php
-require_once '../includes/init.php'; session_start();
+
+require_once '../includes/init.php';
+session_start();
 ?>
 <!DOCTYPE HTML>
 <html>
