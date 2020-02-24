@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php
+require_once '../includes/init.php'; session_start();
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -36,11 +38,7 @@ $email = $_SESSION["email"];
 try {
     $stmt = $pdo->query("SELECT * FROM `$revTable` WHERE REmail='$email'");
 } catch (exception $e) {
-    ?>
-    <script type="text/javascript">
-        window.location.href = '/error.php';
-    </script>
-    <?php
+    redirect("error.php");
 }
 $stmt->execute();
 /* 		if($_SESSION['id'] == NULL)
