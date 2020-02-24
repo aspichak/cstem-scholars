@@ -35,8 +35,7 @@ $email = $_SESSION["email"];
 //get applications assigned to this RID
 try {
     $stmt = $pdo->query("SELECT * FROM `$revTable` WHERE REmail='$email'");
-}
-catch (exception $e) {
+} catch (exception $e) {
     ?>
     <script type="text/javascript">
         window.location.href = '/error.php';
