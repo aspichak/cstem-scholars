@@ -1,6 +1,21 @@
 <?php session_start();
 //PDO statement to connect to database or call PDOutil class
-include_once 'creds.php';
+require_once '../includes/init.php';
+
+use Respect\Validation\Validator as v;
+use Respect\Validation\Exceptions\ValidationException;
+
+$validators = [
+    // Basic Details
+    'qual_comments' => v::length(3, 6000)->setName('Comments')
+];
+
+$form = [];
+
+// Get HTML-safe values of all form fields
+foreach (array_keys($validators) as $field) {
+    $form[$field] = trim(htmlentities(post($field)));
+}
 
 $email = $_SESSION["email"];
 var_dump($email);
@@ -23,7 +38,7 @@ $deadline = $date_array["Deadline"];
 $temp = explode("-", $deadline);
 $year = $temp[0];
 $month = $temp[1];
-$revTable = 'ReviewedApps' . $month . $year;
+$revTable = 'ReviewedApps'. $month . $year;
 echo $app_id;
 
 $stmt = $pdo->prepare(

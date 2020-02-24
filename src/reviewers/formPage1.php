@@ -1,7 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php session_start();
-include_once 'creds.php'; ?>
+<?php
+require_once '../includes/init.php';
+
+use Respect\Validation\Validator as v;
+use Respect\Validation\Exceptions\ValidationException;
+
+$validators = [
+    // Questions
+    'q1' => v::numeric()->min(0)->max(3)->setName('q1'),
+    'q2' => v::numeric()->min(0)->max(3)->setName('q2'),
+    'q3' => v::numeric()->min(0)->max(3)->setName('q3'),
+    'q4' => v::numeric()->min(0)->max(3)->setName('q4'),
+    'q5' => v::numeric()->min(0)->max(3)->setName('q5'),
+    'q6' => v::numeric()->min(0)->max(3)->setName('q6'),
+
+    // Reviewer point total
+    'QATotal' => v::numeric()->min(0)->max(18)->setName('QATotal'),
+
+    // Recommendation to Not Fund, Partially Fund, or Fully Fund
+    'fund' => v::numeric()->min(0)->max(2)->setName('fund'),
+
+    // Additional comments the reviewer has
+    'qual_comments' => v::length(3, 6000)->setName('Comments')
+
+];
+
+$form = [];
+
+// Get HTML-safe values of all form fields
+foreach (array_keys($validators) as $field) {
+    $form[$field] = trim(htmlentities(post($field)));
+    echo($field);
+}
+var_dump($form);
+
+if( !isPost() ){
+    echo("Not Post");
+}
+else{
+    echo("Is Post");
+}
+
+$errors = [];
+
+function validate($form, $validators)
+{
+    global $errors;
+    $errors = [];
+
+    // Validate all form fields
+    foreach ($validators as $k => $v) {
+        try {
+            $v->check($form[$k]);
+        } catch (ValidationException $exception) {
+            $errors[$k] = $exception->getMessage();
+        }
+    }
+    return empty($errors);
+}
+
+function saveReview($form, $isSubmitted)
+{
+    global $applicationsTable;
+
+    $application = [
+        'SID' => $_SESSION['id'],
+        'PTitle' => $form['project'],
+        'Objective' => $form['objective'],
+        'Timeline' => $form['timeline'],
+        'Budget' => $form['budget'],
+        'RequestedBudget' => $form['request'],
+        'FundingSources' => $form['sources'],
+        'Anticipatedresults' => $form['results'],
+        'Justification' => $form['justification'],
+        'AEmail' => $form['advisor_email'],
+        'Submitted' => $isSubmitted ? 1 : 0
+    ];
+
+    $student = [
+        'SID' => $_SESSION['id'],
+        'SName' => $form['name'],
+        'SEmail' => $form['email'],
+        'GPA' => $form['gpa'],
+        'Department' => $form['department'],
+        'Major' => $form['major'],
+        'GraduationDate' => $form['egd']
+    ];
+
+    if (DB::contains($applicationsTable, 'SID = ?', $_SESSION['id'])) {
+        DB::update($applicationsTable, $application, 'SID = ?', $_SESSION['id']);
+        DB::update('Student', $student, 'SID = ?', $_SESSION['id']);
+    } else {
+        DB::insert($applicationsTable, $application);
+        DB::insert('Student', $student);
+    }
+}
+?>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +104,7 @@ include_once 'creds.php'; ?>
     <title>Feedback</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="form.css">
-    <script type="text/javascript">
+    <!--<script type="text/javascript"> THIS IS HANDELED AS AN ONCLICK IN BUTTON
         function doubleCheck(submitButton) {
             var submit = window.confirm("Are you sure you want to submit?")
             if (submit)
@@ -17,7 +112,7 @@ include_once 'creds.php'; ?>
             else
                 submitButton = false;
         }
-    </script>
+    </script>-->
 </head>
 <body>
 <?php $app_id = $_POST['appNum']; ?>
@@ -87,6 +182,7 @@ include_once 'creds.php'; ?>
                         <div class="row">
                             <div class="col-sm-12 form-group">
                                 <label for="comments"> Quality Assessment Comments:</label>
+                                <!-- why is textarea so stretchy? -->
                                 <textarea class="form-control" type="textarea" name="qual_comments"
                                           placeholder="Your Comments" maxlength="6000" rows="7"></textarea>
                             </div>
@@ -96,7 +192,8 @@ include_once 'creds.php'; ?>
                                 <!-- Need to have confirm work properly -->
                                 <button type="submit" class="button" name="submitButton"
                                         onclick="return confirm('Are you sure you want to submit?')"
-                                        formaction="submitted.php?id=<?php echo $app_id ?>">Submit
+                                        >Submit
+                                    <!--formaction="submitted.php?id=<?php #echo $app_id ?>">Submit -->
                                 </button>
                             </div>
                         </div>

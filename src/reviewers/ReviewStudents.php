@@ -73,7 +73,6 @@ $ctr = 0;
             $student = $row2[0];
             $ctr++;
             //only display applications that have not been reviewed
-
             if ($row['Submitted'] != 1) {
                 $name = 'btn[' . $row['ApplicationNum'] . ']';
                 $appNum = $row['ApplicationNum'];
@@ -98,9 +97,10 @@ $ctr = 0;
                 echo '<div class="section" for="my_checkbox"><span>' . $ctr . '</span>' . $student['PTitle'] . '</div>';
                 //TODO: figure out transfering applicationNum to formpage.php
                 echo '<label for="' . $row['ApplicationNum'] . '">Show/Hide Details</label>';
-                echo  '<a href="http://localhost:8080/formpage.php"><button type="button" name="'.$name.'"> Review Application: '.$row['ApplicationNum'].'</button></a>';
+                #echo  '<a href="http://localhost:8080/formpage.php"><button type="button" name="'.$name.'"> Review Application: '.$row['ApplicationNum'].'</button></a>';
                 echo '<input type="hidden" value=' . $row['ApplicationNum'] . ' name="appNum" id="appNum"/>';
-                echo '<button type="submit" name="' . $name . '" formaction="formPage1.php?id="' . $appNum . '"> Review Application: ' . $row['ApplicationNum'] . '</button>';
+                echo '<button type="submit" name="' . $name . '" formaction=\'../reviewers/formPage1.php\'"> Review Application: ' . $row['ApplicationNum'] . '</button>';
+                #. '" formaction="formPage1.php?id="' .
                 echo '</div>';
             }
             $i++;
