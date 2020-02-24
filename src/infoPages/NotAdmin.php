@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <title>Admin</title>
 <meta charset="UTF-8">

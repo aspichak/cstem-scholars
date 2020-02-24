@@ -1,6 +1,11 @@
-<?php session_start(); ?>
+<?php
+
+require_once '../includes/init.php';
+authorize('reviewer');
+session_start();
+?>
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Student Reviews</title>
@@ -33,7 +38,11 @@ $revTable = 'ReviewedApps' . $month . $year;
 
 $email = $_SESSION["email"];
 //get applications assigned to this RID
-$stmt = $pdo->query("SELECT * FROM `$revTable` WHERE REmail='$email'");
+try {
+    $stmt = $pdo->query("SELECT * FROM `$revTable` WHERE REmail='$email'");
+} catch (exception $e) {
+    redirect("error.php");
+}
 $stmt->execute();
 /* 		if($_SESSION['id'] == NULL)
 		{

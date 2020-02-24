@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <title>Research Home Page</title>
 <meta charset="UTF-8">
@@ -129,7 +129,8 @@
                     <a href="https://www.ewu.edu/apply/visit-ewu/" style="text-decoration: none;">Visit EWU</a>
                 </li>
                 <li class="c">
-                    <a href="https://www.ewu.edu/academics/#section-5" style="text-decoration: none;">Campus Locations</a>
+                    <a href="https://www.ewu.edu/academics/#section-5" style="text-decoration: none;">Campus
+                        Locations</a>
                 </li>
             </ul>
             <ul class="middle" style="list-style-type:none">
@@ -183,11 +184,7 @@
                 <a href="https://sites.ewu.edu/policies/" style="text-decoration: none;">Rules and Policies</a>
             </li>
         </ul>
-
-
     </footer>
 </form>
-
-
 </body>
 </html>

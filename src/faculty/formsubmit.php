@@ -1,5 +1,8 @@
 <?php
 
+require_once '../includes/init.php';
+authorize('faculty');
+
 $end = false;
 $database = parse_ini_file("../config.ini");
 $host = $database['host'];

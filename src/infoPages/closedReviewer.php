@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <title>Application Reviewal</title>
 <meta charset="UTF-8">

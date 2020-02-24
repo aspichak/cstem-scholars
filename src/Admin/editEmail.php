@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Admin</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="css/index.css">
 
     <?php
+    require_once '../includes/init.php';
+    authorize('admin');
+
     $database = parse_ini_file("config.ini");
     $host = $database['host'];
     $db = $database['db'];
@@ -36,7 +39,7 @@
 
 </head>
 <body>
-<?php include_once 'sidenav.php';?>
+<?php include_once 'sidenav.php'; ?>
 
 <div class="main">
     <div class="w3-container">

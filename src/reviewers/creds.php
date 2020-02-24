@@ -1,5 +1,8 @@
 <?php
 
+require_once '../includes/init.php';
+authorize('reviewer');
+
 $host = 'localhost';
 $db = 'researchGrant';
 $user = 'root';

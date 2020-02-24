@@ -1,5 +1,8 @@
 <?php
 
+require_once '../includes/init.php';
+authorize('admin');
+
 $database = parse_ini_file("../config.ini");
 $host = $database['host'];
 $db = $database['db'];

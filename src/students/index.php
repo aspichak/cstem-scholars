@@ -195,7 +195,7 @@ if (post('submit')) {
 }
 ?>
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 <head>
     <meta http-equiv="Content-Type">
     <title>Application Form</title>

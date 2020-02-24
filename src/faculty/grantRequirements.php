@@ -1,6 +1,8 @@
 <?php
 
 session_start();
+require_once '../includes/init.php';
+authorize('faculty');
 
 ?>
 <!DOCTYPE html>
