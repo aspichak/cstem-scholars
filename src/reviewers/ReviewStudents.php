@@ -33,7 +33,16 @@ $revTable = 'ReviewedApps' . $month . $year;
 
 $email = $_SESSION["email"];
 //get applications assigned to this RID
-$stmt = $pdo->query("SELECT * FROM `$revTable` WHERE REmail='$email'");
+try {
+    $stmt = $pdo->query("SELECT * FROM `$revTable` WHERE REmail='$email'");
+}
+catch (exception $e) {
+    ?>
+    <script type="text/javascript">
+        window.location.href = '/error.php';
+    </script>
+    <?php
+}
 $stmt->execute();
 /* 		if($_SESSION['id'] == NULL)
 		{
