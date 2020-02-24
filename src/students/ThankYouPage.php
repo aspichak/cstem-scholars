@@ -7,7 +7,7 @@ $deadline = DB::selectSingle("Settings")['Deadline'];
 $date = date("M j, Y", strtotime($deadline));
 ?>
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Thank you!</title>
