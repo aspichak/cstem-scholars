@@ -1,4 +1,11 @@
-<?php session_start(); ?>
+<?php
+require_once '../includes/init.php';
+
+use Respect\Validation\Validator as v;
+use Respect\Validation\Exceptions\ValidationException;
+
+authorize('reviewer');
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -18,23 +25,21 @@
     </div>
 </form>
 <?php
-include_once 'creds.php';
+#include_once 'creds.php';
 
 //get most recent table for ApplicationsTest
-$sth = $pdo->prepare("SELECT Deadline FROM Settings");
-$sth->execute();
-$date_array = $sth->fetch();
-$deadline = $date_array["Deadline"];
+$deadline = DB::selectSingle( "Settings")['Deadline'];
 $temp = explode("-", $deadline);
 $year = $temp[0];
 $month = $temp[1];
-$appTable = 'Applications' . $month . $year;
-$revTable = 'ReviewedApps' . $month . $year;
-
-$email = $_SESSION["email"];
+$appTable = 'applications' . $month . $year; #Applications022020
+$revTable = 'reviewedapps' . $month . $year; #ReviewedApps022020
+$email = $_SESSION["email"]; #name@ewu.edu, name is whichever we selected at log in
 //get applications assigned to this RID
-$stmt = $pdo->query("SELECT * FROM `$revTable` WHERE REmail='$email'");
-$stmt->execute();
+#$stmt = $pdo->query("SELECT * FROM `$revTable` WHERE REmail='$email'");
+#$stmt->execute();
+$rows = DB::query2( 'SELECT * FROM ',$revTable,' WHERE REmail = ?', $email );
+#var_dump($row);
 /* 		if($_SESSION['id'] == NULL)
 		{
 			
@@ -44,30 +49,36 @@ $stmt->execute();
 		  $stmt->execute([$_SESSION['id']]);
 		} */
 //get applications assigned to reviewer
-// "SELECT * FROM `".$table."` WHERE ApplicationNum=?"
-$stmt2 = $pdo->prepare("SELECT * FROM `$appTable` WHERE ApplicationNum=?");
+#$stmt2 = DB::query2( $query, $appTable,' WHERE ApplicationNum=?',#$pdo->prepare("SELECT * FROM `$appTable` WHERE ApplicationNum=?");
 
 $ctr = 0;
-
 ?>
 
 
 <div class="form">
     <h1>Students for Review<span>Grant applications</span></h1>
-    <div class="button-section">
+    <div class = "button-section">
         <?php
-        while ($row = $stmt->fetch()) {
+        $i = 0;
+        #var_dump($rows);
+        #echo(count($rows));
+        while ($i < count($rows)  ) {
+            $row = $rows[$i];
             echo '<form role="form" method="post">';
-            $stmt2->execute([$row['ApplicationNum']]);
-            $student = $stmt2->fetch();
-
+            #$stmt2->execute([$row['ApplicationNum']]);
+            $appNum = $row['ApplicationNum'];
+            #NOTE: Changing WHERE ApplicationNum to SID
+            $row2 = DB::query2( 'SELECT * FROM ', $appTable, ' WHERE SID = ?', $appNum );
+            #var_dump($row2);
+            $student = $row2[0];
             $ctr++;
             //only display applications that have not been reviewed
+
             if ($row['Submitted'] != 1) {
                 $name = 'btn[' . $row['ApplicationNum'] . ']';
                 $appNum = $row['ApplicationNum'];
-                $fileTemp = $student['BudgetFilePath'];
-                $filePath = "../" . $fileTemp;
+                #$fileTemp = $student['BudgetFilePath'];
+                #$filePath = "../" . $fileTemp;
                 echo '<div class="inner-wrap">';
                 echo '<input type="checkbox" id="' . $row['ApplicationNum'] . '" style="display:none;">';
                 echo '<div id="hidden">';
@@ -78,21 +89,26 @@ $ctr = 0;
                 echo '<label>Budget and planned spending: <textarea placeholder="' . $student['Justification'] . '"></textarea></label>';
                 echo '<label>Total budget amount:<input type="text" placeholder="' . $student['Budget'] . '"/></label>';
                 echo '<label>Requested budget amount from EWU:<input type="text" placeholder="' . $student['RequestedBudget'] . '" /></label>'; ?>
-                <p><a href='<?php echo $filePath ?>' download>Budget Spreedsheet</a></p><?php
+                <!--<p>
+                    <a href='<?php echo $filePath ?>' download>Budget Spreedsheet</a>
+                </p>-->
+                <?php
                 echo '<label>Other funding sources available: <input type="text" placeholder="' . $student['FundingSources'] . '"/></label>';
                 echo '</div>';
                 echo '<div class="section" for="my_checkbox"><span>' . $ctr . '</span>' . $student['PTitle'] . '</div>';
                 //TODO: figure out transfering applicationNum to formpage.php
                 echo '<label for="' . $row['ApplicationNum'] . '">Show/Hide Details</label>';
-                //echo  '<a href="http://localhost:8080/formpage.php"><button type="button" name="'.$name.'"> Review Application: '.$row['ApplicationNum'].'</button></a>';
+                echo  '<a href="http://localhost:8080/formpage.php"><button type="button" name="'.$name.'"> Review Application: '.$row['ApplicationNum'].'</button></a>';
                 echo '<input type="hidden" value=' . $row['ApplicationNum'] . ' name="appNum" id="appNum"/>';
                 echo '<button type="submit" name="' . $name . '" formaction="formPage1.php?id="' . $appNum . '"> Review Application: ' . $row['ApplicationNum'] . '</button>';
                 echo '</div>';
             }
+            $i++;
             echo '</form>';
         }
         ?>
         </span>
+    </div>
     </div>
 </div>
 </body>
