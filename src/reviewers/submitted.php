@@ -1,6 +1,8 @@
 <?php session_start();
 //PDO statement to connect to database or call PDOutil class
 include_once 'creds.php';
+require_once '../includes/init.php';
+authorize('reviewer');
 
 $email = $_SESSION["email"];
 var_dump($email);

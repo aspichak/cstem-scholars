@@ -1,6 +1,7 @@
 <?php
 
 require_once '../includes/init.php';
+authorize('reviewer');
 session_start();
 ?>
 <!DOCTYPE HTML>

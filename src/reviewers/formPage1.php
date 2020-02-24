@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php session_start();
-include_once 'creds.php'; ?>
+include_once 'creds.php';
+require_once '../includes/init.php';
+authorize('reviewer');
+?>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
