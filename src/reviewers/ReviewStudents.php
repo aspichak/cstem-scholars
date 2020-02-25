@@ -42,7 +42,7 @@ try {
     $stmt = $pdo->query("SELECT * FROM `$revTable` WHERE REmail='$email'");
 } catch (exception $e) {
     //redirect("error.php");
-    error('well this is fucked');
+    error('Database error in reviewers');
 }
 $stmt->execute();
 /* 		if($_SESSION['id'] == NULL)
