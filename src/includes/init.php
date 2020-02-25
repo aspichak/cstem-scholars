@@ -36,6 +36,12 @@ function redirect($url, $flash = null)
     exit();
 }
 
+function error($err)
+{
+    $_SESSION['errcode'] = $err;
+    redirect("/includes/errorPage/errorPage.php");
+}
+
 function getFlash()
 {
     $flash = null;

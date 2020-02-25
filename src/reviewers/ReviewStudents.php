@@ -41,7 +41,8 @@ $email = $_SESSION["email"];
 try {
     $stmt = $pdo->query("SELECT * FROM `$revTable` WHERE REmail='$email'");
 } catch (exception $e) {
-    redirect("error.php");
+    //redirect("error.php");
+    error('well this is fucked');
 }
 $stmt->execute();
 /* 		if($_SESSION['id'] == NULL)
