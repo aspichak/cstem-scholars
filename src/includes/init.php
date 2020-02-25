@@ -38,7 +38,7 @@ function redirect($url, $flash = null)
 
 function error($err)
 {
-    $_SESSION['errcode'] = $err;
+    $_SESSION['errcode'] = $err ?? "fatal error";
     redirect("/includes/errorPage/errorPage.php");
 }
 
