@@ -52,6 +52,7 @@ $rows = DB::query2( 'SELECT * FROM ',$revTable,' WHERE REmail = ?', $email );
 #$stmt2 = DB::query2( $query, $appTable,' WHERE ApplicationNum=?',#$pdo->prepare("SELECT * FROM `$appTable` WHERE ApplicationNum=?");
 
 $ctr = 0;
+
 ?>
 
 
@@ -60,8 +61,6 @@ $ctr = 0;
     <div class = "button-section">
         <?php
         $i = 0;
-        #var_dump($rows);
-        #echo(count($rows));
         while ($i < count($rows)  ) {
             $row = $rows[$i];
             echo '<form role="form" method="post">';
@@ -99,6 +98,8 @@ $ctr = 0;
                 echo '<label for="' . $row['ApplicationNum'] . '">Show/Hide Details</label>';
                 #echo  '<a href="http://localhost:8080/formpage.php"><button type="button" name="'.$name.'"> Review Application: '.$row['ApplicationNum'].'</button></a>';
                 echo '<input type="hidden" value=' . $row['ApplicationNum'] . ' name="appNum" id="appNum"/>';
+                #echo '<button type="submit" class="button" name="submit" value="submit">Review Application: ' . $row['ApplicationNum'] . '</button>';
+                #echo '<button type="submit" name="' . $name . '"> Review Application: ' . $row['ApplicationNum'] . '</button>';
                 echo '<button type="submit" name="' . $name . '" formaction=\'../reviewers/formPage1.php\'"> Review Application: ' . $row['ApplicationNum'] . '</button>';
                 #. '" formaction="formPage1.php?id="' .
                 echo '</div>';

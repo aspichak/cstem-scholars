@@ -6,14 +6,25 @@ require_once '../includes/init.php';
 use Respect\Validation\Validator as v;
 use Respect\Validation\Exceptions\ValidationException;
 
+$deadline = DB::selectSingle("Settings")['Deadline'];
+$date = date("M j, Y", strtotime($deadline));
+$temp = explode('-', $deadline);
+$year = $temp[0];
+$month = $temp[1];
+$reviewedApplicationsTable = 'reviewedapps' . $month . $year;
+
+if( post('appNum') ){
+    $_SESSION['revAppID'] = post('appNum');
+}
+
 $validators = [
     // Questions
-    'q1' => v::numeric()->min(0)->max(3)->setName('q1'),
-    'q2' => v::numeric()->min(0)->max(3)->setName('q2'),
-    'q3' => v::numeric()->min(0)->max(3)->setName('q3'),
-    'q4' => v::numeric()->min(0)->max(3)->setName('q4'),
-    'q5' => v::numeric()->min(0)->max(3)->setName('q5'),
-    'q6' => v::numeric()->min(0)->max(3)->setName('q6'),
+    'learn' => v::numeric()->min(0)->max(3)->setName('learn'),
+    'justified' => v::numeric()->min(0)->max(3)->setName('justified'),
+    'method' => v::numeric()->min(0)->max(3)->setName('method'),
+    'time' => v::numeric()->min(0)->max(3)->setName('time'),
+    'project' => v::numeric()->min(0)->max(3)->setName('project'),
+    'budget' => v::numeric()->min(0)->max(3)->setName('budget'),
 
     // Reviewer point total
     'QATotal' => v::numeric()->min(0)->max(18)->setName('QATotal'),
@@ -31,24 +42,13 @@ $form = [];
 // Get HTML-safe values of all form fields
 foreach (array_keys($validators) as $field) {
     $form[$field] = trim(htmlentities(post($field)));
-    echo($field);
 }
-var_dump($form);
-
-if( !isPost() ){
-    echo("Not Post");
-}
-else{
-    echo("Is Post");
-}
-
 $errors = [];
 
 function validate($form, $validators)
 {
     global $errors;
     $errors = [];
-
     // Validate all form fields
     foreach ($validators as $k => $v) {
         try {
@@ -59,43 +59,47 @@ function validate($form, $validators)
     }
     return empty($errors);
 }
-
+echo('SessionID: '.$_SESSION['id']);
 function saveReview($form, $isSubmitted)
 {
-    global $applicationsTable;
+    global $reviewedApplicationsTable;
 
-    $application = [
-        'SID' => $_SESSION['id'],
-        'PTitle' => $form['project'],
-        'Objective' => $form['objective'],
-        'Timeline' => $form['timeline'],
-        'Budget' => $form['budget'],
-        'RequestedBudget' => $form['request'],
-        'FundingSources' => $form['sources'],
-        'Anticipatedresults' => $form['results'],
-        'Justification' => $form['justification'],
-        'AEmail' => $form['advisor_email'],
-        'Submitted' => $isSubmitted ? 1 : 0
+    $reviewedApplication = [
+        'q1' => $form['learn'],
+        'q2' => $form['justified'],
+        'q3' => $form['method'],
+        'q4' => $form['time'],
+        'q5' => $form['project'],
+        'q6' => $form['budget'],
+        'qaTotal' => $form['QATotal'],
+        'fund' => $form['fund'],
+        'comments' => $form['qual_comments']
     ];
-
-    $student = [
-        'SID' => $_SESSION['id'],
-        'SName' => $form['name'],
-        'SEmail' => $form['email'],
-        'GPA' => $form['gpa'],
-        'Department' => $form['department'],
-        'Major' => $form['major'],
-        'GraduationDate' => $form['egd']
-    ];
-
-    if (DB::contains($applicationsTable, 'SID = ?', $_SESSION['id'])) {
-        DB::update($applicationsTable, $application, 'SID = ?', $_SESSION['id']);
-        DB::update('Student', $student, 'SID = ?', $_SESSION['id']);
-    } else {
-        DB::insert($applicationsTable, $application);
-        DB::insert('Student', $student);
+    #SOLVED applicationID coming over from ReviewStudents by saving it into $_SESSION at top of page
+    var_dump( $reviewedApplication );
+    if (DB::contains($reviewedApplicationsTable, 'ApplicationNum = ?', $_SESSION['revAppID'] )) {
+        echo("reviewedApp Found, we can update the form");
+        DB::update($reviewedApplicationsTable, $reviewedApplication, 'ApplicationNum = ?', $_SESSION['revAppID'] );
+    }
+    else{
+        echo("app_id is not present");
+        echo($_SESSION['revAppID']);
     }
 }
+
+$state = null;
+$app_id = post('appNum');
+
+#Ensures no error pops up when form is first loaded since Q1-Q6 will be empty
+if( $form['learn'] != '' ) {
+    ##NON NUMERIC DATA HERE?
+    $form['QATotal'] = $form['learn'] + $form['justified'] + $form['method'] + $form['time'] + $form['project'] + $form['budget'];
+    if (validate($form, $validators)) {
+        saveReview($form, true);
+        #redirect('ThankYouPage.php');
+    }
+}
+
 ?>
 <head>
     <meta charset="utf-8">
@@ -115,7 +119,7 @@ function saveReview($form, $isSubmitted)
     </script>-->
 </head>
 <body>
-<?php $app_id = $_POST['appNum']; ?>
+<?php #$app_id = $_POST['appNum']; ?>
 <div class="container">
     <div class="imagebg"></div>
     <div class="row " style="margin-top: 50px">
@@ -128,14 +132,14 @@ function saveReview($form, $isSubmitted)
                         <label>Please Verify Application ID: <?php echo $app_id; ?></label>
                         <label>Does the project demonstrate experiential learning in a CSTEM discipline?</label>
                         <p>
-                            <label class="radio-inline"><input type="radio" name="learn" value="0" required>0</label>
+                            <label class="radio-inline"><input type="radio" name="learn" value=0 required>0</label>
                             <label class="radio-inline"><input type="radio" name="learn" value="1">1</label>
                             <label class="radio-inline"><input type="radio" name="learn" value="2">2</label>
                             <label class="radio-inline"><input type="radio" name="learn" value="3">3</label>
                         </p>
                         <label>Is the budget justified in the project description, including realistic?</label>
                         <p>
-                            <label class="radio-inline"><input type="radio" name="justified" value="0"
+                            <label class="radio-inline"><input type="radio" name="justified" value=0
                                                                required>0</label>
                             <label class="radio-inline"><input type="radio" name="justified" value="1">1</label>
                             <label class="radio-inline"><input type="radio" name="justified" value="2">2</label>
@@ -143,21 +147,21 @@ function saveReview($form, $isSubmitted)
                         </p>
                         <label>Are the proposed methods appropriate to achieve the goals?</label>
                         <p>
-                            <label class="radio-inline"><input type="radio" name="method" value="0" required>0</label>
+                            <label class="radio-inline"><input type="radio" name="method" value=0required>0</label>
                             <label class="radio-inline"><input type="radio" name="method" value="1">1</label>
                             <label class="radio-inline"><input type="radio" name="method" value="2">2</label>
                             <label class="radio-inline"><input type="radio" name="method" value="3">3</label>
                         </p>
                         <label>Is the timeline proposed reasonable?(Too little? Too much?)</label>
                         <p>
-                            <label class="radio-inline"><input type="radio" name="time" value="0" required>0</label>
+                            <label class="radio-inline"><input type="radio" name="time" value=0 required>0</label>
                             <label class="radio-inline"><input type="radio" name="time" value="1">1</label>
                             <label class="radio-inline"><input type="radio" name="time" value="2">2</label>
                             <label class="radio-inline"><input type="radio" name="time" value="3">3</label>
                         </p>
                         <label>Is the project well explained (including rationale) and justified?</label>
                         <p>
-                            <label class="radio-inline"><input type="radio" name="project" value="0" required>0</label>
+                            <label class="radio-inline"><input type="radio" name="project" value=0 required>0</label>
                             <label class="radio-inline"><input type="radio" name="project" value="1">1</label>
                             <label class="radio-inline"><input type="radio" name="project" value="2">2</label>
                             <label class="radio-inline"><input type="radio" name="project" value="3">3</label>
@@ -165,7 +169,7 @@ function saveReview($form, $isSubmitted)
                         <label>Does the budget only include eligible activities (supplies, equipment, field travel,
                             conference travel)?</label>
                         <p>
-                            <label class="radio-inline"><input type="radio" name="budget" value="0" required>0</label>
+                            <label class="radio-inline"><input type="radio" name="budget" value=0 required>0</label>
                             <label class="radio-inline"><input type="radio" name="budget" value="1">1</label>
                             <label class="radio-inline"><input type="radio" name="budget" value="2">2</label>
                             <label class="radio-inline"><input type="radio" name="budget" value="3">3</label>
@@ -173,7 +177,7 @@ function saveReview($form, $isSubmitted)
                         <label>Based on eligibility and quality scores, RECOMMEND one of the following
                             categories</label>
                         <p>
-                            <label class="radio-inline"><input type="radio" name="fund" value="0" required>Do Not
+                            <label class="radio-inline"><input type="radio" name="fund" value=0 required>Do Not
                                 Fund</label>
                             <label class="radio-inline"><input type="radio" name="fund" value="1">Fund if
                                 Possible</label>
