@@ -193,7 +193,7 @@ if (defined('DEBUG') && DEBUG) {
                 header("location:infoPages/emptyFaculty.php");
             }
         } else {
-            header("location:infoPages/closedFaculty.php");
+            error('Advisor Approval', 'The deadline has passed for approving students applications.');
         }
     } elseif ($type == "reviewer") {
         if ($userType == 'Student') {
