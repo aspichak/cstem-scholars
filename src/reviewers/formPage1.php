@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php session_start();
-include_once 'creds.php';
+<?php
 require_once '../includes/init.php';
+include_once 'creds.php';
 authorize('reviewer');
 ?>
 <head>
@@ -14,7 +14,7 @@ authorize('reviewer');
     <link rel="stylesheet" href="form.css">
     <script type="text/javascript">
         function doubleCheck(submitButton) {
-            var submit = window.confirm("Are you sure you want to submit?")
+            let submit = window.confirm("Are you sure you want to submit?")
             if (submit)
                 submitButton = true;
             else

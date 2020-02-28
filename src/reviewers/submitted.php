@@ -1,4 +1,4 @@
-<?php session_start();
+<?php
 //PDO statement to connect to database or call PDOutil class
 include_once 'creds.php';
 require_once '../includes/init.php';
