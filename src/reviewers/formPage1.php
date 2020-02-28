@@ -2,7 +2,6 @@
 <html lang="en">
 <?php
 require_once '../includes/init.php';
-include_once 'creds.php';
 authorize('reviewer');
 ?>
 <head>

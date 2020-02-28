@@ -16,7 +16,8 @@ $applicationsTable = 'Applications' . $month . $year;
 
 if (strtotime('today') > strtotime($deadline)) {
     error('Student Application',
-          'The CSTEM Research Grant application has been closed. Please check back at a later date.');
+          'The CSTEM Research Grant application has been closed. Please check back at a later date.',
+    204);
 }
 
 $departments = [
