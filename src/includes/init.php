@@ -20,8 +20,10 @@ DB::configure(DB_CONNECTION_STRING, DB_USERNAME, DB_PASSWORD, [PDO::ATTR_ERRMODE
 function authorize($role)
 {
     if (!isset($_SESSION) || !isset($_SESSION['role']) || $_SESSION['role'] != $role) {
+        $_SESSION['errcode'] = "Unauthorized user";
+        redirect("/includes/errorPage/errorPage.php");
         http_response_code(401);
-        require path('infoPages/unauthorized.php');
+        //require path('infoPages/unauthorized.php');
         exit();
     }
 }
