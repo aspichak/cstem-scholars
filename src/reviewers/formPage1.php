@@ -6,6 +6,7 @@ require_once '../includes/init.php';
 use Respect\Validation\Validator as v;
 use Respect\Validation\Exceptions\ValidationException;
 
+// Getting deadline so we can access correct database table
 $deadline = DB::selectSingle("Settings")['Deadline'];
 $date = date("M j, Y", strtotime($deadline));
 $temp = explode('-', $deadline);
@@ -13,6 +14,7 @@ $year = $temp[0];
 $month = $temp[1];
 $reviewedApplicationsTable = 'reviewedapps' . $month . $year;
 
+// Store Application Number into $_SESSION so we can access later. Disappears otherwise.
 if( post('appNum') ){
     $_SESSION['revAppID'] = post('appNum');
 }
@@ -65,6 +67,7 @@ function saveReview($form, $isSubmitted)
 {
     global $reviewedApplicationsTable;
 
+    // array representing form that is submitted to DB
     $reviewedApplication = [
         'QA1' => $form['learn'],
         'QA2' => $form['justified'],
@@ -77,26 +80,18 @@ function saveReview($form, $isSubmitted)
         'QAComments' => $form['qual_comments'],
         'Submitted' => $isSubmitted ? 1 : 0
     ];
-    #SOLVED applicationID coming over from ReviewStudents by saving it into $_SESSION at top of page
-    if (DB::contains($reviewedApplicationsTable, 'ApplicationNum = ?', $_SESSION['revAppID'] )) {
-        #echo("reviewedApp Found, we can update the form");
-        DB::update($reviewedApplicationsTable, $reviewedApplication, 'ApplicationNum = ?', $_SESSION['revAppID'] );
-    }
-    else{
-        echo("app_id is not present");
-        echo($_SESSION['revAppID']);
-    }
+
+    DB::update($reviewedApplicationsTable, $reviewedApplication, 'ApplicationNum = ?', $_SESSION['revAppID'] );
 }
 
 $state = null;
+
+#Get the Application number to display in HTML later
 $app_id = post('appNum');
 
 #Ensures no error pops up when form is first loaded since Q1-Q6 will be empty
 if( $form['learn'] != '' ) {
-    ##NON NUMERIC DATA HERE?
-    #var_dump($form);
     $form['QATotal'] = $form['learn'] + $form['justified'] + $form['method'] + $form['time'] + $form['project'] + $form['budget'];
-    #var_dump($form);
     if (validate($form, $validators)) {
         saveReview($form, true);
         redirect('ReviewStudents.php');
@@ -125,7 +120,6 @@ if( $form['learn'] != '' ) {
                         <label>Please Verify Application ID: <?php echo $app_id; ?></label>
                         <label>Does the project demonstrate experiential learning in a CSTEM discipline?</label>
                         <p>
-                            <!-- idiots had spacing errors, which is why when method = 0, it was showing up as 0required -->
                             <label class="radio-inline"><input type="radio" name="learn" value=0 required>0</label>
                             <label class="radio-inline"><input type="radio" name="learn" value="1">1</label>
                             <label class="radio-inline"><input type="radio" name="learn" value="2">2</label>
@@ -186,11 +180,9 @@ if( $form['learn'] != '' ) {
                         </div>
                         <div class="row">
                             <div class="col-sm-12 form-group">
-                                <!-- Need to have confirm work properly -->
                                 <button type="submit" class="button" name="submitButton"
                                         onclick="return confirm('Are you sure you want to submit?')"
                                         >Submit
-                                    <!--formaction="submitted.php?id=<?php #echo $app_id ?>">Submit -->
                                 </button>
                             </div>
                         </div>
