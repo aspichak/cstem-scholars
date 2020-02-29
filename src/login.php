@@ -65,7 +65,7 @@ if (defined('DEBUG') && DEBUG) {
     ?>
 
     <!DOCTYPE html>
-    <html>
+    <html lang="en">
     <head>
         <title>CSTEM Grants Dev Login</title>
         <style type="text/css">
