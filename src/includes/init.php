@@ -19,9 +19,8 @@ DB::configure(DB_CONNECTION_STRING, DB_USERNAME, DB_PASSWORD, [PDO::ATTR_ERRMODE
 
 function authorize($role)
 {
-    if (!isset($_SESSION) || $_SESSION['role'] != $role) {
-        http_response_code(401);
-        require path('infoPages/unauthorized.php');
+    if (!isset($_SESSION) || !isset($_SESSION['role']) || $_SESSION['role'] != $role) {
+        error('Unauthorized user', "Unauthorized user", 401);
         exit();
     }
 }
@@ -34,6 +33,14 @@ function redirect($url, $flash = null)
 
     header("Location: $url");
     exit();
+}
+
+function error($title = "fatal error", $body = "fatal error", $code=400)
+{
+    $_SESSION['errtitle'] = $title;
+    $_SESSION['errbody'] = $body;
+    $_SESSION['errcode'] = $code;
+    redirect("/includes/errorPage/errorPage.php");
 }
 
 function getFlash()

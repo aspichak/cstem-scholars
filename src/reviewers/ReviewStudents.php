@@ -2,7 +2,6 @@
 
 require_once '../includes/init.php';
 authorize('reviewer');
-session_start();
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
@@ -41,7 +40,7 @@ $email = $_SESSION["email"];
 try {
     $stmt = $pdo->query("SELECT * FROM `$revTable` WHERE REmail='$email'");
 } catch (exception $e) {
-    redirect("error.php");
+    error('Reviewer Error', 'Database error in reviewers');
 }
 $stmt->execute();
 /* 		if($_SESSION['id'] == NULL)

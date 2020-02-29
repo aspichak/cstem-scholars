@@ -15,7 +15,9 @@ $month = $temp[1];
 $applicationsTable = 'Applications' . $month . $year;
 
 if (strtotime('today') > strtotime($deadline)) {
-    redirect('../infoPages/closedStudent.php');
+    error('Student Application',
+          'The CSTEM Research Grant application has been closed. Please check back at a later date.',
+    204);
 }
 
 $departments = [

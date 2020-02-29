@@ -168,19 +168,27 @@ if (defined('DEBUG') && DEBUG) {
         if ($email == "lcornick@ewu.edu") {
             header("location:/Admin/index.php");
         } else {
-            header("location:infoPages/NotAdmin.php");
+            error('Admin',
+                  'You are not an admin for the CSTEM Undergraduate Research Grant.',
+            401);
         }
     } elseif ($type == 'student') {
         if ($userType == 'Employee') {
-            header("location:infoPages/NotStudent.php");
+            error('Student Application',
+                  'You are not an EWU student and are not eligible to apply for the CSTEM Research Grant.',
+            401);;
         } elseif ($today <= $deadLine && $today >= $beginDate) {
             header("location:/students");
         } else {
-            header("location:infoPages/closedStudent.php");
+            error('Student Application',
+                  'The CSTEM Research Grant application has been closed. Please check back at a later date.',
+            403);
         }
     } elseif ($type == 'faculty') {
         if ($userType == 'Student') {
-            header("location:infoPages/NotAdvisor.php");
+            error('Advisor Approval',
+            'You are not a faculty advisor for Eastern\'s CSTEM research grant.',
+            401);
         } elseif ($today <= $advisorDeadLine && $today >= $beginDate) {
             foreach ($advisorEmails as $value) {
                 if ($value["AEmail"] == $email) {
@@ -190,14 +198,20 @@ if (defined('DEBUG') && DEBUG) {
             if ($isAdvisor) {
                 header("location:faculty/facultylandingpage.php");
             } else {
-                header("location:infoPages/emptyFaculty.php");
+                error('Advisor Approval',
+                'Currently there are no applications needing approval. Please check back later.',
+                204);
             }
         } else {
-            header("location:infoPages/closedFaculty.php");
+            error('Advisor Approval',
+                  'The deadline has passed for approving students applications.',
+                  204);
         }
     } elseif ($type == "reviewer") {
         if ($userType == 'Student') {
-            header("location:infoPages/notReviewer.php");
+            error('Application Reviewal',
+                  'You are not a reviewer for Eastern\'s CSTEM Research Grant application.',
+            401);
         }
         foreach ($reviewerEmails as $value) {
             if ($value["REmail"] == $email) {
@@ -211,7 +225,9 @@ if (defined('DEBUG') && DEBUG) {
                 header("location:infoPages/closedReviewer.php");
             }
         } else {
-            header("location:infoPages/notReviewer.php");
+            error('Application Reviewal',
+                  'You are not a reviewer for Eastern\'s CSTEM Research Grant application.',
+            401);
         }
     }
 }
