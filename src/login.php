@@ -51,6 +51,7 @@ if (defined('DEBUG') && DEBUG) {
     $user = whitelist(get('as'), array_keys($identities));
 
     if ($role == 'admin') {
+        $_SESSION['role'] = $role;
         redirect($locations['admin']);
     }
 
