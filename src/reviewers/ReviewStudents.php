@@ -80,13 +80,13 @@ $ctr = 0;
                 echo '<div class="inner-wrap">';
                 echo '<input type="checkbox" id="' . $row['ApplicationNum'] . '" style="display:none;">';
                 echo '<div id="hidden">';
-                echo '<label>Title <textarea placeholder="' . $student['PTitle'] . '" ></textarea></label>';
-                echo '<label>Objective: <textarea placeholder="' . $student['Objective'] . '" ></textarea></label>';
-                echo '<label>Anticipated Results: <textarea placeholder="' . $student['Anticipatedresults'] . '" ></textarea></label>';
-                echo '<label>Estimated timeline: <textarea placeholder="' . $student['Timeline'] . '" ></textarea></label>';
-                echo '<label>Budget and planned spending: <textarea placeholder="' . $student['Justification'] . '"></textarea></label>';
+                echo '<label>Title <textarea placeholder="' . $student['PTitle'] . '" style="resize: none" ></textarea></label>';
+                echo '<label>Objective: <textarea placeholder="' . $student['Objective'] . '" style="resize: none" ></textarea></label>';
+                echo '<label>Anticipated Results: <textarea placeholder="' . $student['Anticipatedresults'] . '" style="resize: none"></textarea></label>';
+                echo '<label>Estimated timeline: <textarea placeholder="' . $student['Timeline'] . '" style="resize: none"></textarea></label>';
+                echo '<label>Budget and planned spending: <textarea placeholder="' . $student['Justification'] . '"style="resize: none"></textarea></label>';
                 echo '<label>Total budget amount:<input type="text" placeholder="' . $student['Budget'] . '"/></label>';
-                echo '<label>Requested budget amount from EWU:<input type="text" placeholder="' . $student['RequestedBudget'] . '" /></label>'; ?>
+                echo '<label>Requested budget amount from EWU:<input type="text" placeholder="' . $student['RequestedBudget'] . '"/></label>'; ?>
                 <!--<p>
                     <a href='<?php echo $filePath ?>' download>Budget Spreedsheet</a>
                 </p>-->
