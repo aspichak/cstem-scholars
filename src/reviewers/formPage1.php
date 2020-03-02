@@ -44,7 +44,6 @@ $form = [];
 // Get HTML-safe values of all form fields
 foreach (array_keys($validators) as $field) {
     $form[$field] = trim(htmlentities(post($field)));
-    echo(post($field));
 }
 $errors = [];
 
@@ -120,35 +119,35 @@ if( $form['learn'] != '' ) {
                         <label>Please Verify Application ID: <?php echo $app_id; ?></label>
                         <label>Does the project demonstrate experiential learning in a CSTEM discipline?</label>
                         <p>
-                            <label class="radio-inline"><input type="radio" name="learn" value=0 required>0</label>
+                            <label class="radio-inline"><input type="radio" name="learn" value="0">0</label>
                             <label class="radio-inline"><input type="radio" name="learn" value="1">1</label>
                             <label class="radio-inline"><input type="radio" name="learn" value="2">2</label>
                             <label class="radio-inline"><input type="radio" name="learn" value="3">3</label>
                         </p>
                         <label>Is the budget justified in the project description, including realistic?</label>
                         <p>
-                            <label class="radio-inline"><input type="radio" name="justified" value=0 required>0</label>
+                            <label class="radio-inline"><input type="radio" name="justified" value="0">0</label>
                             <label class="radio-inline"><input type="radio" name="justified" value="1">1</label>
                             <label class="radio-inline"><input type="radio" name="justified" value="2">2</label>
                             <label class="radio-inline"><input type="radio" name="justified" value="3">3</label>
                         </p>
                         <label>Are the proposed methods appropriate to achieve the goals?</label>
                         <p>
-                            <label class="radio-inline"><input type="radio" name="method" value=0 required>0</label>
+                            <label class="radio-inline"><input type="radio" name="method" value="0">0</label>
                             <label class="radio-inline"><input type="radio" name="method" value="1">1</label>
                             <label class="radio-inline"><input type="radio" name="method" value="2">2</label>
                             <label class="radio-inline"><input type="radio" name="method" value="3">3</label>
                         </p>
                         <label>Is the timeline proposed reasonable?(Too little? Too much?)</label>
                         <p>
-                            <label class="radio-inline"><input type="radio" name="time" value=0 required>0</label>
+                            <label class="radio-inline"><input type="radio" name="time" value="0">0</label>
                             <label class="radio-inline"><input type="radio" name="time" value="1">1</label>
                             <label class="radio-inline"><input type="radio" name="time" value="2">2</label>
                             <label class="radio-inline"><input type="radio" name="time" value="3">3</label>
                         </p>
                         <label>Is the project well explained (including rationale) and justified?</label>
                         <p>
-                            <label class="radio-inline"><input type="radio" name="project" value=0 required>0</label>
+                            <label class="radio-inline"><input type="radio" name="project" value="0">0</label>
                             <label class="radio-inline"><input type="radio" name="project" value="1">1</label>
                             <label class="radio-inline"><input type="radio" name="project" value="2">2</label>
                             <label class="radio-inline"><input type="radio" name="project" value="3">3</label>
@@ -156,7 +155,7 @@ if( $form['learn'] != '' ) {
                         <label>Does the budget only include eligible activities (supplies, equipment, field travel,
                             conference travel)?</label>
                         <p>
-                            <label class="radio-inline"><input type="radio" name="budget" value=0 required>0</label>
+                            <label class="radio-inline"><input type="radio" name="budget" value="0">0</label>
                             <label class="radio-inline"><input type="radio" name="budget" value="1">1</label>
                             <label class="radio-inline"><input type="radio" name="budget" value="2">2</label>
                             <label class="radio-inline"><input type="radio" name="budget" value="3">3</label>
@@ -164,7 +163,7 @@ if( $form['learn'] != '' ) {
                         <label>Based on eligibility and quality scores, RECOMMEND one of the following
                             categories</label>
                         <p>
-                            <label class="radio-inline"><input type="radio" name="fund" value=0 required>Do Not
+                            <label class="radio-inline"><input type="radio" name="fund" value="0">Do Not
                                 Fund</label>
                             <label class="radio-inline"><input type="radio" name="fund" value="1">Fund if
                                 Possible</label>

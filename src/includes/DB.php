@@ -42,10 +42,7 @@ class DB
     {
         return self::exec($query, ...$params)->fetchAll();
     }
-    static function query2($query, $table, $cond, ...$params)
-    {
-        return self::exec2($query, $table, $cond, ...$params)->fetchAll();
-    }
+
     /**
      * Query database and return a single row.
      */
@@ -154,24 +151,6 @@ class DB
 
         return $stmt;
     }
-
-    private static function exec2($query, $table, $cond, ...$params)
-    {
-        // Allow associative arrays
-        if (sizeof($params) == 1 && is_array($params[0])) {
-            $params = $params[0];
-        }
-        #echo($query.'<br>');
-        #echo($table.'<br>');
-        #echo($cond.'<br>');
-        #echo($params[0].'<br>');
-        $q = $query.$table.$cond;
-        $stmt = self::pdo()->prepare($q);
-        $stmt->execute($params);
-
-        return $stmt;
-    }
-
 
     private static function makeValueList($values)
     {

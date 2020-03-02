@@ -35,7 +35,7 @@ $appTable = 'applications' . $month . $year; #Applications022020
 $revTable = 'reviewedapps' . $month . $year; #ReviewedApps022020
 $email = $_SESSION["email"];
 
-$rows = DB::query2( 'SELECT * FROM ',$revTable,' WHERE REmail = ?', $email );
+$rows = DB::select($revTable, 'REmail = ?', $email);
 #will be used later to label # of application
 $ctr = 0;
 
@@ -51,9 +51,7 @@ $ctr = 0;
             $row = $rows[$i];
             echo '<form role="form" method="post">';
             $appNum = $row['ApplicationNum'];
-            #NOTE: Changing WHERE ApplicationNum to SID
-            $row2 = DB::query2( 'SELECT * FROM ', $appTable, ' WHERE SID = ?', $appNum );
-            $student = $row2[0];
+            $student = DB::selectSingle($appTable, 'SID = ?', $appNum);
             $ctr++;
             //only display applications that have not been reviewed
             if ($row['Submitted'] != 1) {
