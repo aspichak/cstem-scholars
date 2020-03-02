@@ -25,7 +25,6 @@ authorize('reviewer');
     </div>
 </form>
 <?php
-#include_once 'creds.php';
 
 //get most recent table for ApplicationsTest
 $deadline = DB::selectSingle( "Settings")['Deadline'];
@@ -34,23 +33,10 @@ $year = $temp[0];
 $month = $temp[1];
 $appTable = 'applications' . $month . $year; #Applications022020
 $revTable = 'reviewedapps' . $month . $year; #ReviewedApps022020
-$email = $_SESSION["email"]; #name@ewu.edu, name is whichever we selected at log in
-//get applications assigned to this RID
-#$stmt = $pdo->query("SELECT * FROM `$revTable` WHERE REmail='$email'");
-#$stmt->execute();
-$rows = DB::query2( 'SELECT * FROM ',$revTable,' WHERE REmail = ?', $email );
-#var_dump($row);
-/* 		if($_SESSION['id'] == NULL)
-		{
-			
-			$stmt->execute([1001]);
-		}
-		else{
-		  $stmt->execute([$_SESSION['id']]);
-		} */
-//get applications assigned to reviewer
-#$stmt2 = DB::query2( $query, $appTable,' WHERE ApplicationNum=?',#$pdo->prepare("SELECT * FROM `$appTable` WHERE ApplicationNum=?");
+$email = $_SESSION["email"];
 
+$rows = DB::query2( 'SELECT * FROM ',$revTable,' WHERE REmail = ?', $email );
+#will be used later to label # of application
 $ctr = 0;
 
 ?>
@@ -64,17 +50,16 @@ $ctr = 0;
         while ($i < count($rows)  ) {
             $row = $rows[$i];
             echo '<form role="form" method="post">';
-            #$stmt2->execute([$row['ApplicationNum']]);
             $appNum = $row['ApplicationNum'];
             #NOTE: Changing WHERE ApplicationNum to SID
             $row2 = DB::query2( 'SELECT * FROM ', $appTable, ' WHERE SID = ?', $appNum );
-            #var_dump($row2);
             $student = $row2[0];
             $ctr++;
             //only display applications that have not been reviewed
             if ($row['Submitted'] != 1) {
                 $name = 'btn[' . $row['ApplicationNum'] . ']';
                 $appNum = $row['ApplicationNum'];
+                #TODO: FIX BUDGETFILEPATH STUFF
                 #$fileTemp = $student['BudgetFilePath'];
                 #$filePath = "../" . $fileTemp;
                 echo '<div class="inner-wrap">';
@@ -94,14 +79,9 @@ $ctr = 0;
                 echo '<label>Other funding sources available: <input type="text" placeholder="' . $student['FundingSources'] . '"/></label>';
                 echo '</div>';
                 echo '<div class="section" for="my_checkbox"><span>' . $ctr . '</span>' . $student['PTitle'] . '</div>';
-                //TODO: figure out transfering applicationNum to formpage.php
                 echo '<label for="' . $row['ApplicationNum'] . '">Show/Hide Details</label>';
-                #echo  '<a href="http://localhost:8080/formpage.php"><button type="button" name="'.$name.'"> Review Application: '.$row['ApplicationNum'].'</button></a>';
                 echo '<input type="hidden" value=' . $row['ApplicationNum'] . ' name="appNum" id="appNum"/>';
-                #echo '<button type="submit" class="button" name="submit" value="submit">Review Application: ' . $row['ApplicationNum'] . '</button>';
-                #echo '<button type="submit" name="' . $name . '"> Review Application: ' . $row['ApplicationNum'] . '</button>';
                 echo '<button type="submit" name="' . $name . '" formaction=\'../reviewers/formPage1.php\'"> Review Application: ' . $row['ApplicationNum'] . '</button>';
-                #. '" formaction="formPage1.php?id="' .
                 echo '</div>';
             }
             $i++;

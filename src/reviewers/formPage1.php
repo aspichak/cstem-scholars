@@ -173,7 +173,6 @@ if( $form['learn'] != '' ) {
                         <div class="row">
                             <div class="col-sm-12 form-group">
                                 <label for="comments"> Quality Assessment Comments:</label>
-                                <!-- why is textarea so stretchy? -->
                                 <textarea class="form-control" type="textarea" name="qual_comments"
                                           placeholder="Your Comments" maxlength="6000" rows="7" style="resize: none" >
 
