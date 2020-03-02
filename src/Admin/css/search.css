@@ -1,0 +1,9 @@
+@import "index.css";
+
+select.search {
+    margin-right: 15px;
+}
+
+input {
+    width: 300px;
+}

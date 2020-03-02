@@ -45,15 +45,15 @@ phpCAS::forceAuthentication();
 
 ?>
 <html>
-  <head>
+<head>
     <title>phpCAS proxied proxy example (with sessioning)</title>
     <link rel="stylesheet" type='text/css' href='example.css'/>
-  </head>
-  <body>
-    <h1>phpCAS proxied proxy example (with sessioning)</h1>
-    <?php require 'script_info.php' ?>
-    <p>the user's login is <b><?php echo phpCAS::getUser(); ?></b>.</p>
-    <h2>Response from service <?php echo $serviceUrl; ?></h2>
+</head>
+<body>
+<h1>phpCAS proxied proxy example (with sessioning)</h1>
+<?php require 'script_info.php' ?>
+<p>the user's login is <b><?php echo phpCAS::getUser(); ?></b>.</p>
+<h2>Response from service <?php echo $serviceUrl; ?></h2>
 <?php
 flush();
 // call a service and change the color depending on the result
@@ -64,6 +64,6 @@ if (phpCAS::serviceWeb($serviceUrl, $err_code, $output)) {
 }
 echo $output;
 echo '</div>';
-                                                             ?>
-  </body>
+?>
+</body>
 </html>

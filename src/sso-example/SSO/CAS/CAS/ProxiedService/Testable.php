@@ -35,16 +35,16 @@
  * initialize themselves with that client rather than via the static phpCAS
  * method. For example:
  *
- *		/ **
- *		 * Fetch our proxy ticket.
- *		 * /
- *		protected function initializeProxyTicket() {
- *			// Allow usage of a particular CAS_Client for unit testing.
- *			if (is_null($this->casClient))
- *				phpCAS::initializeProxiedService($this);
- *			else
- *				$this->casClient->initializeProxiedService($this);
- *		}
+ *        / **
+ *         * Fetch our proxy ticket.
+ *         * /
+ *        protected function initializeProxyTicket() {
+ *            // Allow usage of a particular CAS_Client for unit testing.
+ *            if (is_null($this->casClient))
+ *                phpCAS::initializeProxiedService($this);
+ *            else
+ *                $this->casClient->initializeProxiedService($this);
+ *        }
  *
  * @class    CAS_ProxiedService_Testabel
  * @category Authentication
@@ -69,7 +69,8 @@ interface CAS_ProxiedService_Testable
      * @throws CAS_OutOfSequenceException If called after a proxy ticket has
      *         already been initialized/set.
      */
-    public function setCasClient (CAS_Client $casClient);
+    public function setCasClient(CAS_Client $casClient);
 
 }
+
 ?>

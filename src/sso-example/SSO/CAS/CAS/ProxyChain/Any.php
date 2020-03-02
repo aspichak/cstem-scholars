@@ -45,7 +45,7 @@
  * @link     https://wiki.jasig.org/display/CASC/phpCAS
  */
 class CAS_ProxyChain_Any
-implements CAS_ProxyChain_Interface
+    implements CAS_ProxyChain_Interface
 {
 
     /**

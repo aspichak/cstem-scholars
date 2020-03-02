@@ -49,13 +49,13 @@ phpCAS::forceAuthentication();
 // for this test, simply print that the authentication was successfull
 ?>
 <html>
-  <head>
+<head>
     <title>Exemple d'internationalisation de phpCAS</title>
-  </head>
-  <body>
-    <h1>Authentification r&eacute;ussie&nbsp;!</h1>
-    <?php require 'script_info.php' ?>
-    <p>L'utilisateur connect&eacute; est <b><?php echo phpCAS::getUser(); ?></b>.</p>
-    <p>La version de phpCAS est <b><?php echo phpCAS::getVersion(); ?></b>.</p>
-  </body>
+</head>
+<body>
+<h1>Authentification r&eacute;ussie&nbsp;!</h1>
+<?php require 'script_info.php' ?>
+<p>L'utilisateur connect&eacute; est <b><?php echo phpCAS::getUser(); ?></b>.</p>
+<p>La version de phpCAS est <b><?php echo phpCAS::getVersion(); ?></b>.</p>
+</body>
 </html>

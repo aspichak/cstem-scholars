@@ -39,15 +39,15 @@ $cas_obj->init();
 $cas_obj->createTable();
 ?>
 <html>
-  <head>
+<head>
     <title>phpCAS PGT db storage table creation</title>
     <link rel="stylesheet" type='text/css' href='example.css'/>
-  </head>
+</head>
 <body>
 <div class="success">
-<?php
-echo 'Table <b>' . $db_table . '</b> successfully created in database <b>' . $db . '</b>';
-?>
+    <?php
+    echo 'Table <b>' . $db_table . '</b> successfully created in database <b>' . $db . '</b>';
+    ?>
 </div>
 </body>
 </html>

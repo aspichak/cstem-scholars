@@ -15,9 +15,9 @@
  */
 
 // Load the settings from the central config file
-require_once __DIR__.'config.php';
+require_once __DIR__ . 'config.php';
 // Load the CAS lib
-require_once __DIR__.'/CAS/CAS.php';
+require_once __DIR__ . '/CAS/CAS.php';
 
 // Enable debugging
 //phpCAS::setDebug();
@@ -39,7 +39,7 @@ phpCAS::client(SAML_VERSION_1_1, $cas_host, $cas_port, $cas_context);
 // allow denial of service attacks where at the least the server is
 // tied up parsing bogus XML messages.
 //phpCAS::handleLogoutRequests(true, $cas_real_hosts);
-		phpCAS::setNoCasServerValidation();
+phpCAS::setNoCasServerValidation();
 
 // Force CAS authentication on any page that includes this file
 phpCAS::forceAuthentication();
@@ -50,10 +50,10 @@ if (isset($_REQUEST['logout'])) {
 }
 ?>
 <html>
-  <head>
+<head>
     <title>Advanced SAML 1.1 example</title>
-  </head>
-  <body>
+</head>
+<body>
 <h2>Advanced SAML 1.1 example</h2>
 <?php require 'script_info.php' ?>
 
@@ -62,18 +62,18 @@ Authentication succeeded for user
 
 <h3>User Attributes</h3>
 <ul>
-<?php
-foreach (phpCAS::getAttributes() as $key => $value) {
-    if (is_array($value)) {
-        echo '<li>', $key, ':<ol>';
-        foreach ($value as $item) {
-            echo '<li><strong>', $item, '</strong></li>';
+    <?php
+    foreach (phpCAS::getAttributes() as $key => $value) {
+        if (is_array($value)) {
+            echo '<li>', $key, ':<ol>';
+            foreach ($value as $item) {
+                echo '<li><strong>', $item, '</strong></li>';
+            }
+            echo '</ol></li>';
+        } else {
+            echo '<li>', $key, ': <strong>', $value, '</strong></li>' . PHP_EOL;
         }
-        echo '</ol></li>';
-    } else {
-        echo '<li>', $key, ': <strong>', $value, '</strong></li>' . PHP_EOL;
     }
-}
     ?>
 </ul>
 <p><a href="?logout=">Logout</a></p>

@@ -41,15 +41,15 @@
  * @link     https://wiki.jasig.org/display/CASC/phpCAS
  */
 class CAS_OutOfSequenceBeforeClientException
-extends CAS_OutOfSequenceException
-implements CAS_Exception
+    extends CAS_OutOfSequenceException
+    implements CAS_Exception
 {
     /**
      * Return standard error message
      *
      * @return void
      */
-    public function __construct ()
+    public function __construct()
     {
         parent::__construct(
             'this method cannot be called before phpCAS::client() or phpCAS::proxy()'

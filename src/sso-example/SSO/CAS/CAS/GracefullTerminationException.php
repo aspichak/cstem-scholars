@@ -39,10 +39,9 @@
  * @license  http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  * @link     https://wiki.jasig.org/display/CASC/phpCAS
  */
-
 class CAS_GracefullTerminationException
-extends RuntimeException
-implements CAS_Exception
+    extends RuntimeException
+    implements CAS_Exception
 {
 
     /**
@@ -53,11 +52,11 @@ implements CAS_Exception
      * with our tests.
      *
      * @param string $message Message Text
-     * @param string $code    Error code
+     * @param string $code Error code
      *
      * @return void
      */
-    public function __construct ($message = 'Terminate Gracefully', $code = 0)
+    public function __construct($message = 'Terminate Gracefully', $code = 0)
     {
         // Exit cleanly to avoid filling up the logs with uncaught exceptions.
         if (self::$_exitWhenThrown) {
@@ -69,18 +68,20 @@ implements CAS_Exception
     }
 
     private static $_exitWhenThrown = true;
+
     /**
-    * Force phpcas to thow Exceptions instead of calling exit()
-    * Needed for unit testing. Generally shouldn't be used in production due to
-    * an increase in Apache error logging if CAS_GracefulTerminiationExceptions
-    * are not caught and handled.
-    *
-    * @return void
-    */
+     * Force phpcas to thow Exceptions instead of calling exit()
+     * Needed for unit testing. Generally shouldn't be used in production due to
+     * an increase in Apache error logging if CAS_GracefulTerminiationExceptions
+     * are not caught and handled.
+     *
+     * @return void
+     */
     public static function throwInsteadOfExiting()
     {
         self::$_exitWhenThrown = false;
     }
 
 }
+
 ?>

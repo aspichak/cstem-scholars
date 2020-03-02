@@ -1,11 +1,8 @@
 <?php
 
-if(function_exists('mail'))
-{
+if (function_exists('mail')) {
     echo "its there";
-}
-else
-{
+} else {
     echo ":(";
 }
 $temp = mail("colliennercovey@hotmail.com", "Subject", "Message");

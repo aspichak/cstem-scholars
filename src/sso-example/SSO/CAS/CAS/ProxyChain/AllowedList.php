@@ -39,7 +39,6 @@
  * @license  http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  * @link     https://wiki.jasig.org/display/CASC/phpCAS
  */
-
 class CAS_ProxyChain_AllowedList
 {
 
@@ -105,7 +104,7 @@ class CAS_ProxyChain_AllowedList
         phpCAS::traceBegin();
         $count = 0;
         foreach ($this->_chains as $chain) {
-            phpCAS::trace("Checking chain ". $count++);
+            phpCAS::trace("Checking chain " . $count++);
             if ($chain->matches($list)) {
                 phpCAS::traceEnd(true);
                 return true;
@@ -116,4 +115,5 @@ class CAS_ProxyChain_AllowedList
         return false;
     }
 }
+
 ?>

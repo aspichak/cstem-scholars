@@ -50,12 +50,12 @@ phpCAS::forceAuthentication();
 
 ?>
 <html>
-  <head>
+<head>
     <title>phpCAS proxy rebroadcast example</title>
     <link rel="stylesheet" type='text/css' href='example.css'/>
-  </head>
-  <body>
-    <h1>phpCAS proxy rebroadcast example</h1>
-    <p>the user's login is <b><?php echo phpCAS::getUser(); ?></b>.</p>
-  </body>
+</head>
+<body>
+<h1>phpCAS proxy rebroadcast example</h1>
+<p>the user's login is <b><?php echo phpCAS::getUser(); ?></b>.</p>
+</body>
 </html>

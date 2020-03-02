@@ -4,7 +4,7 @@
 $cas_host = 'login.ewu.edu';
 $cas_port = 443;
 $cas_context = '/cas';
-$cas_server_ca_cert_path = __DIR__.'/certs/STAR_ewu.edu.ca';
+$cas_server_ca_cert_path = __DIR__ . '/certs/STAR_ewu.edu.ca';
 $cas_real_hosts = array(
     'it-casauth01.eastern.ewu.edu',
     'it-casauth02.eastern.ewu.edu',
