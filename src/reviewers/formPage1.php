@@ -173,9 +173,7 @@ if( $form['learn'] != '' ) {
                             <div class="col-sm-12 form-group">
                                 <label for="comments"> Quality Assessment Comments:</label>
                                 <textarea class="form-control" type="textarea" name="qual_comments"
-                                          placeholder="Your Comments" maxlength="6000" rows="7" style="resize: none" >
-
-                                </textarea>
+                                          placeholder="Your Comments" maxlength="6000" rows="7" style="resize: none" ></textarea>
                             </div>
                         </div>
                         <div class="row">
