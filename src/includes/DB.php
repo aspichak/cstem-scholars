@@ -135,7 +135,9 @@ class DB
     {
         $count = self::count($table, $where, ...$params);
 
-        assert($count <= 1, "Expected 0 or 1 records for insertOrUpdate, received $count");
+        if ($count > 1) {
+            throw new Exception("Expected 0 or 1 records for insertOrUpdate, received $count");
+        }
 
         if ($count == 0) {
             self::insert($table, $values);
