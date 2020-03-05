@@ -2,6 +2,11 @@
 
 define('DEBUG', true);
 
+define('BASE_URL', 'http://localhost');
+
+define('UPLOAD_DIR', 'uploads');
+define('ALLOWED_UPLOAD_EXTENSIONS', ['pdf', 'xls', 'xlsx', 'doc', 'docx', 'txt', 'jpg', 'jpeg']);
+
 define('DB_HOST', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');

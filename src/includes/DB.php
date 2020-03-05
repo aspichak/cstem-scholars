@@ -115,12 +115,6 @@ class DB
         return self::execute("INSERT INTO $table $valuesFragment", array_values($values)) > 0;
     }
 
-    static function replace($table, $values)
-    {
-        $valuesFragment = self::makeValueList($values);
-        return self::execute("REPLACE INTO $table $valuesFragment", array_values($values)) > 0;
-    }
-
     static function update($table, $values, $where, ...$params)
     {
         $columns = [];
@@ -135,6 +129,24 @@ class DB
                 "UPDATE $table SET $columns WHERE $where",
                 array_merge(array_values($values), $params)
             ) > 0;
+    }
+
+    static function insertOrUpdate($table, $values, $where, ...$params) {
+        $count = self::count($table, $where, ...$params);
+
+        assert($count <= 1, "Expected 0 or 1 records for insertOrUpdate, received $count");
+
+        if ($count == 0) {
+            self::insert($table, $values);
+        } else {
+            self::update($table, $values, $where, ...$params);
+        }
+    }
+
+    static function replace($table, $values)
+    {
+        $valuesFragment = self::makeValueList($values);
+        return self::execute("REPLACE INTO $table $valuesFragment", array_values($values)) > 0;
     }
 
     /**

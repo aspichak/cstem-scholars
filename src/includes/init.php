@@ -77,6 +77,10 @@ function render($template, $v = null)
     return ob_get_clean();
 }
 
+function url($path) {
+    return BASE_URL . '/' . $path;
+}
+
 function email($to, $subject, $body)
 {
     $mail = new PHPMailer;
