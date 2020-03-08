@@ -161,25 +161,37 @@ function saveApplication($form, $isSubmitted)
         'GraduationDate' => $form['egd']
     ];
 
-    if (DB::contains($applicationsTable, 'SID = ?', $_SESSION['id'])) {
-        DB::update($applicationsTable, $application, 'SID = ?', $_SESSION['id']);
-        DB::update('Student', $student, 'SID = ?', $_SESSION['id']);
-    } else {
-        DB::insert($applicationsTable, $application);
-        DB::insert('Student', $student);
-    }
+    DB::insertOrUpdate($applicationsTable, $application, 'SID = ?', $_SESSION['id']);
+    DB::replace('Student', $student);
 }
 
 $state = null;
 
 if (post('submit')) {
+
+    // Add extra validations not used in 'save'
+    $validators['budget']->min(20);
+    $validators['request']->min(20);
+
     if (validate($form, $validators)) {
         saveApplication($form, true);
+
+        $form['deadline'] = $date;
+
+        // Email the advisor
         email(
             $form['advisor_email'],
             'CSTEM Scholars Grant Application Needs Review',
-            render('emails/application.php', $form)
+            render('emails/application_submitted_advisor.php', $form)
         )->send();
+
+        // Email the student
+        email(
+            $form['email'],
+            'CSTEM Scholars Grant Application Submitted',
+            render('emails/application_submitted_student.php', $form)
+        )->send();
+
         redirect('ThankYouPage.php');
     }
 } elseif (post('save')) {
