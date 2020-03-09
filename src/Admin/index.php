@@ -102,7 +102,7 @@
     <div class='w3-container'>
         <h5>Current Completed Applications</h5>
         <table class='w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white'>
-            <tr>
+            <tr class='tr-header'>
                 <td>
                     <b>Student Name</b>
                 </td>

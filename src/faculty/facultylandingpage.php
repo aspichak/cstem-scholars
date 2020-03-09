@@ -62,7 +62,7 @@ authorize('faculty');
         <h3>Applications Pending Aproval</h3>
 
         <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
-            <tr>
+            <tr class="tr-header">
                 <th>Student Name</th>
                 <th>Project Title</th>
                 <th>Student Email</th>
