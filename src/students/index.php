@@ -15,9 +15,11 @@ $month = $temp[1];
 $applicationsTable = 'Applications' . $month . $year;
 
 if (strtotime('today') > strtotime($deadline)) {
-    error('Student Application',
-          'The CSTEM Research Grant application has been closed. Please check back at a later date.',
-    204);
+    error(
+        'Student Application',
+        'The CSTEM Research Grant application has been closed. Please check back at a later date.',
+        204
+    );
 }
 
 $departments = [
@@ -32,6 +34,12 @@ $departments = [
     'Natural Science',
     'Physics'
 ];
+
+$application = DB::selectSingle(
+    "$applicationsTable NATURAL JOIN Student NATURAL LEFT JOIN Advisor",
+    'SID = ?',
+    $_SESSION['id']
+);
 
 function validateAdvisorEmail($email)
 {
@@ -79,41 +87,33 @@ foreach (array_keys($validators) as $field) {
     $form[$field] = trim(htmlentities(post($field)));
 }
 
-if (!isPost()) {
-    $application = DB::selectSingle(
-        "$applicationsTable NATURAL JOIN Student NATURAL JOIN Advisor",
-        'SID = ?',
-        $_SESSION['id']
-    );
-
-    if ($application) {
-        $form = [
-            'project' => $application['PTitle'],
-            'objective' => $application['Objective'],
-            'timeline' => $application['Timeline'],
-            'budget' => $application['Budget'],
-            'request' => $application['RequestedBudget'],
-            'sources' => $application['FundingSources'],
-            'results' => $application['Anticipatedresults'],
-            'justification' => $application['Justification'],
-            'advisor' => $application['AName'],
-            'advisor_email' => $application['AEmail'],
-            'name' => $application['SName'],
-            'email' => $application['SEmail'],
-            'gpa' => $application['GPA'],
-            'department' => $application['Department'],
-            'major' => $application['Major'],
-            'egd' => $application['GraduationDate']
-        ];
-    }
+// Fill out fields from a saved application
+if (!isPost() && $application) {
+    $form = [
+        'project' => $application['PTitle'],
+        'objective' => $application['Objective'],
+        'timeline' => $application['Timeline'],
+        'budget' => $application['Budget'],
+        'request' => $application['RequestedBudget'],
+        'sources' => $application['FundingSources'],
+        'results' => $application['Anticipatedresults'],
+        'justification' => $application['Justification'],
+        'advisor' => $application['AName'],
+        'advisor_email' => $application['AEmail'],
+        'name' => $application['SName'],
+        'email' => $application['SEmail'],
+        'gpa' => $application['GPA'],
+        'department' => $application['Department'],
+        'major' => $application['Major'],
+        'egd' => $application['GraduationDate']
+    ];
 }
 
 $errors = [];
 
-function validate($form, $validators)
+function validateForm($form, $validators)
 {
     global $errors;
-    $errors = [];
 
     // Validate all form fields
     foreach ($validators as $k => $v) {
@@ -127,13 +127,51 @@ function validate($form, $validators)
     return empty($errors);
 }
 
+function validateFileUpload($isOptional)
+{
+    global $errors;
+
+    switch ($_FILES['file']['error'] ?? UPLOAD_ERR_NO_FILE) {
+        case UPLOAD_ERR_OK:
+            $fileExtension = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+
+            if (!in_array($fileExtension, ALLOWED_UPLOAD_EXTENSIONS)) {
+                $errors['file'] =
+                    'This file type is not allowed. Accepted file types are: ' .
+                    implode(', ', ALLOWED_UPLOAD_EXTENSIONS);
+
+                return false;
+            }
+
+            if ($_FILES['file']['size'] > 1048576) {
+                $errors['file'] = 'Maximum file size is 1 MB';
+                return false;
+            }
+
+            return true;
+        case UPLOAD_ERR_NO_FILE:
+            if (!$isOptional) {
+                $errors['file'] = 'Budget file is required';
+            }
+
+            return $isOptional;
+        case UPLOAD_ERR_INI_SIZE:
+        case UPLOAD_ERR_FORM_SIZE:
+            $errors['file'] = 'Exceeded file size limit';
+            return false;
+        default:
+            $errors['file'] = 'Unknown error';
+            return false;
+    }
+}
+
 function renderError($field)
 {
     global $errors;
     return isset($errors[$field]) ? "<div class=\"error\">$errors[$field]</div>" : '';
 }
 
-function saveApplication($form, $isSubmitted)
+function saveApplication($form, &$existingUploadFileName, $isSubmitted)
 {
     global $applicationsTable;
 
@@ -161,6 +199,24 @@ function saveApplication($form, $isSubmitted)
         'GraduationDate' => $form['egd']
     ];
 
+    if (($_FILES['file']['error'] ?? UPLOAD_ERR_NO_FILE) == UPLOAD_ERR_OK) {
+        $oldFilePath = UPLOAD_DIR . '/' . $existingUploadFileName;
+
+        if (is_file($oldFilePath)) {
+            unlink($oldFilePath);
+        }
+
+        $tempFilePath = $_FILES['file']['tmp_name'];
+        $ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+        $newFileName = date('Y-m-d') . '-' . $_SESSION['id'] . '.' . $ext;
+        $newFilePath = UPLOAD_DIR . '/' . $newFileName;
+
+        move_uploaded_file($tempFilePath, $newFilePath);
+        $application['BudgetFilePath'] = $newFileName;
+
+        $existingUploadFileName = $newFileName;
+    }
+
     DB::insertOrUpdate($applicationsTable, $application, 'SID = ?', $_SESSION['id']);
     DB::replace('Student', $student);
 }
@@ -168,13 +224,12 @@ function saveApplication($form, $isSubmitted)
 $state = null;
 
 if (post('submit')) {
-
     // Add extra validations not used in 'save'
     $validators['budget']->min(20);
     $validators['request']->min(20);
 
-    if (validate($form, $validators)) {
-        saveApplication($form, true);
+    if (validateForm($form, $validators) && validateFileUpload(!empty($application['BudgetFilePath']))) {
+        saveApplication($form, $application['BudgetFilePath'], true);
 
         $form['deadline'] = $date;
 
@@ -193,6 +248,8 @@ if (post('submit')) {
         )->send();
 
         redirect('ThankYouPage.php');
+    } else {
+        $state = 'error-submit';
     }
 } elseif (post('save')) {
     // Make all fields optional
@@ -200,11 +257,11 @@ if (post('submit')) {
         $validators[$k] = v::optional($v);
     }
 
-    if (validate($form, $validators)) {
-        saveApplication($form, false);
+    if (validateForm($form, $validators) && validateFileUpload(true)) {
+        saveApplication($form, $application['BudgetFilePath'], $application['Submitted'] ?? false);
         $state = 'saved';
     } else {
-        $state = 'error';
+        $state = 'error-save';
     }
 }
 ?>
@@ -239,10 +296,17 @@ if (post('submit')) {
                 </div>
             <?php } ?>
 
-            <?php if ($state == 'error') { ?>
+            <?php if ($state == 'error-save') { ?>
                 <div class="error message">
                     <h2>We were unable to save your application.</h2>
                     <p>Please review your application for errors and try saving again.</p>
+                </div>
+            <?php } ?>
+
+            <?php if ($state == 'error-submit') { ?>
+                <div class="error message">
+                    <h2>We were unable to submit your application.</h2>
+                    <p>Please review your application for errors and try submitting again.</p>
                 </div>
             <?php } ?>
 
@@ -361,10 +425,21 @@ if (post('submit')) {
                 <input type="hidden" name="MAX_FILE_SIZE" value="1048576"/>
                 <label>
                     Upload budget spreadsheet:
+                    <?= renderError('file') ?>
                     <input name="file" type="file"
-                           accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, .pdf"
-                           required>
+                           accept="<?= implode(',', array_map(fn($ext) => ".$ext", ALLOWED_UPLOAD_EXTENSIONS)) ?>"
+                    >
                 </label>
+
+                <?php if (!empty($application['BudgetFilePath'])) { ?>
+                    <p>
+                        <a href="<?= url('download.php?file=' . $application['BudgetFilePath']) ?>">
+                            Download previously uploaded file
+                        </a>
+                    </p>
+                <?php } ?>
+
+                <p>Valid file types are: <?= implode(', ', ALLOWED_UPLOAD_EXTENSIONS) ?></p>
             </div>
 
             <div class="button-section">

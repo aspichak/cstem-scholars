@@ -103,7 +103,7 @@ authorize('faculty');
                         </td>
                     <?php } else { ?>
                         <td><a href=facultyform.php?id=<?php echo $newValue ?>>
-                                <button type="button">View</button></td>
+                                <button type="button">View</button></a></td>
                     <?php } ?>
                 </tr>
             <?php } ?>
