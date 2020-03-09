@@ -2,7 +2,7 @@
 
 session_start();
 
-require_once __DIR__ . "/config.php";
+require_once __DIR__ . "/config.sample.php";
 require_once __DIR__ . "/sso-example/SSO/CAS/CAS.php";
 require_once __DIR__ . "/sso-example/SSO/config.php";
 

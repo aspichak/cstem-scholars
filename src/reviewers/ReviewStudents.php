@@ -43,15 +43,6 @@ $ctr = 0;
 
 <div class="form">
     <h1>Students for Review<span>Grant applications</span></h1>
-    <div class="button-section">
-        <?php
-        while ($row = $stmt->fetch()) {
-            echo '<form role="form" method="post">';
-            $stmt2->execute([$row['ApplicationNum']]);
-            $student = $stmt2->fetch();
-
-<div class="form">
-    <h1>Students for Review<span>Grant applications</span></h1>
     <div class = "button-section">
         <?php
         $i = 0;
@@ -77,10 +68,11 @@ $ctr = 0;
                 echo '<label>Estimated timeline: <textarea placeholder="' . $student['Timeline'] . '" style="resize: none"></textarea></label>';
                 echo '<label>Budget and planned spending: <textarea placeholder="' . $student['Justification'] . '"style="resize: none"></textarea></label>';
                 echo '<label>Total budget amount:<input type="text" placeholder="' . $student['Budget'] . '"/></label>';
-                echo '<label>Requested budget amount from EWU:<input type="text" placeholder="' . $student['RequestedBudget'] . '"/></label>'; ?>
+                echo '<label>Requested budget amount from EWU:<input type="text" placeholder="' . $student['RequestedBudget'] . '"/></label>';
+                ?>
                 <!--<p>
                     <a href='<?php echo $filePath ?>' download>Budget Spreedsheet</a>
-                </p>-->
+                </p> -->
                 <?php
                 echo '<label>Other funding sources available: <input type="text" placeholder="' . $student['FundingSources'] . '"/></label>';
                 echo '</div>';

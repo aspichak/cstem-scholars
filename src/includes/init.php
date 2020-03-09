@@ -9,7 +9,7 @@ function path($file)
     return ROOT . '/' . $file;
 }
 
-require_once path('config.php');
+require_once path('config.sample.php');
 require_once path('vendor/autoload.php');
 
 use PHPMailer\PHPMailer\PHPMailer;

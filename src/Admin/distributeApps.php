@@ -17,7 +17,7 @@ $opt = [
     PDO::ATTR_EMULATE_PREPARES => false,
 ];
 try {
-    $pdo = new PDO($dsn, $user, $pass, $options);
+    $pdo = new PDO($dsn, $user, $pass, $opt);
 } catch (\PDOException $e) {
     throw new \PDOException($e->getMessage(), (int)$e->getCode());
 }
@@ -25,6 +25,7 @@ try {
 $sth = $pdo->prepare("SELECT Deadline, DistributedApps FROM Settings");
 $sth->execute();
 $query = $sth->fetch();
+var_dump($query);
 $date1 = $query['Deadline'];
 $date2 = date('Y-m-d');
 
@@ -32,17 +33,20 @@ $date2 = date('Y-m-d');
 $sth = $pdo->prepare("SELECT Deadline FROM Settings");
 $sth->execute();
 $date_array = $sth->fetch();
+var_dump($date_array);
 $deadline = $date_array['Deadline'];
 $temp = explode("-", $deadline);
 $year = $temp[0];
 $month = $temp[1];
 $appTableName = 'Applications' . $month . $year;
 $revTableName = 'ReviewedApps' . $month . $year;
+var_dump($appTableName . " " . $revTableName);
 
 $appsQuery = $pdo->prepare(
     "SELECT ApplicationNum, Department, AEmail FROM `$appTableName` A1, Student S1 WHERE A1.SID = S1.SID AND A1.Submitted = 1 AND A1.AdvisorApproved = 1"
 );
 $appsQuery->execute();
+var_dump($appsQuery->fetch());
 
 foreach ($appsQuery->fetchAll(PDO::FETCH_ASSOC) as $student) {
     $appNum = $student["ApplicationNum"];
@@ -58,6 +62,7 @@ foreach ($appsQuery->fetchAll(PDO::FETCH_ASSOC) as $student) {
         $evaluatorsQuery->bindValue(":aEmail", $advisorEmail);
         $evaluatorsQuery->execute();
         $evalCount = $evaluatorsQuery->fetch(PDO::FETCH_ASSOC);
+        var_dump($evalCount);
         if ($evalCount['COUNT(REmail)'] > 0) {
             $evaluatorsQuery = $pdo->prepare(
                 "SELECT REmail FROM Reviewers WHERE Active = 1 AND Major != :studMajor AND REmail != :aEmail" . $curEvals
@@ -100,6 +105,6 @@ foreach ($appsQuery->fetchAll(PDO::FETCH_ASSOC) as $student) {
 //$sth = $pdo->prepare("UPDATE Settings SET DistributedApps = 1 WHERE 1");
 //$sth->execute();
 //}
-header("location:index.php");
+// header("location:index.php");
 
 ?>
