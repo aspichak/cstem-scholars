@@ -49,8 +49,7 @@
     $sources = $application['FundingSources'];
     $results = $application['Anticipatedresults'];
     $justification = $application['Justification'];
-    $filePathTemp = $application['BudgetFilePath'];
-    $filePath = "../" . $filePathTemp;
+    $filePath = $application['BudgetFilePath'];
 
     $sth = $pdo->prepare("SELECT * FROM Student WHERE SID=$sid");
     $sth->execute();
@@ -60,8 +59,6 @@
     $gpa = $student[3];
     $major = $student[4];
     $gradDate = $student[5];
-    header("Content-type: application/pdf '");
-    header("Content-Disposition: attachment; filename=$file");
 
     ?>
 </head>
@@ -144,7 +141,7 @@
             <p><?php echo htmlSpecialChars($requested); ?></p>
         </div>
 
-        <a href='<?php echo $filePath ?>' download>Budget Spreedsheet</a>
+        <a href="<?= url('download.php?file=' . $filePath) ?>">Budget Spreadsheet</a>
 
         <div class="section"><br>Anticipated Results:</div>
 

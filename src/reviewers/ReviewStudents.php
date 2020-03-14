@@ -1,4 +1,5 @@
 <?php
+
 require_once '../includes/init.php';
 
 use Respect\Validation\Validator as v;
@@ -27,7 +28,7 @@ authorize('reviewer');
 <?php
 
 //get most recent table for ApplicationsTest
-$deadline = DB::selectSingle( "Settings")['Deadline'];
+$deadline = DB::selectSingle('Settings')['Deadline'];
 $temp = explode("-", $deadline);
 $year = $temp[0];
 $month = $temp[1];
@@ -38,27 +39,24 @@ $email = $_SESSION["email"];
 $rows = DB::select($revTable, 'REmail = ?', $email);
 #will be used later to label # of application
 $ctr = 0;
-
 ?>
 
 <div class="form">
     <h1>Students for Review<span>Grant applications</span></h1>
-    <div class = "button-section">
+    <div class="button-section">
         <?php
         $i = 0;
-        while ($i < count($rows)  ) {
+        while ($i < count($rows)) {
             $row = $rows[$i];
             echo '<form role="form" method="post">';
             $appNum = $row['ApplicationNum'];
-            $student = DB::selectSingle($appTable, 'SID = ?', $appNum);
+            $student = DB::selectSingle($appTable, 'ApplicationNum = ?', $appNum);
             $ctr++;
             //only display applications that have not been reviewed
             if ($row['Submitted'] != 1) {
                 $name = 'btn[' . $row['ApplicationNum'] . ']';
                 $appNum = $row['ApplicationNum'];
-                #TODO: FIX BUDGETFILEPATH STUFF
-                #$fileTemp = $student['BudgetFilePath'];
-                #$filePath = "../" . $fileTemp;
+
                 echo '<div class="inner-wrap">';
                 echo '<div class="section" for="my_checkbox"><span>' . $ctr . '</span>' . $student['PTitle'] . '</div>';
                 echo '<label for="' . $row['ApplicationNum'] . '" class="details">Show/Hide Details</label>';
@@ -72,9 +70,9 @@ $ctr = 0;
                 echo '<label>Total budget amount:<input type="text" placeholder="' . $student['Budget'] . '"/></label>';
                 echo '<label>Requested budget amount from EWU:<input type="text" placeholder="' . $student['RequestedBudget'] . '"/></label>';
                 ?>
-                <!--<p>
-                    <a href='<?php echo $filePath ?>' download>Budget Spreedsheet</a>
-                </p> -->
+                <p>
+                    <a href="<?= url('download.php?file=' . $student['BudgetFilePath']) ?>">Budget Spreadsheet</a>
+                </p>
                 <?php
                 echo '<label>Other funding sources available: <input type="text" placeholder="' . $student['FundingSources'] . '"/></label>';
                 echo '</div>';
@@ -86,8 +84,6 @@ $ctr = 0;
             echo '</form>';
         }
         ?>
-        </span>
-    </div>
     </div>
 </div>
 </body>
