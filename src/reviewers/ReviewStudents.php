@@ -41,7 +41,6 @@ $rows = DB::select($revTable, 'REmail = ?', $email);
 $ctr = 0;
 ?>
 
-
 <div class="form">
     <h1>Students for Review<span>Grant applications</span></h1>
     <div class="button-section">
@@ -59,6 +58,8 @@ $ctr = 0;
                 $appNum = $row['ApplicationNum'];
 
                 echo '<div class="inner-wrap">';
+                echo '<div class="section" for="my_checkbox"><span>' . $ctr . '</span>' . $student['PTitle'] . '</div>';
+                echo '<label for="' . $row['ApplicationNum'] . '" class="details">Show/Hide Details</label>';
                 echo '<input type="checkbox" id="' . $row['ApplicationNum'] . '" style="display:none;">';
                 echo '<div id="hidden">';
                 echo '<label>Title <textarea placeholder="' . $student['PTitle'] . '" style="resize: none" ></textarea></label>';
@@ -75,8 +76,6 @@ $ctr = 0;
                 <?php
                 echo '<label>Other funding sources available: <input type="text" placeholder="' . $student['FundingSources'] . '"/></label>';
                 echo '</div>';
-                echo '<div class="section" for="my_checkbox"><span>' . $ctr . '</span>' . $student['PTitle'] . '</div>';
-                echo '<label for="' . $row['ApplicationNum'] . '">Show/Hide Details</label>';
                 echo '<input type="hidden" value=' . $row['ApplicationNum'] . ' name="appNum" id="appNum"/>';
                 echo '<button type="submit" name="' . $name . '" formaction=\'../reviewers/formPage1.php\'"> Review Application: ' . $row['ApplicationNum'] . '</button>';
                 echo '</div>';

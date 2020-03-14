@@ -51,6 +51,10 @@ body {
     margin-bottom: 15px;
 }
 
+.form label:hover{
+    text-decoration-line: underline;
+}
+
 .form input[type="text"], .form input[type="email"], .form textarea, .form select {
     display: block;
     box-sizing: border-box;
