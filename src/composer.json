@@ -1,11 +1,17 @@
 {
-  "autoload": {
-    "psr-4": {
-      "": "includes/"
-    }
-  },
-  "require": {
-    "respect/validation": "^1.1",
-    "phpmailer/phpmailer": "^6.1"
-  }
+    "name": "ewu/cstem-scholars",
+    "description": "Website for grant stuffs",
+    "type": "project",
+	"autoload": {
+		"psr-4": {
+			"": "includes/"
+		}
+	},
+    "require": {
+        "respect/validation": "^1.1",
+        "phpmailer/phpmailer": "^6.1",
+        "ext-PDO": "*"
+    },
+    "license": "proprietary",
+    "minimum-stability": "stable"
 }
