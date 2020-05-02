@@ -9,4 +9,4 @@ RUN docker-php-ext-install pdo pdo_mysql pdo_sqlite mysqli
 COPY src/ /var/www/html/
 COPY src/prod/config.ini /var/www/html/
 COPY src/prod/config.php /var/www/html/
-EXPOSE 80:80
+EXPOSE 80/tcp
