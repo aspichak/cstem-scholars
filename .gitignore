@@ -8,3 +8,5 @@ src/.idea/dataSources/
 
 src/.idea/dataSources.local.xml\
 ssh info.txt
+
+src/.idea/dataSources.xml
