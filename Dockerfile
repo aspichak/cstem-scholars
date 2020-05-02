@@ -10,3 +10,4 @@ COPY src/ /var/www/html/
 COPY src/prod/config.ini /var/www/html/
 COPY src/prod/config.php /var/www/html/
 EXPOSE 80/tcp
+EXPOSE 443/tcp
