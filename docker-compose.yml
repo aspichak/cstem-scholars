@@ -1,0 +1,32 @@
+version: "3.7"
+
+services:
+
+  website:
+    container_name: webserver
+    depends_on:
+        - db
+    restart: always
+    build:
+        context: ./
+    ports:
+        - "80:80"
+    networks:
+        - bridge
+
+  db:
+    container_name: database
+    build:
+        context: ./
+        dockerfile: Dockerfile-db
+    restart: always
+    environment:
+        - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    ports:
+        - "3306:3306"
+    networks:
+        - bridge
+
+networks:
+    bridge:
+        name: cstem-scholars-network
