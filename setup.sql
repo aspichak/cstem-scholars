@@ -1,79 +1,120 @@
-CREATE DATABASE IF NOT EXISTS researchGrant;
+CREATE DATABASE researchgrant;
 USE researchGrant;
 
-CREATE TABLE `Advisor` (
-  `AEmail` varchar(30) DEFAULT NULL,
-  `AName` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+create table `advisor`
+(
+	`AEmail` varchar(30)
+		primary key,
+	`AName` varchar(20) null
+)
+charset=utf8mb4;
 
-CREATE TABLE `Reviewers` (
-  `RName` varchar(30) DEFAULT NULL,
-  `REmail` varchar(30) NOT NULL,
-  `Major` varchar(30) DEFAULT NULL,
-  `Active` tinyint(1) NOT NULL,
-  PRIMARY KEY (`REmail`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+create table `periods`
+(
+	`ID` int auto_increment
+		primary key,
+	`Deadline` date not null,
+	`AdvisorDeadline` date not null,
+	`BeginDate` date not null,
+	`Budget` int not null
+)
+charset=utf8mb4;
 
-CREATE TABLE `Settings` (
-  `NextAppNum` int(11) DEFAULT NULL,
-  `Deadline` date DEFAULT NULL,
-  `AdvisorDeadline` date DEFAULT NULL,
-  `BeginDate` date DEFAULT NULL,
-  `Budget` int(11) DEFAULT NULL,
-  `ApplicationSubmission` varchar(9000) NOT NULL,
-  `ChangesRequested` varchar(9000) NOT NULL,
-  `ApplicationApproval` varchar(9000) NOT NULL,
-  `ApplicationAward` varchar(9000) NOT NULL,
-  `DistributedApps` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+create table `student`
+(
+	`SID` int not null
+		primary key,
+	`SName` varchar(20) null,
+	`SEmail` varchar(30) null,
+	`GPA` double null,
+	`Department` varchar(30) null,
+	`Major` varchar(30) null,
+	`GraduationDate` date null
+)
+charset=utf8mb4;
 
-INSERT INTO `Settings` (`NextAppNum`, `Deadline`, `AdvisorDeadline`, `BeginDate`, `Budget`, `ApplicationSubmission`, `ChangesRequested`, `ApplicationApproval`, `ApplicationAward`, `DistributedApps`) VALUES
-(1, NULL, NULL, NULL, 0, 'Your application has been submitted successfully. ', 'Your advisor has requested changes on your Undergraduate Research Grant Application.  Comment to follow:', 'Congrats, you\'re application has been approved. ', 'Congrats, you have been selected to receive the undergraduate research grant fund! Please get into contact with the Dean of STEM to learn more about your award at dean@example.edu.', 0);
+create table `applications`
+(
+	`ID` int auto_increment
+		primary key,
+	`SID` int not null,
+	`PTitle` varchar(50) null,
+	`Objective` text null,
+	`Timeline` text null,
+	`Budget` double null,
+	`RequestedBudget` double null,
+	`FundingSources` text null,
+	`Anticipatedresults` text null,
+	`Justification` text null,
+	`BudgetFilePath` varchar(100) null,
+	`Submitted` boolean not null default false,
+	`Awarded` boolean not null default false,
+	`AmountGranted` int null,
+	`AdvisorApproved` boolean not null default false,
+	`AdvisorComments` text null,
+	`AEmail` varchar(30) null,
+	`PeriodID` int not null,
+	foreign key (SID) references student(SID)
+				on update cascade
+				on delete cascade,
+	foreign key (AEmail) references advisor(AEmail)
+				on update cascade
+				on delete set null,
+	foreign key (PeriodID) references periods (ID)
+				on delete no action
+				on update cascade
+)
+charset=utf8mb4;
 
-CREATE TABLE `Student` (
-  `SID` int(11) NOT NULL,
-  `SName` varchar(20) DEFAULT NULL,
-  `SEmail` varchar(30) DEFAULT NULL,
-  `GPA` double DEFAULT NULL,
-  `Department` varchar(30) DEFAULT NULL,
-  `Major` varchar(30) DEFAULT NULL,
-  `GraduationDate` date DEFAULT NULL,
-  PRIMARY KEY (`SID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+create table `reviewers`
+(
+	RName varchar(30) null,
+	REmail varchar(30) not null
+		primary key,
+	Major varchar(30) null,
+	Active tinyint(1) not null default 0
+)
+charset=utf8mb4;
 
-CREATE TABLE `Applications` (
-  `ApplicationNum` int(11) NOT NULL AUTO_INCREMENT,
-  `SID` int(11) DEFAULT NULL,
-  `PTitle` varchar(50) DEFAULT NULL,
-  `Objective` varchar(9000) DEFAULT NULL,
-  `Timeline` varchar(500) DEFAULT NULL,
-  `Budget` double DEFAULT NULL,
-  `RequestedBudget` double DEFAULT NULL,
-  `FundingSources` varchar(1000) DEFAULT NULL,
-  `Anticipatedresults` varchar(1000) DEFAULT NULL,
-  `Justification` varchar(1000) DEFAULT NULL,
-  `BudgetFilePath` varchar(100) DEFAULT NULL,
-  `Submitted` tinyint(1) DEFAULT NULL,
-  `Awarded` tinyint(1) DEFAULT NULL,
-  `AmountGranted` int(11) DEFAULT NULL,
-  `AdvisorApproved` tinyint(1) DEFAULT NULL,
-  `AdvisorComments` varchar(9000) DEFAULT NULL,
-  `AEmail` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`ApplicationNum`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+create table `reviewedapps`
+(
+	`ID` int auto_increment
+		primary key,
+	`AppID` int not null,
+	`REmail` varchar(50) not null,
+	`QAComments` varchar(1000) null,
+	`QA1` int null,
+	`QA2` int null,
+	`QA3` int null,
+	`QA4` int null,
+	`QA5` int null,
+	`QA6` int null,
+	`QATotal` int null,
+	`FundRecommend` int null,
+	`Submitted` boolean not null default false,
+	`PeriodID` int not null,
+	foreign key (PeriodID) references periods (ID)
+				on delete no action
+				on update cascade,
+	foreign key (REmail) references reviewers (REmail)
+				on delete no action
+				on update cascade,
+	foreign key (AppID) references applications (ID)
+				on delete cascade
+				on update cascade
+)
+charset=utf8mb4;
 
-CREATE TABLE `ReviewedApps` (
-  `ApplicationNum` int(11) NOT NULL AUTO_INCREMENT,
-  `REmail` varchar(50) NOT NULL,
-  `QAComments` varchar(1000) DEFAULT NULL,
-  `QA1` int(11) DEFAULT NULL,
-  `QA2` int(11) DEFAULT NULL,
-  `QA3` int(11) DEFAULT NULL,
-  `QA4` int(11) DEFAULT NULL,
-  `QA5` int(11) DEFAULT NULL,
-  `QA6` int(11) DEFAULT NULL,
-  `QATotal` int(11) DEFAULT NULL,
-  `FundRecommend` int(11) DEFAULT NULL,
-  `Submitted` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`ApplicationNum`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+create table `settings`
+(
+	`ApplicationSubmission` text not null,
+	`ChangesRequested` text not null,
+	`ApplicationApproval` text not null,
+	`ApplicationAward` text not null,
+	`DistributedApps` tinyint(1) not null
+)
+charset=utf8mb4;
+
+INSERT INTO researchgrant.settings (ApplicationSubmission, ChangesRequested, ApplicationApproval, ApplicationAward, DistributedApps) VALUES ('Your application has been submitted successfully. ', 'Your advisor has requested changes on your Undergraduate Research Grant Application.  Comment to follow:', 'Congrats, you''re application has been approved. ', 'Congrats, you have been selected to receive the undergraduate research grant fund! Please get into contact with the Dean of STEM to learn more about your award at dean@example.edu.', 0);
+
+
