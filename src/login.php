@@ -3,8 +3,7 @@
 session_start();
 
 require_once __DIR__ . "/config.php";
-require_once __DIR__ . "/sso-example/SSO/CAS/CAS.php";
-require_once __DIR__ . "/sso-example/SSO/config.php";
+require_once __DIR__ . "/vendor/apereo/phpcas/CAS.php";
 
 function get($field, $default = null)
 {
