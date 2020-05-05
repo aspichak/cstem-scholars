@@ -11,7 +11,7 @@ class DB
     private static $options;
     private static $pdo;
 
-    static function configure($source, $username, $password, $options = [])
+    public static function configure($source, $username, $password, $options = [])
     {
         self::$source = $source;
         self::$username = $username;
@@ -20,7 +20,7 @@ class DB
         self::$pdo = null;
     }
 
-    static function pdo()
+    public static function pdo()
     {
         if (!isset(self::$pdo) || self::$pdo == null) {
             self::$pdo = new PDO(self::$source, self::$username, self::$password, self::$options);
@@ -54,7 +54,7 @@ class DB
      *
      * Example: DB::select('Advisor, 'AEmail = ? OR AName = ?', 'alex@ewu.edu', 'Alex');
      */
-    static function select($table, $conditions = '', ...$params)
+    public static function select($table, $conditions = '', ...$params)
     {
         $where = empty($conditions) ? '' : 'WHERE';
         return self::query("SELECT * FROM $table $where $conditions", ...$params);
@@ -65,7 +65,7 @@ class DB
      *
      * Example: DB::selectSingle('Advisor, 'AEmail = ? OR AName = ?', 'alex@ewu.edu', 'Alex');
      */
-    static function selectSingle($table, $conditions = '', ...$params)
+    public static function selectSingle($table, $conditions = '', ...$params)
     {
         return self::select($table, $conditions = '', ...$params)->fetch();
     }
@@ -76,7 +76,7 @@ class DB
      *
      * Example: DB::count("Advisor", "AEmail = ?", 'email@ewu.edu');
      */
-    static function count($table, $conditions = '', ...$params)
+    public static function count($table, $conditions = '', ...$params)
     {
         $where = empty($conditions) ? '' : 'WHERE';
         return (int)self::query("SELECT COUNT(*) FROM $table $where $conditions", ...$params)->fetchColumn();
@@ -87,7 +87,7 @@ class DB
      *
      * Example: if (DB::contains("Advisor", "AEmail = ?", 'email@ewu.edu')) { ... }
      */
-    static function contains($table, $conditions = '', ...$params)
+    public static function contains($table, $conditions = '', ...$params)
     {
         return self::count($table, $conditions, ...$params) > 0;
     }
@@ -95,7 +95,7 @@ class DB
     /**
      * Execute a query and return number of affected rows. Use this function for DELETE, INSERT, or UPDATE statements.
      */
-    static function execute($query, ...$params)
+    public static function execute($query, ...$params)
     {
         return self::query($query, ...$params)->rowCount();
     }
@@ -106,13 +106,13 @@ class DB
      *
      * Example: DB::insert('advisor', ['AEmail' => 'advisor@ewu.edu', 'AName' => 'Advisor']);
      */
-    static function insert($table, $values)
+    public static function insert($table, $values)
     {
         $valuesFragment = self::makeValueList($values);
         return self::execute("INSERT INTO $table $valuesFragment", array_values($values)) > 0;
     }
 
-    static function update($table, $values, $where, ...$params)
+    public static function update($table, $values, $where, ...$params)
     {
         $columns = [];
 
@@ -128,7 +128,10 @@ class DB
             ) > 0;
     }
 
-    static function insertOrUpdate($table, $values, $where, ...$params) {
+    /**
+     * @deprecated
+     */
+    public static function insertOrUpdate($table, $values, $where, ...$params) {
         $count = self::count($table, $where, ...$params);
 
         // Check that we didn't change more than 1 record
@@ -141,29 +144,29 @@ class DB
         }
     }
 
-    static function replace($table, $values)
+    public static function replace($table, $values)
     {
         $valuesFragment = self::makeValueList($values);
         return self::execute("REPLACE INTO $table $valuesFragment", array_values($values)) > 0;
     }
 
     // Returns number of deleted records
-    static function delete($table, $where, ...$params)
+    public static function delete($table, $where, ...$params)
     {
         return self::execute("DELETE FROM $table WHERE $where", ...$params);
     }
 
-    static function beginTransaction()
+    public static function beginTransaction()
     {
         self::pdo()->beginTransaction();
     }
 
-    static function commit()
+    public static function commit()
     {
         self::pdo()->commit();
     }
 
-    static function rollback()
+    public static function rollback()
     {
         self::pdo()->rollback();
     }
