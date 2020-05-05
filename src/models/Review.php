@@ -36,7 +36,7 @@ class Review extends Model
         parent::__construct($form);
     }
 
-    public function application($where = '', ...$params)
+    public function application()
     {
         return Application::get($this->applicationID);
     }
