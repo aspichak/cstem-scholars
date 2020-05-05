@@ -36,7 +36,7 @@ class DB
      *    DB::query('SELECT * FROM Advisor WHERE AEmail = ? OR AName = ?', 'alex@ewu.edu', 'Alex');
      *    DB::query('SELECT * FROM Advisor WHERE AEmail = :email', ['email' => 'alex@ewu.edu']); // Named parameters
      */
-    private static function query($query, ...$params)
+    public static function query($query, ...$params)
     {
         // Allow associative arrays
         if (sizeof($params) == 1 && is_array($params[0])) {
