@@ -1,3 +1,6 @@
+CREATE DATABASE IF NOT EXISTS researchGrant;
+USE researchGrant;
+
 create table `Period`
 (
     `id` int auto_increment primary key,
