@@ -69,7 +69,7 @@ $validators = [
     'results' => v::length(3, 6000)->setName('Anticipated results'),
 
     // Timeline
-    'timeline' => v::length(3, 2000)->setName('Budget description'),
+    'timeline' => v::length(3, 2000)->setName('Timeline'),
 
     // Budget
     'justification' => v::length(3, 2000)->setName('Budget description'),
