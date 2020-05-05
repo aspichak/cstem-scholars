@@ -14,6 +14,7 @@ COPY src/prod/config.php /var/www/html/
 #install and run composer
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 RUN /usr/bin/composer install -o --no-dev
+RUN /usr/bin/composer update -o --no-dev
 
 EXPOSE 80/tcp
 EXPOSE 443/tcp
