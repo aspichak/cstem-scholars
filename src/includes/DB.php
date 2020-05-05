@@ -11,7 +11,7 @@ class DB
     private static $options;
     private static $pdo;
 
-    public static function configure($source, $username, $password, $options = null)
+    static function configure($source, $username, $password, $options = [])
     {
         self::$source = $source;
         self::$username = $username;
@@ -20,43 +20,41 @@ class DB
         self::$pdo = null;
     }
 
-    public static function pdo()
+    static function pdo()
     {
         if (!isset(self::$pdo) || self::$pdo == null) {
             self::$pdo = new PDO(self::$source, self::$username, self::$password, self::$options);
         }
 
-        // TODO: Handle exception
-
         return self::$pdo;
     }
 
     /**
-     * Query database and return all rows.
+     * Query database and return a PDOStatement object.
      *
      * Example:
      *    DB::query('SELECT * FROM Advisor WHERE AEmail = ? OR AName = ?', 'alex@ewu.edu', 'Alex');
      *    DB::query('SELECT * FROM Advisor WHERE AEmail = :email', ['email' => 'alex@ewu.edu']); // Named parameters
      */
-    public static function query($query, ...$params)
+    private static function query($query, ...$params)
     {
-        return self::exec($query, ...$params)->fetchAll();
+        // Allow associative arrays
+        if (sizeof($params) == 1 && is_array($params[0])) {
+            $params = $params[0];
+        }
+        
+        $stmt = self::pdo()->prepare($query);
+        $stmt->execute($params);
+
+        return $stmt;
     }
 
     /**
-     * Query database and return a single row.
-     */
-    public static function querySingle($query, ...$params)
-    {
-        return self::exec($query . " LIMIT 1", ...$params)->fetch();
-    }
-
-    /**
-     * Select all rows (all columns) from $table satisfying $conditions.
+     * Prepare a select query and return a PDOStatement object.
      *
      * Example: DB::select('Advisor, 'AEmail = ? OR AName = ?', 'alex@ewu.edu', 'Alex');
      */
-    public static function select($table, $conditions = '', ...$params)
+    static function select($table, $conditions = '', ...$params)
     {
         $where = empty($conditions) ? '' : 'WHERE';
         return self::query("SELECT * FROM $table $where $conditions", ...$params);
@@ -67,10 +65,9 @@ class DB
      *
      * Example: DB::selectSingle('Advisor, 'AEmail = ? OR AName = ?', 'alex@ewu.edu', 'Alex');
      */
-    public static function selectSingle($table, $conditions = '', ...$params)
+    static function selectSingle($table, $conditions = '', ...$params)
     {
-        $where = empty($conditions) ? '' : 'WHERE';
-        return self::querySingle("SELECT * FROM $table $where $conditions", ...$params);
+        return self::select($table, $conditions = '', ...$params)->fetch();
     }
 
     /**
@@ -79,10 +76,10 @@ class DB
      *
      * Example: DB::count("Advisor", "AEmail = ?", 'email@ewu.edu');
      */
-    public static function count($table, $conditions = '', ...$params)
+    static function count($table, $conditions = '', ...$params)
     {
         $where = empty($conditions) ? '' : 'WHERE';
-        return (int)self::exec("SELECT COUNT(*) FROM $table $where $conditions", ...$params)->fetchColumn();
+        return (int)self::query("SELECT COUNT(*) FROM $table $where $conditions", ...$params)->fetchColumn();
     }
 
     /**
@@ -90,7 +87,7 @@ class DB
      *
      * Example: if (DB::contains("Advisor", "AEmail = ?", 'email@ewu.edu')) { ... }
      */
-    public static function contains($table, $conditions = '', ...$params)
+    static function contains($table, $conditions = '', ...$params)
     {
         return self::count($table, $conditions, ...$params) > 0;
     }
@@ -98,9 +95,9 @@ class DB
     /**
      * Execute a query and return number of affected rows. Use this function for DELETE, INSERT, or UPDATE statements.
      */
-    public static function execute($query, ...$params)
+    static function execute($query, ...$params)
     {
-        return self::exec($query, ...$params)->rowCount();
+        return self::query($query, ...$params)->rowCount();
     }
 
     /**
@@ -109,13 +106,13 @@ class DB
      *
      * Example: DB::insert('advisor', ['AEmail' => 'advisor@ewu.edu', 'AName' => 'Advisor']);
      */
-    public static function insert($table, $values)
+    static function insert($table, $values)
     {
         $valuesFragment = self::makeValueList($values);
         return self::execute("INSERT INTO $table $valuesFragment", array_values($values)) > 0;
     }
 
-    public static function update($table, $values, $where, ...$params)
+    static function update($table, $values, $where, ...$params)
     {
         $columns = [];
 
@@ -131,13 +128,11 @@ class DB
             ) > 0;
     }
 
-    public static function insertOrUpdate($table, $values, $where, ...$params)
-    {
+    static function insertOrUpdate($table, $values, $where, ...$params) {
         $count = self::count($table, $where, ...$params);
 
-        if ($count > 1) {
-            throw new Exception("Expected 0 or 1 records for insertOrUpdate, received $count");
-        }
+        // Check that we didn't change more than 1 record
+        assert($count <= 1, "Expected 0 or 1 records for insertOrUpdate, received $count");
 
         if ($count == 0) {
             self::insert($table, $values);
@@ -146,25 +141,31 @@ class DB
         }
     }
 
-    public static function replace($table, $values)
+    static function replace($table, $values)
     {
         $valuesFragment = self::makeValueList($values);
         return self::execute("REPLACE INTO $table $valuesFragment", array_values($values)) > 0;
     }
 
-    /**
-     * Execute a query and return a PDOStatement object.
-     */
-    private static function exec($query, ...$params)
+    // Returns number of deleted records
+    static function delete($table, $where, ...$params)
     {
-        // Allow associative arrays
-        if (sizeof($params) == 1 && is_array($params[0])) {
-            $params = $params[0];
-        }
-        $stmt = self::pdo()->prepare($query);
-        $stmt->execute($params);
+        return self::execute("DELETE FROM $table WHERE $where", ...$params);
+    }
 
-        return $stmt;
+    static function beginTransaction()
+    {
+        self::pdo()->beginTransaction();
+    }
+
+    static function commit()
+    {
+        self::pdo()->commit();
+    }
+
+    static function rollback()
+    {
+        self::pdo()->rollback();
     }
 
     private static function makeValueList($values)
@@ -187,4 +188,5 @@ class DB
 
         return "($columns) VALUES ($valuePlaceholders)";
     }
+
 }
