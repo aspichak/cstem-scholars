@@ -18,7 +18,7 @@ class Period extends Model
 
     public static function current()
     {
-        return self::first('beginDate >= now() AND deadline <= now()');
+        return self::first('beginDate <= :date AND deadline >= :date', ['date' => date('Y-m-d')]);
     }
 
     public function errors()
