@@ -1,120 +1,74 @@
-CREATE DATABASE researchgrant;
-USE researchGrant;
-
-create table `advisor`
+create table `Period`
 (
-	`AEmail` varchar(30)
-		primary key,
-	`AName` varchar(20) null
-)
-charset=utf8mb4;
+    `id` int auto_increment primary key,
+    `beginDate` date not null,
+    `deadline` date not null,
+    `advisorDeadline` date not null,
+    `budget` decimal(10, 2) not null
+);
 
-create table `periods`
+create table `User`
 (
-	`ID` int auto_increment
-		primary key,
-	`Deadline` date not null,
-	`AdvisorDeadline` date not null,
-	`BeginDate` date not null,
-	`Budget` int not null
-)
-charset=utf8mb4;
+    `name` varchar(50) null,
+    `email` varchar(50) not null primary key,
+    `isAdvisor` boolean default false,
+    `isReviewer` boolean default false,
+    `isAdmin` boolean default false
+);
 
-create table `student`
+create table `Application`
 (
-	`SID` int not null
-		primary key,
-	`SName` varchar(20) null,
-	`SEmail` varchar(30) null,
-	`GPA` double null,
-	`Department` varchar(30) null,
-	`Major` varchar(30) null,
-	`GraduationDate` date null
-)
-charset=utf8mb4;
+    `id` int auto_increment
+        primary key,
+    `studentID` int not null,
+    `periodID` int not null,
+    `name` varchar(50) null,
+    `email` varchar(50) null,
+    `title` varchar(140) null,
+    `major` varchar(30) null,
+    `gpa` double null,
+    `graduationDate` date null,
+    `advisorName` varchar(50) null,
+    `advisorEmail` varchar(50) null,
+    `description` text null,
+    `timeline` text null,
+    `justification` text null,
+    `totalBudget` decimal(10, 2) null,
+    `requestedBudget` decimal(10, 2) null,
+    `fundingSources` text null,
+    `attachment` varchar(100) null,
+    `status` varchar(30) not null,
+    `additionalInformationRequested` boolean default false,
+    foreign key (advisorEmail) references User(email)
+        on update cascade
+        on delete set null,
+    foreign key (periodID) references Period(id)
+        on delete no action
+        on update cascade
+);
 
-create table `applications`
+create table `Review`
 (
-	`ID` int auto_increment
-		primary key,
-	`SID` int not null,
-	`PTitle` varchar(50) null,
-	`Objective` text null,
-	`Timeline` text null,
-	`Budget` double null,
-	`RequestedBudget` double null,
-	`FundingSources` text null,
-	`Anticipatedresults` text null,
-	`Justification` text null,
-	`BudgetFilePath` varchar(100) null,
-	`Submitted` boolean not null default false,
-	`Awarded` boolean not null default false,
-	`AmountGranted` int null,
-	`AdvisorApproved` boolean not null default false,
-	`AdvisorComments` text null,
-	`AEmail` varchar(30) null,
-	`PeriodID` int not null,
-	foreign key (SID) references student(SID)
-				on update cascade
-				on delete cascade,
-	foreign key (AEmail) references advisor(AEmail)
-				on update cascade
-				on delete set null,
-	foreign key (PeriodID) references periods (ID)
-				on delete no action
-				on update cascade
-)
-charset=utf8mb4;
-
-create table `reviewers`
-(
-	RName varchar(30) null,
-	REmail varchar(30) not null
-		primary key,
-	Major varchar(30) null,
-	Active tinyint(1) not null default 0
-)
-charset=utf8mb4;
-
-create table `reviewedapps`
-(
-	`ID` int auto_increment
-		primary key,
-	`AppID` int not null,
-	`REmail` varchar(50) not null,
-	`QAComments` varchar(1000) null,
-	`QA1` int null,
-	`QA2` int null,
-	`QA3` int null,
-	`QA4` int null,
-	`QA5` int null,
-	`QA6` int null,
-	`QATotal` int null,
-	`FundRecommend` int null,
-	`Submitted` boolean not null default false,
-	`PeriodID` int not null,
-	foreign key (PeriodID) references periods (ID)
-				on delete no action
-				on update cascade,
-	foreign key (REmail) references reviewers (REmail)
-				on delete no action
-				on update cascade,
-	foreign key (AppID) references applications (ID)
-				on delete cascade
-				on update cascade
-)
-charset=utf8mb4;
-
-create table `settings`
-(
-	`ApplicationSubmission` text not null,
-	`ChangesRequested` text not null,
-	`ApplicationApproval` text not null,
-	`ApplicationAward` text not null,
-	`DistributedApps` tinyint(1) not null
-)
-charset=utf8mb4;
-
-INSERT INTO researchgrant.settings (ApplicationSubmission, ChangesRequested, ApplicationApproval, ApplicationAward, DistributedApps) VALUES ('Your application has been submitted successfully. ', 'Your advisor has requested changes on your Undergraduate Research Grant Application.  Comment to follow:', 'Congrats, you''re application has been approved. ', 'Congrats, you have been selected to receive the undergraduate research grant fund! Please get into contact with the Dean of STEM to learn more about your award at dean@example.edu.', 0);
-
-
+    `id` int auto_increment primary key,
+    `reviewerID` varchar(50) null,
+    `applicationID` int not null,
+    `periodID` int not null,
+    `comments` text null,
+    `q1` int null,
+    `q2` int null,
+    `q3` int null,
+    `q4` int null,
+    `q5` int null,
+    `q6` int null,
+    `fundingRecommended` int null,
+    `submitted` boolean not null default false,
+    foreign key (reviewerID) references User(email)
+        on update cascade
+        on delete cascade,
+    foreign key (applicationID) references Application(id)
+        on delete cascade
+        on update cascade,
+    foreign key (periodID) references Period(id)
+        on delete cascade
+        on update cascade
+);

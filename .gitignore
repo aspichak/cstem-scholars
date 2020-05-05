@@ -1,12 +1,11 @@
+.idea/
+src/.idea
 src/.vscode/
 src/config.php
 src/students/uploads/
-
+src/vendor/
+src/composer.lock
 docker notes.txt
-
-src/.idea/dataSources/
-
-src/.idea/dataSources.local.xml\
 ssh info.txt
 
 src/.idea/dataSources.xml
