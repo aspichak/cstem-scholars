@@ -1,24 +1,20 @@
 <?php
 
 require_once __DIR__ . '/../src/includes/init.php';
+require_once __DIR__ . '/SchemaTest.php';
 
-use PHPUnit\Framework\TestCase;
-
-final class ApplicationModelTest extends TestCase
+final class ApplicationModelTest extends SchemaTest
 {
     private $validApp;
 
     protected function setUp(): void
     {
-        DB::configure('sqlite::memory:', null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        parent::setUp();
 
-        $schema = file_get_contents(__DIR__ . '/../setup.sql');
-        $schema .= "
+        DB::pdo()->exec("
             INSERT INTO User (name, email, isAdvisor, isReviewer, isAdmin) 
             VALUES ('Advisor', 'advisor@email.com', true, false, false);
-        ";
-
-        DB::pdo()->exec($schema);
+        ");
 
         $this->validApp = [
             // Basic Details

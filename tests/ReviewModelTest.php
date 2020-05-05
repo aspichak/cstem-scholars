@@ -1,16 +1,13 @@
 <?php
 
 require_once __DIR__ . '/../src/includes/init.php';
+require_once __DIR__ . '/SchemaTest.php';
 
-use PHPUnit\Framework\TestCase;
-
-final class ReviewModelTest extends TestCase
+final class ReviewModelTest extends SchemaTest
 {
     protected function setUp(): void
     {
-        DB::configure('sqlite::memory:', null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-        $schema = file_get_contents(__DIR__ . '/../setup.sql');
-        DB::pdo()->exec($schema);
+        parent::setUp();
     }
 
     protected function tearDown(): void

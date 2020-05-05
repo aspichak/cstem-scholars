@@ -1,18 +1,13 @@
 <?php
 
 require_once __DIR__ . '/../src/includes/init.php';
+require_once __DIR__ . '/SchemaTest.php';
 
-use PHPUnit\Framework\TestCase;
-
-final class PeriodModelTest extends TestCase
+final class PeriodModelTest extends SchemaTest
 {
-    private $validApp;
-
     protected function setUp(): void
     {
-        DB::configure('sqlite::memory:', null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-        $schema = file_get_contents(__DIR__ . '/../setup.sql');
-        DB::pdo()->exec($schema);
+        parent::setUp();
     }
 
     protected function tearDown(): void
@@ -34,6 +29,23 @@ final class PeriodModelTest extends TestCase
         $this->assertTrue($period->save());
         $this->assertIsNumeric($period->id);
         $this->assertEquals(1, Period::count());
+    }
+
+    public function testCurrentPeriod()
+    {
+        $period = new Period([
+             'beginDate'       => date('Y-m-d', strtotime('yesterday')),
+             'deadline'        => date('Y-m-d', strtotime('tomorrow')),
+             'advisorDeadline' => date('Y-m-d', strtotime('tomorrow')),
+             'budget'          => 1000000
+         ]);
+
+        $this->assertCount(0, $period->errors());
+        $this->assertTrue($period->save());
+
+        $currentPeriod = Period::current();
+        $this->assertInstanceOf(Period::class, $currentPeriod);
+        $this->assertEquals(1000000, $currentPeriod->budget);
     }
 
     public function testInvalidPeriod()
