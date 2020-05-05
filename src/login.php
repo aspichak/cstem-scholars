@@ -1,23 +1,12 @@
 <?php
 
-session_start();
-
+require_once "includes/init.php";
 require_once __DIR__ . "/config.php";
 require_once __DIR__ . "/vendor/apereo/phpcas/CAS.php";
-
-function get($field, $default = null)
-{
-    return isset($_GET[$field]) ? $_GET[$field] : $default;
-}
 
 function whitelist($value, $allowedValues, $default = null)
 {
     return in_array($value, $allowedValues) ? $value : $default;
-}
-
-function redirect($url)
-{
-    header("Location: $url");
 }
 
 if (isset($_REQUEST['logout'])) {
