@@ -12,7 +12,7 @@ final class ApplicationModelTest extends TestCase
     {
         DB::configure('sqlite::memory:', null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 
-        $schema = file_get_contents(__DIR__ . '/../schema.sql');
+        $schema = file_get_contents(__DIR__ . '/../setup.sql');
         $schema .= "
             INSERT INTO User (name, email, isAdvisor, isReviewer, isAdmin) 
             VALUES ('Advisor', 'advisor@email.com', true, false, false);

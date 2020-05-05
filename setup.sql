@@ -1,3 +1,21 @@
+create table `Period`
+(
+    `id` int auto_increment primary key,
+    `beginDate` date not null,
+    `deadline` date not null,
+    `advisorDeadline` date not null,
+    `budget` decimal(10, 2) not null
+);
+
+create table `User`
+(
+    `name` varchar(50) null,
+    `email` varchar(50) not null primary key,
+    `isAdvisor` boolean default false,
+    `isReviewer` boolean default false,
+    `isAdmin` boolean default false
+);
+
 create table `Application`
 (
     `id` int auto_increment
@@ -20,31 +38,13 @@ create table `Application`
     `fundingSources` text null,
     `attachment` varchar(100) null,
     `status` varchar(30) not null,
-    `additionalInformationRequested` bool default false,
+    `additionalInformationRequested` boolean default false,
     foreign key (advisorEmail) references User(email)
-                on update cascade
-                on delete set null,
+        on update cascade
+        on delete set null,
     foreign key (periodID) references Period(id)
-                on delete no action
-                on update cascade
-);
-
-create table `Period`
-(
-    `id` int auto_increment primary key,
-    `beginDate` date not null,
-    `deadline` date not null,
-    `advisorDeadline` date not null,
-    `budget` decimal(10, 2) not null
-);
-
-create table `User`
-(
-    `name` varchar(50) null,
-    `email` varchar(50) not null primary key,
-    `isAdvisor` boolean default false, 
-    `isReviewer` boolean default false, 
-    `isAdmin` boolean default false
+        on delete no action
+        on update cascade
 );
 
 create table `Review`
@@ -63,12 +63,12 @@ create table `Review`
     `fundingRecommended` int null,
     `submitted` boolean not null default false,
     foreign key (reviewerID) references User(email)
-                on update cascade
-                on delete cascade,
+        on update cascade
+        on delete cascade,
     foreign key (applicationID) references Application(id)
-                on delete cascade
-                on update cascade,
+        on delete cascade
+        on update cascade,
     foreign key (periodID) references Period(id)
-                on delete cascade
-                on update cascade
+        on delete cascade
+        on update cascade
 );

@@ -101,7 +101,7 @@ abstract class Model
     {
         if (is_array($primaryKey)) {
             // Ensure the key is complete and doesn't contain extra columns
-            if (sizeof(array_diff(array_keys($primaryKey), static::$primaryKey)) != 0) {
+            if (count(array_diff(array_keys($primaryKey), static::$primaryKey)) != 0) {
                 throw new InvalidArgumentException('Bad composite primary key');
             }
 

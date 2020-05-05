@@ -11,7 +11,7 @@ final class PeriodModelTest extends TestCase
     protected function setUp(): void
     {
         DB::configure('sqlite::memory:', null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-        $schema = file_get_contents(__DIR__ . '/../schema.sql');
+        $schema = file_get_contents(__DIR__ . '/../setup.sql');
         DB::pdo()->exec($schema);
     }
 
