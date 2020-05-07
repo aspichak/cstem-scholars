@@ -28,6 +28,43 @@ abstract class Model
         return static::$table ?? static::class;
     }
 
+    public static function primaryKey()
+    {
+        return static::$primaryKey;
+    }
+
+    /**
+     * Converts a string or an associative array into a common representation of the primary key.
+     *
+     * @param $key mixed A string or an associative array representing the model primary key.
+     * @return array Model primary key in associative array form. If the key is composite but not complete
+     *               (not all columns present), the missing columns will be filled in with nulls.
+     */
+    public static function normalizeKey($key)
+    {
+        $primaryKey = is_array(static::primaryKey()) ? static::primaryKey() : [static::primaryKey()];
+
+        if (!is_array($key)) {
+            if (count($primaryKey) != 1) {
+                throw new InvalidArgumentException('Invalid key passed to a model with a composite primary key');
+            }
+
+            return [static::primaryKey() => $key];
+        } else {
+            // Remove extra columns that don't belong in the composite primary key
+            $key = array_intersect_key($key, array_flip($primaryKey));
+
+            // Add missing columns if necessary
+            foreach ($primaryKey as $k) {
+                if (!array_key_exists($k, $key)) {
+                    $key[$k] = null;
+                }
+            }
+
+            return $key;
+        }
+    }
+
     /**
      * Returns a PDOStatement object. Use PDOStatement::fetch() or
      * PDOStatement::fetchAll() to fetch objects one-by-one or all at once.
@@ -49,20 +86,30 @@ abstract class Model
 
     /**
      * Fetches a single object.
+     * @return Model object instance or NULL if there wasn't one found.
      */
     public static function first($query = '', ...$params)
     {
-        return static::select($query, ...$params)->fetch();
+        $model = static::select($query, ...$params)->fetch();
+
+        if (!$model) {
+            $model = null;
+        }
+
+        return $model;
     }
 
     /**
-     * Gets a single object by primary key.
+     * Gets a single object by its primary key.
      *
-     * @param $key Primary key of the desired object
+     * @param $key mixed Primary key of the desired object. If the key is composite, it should be passed in the form of
+     *                   an associative array.
+     *
+     * @return Model
      */
     public static function get($key)
     {
-        return static::first(...static::queryByKey($key));
+        return static::first(...static::byKey($key));
     }
 
     public static function delete($where = '', ...$params)
@@ -72,7 +119,7 @@ abstract class Model
 
     public static function deleteByKey($key)
     {
-        $numDeleted = static::delete(...static::queryByKey($key));
+        $numDeleted = static::delete(...static::byKey($key));
         assert($numDeleted <= 1, 'At most one record should be deleted');
         return $numDeleted > 0;
     }
@@ -97,35 +144,26 @@ abstract class Model
         return DB::update(static::table(), $values, $where, ...$params);
     }
 
-    protected static function queryByKey($primaryKey)
+    public static function byKey($primaryKey)
     {
-        if (is_array($primaryKey)) {
-            // Ensure the key is complete and doesn't contain extra columns
-            if (count(array_diff(array_keys($primaryKey), static::$primaryKey)) != 0) {
-                throw new InvalidArgumentException('Bad composite primary key');
-            }
-
-            $keys = array_map(fn($key) => "$key = ?", array_keys($primaryKey));
-            $query = implode(' AND ', $keys);
-
-            return [$query, ...array_values($primaryKey)];
-        } else {
-            return [static::$primaryKey . ' = ?', $primaryKey];
-        }
+        $primaryKey = static::normalizeKey($primaryKey);
+        $keys = array_map(fn($key) => "$key = ?", array_keys($primaryKey));
+        $query = implode(' AND ', $keys);
+        return [$query, ...array_values($primaryKey)];
     }
 
     public function key()
     {
-        if (is_array(static::$primaryKey)) {
+        if (is_array(static::primaryKey())) {
             $primaryKey = [];
 
-            foreach (static::$primaryKey as $k) {
+            foreach (static::primaryKey() as $k) {
                 $primaryKey[$k] = $this->$k;
             }
 
             return $primaryKey;
         } else {
-            return $this->{static::$primaryKey};
+            return $this->{static::primaryKey()};
         }
     }
 
@@ -160,6 +198,8 @@ abstract class Model
         foreach ($fields as $f) {
             $this->$f = $form[$f];
         }
+
+        return $this;
     }
 
     public function save()
@@ -170,22 +210,22 @@ abstract class Model
 
         $key = $this->key();
 
-        if (!static::exists(...static::queryByKey($key))) {
+        if (!static::exists(...static::byKey($key))) {
             $res = static::insert($this->values());
 
             // Try to get an auto_increment key
-            if (is_string(static::$primaryKey)) {
-                $lastInsertID = DB::pdo()->lastInsertID(static::$primaryKey);
+            if (is_string(static::primaryKey())) {
+                $lastInsertID = DB::pdo()->lastInsertID(static::primaryKey());
 
 
                 if ($lastInsertID != 0) {
-                    $this->{static::$primaryKey} = $lastInsertID;
+                    $this->{static::primaryKey()} = $lastInsertID;
                 }
             }
 
             return $res;
         } else {
-            return static::update($this->values(), ...static::queryByKey($key));
+            return static::update($this->values(), ...static::byKey($key));
         }
     }
 
@@ -205,10 +245,10 @@ abstract class Model
         $columns = array_merge($this->fillable(), $this->guarded);
 
         if ($includePrimaryKey) {
-            if (is_array(static::$primaryKey)) {
-                $columns = array_merge(static::$primaryKey, $columns);
+            if (is_array(static::primaryKey())) {
+                $columns = array_merge(static::primaryKey(), $columns);
             } else {
-                $columns[] = static::$primaryKey;
+                $columns[] = static::primaryKey();
             }
         }
 

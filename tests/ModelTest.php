@@ -249,12 +249,6 @@ final class ModelTest extends TestCase
         $this->assertCount(0, CompositeKeyModel::all());
     }
 
-    public function testIncompleteCompositePrimaryKeyException()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        CompositeKeyModel::get(['bad' => 'key', 'is' => 'bad']);
-    }
-
     public function testAllNonexistentReturnsEmptyArray()
     {
         $this->assertEquals([], TestModel::all('1=0'));
@@ -295,5 +289,13 @@ final class ModelTest extends TestCase
 
         $m = TestModel::first('1=0');
         $this->assertEquals(null, $m);
+    }
+
+    public function testNormalizeKey()
+    {
+        $this->assertEquals(['id' => 'hello'], TestModel::normalizeKey('hello'));
+        $this->assertEquals(['id' => 'hello'], TestModel::normalizeKey(['id' => 'hello']));
+        $this->assertEquals(['id' => 'hello'], TestModel::normalizeKey(['id' => 'hello', 'bad' => 'key']));
+        $this->assertEquals(['id' => null], TestModel::normalizeKey(['bad' => 'key']));
     }
 }

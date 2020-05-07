@@ -6,7 +6,7 @@ class User extends Model
 {
     protected static $primaryKey = 'email';
 
-    public $ewuID;
+    public $id;
     public $isAdvisor;
     public $isReviewer;
     public $isAdmin;
@@ -22,28 +22,32 @@ class User extends Model
             'isAdmin'
         ];
 
+        $this->id = $form['id'] ?? null;
         parent::__construct($form);
     }
 
     public static function current()
     {
-        $user = User::get($_SESSION['email']) ?? new User();
+        if (in_array(null, HTTP::session(['id', 'name', 'email']))) {
+            return null;
+        }
 
-        $user->ewuID = $_SESSION['id'];
-        $user->name = $_SESSION['name'];
-        $user->email = $_SESSION['email'];
+        $user = self::get(HTTP::session('email')) ?? new User();
+        $user->id = HTTP::session('id');
+        $user->name = HTTP::session('name');
+        $user->email = HTTP::session('email');
         $user->isStudent = !($user->isAdvisor || $user->isReviewer || $user->isAdmin);
 
         return $user;
     }
 
-    public static function authorize($role, $allow)
+    public static function authorize($role, $allow = true)
     {
         if (User::current()->hasRole($role) && $allow) {
-            error(
+            HTTP::error(
                 'You are not authorized to access this page.',
-                'You are not authorized to access this page.',
-                401
+                401,
+                'Unauthorized Access'
             );
         }
     }
