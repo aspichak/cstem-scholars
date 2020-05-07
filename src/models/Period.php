@@ -21,6 +21,11 @@ class Period extends Model
         return self::first('beginDate <= :date AND deadline >= :date', ['date' => date('Y-m-d')]);
     }
 
+    public static function currentForAdvisors()
+    {
+        return self::first('beginDate <= :date AND advisorDeadline >= :date', ['date' => date('Y-m-d')]);
+    }
+
     public function errors()
     {
         $errors = parent::errors();
