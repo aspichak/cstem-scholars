@@ -120,7 +120,7 @@ if (defined('DEBUG') && DEBUG) {
 
     if ($type == "admin") {
         // ADMIN PAGE LOGIN
-        if ($user->isAdmin) {
+        if ($user->isAdmin()) {
             header("location:/Admin/index.php");
         } else {
             error(
@@ -131,7 +131,7 @@ if (defined('DEBUG') && DEBUG) {
         }
     } elseif ($type == 'student') {
         // STUDENT PAGE LOGIN
-        if (!$user->isStudent) {
+        if (!$user->isStudent()) {
             error(
                 'Student Application',
                 'You are not an EWU student and are not eligible to apply for the CSTEM Research Grant.',
@@ -148,14 +148,14 @@ if (defined('DEBUG') && DEBUG) {
         }
     } elseif ($type == 'advisor') {
         // ADVISOR PAGE LOGIN
-        if ($user->isStudent) {
+        if ($user->isStudent()) {
             error(
                 'Advisor Approval',
                 'You are not a faculty advisor for Eastern\'s CSTEM research grant.',
                 401
             );
         } elseif (Period::currentForAdvisors() != null) {
-            if ($user->isAdvisor) {
+            if ($user->isAdvisor()) {
                 header("location:faculty/facultylandingpage.php");
             } else {
                 error(
@@ -173,14 +173,14 @@ if (defined('DEBUG') && DEBUG) {
         }
     } elseif ($type == "reviewer") {
         // REVIEWER PAGE LOGIN
-        if ($user->isStudent) {
+        if ($user->isStudent()) {
             error(
                 'Application Reviewal',
                 'You are not a reviewer for Eastern\'s CSTEM Research Grant application.',
                 401
             );
         }
-        if ($user->isReviewer) {
+        if ($user->isReviewer()) {
             if (Period::currentForAdvisors() != null) {
                 header("location:/reviewers/ReviewStudents.php");
             } else {

@@ -48,13 +48,13 @@ class User extends Model
         $user = User::current();
         switch ($role) {
             case "student":
-                return User::isAuthorized($user->isStudent);
+                return User::isAuthorized($user->isStudent());
             case "admin":
-                return User::isAuthorized($user->isAdmin);
+                return User::isAuthorized($user->isAdmin());
             case "reviewer":
-                return User::isAuthorized($user->isReviewer);
+                return User::isAuthorized($user->isReviewer());
             case "advisor":
-                return User::isAuthorized($user->isAdvisor);
+                return User::isAuthorized($user->isAdvisor());
             default:
                 return User::isAuthorized(false);
         }
