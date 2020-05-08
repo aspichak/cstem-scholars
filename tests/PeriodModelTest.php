@@ -48,6 +48,23 @@ final class PeriodModelTest extends SchemaTest
         $this->assertEquals(1000000, $currentPeriod->budget);
     }
 
+    public function testCurrentPeriodForAdvisors()
+    {
+        $period = new Period([
+                                 'beginDate'       => date('Y-m-d', strtotime('yesterday')),
+                                 'deadline'        => date('Y-m-d', strtotime('tomorrow')),
+                                 'advisorDeadline' => date('Y-m-d', strtotime('tomorrow')),
+                                 'budget'          => 1000000
+                             ]);
+
+        $this->assertCount(0, $period->errors());
+        $this->assertTrue($period->save());
+
+        $currentPeriod = Period::currentForAdvisors();
+        $this->assertInstanceOf(Period::class, $currentPeriod);
+        $this->assertEquals(1000000, $currentPeriod->budget);
+    }
+
     public function testInvalidPeriod()
     {
         $period = new Period([

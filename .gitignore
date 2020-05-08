@@ -9,3 +9,5 @@ docker notes.txt
 ssh info.txt
 
 src/.idea/dataSources.xml
+
+.phpunit.result.cache
