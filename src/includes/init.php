@@ -17,14 +17,6 @@ use PHPMailer\PHPMailer\SMTP;
 
 DB::configure(DB_CONNECTION_STRING, DB_USERNAME, DB_PASSWORD, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 
-function authorize($role)
-{
-    if (!isset($_SESSION) || !isset($_SESSION['role']) || $_SESSION['role'] != $role) {
-        error('Unauthorized user', "Unauthorized user", 401);
-        exit();
-    }
-}
-
 function redirect($url, $flash = null)
 {
     if ($flash) {

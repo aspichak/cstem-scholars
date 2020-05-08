@@ -1,7 +1,7 @@
 <?php
 
 require_once '../includes/init.php';
-authorize('student');
+User::authorize('student');
 
 $deadline = DB::selectSingle("Settings")['Deadline'];
 $date = date("M j, Y", strtotime($deadline));

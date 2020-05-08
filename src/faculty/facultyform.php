@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/facultyform.css">
     <?php
     require_once '../includes/init.php';
-    authorize('faculty');
+    User::authorize('advisor');
     $database = parse_ini_file("../config.ini");
     $host = $database['host'];
     $db = $database['db'];

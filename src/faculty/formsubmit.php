@@ -1,7 +1,7 @@
 <?php
 
 require_once '../includes/init.php';
-authorize('faculty');
+User::authorize('advisor');
 
 $end = false;
 $database = parse_ini_file("../config.ini");

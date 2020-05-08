@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php
     require_once '../includes/init.php';
-    authorize('admin');
+    User::authorize('admin');
 
     $database = parse_ini_file("config.ini");
     $host = $database['host'];

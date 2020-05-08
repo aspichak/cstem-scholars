@@ -5,7 +5,7 @@ require_once '../includes/init.php';
 use Respect\Validation\Validator as v;
 use Respect\Validation\Exceptions\ValidationException;
 
-authorize('reviewer');
+User::authorize('reviewer');
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
