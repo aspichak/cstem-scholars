@@ -5,7 +5,7 @@ require_once '../includes/init.php';
 use Respect\Validation\Validator as v;
 use Respect\Validation\Exceptions\ValidationException;
 
-authorize('student');
+User::authorize('student');
 
 $deadline = DB::selectSingle("Settings")['Deadline'];
 $date = date("M j, Y", strtotime($deadline));

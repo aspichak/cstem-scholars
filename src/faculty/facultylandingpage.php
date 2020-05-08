@@ -1,7 +1,7 @@
 <?php
 
 require_once '../includes/init.php';
-authorize('faculty');
+User::authorize('advisor');
 ?>
 <!DOCTYPE html>
 <html lang="en">

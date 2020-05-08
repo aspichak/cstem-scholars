@@ -1,24 +1,12 @@
 <?php
 
-session_start();
-
+require_once "includes/init.php";
 require_once __DIR__ . "/config.php";
-require_once __DIR__ . "/sso-example/SSO/CAS/CAS.php";
-require_once __DIR__ . "/sso-example/SSO/config.php";
-
-function get($field, $default = null)
-{
-    return isset($_GET[$field]) ? $_GET[$field] : $default;
-}
+require_once __DIR__ . "/vendor/apereo/phpcas/CAS.php";
 
 function whitelist($value, $allowedValues, $default = null)
 {
     return in_array($value, $allowedValues) ? $value : $default;
-}
-
-function redirect($url)
-{
-    header("Location: $url");
 }
 
 if (isset($_REQUEST['logout'])) {
@@ -29,7 +17,7 @@ if (isset($_REQUEST['logout'])) {
 }
 
 if (defined('DEBUG') && DEBUG) {
-    $roles = ['student', 'faculty', 'reviewer', 'admin'];
+    $roles = ['student', 'advisor', 'reviewer', 'admin'];
     $role = whitelist(get('id'), $roles, 'student');
 
     $identities = [
@@ -43,23 +31,23 @@ if (defined('DEBUG') && DEBUG) {
 
     $locations = [
         'student' => '/students',
-        'faculty' => '/faculty/facultylandingpage.php',
+        'advisor' => '/faculty/facultylandingpage.php',
         'reviewer' => '/reviewers/ReviewStudents.php',
         'admin' => '/Admin/index.php'
     ];
 
-    $user = whitelist(get('as'), array_keys($identities));
+    $userName = whitelist(get('as'), array_keys($identities));
 
     if ($role == 'admin') {
         $_SESSION['role'] = $role;
         redirect($locations['admin']);
     }
 
-    if ($user) {
+    if ($userName) {
         session_unset();
-        $_SESSION["id"] = $identities[$user];
-        $_SESSION["email"] = "$user@ewu.edu";
-        $_SESSION["user"] = $user;
+        $_SESSION["id"] = $identities[$userName];
+        $_SESSION["email"] = "$userName@ewu.edu";
+        $_SESSION["user"] = $userName;
         $_SESSION["role"] = $role;
         redirect($locations[$role]);
     }
@@ -96,7 +84,7 @@ if (defined('DEBUG') && DEBUG) {
         or log in as a
 
         <a href="login.php?id=student">student</a>,
-        <a href="login.php?id=faculty">faculty</a>,
+        <a href="login.php?id=advisor">advisor</a>,
         <a href="login.php?id=reviewer">reviewer</a>, or
         <a href="login.php?id=admin">admininstrator</a>.
     </p>
@@ -104,131 +92,106 @@ if (defined('DEBUG') && DEBUG) {
     </html>
 
     <?php
-} else {
+} else { // Production code block. uses CAS
     phpCAS::client(SAML_VERSION_1_1, $cas_host, $cas_port, $cas_context);
     //phpCAS::setCasServerCACert($cas_server_ca_cert_path);
     phpCAS::setNoCasServerValidation();
     phpCAS::handleLogoutRequests();
     phpCAS::forceAuthentication();
 
-    $user = phpCAS::getUser();
-    $attributes = phpCAS::getAttributes();
-    $userType = $attributes["UserType"];
-    $email = $attributes["Email"];
-    $_SESSION["id"] = $attributes["Ewuid"];
-    $_SESSION["email"] = $email;
-    $_SESSION["user"] = $user;
-    $_SESSION["role"] = "student";
-
-    if (DB::contains("Advisor", "AEmail = ?", $attributes["Email"])) {
-        $_SESSION["role"] = "faculty";
+    if (isset($_SESSION["user"])) {
+        $user = User::current();
+    } else {
+        $userName = phpCAS::getUser();
+        $attributes = phpCAS::getAttributes();
+        $_SESSION['name'] = "{$attributes['FirstName']} {$attributes['LastName']}";
+        $userType = $attributes["UserType"];
+        $email = $attributes["Email"];
+        $_SESSION["id"] = $attributes["Ewuid"];
+        $_SESSION["email"] = $email;
+        $_SESSION["user"] = $userName;
+        $user = User::current();
+        if (User::get($_SESSION['email']) == null) {
+            $user->save();
+        }
     }
-
-    if (DB::contains("Reviewers", "REmail = ? AND Active = 1", $attributes["Email"])) {
-        $_SESSION["role"] = "reviewer";
-    }
-
-    if ($email == "lcornick@ewu.edu") {
-        $_SESSION["role"] = "admin";
-    }
-
-    $database = parse_ini_file("config.ini");
-    $host = $database['host'];
-    $db = $database['db'];
-    $user = $database['user'];
-    $pass = $database['pass'];
-    $charset = 'utf8mb4';
-    $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-    $opt = [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES => false,
-    ];
-    try {
-        $pdo = new PDO($dsn, $user, $pass, $options);
-    } catch (\PDOException $e) {
-        throw new \PDOException($e->getMessage(), (int)$e->getCode());
-    }
-    $sth = $pdo->prepare("SELECT BeginDate, Deadline, AdvisorDeadline FROM Settings");
-    $sth->execute();
-    $dates = $sth->fetch();
-    $beginDate = $dates["BeginDate"];
-    $deadLine = $dates["Deadline"];
-    $advisorDeadLine = $dates["AdvisorDeadline"];
-    $today = date("Y-m-d");
-    $sth = $pdo->prepare("SELECT AEmail FROM Advisor");
-    $sth->execute();
-    $advisorEmails = $sth->fetchAll();
-    $sth = $pdo->prepare("SELECT REmail FROM Reviewers");
-    $sth->execute();
-    $reviewerEmails = $sth->fetchAll();
 
     $type = $_GET["id"];
 
     if ($type == "admin") {
-        if ($email == "lcornick@ewu.edu") {
+        // ADMIN PAGE LOGIN
+        if ($user->isAdmin()) {
             header("location:/Admin/index.php");
         } else {
-            error('Admin',
-                  'You are not an admin for the CSTEM Undergraduate Research Grant.',
-            401);
+            error(
+                'Admin',
+                'You are not an admin for the CSTEM Undergraduate Research Grant.',
+                401
+            );
         }
     } elseif ($type == 'student') {
-        if ($userType == 'Employee') {
-            error('Student Application',
-                  'You are not an EWU student and are not eligible to apply for the CSTEM Research Grant.',
-            401);;
-        } elseif ($today <= $deadLine && $today >= $beginDate) {
+        // STUDENT PAGE LOGIN
+        if (!$user->isStudent()) {
+            error(
+                'Student Application',
+                'You are not an EWU student and are not eligible to apply for the CSTEM Research Grant.',
+                401
+            );;
+        } elseif (Period::current() != null) {
             header("location:/students");
         } else {
-            error('Student Application',
-                  'The CSTEM Research Grant application has been closed. Please check back at a later date.',
-            403);
+            error(
+                'Student Application',
+                'The CSTEM Research Grant application has been closed. Please check back at a later date.',
+                403
+            );
         }
-    } elseif ($type == 'faculty') {
-        if ($userType == 'Student') {
-            error('Advisor Approval',
-            'You are not a faculty advisor for Eastern\'s CSTEM research grant.',
-            401);
-        } elseif ($today <= $advisorDeadLine && $today >= $beginDate) {
-            foreach ($advisorEmails as $value) {
-                if ($value["AEmail"] == $email) {
-                    $isAdvisor = true;
-                }
-            }
-            if ($isAdvisor) {
+    } elseif ($type == 'advisor') {
+        // ADVISOR PAGE LOGIN
+        if ($user->isStudent()) {
+            error(
+                'Advisor Approval',
+                'You are not a faculty advisor for Eastern\'s CSTEM research grant.',
+                401
+            );
+        } elseif (Period::currentForAdvisors() != null) {
+            if ($user->isAdvisor()) {
                 header("location:faculty/facultylandingpage.php");
             } else {
-                error('Advisor Approval',
-                'Currently there are no applications needing approval. Please check back later.',
-                204);
+                error(
+                    'Advisor Approval',
+                    'Currently there are no applications needing approval. Please check back later.',
+                    204
+                );
             }
         } else {
-            error('Advisor Approval',
-                  'The deadline has passed for approving students applications.',
-                  204);
+            error(
+                'Advisor Approval',
+                'The deadline has passed for approving students applications.',
+                204
+            );
         }
     } elseif ($type == "reviewer") {
-        if ($userType == 'Student') {
-            error('Application Reviewal',
-                  'You are not a reviewer for Eastern\'s CSTEM Research Grant application.',
-            401);
+        // REVIEWER PAGE LOGIN
+        if ($user->isStudent()) {
+            error(
+                'Application Reviewal',
+                'You are not a reviewer for Eastern\'s CSTEM Research Grant application.',
+                401
+            );
         }
-        foreach ($reviewerEmails as $value) {
-            if ($value["REmail"] == $email) {
-                $isReviewer = true;
-            }
-        }
-        if ($isReviewer) {
-            if ($today > $advisorDeadLine) {
+        if ($user->isReviewer()) {
+            if (Period::currentForAdvisors() != null) {
                 header("location:/reviewers/ReviewStudents.php");
             } else {
                 header("location:infoPages/closedReviewer.php");
             }
         } else {
-            error('Application Reviewal',
-                  'You are not a reviewer for Eastern\'s CSTEM Research Grant application.',
-            401);
+            error(
+                'Application Reviewal',
+                'You are not a reviewer for Eastern\'s CSTEM Research Grant application.',
+                401
+            );
         }
     }
 }
