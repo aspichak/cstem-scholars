@@ -211,7 +211,7 @@ abstract class Model
         $key = $this->key();
 
         if (!static::exists(...static::byKey($key))) {
-            $res = static::insert($this->values());
+            $res = static::insert($this->values(false));
 
             // Try to get an auto_increment key
             if (is_string(static::primaryKey())) {
@@ -225,31 +225,31 @@ abstract class Model
 
             return $res;
         } else {
-            return static::update($this->values(), ...static::byKey($key));
+            return static::update($this->values(false), ...static::byKey($key));
         }
     }
 
-    public function values($includePrimaryKey = true)
+    public function values($includeNulls = true)
     {
         $values = [];
 
-        foreach ($this->columns($includePrimaryKey) as $column) {
-            $values[$column] = $this->$column;
+        foreach ($this->columns() as $column) {
+            if ($this->$column !== null || $includeNulls) {
+                $values[$column] = $this->$column;
+            }
         }
 
         return $values;
     }
 
-    public function columns($includePrimaryKey = true)
+    public function columns()
     {
         $columns = array_merge($this->fillable(), $this->guarded);
 
-        if ($includePrimaryKey) {
-            if (is_array(static::primaryKey())) {
-                $columns = array_merge(static::primaryKey(), $columns);
-            } else {
-                $columns[] = static::primaryKey();
-            }
+        if (is_array(static::primaryKey())) {
+            $columns = array_merge(static::primaryKey(), $columns);
+        } else {
+            $columns[] = static::primaryKey();
         }
 
         return $columns;
