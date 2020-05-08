@@ -36,15 +36,6 @@ class User extends Model
 
     public static function authorize($role, $allow = true)
     {
-        /*
-        if (User::current()->hasRole($role) && $allow) {
-            HTTP::error(
-                'You are not authorized to access this page.',
-                401,
-                'Unauthorized Access'
-            );
-        }
-        */
         $user = User::current();
         switch ($role) {
             case "student":
@@ -60,15 +51,15 @@ class User extends Model
         }
     }
 
-    private static function isAuthorized($flag) {
+    private static function isAuthorized($flag)
+    {
         if (!$flag) {
             HTTP::error(
                 'You are not authorized to access this page.',
                 401,
                 'Unauthorized Access'
             );
-        }
-        else {
+        } else {
             return true;
         }
     }
