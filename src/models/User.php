@@ -36,31 +36,12 @@ class User extends Model
 
     public static function authorize($role, $allow = true)
     {
-        $user = User::current();
-        switch ($role) {
-            case "student":
-                return User::isAuthorized($user->isStudent());
-            case "admin":
-                return User::isAuthorized($user->isAdmin());
-            case "reviewer":
-                return User::isAuthorized($user->isReviewer());
-            case "advisor":
-                return User::isAuthorized($user->isAdvisor());
-            default:
-                return User::isAuthorized(false);
-        }
-    }
-
-    private static function isAuthorized($flag)
-    {
-        if (!$flag) {
+        if (User::current() && User::current()->hasRole($role) && $allow) {
             HTTP::error(
                 'You are not authorized to access this page.',
                 401,
                 'Unauthorized Access'
             );
-        } else {
-            return true;
         }
     }
 
