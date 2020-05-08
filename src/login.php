@@ -112,9 +112,6 @@ if (defined('DEBUG') && DEBUG) {
         $_SESSION["user"] = $userName;
         $user = User::current();
         if (User::get($_SESSION['email']) == null) {
-            $user->isReviewer = false;
-            $user->isAdvisor = false;
-            $user->isAdmin = false;
             $user->save();
         }
     }
