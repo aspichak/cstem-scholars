@@ -28,6 +28,12 @@ final class UserModelTest extends SchemaTest
         $this->assertCount(0, $user->errors());
         $this->assertTrue($user->save());
         $this->assertEquals(1, User::count());
+
+        $user = new User();
+        $this->assertFalse($user->isAdmin());
+        $this->assertFalse($user->isAdvisor());
+        $this->assertFalse($user->isReviewer());
+        $this->assertTrue($user->isStudent());
     }
 
     public function testCurrentUser()
@@ -50,10 +56,10 @@ final class UserModelTest extends SchemaTest
         $this->assertEquals('00100001', $user->id);
         $this->assertEquals('Student Name', $user->name);
         $this->assertEquals('student@example.edu', $user->email);
-        $this->assertEquals(false, $user->isAdmin);
-        $this->assertEquals(false, $user->isAdvisor);
-        $this->assertEquals(false, $user->isReviewer);
-        $this->assertEquals(true, $user->isStudent);
+        $this->assertFalse($user->isAdmin());
+        $this->assertFalse($user->isAdvisor());
+        $this->assertFalse($user->isReviewer());
+        $this->assertTrue($user->isStudent());
         $this->assertEquals(['student'], $user->roles());
 
         $_SESSION['id'] = '00100001';
@@ -65,10 +71,10 @@ final class UserModelTest extends SchemaTest
         $this->assertEquals('00100001', $user->id);
         $this->assertEquals('Alice Archer', $user->name);
         $this->assertEquals('alice@example.edu', $user->email);
-        $this->assertEquals(true, $user->isAdmin);
-        $this->assertEquals(false, $user->isAdvisor);
-        $this->assertEquals(true, $user->isReviewer);
-        $this->assertEquals(false, $user->isStudent);
+        $this->assertTrue($user->isAdmin());
+        $this->assertFalse($user->isAdvisor());
+        $this->assertTrue($user->isReviewer());
+        $this->assertFalse($user->isStudent());
         $this->assertContains('reviewer', $user->roles());
         $this->assertContains('admin', $user->roles());
         $this->assertCount(2, $user->roles());
@@ -90,5 +96,24 @@ final class UserModelTest extends SchemaTest
 
         $_SESSION['email'] = 'student@example.edu';
         $this->assertInstanceOf(User::class, User::current());
+    }
+
+    public function testUserSave()
+    {
+        $user = new User([
+            'id' => '00100002',
+            'name' => 'Robert Baker',
+            'email' => 'robert@example.edu',
+            'isAdmin' => true,
+            'isReviewer' => false
+        ]);
+
+        $this->assertTrue($user->save());
+
+        $user = User::first();
+        $this->assertTrue($user->isAdmin());
+        $this->assertFalse($user->isReviewer());
+        $this->assertFalse($user->isAdvisor());
+        $this->assertFalse($user->isStudent());
     }
 }

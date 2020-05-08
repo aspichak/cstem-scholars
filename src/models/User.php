@@ -6,12 +6,6 @@ class User extends Model
 {
     protected static $primaryKey = 'email';
 
-    public $id;
-    public $isAdvisor;
-    public $isReviewer;
-    public $isAdmin;
-    public $isStudent;
-
     public function __construct($form = [])
     {
         $this->fillable = [
@@ -36,7 +30,6 @@ class User extends Model
         $user->id = HTTP::session('id');
         $user->name = HTTP::session('name');
         $user->email = HTTP::session('email');
-        $user->isStudent = !($user->isAdvisor || $user->isReviewer || $user->isAdmin);
 
         return $user;
     }
@@ -52,23 +45,43 @@ class User extends Model
         }
     }
 
+    public function isAdmin()
+    {
+        return (bool)$this->isAdmin;
+    }
+
+    public function isAdvisor()
+    {
+        return (bool)$this->isAdvisor;
+    }
+
+    public function isReviewer()
+    {
+        return (bool)$this->isReviewer;
+    }
+
+    public function isStudent()
+    {
+        return !($this->isAdvisor() || $this->isReviewer() || $this->isAdmin());
+    }
+
     public function roles()
     {
         $roles = [];
 
-        if ($this->isStudent) {
+        if ($this->isStudent()) {
             $roles[] = 'student';
         }
 
-        if ($this->isAdvisor) {
+        if ($this->isAdvisor()) {
             $roles[] = 'advisor';
         }
 
-        if ($this->isReviewer) {
+        if ($this->isReviewer()) {
             $roles[] = 'reviewer';
         }
 
-        if ($this->isAdmin) {
+        if ($this->isAdmin()) {
             $roles[] = 'admin';
         }
 
