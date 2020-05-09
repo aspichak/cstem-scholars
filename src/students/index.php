@@ -272,6 +272,9 @@ if (post('submit')) {
     <title>Application Form</title>
     <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
     <link href="css/students.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="./script.js"></script>
+
 </head>
 <body>
 
@@ -282,6 +285,8 @@ if (post('submit')) {
         </div>
     </div>
 </form>
+
+<!-- start of form container -->
 
 <form role="form" method="post" action="" enctype="multipart/form-data">
     <div class="form">
@@ -400,6 +405,7 @@ if (post('submit')) {
                 </label>
             </div>
 
+            <!-- START BUDGET CONTAINER -->
             <div class="section"><span>6</span>Budget</div>
             <div class="inner-wrap">
                 <label>
@@ -422,36 +428,31 @@ if (post('submit')) {
                     <?= renderError('sources') ?>
                     <input type="text" name="sources" value="<?= $form['sources'] ?>" required>
                 </label>
-                <input type="hidden" name="MAX_FILE_SIZE" value="1048576"/>
+<!--adding-->
+<!--done adding-->
+                <!-- THIS IS WHERE USER INPUT FOR BUDGET SHEET GOES -->
                 <label>
-                    Upload budget spreadsheet:
-                    <?= renderError('file') ?>
-                    <input name="file" type="file"
-                           accept="<?= implode(',', array_map(fn($ext) => ".$ext", ALLOWED_UPLOAD_EXTENSIONS)) ?>"
-                    >
-                </label>
-
-                <?php if (!empty($application['BudgetFilePath'])) { ?>
-                    <p>
-                        <a href="<?= url('download.php?file=' . $application['BudgetFilePath']) ?>">
-                            Download previously uploaded file
-                        </a>
-                    </p>
-                <?php } ?>
-
-                <p>Valid file types are: <?= implode(', ', ALLOWED_UPLOAD_EXTENSIONS) ?></p>
-            </div>
-
-            <div class="button-section">
-                <button type="submit" class="button" name="submit" value='submit'>Submit</button>
-                <button type="submit" class="button" name="save" value='save' formnovalidate>Save</button>
-                <label class="privacy-policy">
-                    <input type="checkbox" name="terms" value="agree" required>
-                    <div class="tooltip">I agree to the Terms & Conditions
-                        <span class="tooltiptext">Awards shall only be spent on allowable expenses as defined in the application. Receipts must be provided for all expenses including travel. Funds must be spent within one calendar year of dispersal A brief two-page progress report must be submitted to the faculty advisor and associate dean by the end of the project year. Any academic integrity or student code of conduct violations will result in forfeiture the award.</span>
+                    <br>
+                    Please break down your funding into an itemized list:
+                    <div id = "table">
                     </div>
-                    <?= renderError('terms') ?>
+                    <button id="increment">+</button>
                 </label>
+<!--adding-->
+<!--done adding-->
+                <!-- CHECK THE SIZE OF THE CONTAINER FOR ENTIRE BUDGET SECTION-->
+                <div class="button-section" align = "left">
+                    <button type="submit" class="button" name="submit" value='submit'>Submit</button>
+                    <button type="submit" class="button" name="save" value='save' formnovalidate>Save</button>
+                    <label class="privacy-policy">
+                        <!-- why is this popping up when clicking increment button 1620 5/9-->
+                        <input type="checkbox" name="terms" value="agree" required>
+                        <div class="tooltip">I agree to the Terms & Conditions
+                            <span class="tooltiptext">Awards shall only be spent on allowable expenses as defined in the application. Receipts must be provided for all expenses including travel. Funds must be spent within one calendar year of dispersal A brief two-page progress report must be submitted to the faculty advisor and associate dean by the end of the project year. Any academic integrity or student code of conduct violations will result in forfeiture the award.</span>
+                        </div>
+                        <?= renderError('terms') ?>
+                    </label>
+                </div>
             </div>
         </form>
     </div>
