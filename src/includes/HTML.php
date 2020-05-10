@@ -7,11 +7,6 @@ abstract class HTML
         return htmlspecialchars($value, ENT_QUOTES, 'UTF-8', false);
     }
 
-    public static function e($value)
-    {
-        return self::escape($value);
-    }
-
     public static function tag($tag, $text = null, $attributes = [])
     {
         $attrs = '';
@@ -35,6 +30,16 @@ abstract class HTML
         // TODO: document security issues (directory traversal, variable overwriting)
         $layout = null;
 
+        // Make a short alias to HTML::escape available to templates
+        if (!function_exists('e')) {
+            function e($value)
+            {
+                return HTML::escape($value);
+            }
+        }
+
+        // Extract passed parameters into variables
+        // WARNING: This may be dangerous. Exercise caution.
         if (is_array($v)) {
             extract($v, EXTR_OVERWRITE);
         }
