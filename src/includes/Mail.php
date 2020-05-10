@@ -4,7 +4,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 class Mail
 {
-    public static function send($to, $subject, $body)
+    public static function prepare($to, $subject, $body)
     {
         $mail = new PHPMailer;
 
@@ -23,5 +23,10 @@ class Mail
         $mail->Body = $body;
 
         return $mail;
+    }
+
+    public static function send($to, $subject, $body)
+    {
+        self::prepare($to, $subject, $body)->send();
     }
 }
