@@ -105,7 +105,6 @@ class Form
         return $this->input('checkbox', $name, $attributes);
     }
 
-    // TODO: unit tests
     public function radio($name, $value, $attributes = [])
     {
         if ($value == $this->value($name)) {
