@@ -101,7 +101,6 @@ final class UserModelTest extends SchemaTest
     public function testUserSave()
     {
         $user = new User([
-            'id' => '00100002',
             'name' => 'Robert Baker',
             'email' => 'robert@example.edu',
             'isAdmin' => true,

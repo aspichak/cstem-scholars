@@ -4,7 +4,9 @@ use Respect\Validation\ValidatorFunction as v;
 
 class Period extends Model
 {
-    public function __construct($form = [])
+    public $id, $beginDate, $deadline, $advisorDeadline, $budget;
+
+    public function __construct($form = [], $fillGuardedColumns = false)
     {
         $this->fillable = [
             'beginDate' => v::date('Y-m-d'),
@@ -13,7 +15,7 @@ class Period extends Model
             'budget' => v::number()->min(0)->setName('Budget')
         ];
 
-        parent::__construct($form);
+        parent::__construct($form, $fillGuardedColumns);
     }
 
     public static function current()

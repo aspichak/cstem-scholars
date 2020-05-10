@@ -3,8 +3,7 @@
 require_once '../includes/init.php';
 User::authorize('student');
 
-$deadline = DB::selectSingle("Settings")['Deadline'];
-$date = date("M j, Y", strtotime($deadline));
+$period = Period::current();
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
@@ -32,7 +31,7 @@ $date = date("M j, Y", strtotime($deadline));
         <div class="section"></div>
         <div class="inner-wrap">
             <label>Be sure to check your email and follow up with your advisor. Your application must be approved by
-                your advisor before <strong><?= $date ?></strong>.</label>
+                your advisor before <strong><?= date("M j, Y", strtotime($period->advisorDeadline)) ?></strong>.</label>
         </div>
     </form>
 </div>

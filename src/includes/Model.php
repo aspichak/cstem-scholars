@@ -7,10 +7,10 @@ abstract class Model
     protected $fillable = [];
     protected $guarded = [];
 
-    public function __construct($form = [])
+    public function __construct($form = [], $fillGuardedColumns = false)
     {
         assert(
-            empty(array_intersect(static::fillable(), $this->guarded)),
+            empty(array_intersect($this->fillableColumns(), $this->guarded)),
             'Fillable and guarded columns cannot intersect'
         );
 
@@ -20,7 +20,7 @@ abstract class Model
         }
 
         // Fill out the fields from the provided form
-        $this->fill($form);
+        $this->fill($form, $fillGuardedColumns);
     }
 
     public static function table()
@@ -171,7 +171,7 @@ abstract class Model
     {
         $errors = [];
 
-        foreach ($this->fillable() as $column) {
+        foreach ($this->fillableColumns() as $column) {
             $validator = $this->fillable[$column] ?? null;
 
             if (is_callable($validator)) {
@@ -191,11 +191,16 @@ abstract class Model
         return empty($this->errors());
     }
 
-    public function fill($form)
+    public function fill($form, $fillGuardedColumns = false)
     {
-        $fields = array_intersect($this->fillable(), array_keys($form));
+        $columns = array_intersect($this->fillableColumns(), array_keys($form));
 
-        foreach ($fields as $f) {
+        if ($fillGuardedColumns) {
+            $guardedColumns = array_intersect($this->guarded, array_keys($form));
+            $columns = array_merge($columns, $guardedColumns);
+        }
+
+        foreach ($columns as $f) {
             $this->$f = $form[$f];
         }
 
@@ -244,7 +249,7 @@ abstract class Model
 
     public function columns()
     {
-        $columns = array_merge($this->fillable(), $this->guarded);
+        $columns = array_merge($this->fillableColumns(), $this->guarded);
 
         if (is_array(static::primaryKey())) {
             $columns = array_merge(static::primaryKey(), $columns);
@@ -255,7 +260,7 @@ abstract class Model
         return $columns;
     }
 
-    private function fillable()
+    public function fillableColumns()
     {
         $fillable = [];
 
