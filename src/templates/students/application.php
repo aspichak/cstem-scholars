@@ -147,7 +147,7 @@
                 <?php if ($application->attachment) { ?>
                     <p>
                         <?= HTML::link(
-                            "download.php?file={$application->attachment}",
+                            "../download.php?file={$application->attachment}",
                             "Download previously uploaded file"
                         ) ?>
                     </p>
