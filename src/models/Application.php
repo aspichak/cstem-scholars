@@ -54,8 +54,8 @@ class Application extends Model
 
             // Budget
             'justification'   => v::length(3, 2000)->setName('Budget description'),
-            'totalBudget'     => v::number()->min(0)->setName('Budget amount'),
-            'requestedBudget' => v::number()->min(0)->max(2000)->setName('Requested amount'),
+            'totalBudget'     => v::number()->min(1)->setName('Budget amount'),
+            'requestedBudget' => v::number()->min(1)->max(2000)->setName('Requested amount'),
             'fundingSources'  => v::length(3, 140)->setName('Funding sources')
         ];
 
@@ -80,7 +80,14 @@ class Application extends Model
     {
         $errors = parent::errors();
 
-        if (!$this->hasAgreedToTerms) {
+        if ($this->status == 'draft') {
+            // Make all fields optional
+            foreach ($this->fillableColumns() as $column) {
+                if (!$this->$column && $column != 'advisorEmail') {
+                    unset($errors[$column]);
+                }
+            }
+        } elseif (!$this->hasAgreedToTerms) {
             $errors['terms'] = 'You must agree to Terms and Conditions';
         }
 

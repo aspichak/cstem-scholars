@@ -28,12 +28,16 @@
                 </div>
             <?php } ?>
 
-            <?php if (HTTP::isPost() && $application->isValid() && $file->isValid() && $application->status == 'draft') { ?>
+            <?php if (HTTP::post('save') && $application->isValid() && $file->isValid()) { ?>
                 <div class="success message">
                     <h2>Your application has been saved!</h2>
-                    <p>You can come back any time before the deadline to update and submit your application. Be sure to
-                        have your application submitted and approved by your advisor before
-                        <strong><?= date("M j, Y", strtotime($period->deadline)) ?></strong>.</p>
+                    <p>You can come back any time before the deadline to submit your application. Be sure to have your
+                        application submitted and approved by your advisor before
+                        <strong><?= date("M j, Y", strtotime($period->deadline)) ?></strong>.
+                        <strong>
+                            Please note that your application is not submitted and will not be reviewed until you do so.
+                        </strong>
+                    </p>
                 </div>
             <?php } ?>
 

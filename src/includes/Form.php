@@ -8,8 +8,8 @@ class Form
     /**
      * Form constructor. The model will be filled with values from a POST request at this point.
      *
-     * @param Model &$model    A reference to the model used to pre-fill inputs. The original model will be
-     *                         filled with POST form data.
+     * @param Model &$model    A reference to the model used to pre-fill inputs. The original model object will be
+     *                         filled with POST form data using magic of references.
      * @param array $unescaped List of columns that WILL NOT be HTML-escaped before saving to database.
      */
     public function __construct(&$model, $unescaped = [])

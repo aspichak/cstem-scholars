@@ -30,18 +30,21 @@ class FileUpload
         return $this->error() == null;
     }
 
+    public function isUploaded()
+    {
+         return ($_FILES[$this->name]['error'] ?? UPLOAD_ERR_NO_FILE) != UPLOAD_ERR_NO_FILE;
+    }
+
     public function error()
     {
-        $file = $_FILES[$this->name] ?? ['error' => UPLOAD_ERR_NO_FILE];
-
-        switch ($file['error']) {
+        switch ($_FILES[$this->name]['error'] ?? UPLOAD_ERR_NO_FILE) {
             case UPLOAD_ERR_OK:
                 if ($this->allowedExtensions && !in_array($this->extension(), $this->allowedExtensions)) {
                     return 'This file type is not allowed. Accepted file types are: ' .
                            implode(', ', $this->allowedExtensions);
                 }
 
-                if ($this->maxSize && $file['size'] > $this->maxSize) {
+                if ($this->maxSize && $_FILES[$this->name]['size'] > $this->maxSize) {
                     return 'Maximum file size is ' . $this->humanReadableSize();
                 }
 
@@ -68,11 +71,7 @@ class FileUpload
 
     public function extension()
     {
-        if (!isset($_FILES[$this->name])) {
-            throw new UnexpectedValueException('Invalid file upload');
-        }
-
-        return pathinfo($_FILES[$this->name]['name'], PATHINFO_EXTENSION);
+        return pathinfo($_FILES[$this->name]['name'] ?? null, PATHINFO_EXTENSION);
     }
 
     // https://stackoverflow.com/a/23888858
