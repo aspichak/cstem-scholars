@@ -27,7 +27,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PhpDebugGeneral" listening_started="true" />
   <component name="PhpServers">
     <servers>
       <server host="localhost" id="cc6c245a-dba0-4b61-95e1-624f57b95da5" name="localhost" />
@@ -70,7 +69,7 @@
       <workItem from="1588554946972" duration="9830000" />
       <workItem from="1588662203744" duration="1747000" />
       <workItem from="1589057319293" duration="1951000" />
-      <workItem from="1589065988478" duration="4601000" />
+      <workItem from="1589065988478" duration="7962000" />
     </task>
     <servers />
   </component>

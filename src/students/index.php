@@ -406,60 +406,64 @@ if (post('submit')) {
                     <textarea name="timeline" maxlength="2000" rows="4" required><?= $form['timeline'] ?></textarea>
                 </label>
             </div>
-                <!-- START BUDGET CONTAINER -->
-                <div class="section"><span>6</span>Budget</div>
-                <!--<form class="inner-wrap">-->
-                <div class="inner-wrap">
-                    <label>
-                        Please describe your budget and planned spending in less than 2000 characters:
-                        <?= renderError('justification') ?>
-                        <textarea name="justification" maxlength="2000" required><?= $form['justification'] ?></textarea>
-                    </label>
-                    <label>
-                        Total budget amount:
-                        <?= renderError('budget') ?>
-                        <input type="number" step="0.01" name="budget" value="<?= $form['budget'] ?>" required>
-                    </label>
-                    <label>
-                        Requested budget amount from EWU:
-                        <?= renderError('request') ?>
-                        <input type="number" step="0.01" name="request" value="<?= $form['request'] ?>" required>
-                    </label>
-                    <label>
-                        Please list any other funding sources you have:
-                        <?= renderError('sources') ?>
-                        <input type="text" name="sources" value="<?= $form['sources'] ?>" required>
-                    </label>
-<!--adding-->
-<!--done adding-->
-                    <!-- THIS IS WHERE USER INPUT FOR BUDGET SHEET GOES -->
-                    <label>
-                        <div id="table">
 
-                        </div>
-                        <div id="btn">
-                            <button id="increment" >+</button>
-                        </div>
-                    </label>
+            <!-- START BUDGET CONTAINER -->
+            <div class="section"><span>6</span>Budget</div>
+            <!--<form class="inner-wrap">-->
+            <div class="inner-wrap">
+                <label>
+                    Please describe your budget and planned spending in less than 2000 characters:
+                    <?= renderError('justification') ?>
+                    <textarea name="justification" maxlength="2000" required><?= $form['justification'] ?></textarea>
+                </label>
+                <label>
+                    Total budget amount:
+                    <?= renderError('budget') ?>
+                    <input type="number" step="0.01" name="budget" value="<?= $form['budget'] ?>" required>
+                </label>
+                <label>
+                    Requested budget amount from EWU:
+                    <?= renderError('request') ?>
+                    <input type="number" step="0.01" name="request" value="<?= $form['request'] ?>" required>
+                </label>
+                <label>
+                    Please list any other funding sources you have:
+                    <?= renderError('sources') ?>
+                    <input type="text" name="sources" value="<?= $form['sources'] ?>" required>
+                </label>
 <!--adding-->
 <!--done adding-->
-                    <!-- CHECK THE SIZE OF THE CONTAINER FOR ENTIRE BUDGET SECTION-->
-                    <div class="button-section" align = "left">
-                        <button type="submit" class="button" name="submit" value='submit'>Submit</button>
-                        <button type="submit" class="button" name="save" value='save' formnovalidate>Save</button>
-                        <label class="privacy-policy">
-                            <!-- why is this popping up when clicking increment button 1620 5/9-->
-                            <input type="checkbox" name="terms" value="agree" required>
-                            <div class="tooltip">I agree to the Terms & Conditions
-                                <span class="tooltiptext">Awards shall only be spent on allowable expenses as defined in the application. Receipts must be provided for all expenses including travel. Funds must be spent within one calendar year of dispersal A brief two-page progress report must be submitted to the faculty advisor and associate dean by the end of the project year. Any academic integrity or student code of conduct violations will result in forfeiture the award.</span>
-                            </div>
-                            <?= renderError('terms') ?>
-                        </label>
+                <!-- THIS IS WHERE USER INPUT FOR BUDGET SHEET GOES -->
+                <!-- going to need to run verification on the three cols -->
+                <br>
+                <label> Please break down your funding into an itemized list:
+                    <div id="table">
+
                     </div>
+                    <div id="btn">
+                        <button id="increment" >+</button>
+                    </div>
+                </label>
+<!--adding-->
+<!--done adding-->
+                <!-- CHECK THE SIZE OF THE CONTAINER FOR ENTIRE BUDGET SECTION-->
+                <div class="button-section">
+                    <button type="submit" class="button" name="submit" value='submit'>Submit</button>
+                    <button type="submit" class="button" name="save" value='save' formnovalidate>Save</button>
+                    <label class="privacy-policy">
+                        <!-- why is this popping up when clicking increment button 1620 5/9-->
+                        <input type="checkbox" name="terms" value="agree" required>
+                        <div class="tooltip">I agree to the Terms & Conditions
+                            <span class="tooltiptext">Awards shall only be spent on allowable expenses as defined in the application. Receipts must be provided for all expenses including travel. Funds must be spent within one calendar year of dispersal A brief two-page progress report must be submitted to the faculty advisor and associate dean by the end of the project year. Any academic integrity or student code of conduct violations will result in forfeiture the award.</span>
+                        </div>
+                        <?= renderError('terms') ?>
+                    </label>
+                </div>
             </div>
-        </form>
+        </div>
     </div>
 </form>
-
+<!-- button has to be out of the form for it to work as needed -->
+<button id="lol4" >Out of form, so won't trigger terms & conditions</button>
 </body>
 </html>
