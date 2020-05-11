@@ -18,14 +18,14 @@ final class ApplicationModelTest extends SchemaTest
 
         $this->validApp = [
             // Basic Details
-            'name'            => 'Valid Name',
+            'name'            => 'Assigned Name',
             'email'           => 'valid@email.com',
             'title'           => 'Valid Project Title',
 
             // Major & GPA
             'major'           => 'Computer Science',
             'gpa'             => '4.0',
-            'graduationDate'  => '2030-05-01',
+            'graduationDate'  => date('Y-m-d', strtotime('+1 year')),
 
             // Advisor Information
             'advisorName'     => 'Ad Visor',
@@ -55,6 +55,9 @@ final class ApplicationModelTest extends SchemaTest
 
         $app = new Application($this->validApp);
 
+        $this->assertNull($app->name);
+
+        $app->name      = 'Student Name';
         $app->studentID = '007123456';
         $app->periodID  = 1;
         $app->status    = 'submitted';
@@ -64,7 +67,7 @@ final class ApplicationModelTest extends SchemaTest
         $this->assertIsNumeric($app->id);
 
         $this->assertEquals(1, Application::count());
-        $this->assertEquals('Valid Name', Application::first()->name);
+        $this->assertEquals('Student Name', Application::first()->name);
     }
 
     public function testApplicationTerms()

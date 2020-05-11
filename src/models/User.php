@@ -4,9 +4,10 @@ use Respect\Validation\ValidatorFunction as v;
 
 class User extends Model
 {
+    public $id, $email, $name, $isAdvisor, $isReviewer, $isAdmin;
     protected static $primaryKey = 'email';
 
-    public function __construct($form = [])
+    public function __construct($form = [], $fillGuardedColumns = false)
     {
         $this->fillable = [
             'email' => v::email()->length(null, 50)->setName('Email address'),
@@ -17,7 +18,7 @@ class User extends Model
         ];
 
         $this->id = $form['id'] ?? null;
-        parent::__construct($form);
+        parent::__construct($form, $fillGuardedColumns);
     }
 
     public static function current()
@@ -32,6 +33,11 @@ class User extends Model
         $user->email = HTTP::session('email');
 
         return $user;
+    }
+
+    public static function advisors()
+    {
+        return self::select('isAdvisor = 1');
     }
 
     public static function authorize($role, $allow = true)
