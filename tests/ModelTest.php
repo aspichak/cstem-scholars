@@ -106,6 +106,7 @@ final class ModelTest extends TestCase
 
     public function testModelCanBeFilled()
     {
+        // TODO: Test filling guarded columns
         $m = new TestModel(['foo' => '1', 'baz' => '3']);
 
         $this->assertEquals('1', $m->foo);
