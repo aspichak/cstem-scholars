@@ -32,7 +32,7 @@ if (HTTP::get('login') !== null) {
 
     $ticket = preg_replace('/^ST-/', '', $ticket);
     [$name, $email] = explode('::', $ticket);
-    [$firstName, $lastName] = explode(' ', $name);
+    [$firstName, $lastName] = explode(' ', $name . ' ');
     $username = explode('@', $email)[0];
     $id = '00' . str_pad(hexdec(crc32($email)) % 1000000, 6, '0', STR_PAD_LEFT);
     $userType = 'Student';
