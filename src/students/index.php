@@ -57,14 +57,20 @@ if (HTTP::isPost() && $application->isValid() && $file->isValid()) {
             Mail::send(
                 $application->advisorEmail,
                 'CSTEM Scholars Grant Application Needs Review',
-                HTML::template('emails/application_submitted_advisor.php', $form)
+                HTML::template(
+                    'emails/application_submitted_advisor.php',
+                    ['application' => $application, 'period' => $period]
+                )
             );
 
             // Email the student
             Mail::send(
                 $application->email,
                 'CSTEM Scholars Grant Application Submitted',
-                HTML::template('emails/application_submitted_student.php', $form)
+                HTML::template(
+                    'emails/application_submitted_student.php',
+                    ['application' => $application, 'period' => $period]
+                )
             );
         }
 

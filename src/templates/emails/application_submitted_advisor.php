@@ -3,7 +3,7 @@
 $layout = 'emails/layout.php';
 ?>
 
-<p>Hello <?= $application->advisorName ?>, </p>
+<p>Hello <?= e($application->advisorName) ?>, </p>
 <p>
     A CSTEM Scholars application is available for your review. Go to
     <?= HTML::link(BASE_URL . '/reviewers/ReviewStudents.php', BASE_URL . '/reviewers/ReviewStudents.php') ?>
@@ -11,28 +11,28 @@ $layout = 'emails/layout.php';
 </p>
 
 <div class="label">Student Name:</div>
-<p><?= $application->name ?> &lt;<a href="mailto:<?= $application->email ?>"><?= $application->email ?></a>&gt;</p>
+<p><?= e($application->name) ?> &lt;<a href="mailto:<?= e($application->email) ?>"><?= e($application->email) ?></a>&gt;</p>
 
 <div class="label">Project Title:</div>
-<p><?= $application->title ?></p>
+<p><?= e($application->title) ?></p>
 
 <div class="label">Major:</div>
-<p><?= $application->major ?></p>
+<p><?= e($application->major) ?></p>
 
 <div class="label">GPA:</div>
-<p><?= $application->gpa ?></p>
+<p><?= e($application->gpa) ?></p>
 
 <div class="label">Expected Graduation Date:</div>
-<p><?= $application->graduationDate ?></p>
+<p><?= e($application->graduationDate) ?></p>
 
 <div class="label">Description:</div>
-<pre><?= $application->description ?></pre>
+<pre><?= e($application->description) ?></pre>
 
 <div class="label">Timeline:</div>
-<pre><?= $application->timeline ?></pre>
+<pre><?= e($application->timeline) ?></pre>
 
 <div class="label">Budget Description:</div>
-<pre><?= $application->justification ?></pre>
+<pre><?= e($application->justification) ?></pre>
 
 <div class="label">Requested Budget:</div>
-<p>$<?= $application->requestedBudget ?></p>
+<p>$<?= e($application->requestedBudget) ?></p>
