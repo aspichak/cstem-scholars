@@ -24,6 +24,11 @@ abstract class HTTP
         return self::filter($_SESSION, $param, $default);
     }
 
+    public static function cookie($param = null, $default = null)
+    {
+        return self::filter($_COOKIE, $param, $default);
+    }
+
     public static function redirect($url, $flash = null)
     {
         if ($flash) {
