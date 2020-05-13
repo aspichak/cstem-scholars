@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f6f0bc2c-f06d-4fb9-89e9-3eb3af2731a5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/students/css/students.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/students/css/students.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/students/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/students/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/students/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/students/script.js" afterDir="false" />
     </list>
@@ -69,7 +70,9 @@
       <workItem from="1588554946972" duration="9830000" />
       <workItem from="1588662203744" duration="1747000" />
       <workItem from="1589057319293" duration="1951000" />
-      <workItem from="1589065988478" duration="7962000" />
+      <workItem from="1589065988478" duration="12427000" />
+      <workItem from="1589147234099" duration="4787000" />
+      <workItem from="1589332036608" duration="6988000" />
     </task>
     <servers />
   </component>
@@ -81,25 +84,66 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="476" y="3" key="#PHP/0.0.1536.824@0.0.1536.824" timestamp="1582153802239" />
-    <state x="588" y="298" key="com.intellij.ide.util.TipDialog" timestamp="1589065994428">
+    <state width="1877" height="219" key="GridCell.Tab.0.bottom" timestamp="1589095542433">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="219" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1589095542433" />
+    <state width="1877" height="219" key="GridCell.Tab.0.center" timestamp="1589095542433">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="219" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1589095542433" />
+    <state width="1877" height="219" key="GridCell.Tab.0.left" timestamp="1589095542432">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="219" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1589095542432" />
+    <state width="1877" height="219" key="GridCell.Tab.0.right" timestamp="1589095542433">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="219" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1589095542433" />
+    <state width="1877" height="219" key="GridCell.Tab.1.bottom" timestamp="1589095542434">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="219" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1589095542434" />
+    <state width="1877" height="219" key="GridCell.Tab.1.center" timestamp="1589095542434">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="219" key="GridCell.Tab.1.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1589095542434" />
+    <state width="1877" height="219" key="GridCell.Tab.1.left" timestamp="1589095542434">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="219" key="GridCell.Tab.1.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1589095542434" />
+    <state width="1877" height="219" key="GridCell.Tab.1.right" timestamp="1589095542434">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="219" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1589095542434" />
+    <state width="1877" height="219" key="GridCell.Tab.2.bottom" timestamp="1589095542434">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="219" key="GridCell.Tab.2.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1589095542434" />
+    <state width="1877" height="219" key="GridCell.Tab.2.center" timestamp="1589095542434">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="219" key="GridCell.Tab.2.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1589095542434" />
+    <state width="1877" height="219" key="GridCell.Tab.2.left" timestamp="1589095542434">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="219" key="GridCell.Tab.2.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1589095542434" />
+    <state width="1877" height="219" key="GridCell.Tab.2.right" timestamp="1589095542434">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="219" key="GridCell.Tab.2.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1589095542434" />
+    <state x="588" y="298" key="com.intellij.ide.util.TipDialog" timestamp="1589332166495">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="470" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1582153573817" />
-    <state x="588" y="298" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1589065994428" />
+    <state x="588" y="298" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1589332166495" />
     <state x="-1892" y="0" width="1409" height="780" key="dock-window-1" timestamp="1589069216806">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1892" y="0" width="1409" height="780" key="dock-window-1/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1589069216806" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/src/students/index.php</url>
-          <line>266</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <state x="616" y="240" key="run.anything.popup" timestamp="1589339258158">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1589339258158" />
   </component>
 </project>

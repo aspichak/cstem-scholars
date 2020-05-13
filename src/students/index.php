@@ -263,9 +263,8 @@ if (post('submit')) {
     } else {
         $state = 'error-save';
     }
-} elseif( post('increment') ) {
-    echo "button clicked";
 }
+
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
@@ -431,27 +430,29 @@ if (post('submit')) {
                     <?= renderError('sources') ?>
                     <input type="text" name="sources" value="<?= $form['sources'] ?>" required>
                 </label>
-<!--adding-->
-<!--done adding-->
-                <!-- THIS IS WHERE USER INPUT FOR BUDGET SHEET GOES -->
-                <!-- going to need to run verification on the three cols -->
+                <!-- THIS IS WHERE USER INPUT FOR BUDGET SHEET GOES
+                     going to need to run verification on the three cols
+                -->
                 <br>
-                <label> Please break down your funding into an itemized list:
+                <label>
+                    <div id="tblText">
+
+                    </div>
                     <div id="table">
 
                     </div>
                     <div id="btn">
                         <button id="increment" >+</button>
+                        <button id="decrement" >-</button>
+                    </div>
+                    <div id="notification-box">
+
                     </div>
                 </label>
-<!--adding-->
-<!--done adding-->
-                <!-- CHECK THE SIZE OF THE CONTAINER FOR ENTIRE BUDGET SECTION-->
                 <div class="button-section">
                     <button type="submit" class="button" name="submit" value='submit'>Submit</button>
                     <button type="submit" class="button" name="save" value='save' formnovalidate>Save</button>
                     <label class="privacy-policy">
-                        <!-- why is this popping up when clicking increment button 1620 5/9-->
                         <input type="checkbox" name="terms" value="agree" required>
                         <div class="tooltip">I agree to the Terms & Conditions
                             <span class="tooltiptext">Awards shall only be spent on allowable expenses as defined in the application. Receipts must be provided for all expenses including travel. Funds must be spent within one calendar year of dispersal A brief two-page progress report must be submitted to the faculty advisor and associate dean by the end of the project year. Any academic integrity or student code of conduct violations will result in forfeiture the award.</span>
@@ -463,7 +464,5 @@ if (post('submit')) {
         </div>
     </div>
 </form>
-<!-- button has to be out of the form for it to work as needed -->
-<button id="lol4" >Out of form, so won't trigger terms & conditions</button>
 </body>
 </html>

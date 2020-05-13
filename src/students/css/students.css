@@ -194,3 +194,22 @@ body {
     color: #990000;
 }
 
+/* not showing up? */
+
+notification-box {
+    position: fixed;
+    bottom: 1em;
+    left: 1em;
+    z-index: 999999;
+}
+
+.notification-box p {
+    background-color: rgba(0, 0, 0, .7);
+    width: 200px;
+    border-radius: 5px;
+    padding: .7em;
+    margin: .5em;
+    color: white;
+    font-size: .9em;
+    display: none;
+}
