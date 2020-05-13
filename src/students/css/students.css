@@ -196,14 +196,14 @@ body {
 
 /* not showing up? */
 
-notification-box {
+#notification-box {
     position: fixed;
     bottom: 1em;
     left: 1em;
     z-index: 999999;
 }
 
-.notification-box p {
+#notification-box p {
     background-color: rgba(0, 0, 0, .7);
     width: 200px;
     border-radius: 5px;
