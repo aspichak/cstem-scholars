@@ -6,6 +6,9 @@ RUN apt update && apt install -y apt-utils sendmail mariadb-client unzip zip lib
 # install php extensions
 RUN docker-php-ext-install pdo pdo_mysql pdo_sqlite mysqli
 
+#copy over our php.ini
+COPY src/prod/php.ini $PHP_INI_DIR/
+
 #copy over the website
 COPY src/ /var/www/html/
 COPY src/prod/config.ini /var/www/html/
