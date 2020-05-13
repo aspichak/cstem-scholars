@@ -1,5 +1,5 @@
 <?php
-
+$is_login = true;
 require_once "includes/init.php";
 require_once __DIR__ . "/config.php";
 require_once __DIR__ . "/vendor/apereo/phpcas/CAS.php";
@@ -16,9 +16,9 @@ if (isset($_REQUEST['logout'])) {
     redirect('/');
 }
 
-phpCAS::client(CAS_VERSION_3_0, $cas_host, $cas_port, $cas_context);
-phpCAS::setNoCasServerValidation(); // change for production
-//phpCAS::setCasServerCACert($cas_server_ca_cert_path, false); // change for production
+phpCAS::client(CAS_VERSION, CAS_HOSTNAME, CAS_PORT, CAS_URI);
+//phpCAS::setCasServerCACert(CAS_CA_CERT);
+phpCAS::setNoCasServerValidation();
 phpCAS::handleLogoutRequests();
 phpCAS::forceAuthentication();
 
@@ -41,54 +41,10 @@ if (isset($_SESSION["user"])) {
 
 $type = $_GET["id"];
 
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <title>CSTEM Grants Dev Login</title>
-        <style type="text/css">
-            body {
-                font-family: sans-serif;
-                line-height: 1.5em;
-            }
-
-            li {
-                display: inline-block;
-                margin-right: 1.5em;
-            }
-        </style>
-    </head>
-    <body>
-    <h1>Developer Login</h1>
-    <p>
-        Logging in as a <strong><?= $role ?></strong> named
-
-        <a href="login.php?as=alice&id=<?= $role ?>">Alice</a>,
-        <a href="login.php?as=bob&id=<?= $role ?>">Bob</a>,
-        <a href="login.php?as=carol&id=<?= $role ?>">Carol</a>,
-        <a href="login.php?as=dave&id=<?= $role ?>">Dave</a>,
-        <a href="login.php?as=eve&id=<?= $role ?>">Eve</a>,
-        <a href="login.php?as=faythe&id=<?= $role ?>">Faythe</a>;
-
-        or log in as a
-
-        <a href="login.php?id=student">student</a>,
-        <a href="login.php?id=advisor">advisor</a>,
-        <a href="login.php?id=reviewer">reviewer</a>, or
-        <a href="login.php?id=admin">admininstrator</a>.
-    </p>
-    </body>
-    </html>
-
-    <?php
-} else { // Production code block. uses CAS
-    phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
-    //phpCAS::setCasServerCACert($cas_server_ca_cert_path);
-    phpCAS::setNoCasServerValidation();
-    phpCAS::handleLogoutRequests();
-    phpCAS::forceAuthentication();
-
-    if (isset($_SESSION["user"])) {
-        $user = User::current();
+if ($type == "admin") {
+    // ADMIN PAGE LOGIN
+    if ($user->isAdmin()) {
+        header("location:/Admin/index.php");
     } else {
         error(
             'Admin',
