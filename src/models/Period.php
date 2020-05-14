@@ -9,9 +9,9 @@ class Period extends Model
     public function __construct($form = [], $fillGuardedColumns = false)
     {
         $this->fillable = [
-            'beginDate' => v::date('Y-m-d'),
-            'deadline' => v::date('Y-m-d'),
-            'advisorDeadline' => v::date('Y-m-d'),
+            'beginDate' => v::date('Y-m-d')->setName('Start date'),
+            'deadline' => v::date('Y-m-d')->setName('Student deadline'),
+            'advisorDeadline' => v::date('Y-m-d')->setName('Review deadline'),
             'budget' => v::number()->min(0)->setName('Budget')
         ];
 
@@ -38,6 +38,14 @@ class Period extends Model
 
         if ($this->deadline > $this->advisorDeadline) {
             $errors['advisorDeadline'] = 'Advisor deadline cannot precede the application deadline';
+        }
+
+        if (Period::exists('beginDate <= ? AND advisorDeadline >= ?', $this->beginDate, $this->beginDate)) {
+            $errors['beginDate'] = 'Start date cannot be within an existing period window';
+        }
+
+        if (Period::exists('beginDate <= ? AND advisorDeadline >= ?', $this->advisorDeadline, $this->advisorDeadline)) {
+            $errors['advisorDeadline'] = 'Review deadline cannot be within an existing period window';
         }
 
         return $errors;
