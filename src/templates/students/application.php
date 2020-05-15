@@ -4,6 +4,8 @@
     <title>Application Form</title>
     <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
     <link href="css/students.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="script.js"></script>
 </head>
 <body>
 
@@ -133,6 +135,26 @@
                 <label>
                     Please list any other funding sources you have:
                     <?= $form->input('text', 'fundingSources', ['required']) ?>
+                </label>
+
+                <!-- THIS IS WHERE USER INPUT FOR BUDGET SHEET GOES
+                     going to need to run verification on the three cols
+                -->
+                <br>
+                <label>
+                    <div id="tblText">
+
+                    </div>
+                    <div id="table">
+
+                    </div>
+                    <div id="btn">
+                        <button id="increment" >+</button>
+                        <button id="decrement" >-</button>
+                    </div>
+                    <div id="notification-box">
+
+                    </div>
                 </label>
 
                 <input type="hidden" name="MAX_FILE_SIZE" value="10485760"/>
