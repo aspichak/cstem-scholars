@@ -1,79 +1,77 @@
 CREATE DATABASE IF NOT EXISTS researchGrant;
 USE researchGrant;
 
-CREATE TABLE `Advisor` (
-  `AEmail` varchar(30) DEFAULT NULL,
-  `AName` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+create table `Period`
+(
+    `id` int auto_increment primary key,
+    `beginDate` date not null,
+    `deadline` date not null,
+    `advisorDeadline` date not null,
+    `budget` decimal(10, 2) not null
+);
 
-CREATE TABLE `Reviewers` (
-  `RName` varchar(30) DEFAULT NULL,
-  `REmail` varchar(30) NOT NULL,
-  `Major` varchar(30) DEFAULT NULL,
-  `Active` tinyint(1) NOT NULL,
-  PRIMARY KEY (`REmail`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+create table `User`
+(
+    `name` varchar(50) null,
+    `email` varchar(50) not null primary key,
+    `isAdvisor` boolean default false,
+    `isReviewer` boolean default false,
+    `isAdmin` boolean default false
+);
 
-CREATE TABLE `Settings` (
-  `NextAppNum` int(11) DEFAULT NULL,
-  `Deadline` date DEFAULT NULL,
-  `AdvisorDeadline` date DEFAULT NULL,
-  `BeginDate` date DEFAULT NULL,
-  `Budget` int(11) DEFAULT NULL,
-  `ApplicationSubmission` varchar(9000) NOT NULL,
-  `ChangesRequested` varchar(9000) NOT NULL,
-  `ApplicationApproval` varchar(9000) NOT NULL,
-  `ApplicationAward` varchar(9000) NOT NULL,
-  `DistributedApps` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+create table `Application`
+(
+    `id` int auto_increment
+        primary key,
+    `studentID` int not null,
+    `periodID` int not null,
+    `name` varchar(50) null,
+    `email` varchar(50) null,
+    `title` varchar(140) null,
+    `major` varchar(30) null,
+    `gpa` double null,
+    `graduationDate` date null,
+    `advisorName` varchar(50) null,
+    `advisorEmail` varchar(50) null,
+    `description` text null,
+    `timeline` text null,
+    `justification` text null,
+    `totalBudget` decimal(10, 2) null,
+    `requestedBudget` decimal(10, 2) null,
+    `fundingSources` text null,
+    `attachment` varchar(100) null,
+    `status` varchar(30) not null,
+    `additionalInformationRequested` boolean default false,
+    foreign key (advisorEmail) references User(email)
+        on update cascade
+        on delete set null,
+    foreign key (periodID) references Period(id)
+        on delete no action
+        on update cascade
+);
 
-INSERT INTO `Settings` (`NextAppNum`, `Deadline`, `AdvisorDeadline`, `BeginDate`, `Budget`, `ApplicationSubmission`, `ChangesRequested`, `ApplicationApproval`, `ApplicationAward`, `DistributedApps`) VALUES
-(1, NULL, NULL, NULL, 0, 'Your application has been submitted successfully. ', 'Your advisor has requested changes on your Undergraduate Research Grant Application.  Comment to follow:', 'Congrats, you\'re application has been approved. ', 'Congrats, you have been selected to receive the undergraduate research grant fund! Please get into contact with the Dean of STEM to learn more about your award at dean@example.edu.', 0);
-
-CREATE TABLE `Student` (
-  `SID` int(11) NOT NULL,
-  `SName` varchar(20) DEFAULT NULL,
-  `SEmail` varchar(30) DEFAULT NULL,
-  `GPA` double DEFAULT NULL,
-  `Department` varchar(30) DEFAULT NULL,
-  `Major` varchar(30) DEFAULT NULL,
-  `GraduationDate` date DEFAULT NULL,
-  PRIMARY KEY (`SID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-CREATE TABLE `Applications` (
-  `ApplicationNum` int(11) NOT NULL AUTO_INCREMENT,
-  `SID` int(11) DEFAULT NULL,
-  `PTitle` varchar(50) DEFAULT NULL,
-  `Objective` varchar(9000) DEFAULT NULL,
-  `Timeline` varchar(500) DEFAULT NULL,
-  `Budget` double DEFAULT NULL,
-  `RequestedBudget` double DEFAULT NULL,
-  `FundingSources` varchar(1000) DEFAULT NULL,
-  `Anticipatedresults` varchar(1000) DEFAULT NULL,
-  `Justification` varchar(1000) DEFAULT NULL,
-  `BudgetFilePath` varchar(100) DEFAULT NULL,
-  `Submitted` tinyint(1) DEFAULT NULL,
-  `Awarded` tinyint(1) DEFAULT NULL,
-  `AmountGranted` int(11) DEFAULT NULL,
-  `AdvisorApproved` tinyint(1) DEFAULT NULL,
-  `AdvisorComments` varchar(9000) DEFAULT NULL,
-  `AEmail` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`ApplicationNum`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-CREATE TABLE `ReviewedApps` (
-  `ApplicationNum` int(11) NOT NULL AUTO_INCREMENT,
-  `REmail` varchar(50) NOT NULL,
-  `QAComments` varchar(1000) DEFAULT NULL,
-  `QA1` int(11) DEFAULT NULL,
-  `QA2` int(11) DEFAULT NULL,
-  `QA3` int(11) DEFAULT NULL,
-  `QA4` int(11) DEFAULT NULL,
-  `QA5` int(11) DEFAULT NULL,
-  `QA6` int(11) DEFAULT NULL,
-  `QATotal` int(11) DEFAULT NULL,
-  `FundRecommend` int(11) DEFAULT NULL,
-  `Submitted` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`ApplicationNum`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+create table `Review`
+(
+    `id` int auto_increment primary key,
+    `reviewerID` varchar(50) null,
+    `applicationID` int not null,
+    `periodID` int not null,
+    `comments` text null,
+    `q1` int null,
+    `q2` int null,
+    `q3` int null,
+    `q4` int null,
+    `q5` int null,
+    `q6` int null,
+    `fundingRecommended` int null,
+    `submitted` boolean not null default false,
+    foreign key (reviewerID) references User(email)
+        on update cascade
+        on delete cascade,
+    foreign key (applicationID) references Application(id)
+        on delete cascade
+        on update cascade,
+    foreign key (periodID) references Period(id)
+        on delete cascade
+        on update cascade
+);

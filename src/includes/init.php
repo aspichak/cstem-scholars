@@ -2,6 +2,14 @@
 
 session_start();
 
+require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/util.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+
+DB::configure(DB_CONNECTION_STRING, DB_USERNAME, DB_PASSWORD, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+
 define('ROOT', __DIR__ . '/..');
 
 function path($file)
@@ -9,14 +17,9 @@ function path($file)
     return ROOT . '/' . $file;
 }
 
-require_once path('config.php');
-require_once path('vendor/autoload.php');
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-
-DB::configure(DB_CONNECTION_STRING, DB_USERNAME, DB_PASSWORD, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-
+/**
+ * @deprecated Use User::authorize() instead
+ */
 function authorize($role)
 {
     if (!isset($_SESSION) || !isset($_SESSION['role']) || $_SESSION['role'] != $role) {
@@ -25,6 +28,9 @@ function authorize($role)
     }
 }
 
+/**
+ * @deprecated Use HTTP::redirect() instead
+ */
 function redirect($url, $flash = null)
 {
     if ($flash) {
@@ -35,6 +41,9 @@ function redirect($url, $flash = null)
     exit();
 }
 
+/**
+ * @deprecated Use HTTP::error() instead
+ */
 function error($title = "fatal error", $body = "fatal error", $code=400)
 {
     $_SESSION['errtitle'] = $title;
@@ -43,6 +52,9 @@ function error($title = "fatal error", $body = "fatal error", $code=400)
     redirect("/includes/errorPage/errorPage.php");
 }
 
+/**
+ * @deprecated Use HTTP::flash() instead
+ */
 function getFlash()
 {
     $flash = null;
@@ -55,21 +67,33 @@ function getFlash()
     return $flash;
 }
 
+/**
+ * @deprecated Use HTTP::isPost() instead
+ */
 function isPost()
 {
     return $_SERVER['REQUEST_METHOD'] == 'POST';
 }
 
+/**
+ * @deprecated Use HTTP::get() instead
+ */
 function get($param, $default = null)
 {
     return $_GET[$param] ?? $default;
 }
 
+/**
+ * @deprecated Use HTTP::post() instead
+ */
 function post($param, $default = null)
 {
     return $_POST[$param] ?? $default;
 }
 
+/**
+ * @deprecated Use HTML::template() instead
+ */
 function render($template, $v = null)
 {
     ob_start();
@@ -77,27 +101,10 @@ function render($template, $v = null)
     return ob_get_clean();
 }
 
+/**
+ * @deprecated Use HTTP::url() instead
+ */
 function url($path) {
     return BASE_URL . '/' . $path;
 }
 
-function email($to, $subject, $body)
-{
-    $mail = new PHPMailer;
-
-    $mail->setFrom(SMTP_FROM_EMAIL, SMTP_FROM_NAME);
-    $mail->addAddress($to);
-
-    $mail->isSMTP();
-    $mail->isHTML(true);
-    $mail->SMTPAuth = true;
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-    $mail->Host = SMTP_HOST;
-    $mail->Port = SMTP_PORT;
-    $mail->Username = SMTP_USERNAME;
-    $mail->Password = SMTP_PASSWORD;
-    $mail->Subject = $subject;
-    $mail->Body = $body;
-
-    return $mail;
-}
