@@ -10,10 +10,10 @@ if (isset($is_login)) {
     require_once __DIR__ . "/vendor/apereo/phpcas/CAS.php";
     /* CAS Protocol Configuration */
     define('CAS_VERSION', CAS_VERSION_2_0);
-    define('CAS_HOSTNAME', 'localhost');
+    define('CAS_HOSTNAME', 'login.ewu.edu');
     define('CAS_PORT', 443);
-    define('CAS_URI', 'cas.php?');
-    define('CAS_CA_CERT', null);
+    define('CAS_URI', '/cas');
+    define('CAS_CA_CERT', '/certs/STAR_ewu.edu.ca');
 }
 
 /* Database Configuration */
