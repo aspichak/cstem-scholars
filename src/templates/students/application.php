@@ -157,26 +157,6 @@
                     </div>
                 </label>
 
-                <input type="hidden" name="MAX_FILE_SIZE" value="10485760"/>
-                <label for="attachment">Upload budget table</label>
-                <p>Valid file types are: <?= implode(', ', ALLOWED_UPLOAD_EXTENSIONS) ?></p>
-                <input type="file" name="attachment" id="attachment"
-                       accept="<?= implode(',', array_map(fn($ext) => ".$ext", ALLOWED_UPLOAD_EXTENSIONS)) ?>">
-
-                <?php
-                if (HTTP::isPost() && !$file->isValid()) {
-                    echo HTML::tag('div', $file->error(), ['class' => 'error']);
-                }
-                ?>
-
-                <?php if ($application->attachment) { ?>
-                    <p>
-                        <?= HTML::link(
-                            "../download.php?file={$application->attachment}",
-                            "Download previously uploaded file"
-                        ) ?>
-                    </p>
-                <?php } ?>
             </div>
 
             <div class="section"><span>8</span>Terms and Conditions</div>

@@ -93,7 +93,7 @@ if (defined('DEBUG') && DEBUG) {
 
     <?php
 } else { // Production code block. uses CAS
-    phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
+    phpCAS::client(CAS_VERSION_2_0, CAS_HOSTNAME, CAS_PORT, CAS_URI);
     //phpCAS::setCasServerCACert($cas_server_ca_cert_path);
     phpCAS::setNoCasServerValidation();
     phpCAS::handleLogoutRequests();
