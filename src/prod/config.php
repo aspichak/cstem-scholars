@@ -9,7 +9,7 @@ define('ALLOWED_UPLOAD_EXTENSIONS', ['pdf', 'xls', 'xlsx', 'doc', 'docx', 'txt',
 if (isset($is_login)) {
     require_once __DIR__ . "/vendor/apereo/phpcas/CAS.php";
     /* CAS Protocol Configuration */
-    define('CAS_VERSION', CAS_VERSION_2_0);
+    define('CAS_VERSION', SAML_VERSION_1_1);
     define('CAS_HOSTNAME', 'login.ewu.edu');
     define('CAS_PORT', 443);
     define('CAS_URI', '/cas');
