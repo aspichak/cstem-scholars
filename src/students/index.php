@@ -33,22 +33,12 @@ if (HTTP::post('submit') && $application->status == 'draft') {
 }
 
 $form = new Form($application);
-$isUploadRequired = (!$application->attachment && $application->status != 'draft');
-$file = new FileUpload('attachment', $isUploadRequired, ALLOWED_UPLOAD_EXTENSIONS, 10485760);
 
 // TODO: Show error if email send fails
-if (HTTP::isPost() && $application->isValid() && $file->isValid()) {
+if (HTTP::isPost() && $application->isValid() ) {
     DB::beginTransaction();
 
     try {
-        $oldFilename = $application->attachment;
-        $today = date('Y-m-d');
-        $newFilename = "$today-{$user->id}.{$file->extension()}"; // 2020-12-30-00100001.pdf
-
-        if ($file->isUploaded()) {
-            $file->move(UPLOAD_DIR, $newFilename);
-            $application->attachment = $newFilename;
-        }
 
         $application->save();
 
@@ -76,10 +66,6 @@ if (HTTP::isPost() && $application->isValid() && $file->isValid()) {
 
         DB::commit();
 
-        if ($file->isUploaded() && $oldFilename != $newFilename) {
-            FileUpload::delete(UPLOAD_DIR, $oldFilename);
-        }
-
         if ($application->status != 'draft') {
             HTTP::redirect('thank_you.php');
         }
@@ -95,7 +81,6 @@ echo HTML::template(
     [
         'application' => $application,
         'form'        => $form,
-        'file'        => $file,
         'period'      => $period
     ]
 );

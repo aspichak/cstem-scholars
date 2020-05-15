@@ -6,15 +6,16 @@ RUN apt update && apt install -y apt-utils sendmail mariadb-client unzip zip lib
 # install php extensions
 RUN docker-php-ext-install pdo pdo_mysql pdo_sqlite mysqli opcache
 
+#install and run composer - setup to cache for docker
+COPY src/composer.json /var/www/html/
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+RUN /usr/bin/composer install -o --no-dev
+RUN /usr/bin/composer update -o --no-dev
+
 # copy over the website
 COPY src/ /var/www/html/
 COPY src/prod/config.ini /var/www/html/
 COPY src/prod/config.php /var/www/html/
-
-#install and run composer
-COPY --from=composer /usr/bin/composer /usr/bin/composer
-RUN /usr/bin/composer install -o --no-dev
-RUN /usr/bin/composer update -o --no-dev
 
 # copy over our php.ini
 # we do this last so composer runs with default settings and the opcache preloaded
