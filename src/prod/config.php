@@ -18,8 +18,8 @@ if (isset($is_login)) {
 
 /* Database Configuration */
 define('DB_HOST', 'database');
-define('DB_USERNAME', 'root');
-define('DB_PASSWORD', '');
+define('DB_USERNAME', 'dbUser');
+define('DB_PASSWORD', 'superSecret');
 define('DB_NAME', 'researchGrant');
 define('DB_CONNECTION_STRING', 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME);
 
