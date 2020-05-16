@@ -6,13 +6,15 @@
 **/.vscode/**
 
 # ignore anything related to composer - it's run by the dockerfile
-*/src/vendor/*
-*/src/composer.json
-*/src/composer.lock
+src/vendor/*
+src/composer.lock
 
 # ignore our base dev config files
-*/src/config.php
-*/src/config.sample.php
+src/config.php
+src/config.sample.php
 
-# for historical reasons? we're going to ignore this directory though
+# containers are prod only
+src/cas.php
+
+# for historical reasons? we're going to ignore this directory
 */sso-example/*
