@@ -13,7 +13,7 @@ if (isset($is_login)) {
     define('CAS_HOSTNAME', 'login.ewu.edu');
     define('CAS_PORT', 443);
     define('CAS_URI', '/cas');
-    define('CAS_CA_CERT', '/certs/STAR_ewu.edu.ca');
+    define('CAS_CA_CERT', '/etc/ssl/certs/ca-certificates.crt');
 }
 
 /* Database Configuration */
