@@ -1,5 +1,8 @@
 FROM php:7.4.4-apache
 
+#update our certificates for cas, just incase
+RUN update-ca-certificates
+
 # Run apt update and install some dependancies needed for docker-php-ext
 RUN apt update && apt install -y apt-utils sendmail mariadb-client unzip zip libsqlite3-dev libsqlite3-0
 

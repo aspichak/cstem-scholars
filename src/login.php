@@ -19,8 +19,13 @@ if (isset($_REQUEST['logout'])) {
 
 // Production code block. uses CAS
 phpCAS::client(CAS_VERSION, CAS_HOSTNAME, CAS_PORT, CAS_URI);
-//phpCAS::setCasServerCACert($cas_server_ca_cert_path);
-phpCAS::setNoCasServerValidation();
+if (DEBUG) {
+    phpCAS::setDebug();
+    phpCAS::setNoCasServerValidation();
+    phpCAS::setVerbose(true);
+} else {
+    phpCAS::setCasServerCACert(CAS_CA_CERT);
+}
 phpCAS::handleLogoutRequests();
 phpCAS::forceAuthentication();
 
