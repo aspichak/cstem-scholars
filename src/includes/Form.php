@@ -75,13 +75,45 @@ class Form
         $attributes['type'] = $type;
         $attributes['name'] = $name;
         $attributes['id'] = $name;
-        $attributes['value'] = $this->value($name);
+        $attributes['value'] = $attributes['value'] ?? $this->value($name);
         $attributes = $this->appendErrorClass($name, $attributes);
 
         $res = HTML::tag('input', null, $attributes);
         $res .= $this->errorIfEnabled($name);
 
         return $res;
+    }
+
+    public function text($name, $attributes = [])
+    {
+        return $this->input('text', $name, $attributes);
+    }
+
+    public function email($name, $attributes = [])
+    {
+        return $this->input('email', $name, $attributes);
+    }
+
+    public function date($name, $attributes = [])
+    {
+        $attributes['pattern'] = '\d{4}-\d{2}-\d{2}';
+        $attributes['placeholder'] = 'YYYY-MM-DD';
+        $attributes['title'] = 'YYYY-MM-DD';
+
+        return $this->input('date', $name, $attributes);
+    }
+
+    public function number($name, $attributes = [])
+    {
+        return $this->input('number', $name, $attributes);
+    }
+
+    public function money($name, $attributes = [])
+    {
+        $attributes['min'] = 0;
+        $attributes['step'] = 0.01;
+
+        return $this->number($name, $attributes);
     }
 
     public function textarea($name, $attributes = [])
@@ -98,7 +130,9 @@ class Form
 
     public function checkbox($name, $value = '1', $attributes = [])
     {
-        if ($this->value($name)) {
+        $attributes['value'] = $value;
+
+        if ($value == $this->value($name)) {
             $attributes[] = 'checked';
         }
 
@@ -107,6 +141,8 @@ class Form
 
     public function radio($name, $value, $attributes = [])
     {
+        $attributes['value'] = $value;
+
         if ($value == $this->value($name)) {
             $attributes[] = 'checked';
         }

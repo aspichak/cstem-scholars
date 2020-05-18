@@ -24,19 +24,20 @@ abstract class HTML
         return self::tag('a', $text, $attributes);
     }
 
-    public static function template($template, $v = [])
+    public static function template($template, $v = null)
     {
         // TODO: constrain to "templates" folder
         // TODO: document security issues (directory traversal, variable overwriting)
         $layout = null;
 
-        // Make a short alias to HTML::escape available to templates
-        if (!function_exists('e')) {
-            function e($value)
+        if (!function_exists('helper')) {
+            function helper($name)
             {
-                return HTML::escape($value);
+                include_once __DIR__ . "/../helpers/$name.php";
             }
         }
+
+        helper('html');
 
         // Extract passed parameters into variables
         // WARNING: This may be dangerous. Exercise caution.

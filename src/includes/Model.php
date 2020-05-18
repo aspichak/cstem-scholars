@@ -9,11 +9,6 @@ abstract class Model
 
     public function __construct($form = [], $fillGuardedColumns = false)
     {
-        assert(
-            empty(array_intersect($this->fillableColumns(), $this->guarded)),
-            'Fillable and guarded columns cannot intersect'
-        );
-
         // Initialize the fields inside the object to null
         foreach ($this->columns() as $f) {
             $this->$f = $this->$f ?? null;
@@ -30,39 +25,7 @@ abstract class Model
 
     public static function primaryKey()
     {
-        return static::$primaryKey;
-    }
-
-    /**
-     * Converts a string or an associative array into a common representation of the primary key.
-     *
-     * @param $key mixed A string or an associative array representing the model primary key.
-     * @return array Model primary key in associative array form. If the key is composite but not complete
-     *               (not all columns present), the missing columns will be filled in with nulls.
-     */
-    public static function normalizeKey($key)
-    {
-        $primaryKey = is_array(static::primaryKey()) ? static::primaryKey() : [static::primaryKey()];
-
-        if (!is_array($key)) {
-            if (count($primaryKey) != 1) {
-                throw new InvalidArgumentException('Invalid key passed to a model with a composite primary key');
-            }
-
-            return [static::primaryKey() => $key];
-        } else {
-            // Remove extra columns that don't belong in the composite primary key
-            $key = array_intersect_key($key, array_flip($primaryKey));
-
-            // Add missing columns if necessary
-            foreach ($primaryKey as $k) {
-                if (!array_key_exists($k, $key)) {
-                    $key[$k] = null;
-                }
-            }
-
-            return $key;
-        }
+        return is_array(static::$primaryKey) ? static::$primaryKey : [static::$primaryKey];
     }
 
     /**
@@ -120,7 +83,7 @@ abstract class Model
     public static function deleteByKey($key)
     {
         $numDeleted = static::delete(...static::byKey($key));
-        assert($numDeleted <= 1, 'At most one record should be deleted');
+        assert($numDeleted <= 1, 'At most one record should have been deleted');
         return $numDeleted > 0;
     }
 
@@ -144,27 +107,15 @@ abstract class Model
         return DB::update(static::table(), $values, $where, ...$params);
     }
 
-    public static function byKey($primaryKey)
-    {
-        $primaryKey = static::normalizeKey($primaryKey);
-        $keys = array_map(fn($key) => "$key = ?", array_keys($primaryKey));
-        $query = implode(' AND ', $keys);
-        return [$query, ...array_values($primaryKey)];
-    }
-
     public function key()
     {
-        if (is_array(static::primaryKey())) {
-            $primaryKey = [];
+        $key = [];
 
-            foreach (static::primaryKey() as $k) {
-                $primaryKey[$k] = $this->$k;
-            }
-
-            return $primaryKey;
-        } else {
-            return $this->{static::primaryKey()};
+        foreach (static::primaryKey() as $k) {
+            $key[$k] = $this->$k;
         }
+
+        return $key;
     }
 
     public function errors()
@@ -193,12 +144,8 @@ abstract class Model
 
     public function fill($form, $fillGuardedColumns = false)
     {
-        $columns = array_intersect($this->fillableColumns(), array_keys($form));
-
-        if ($fillGuardedColumns) {
-            $guardedColumns = array_intersect($this->guarded, array_keys($form));
-            $columns = array_merge($columns, $guardedColumns);
-        }
+        $columns = ($fillGuardedColumns) ? $this->columns() : $this->fillableColumns();
+        $columns = array_intersect($columns, array_keys($form));
 
         foreach ($columns as $f) {
             $this->$f = $form[$f];
@@ -219,18 +166,19 @@ abstract class Model
             $res = static::insert($this->values(false));
 
             // Try to get an auto_increment key
-            if (is_string(static::primaryKey())) {
-                $lastInsertID = DB::pdo()->lastInsertID(static::primaryKey());
+            if (count(static::primaryKey()) == 1) {
+                $lastInsertID = DB::pdo()->lastInsertID(static::primaryKey()[0]);
 
 
                 if ($lastInsertID != 0) {
-                    $this->{static::primaryKey()} = $lastInsertID;
+                    $this->{static::primaryKey()[0]} = $lastInsertID;
                 }
             }
 
             return $res;
         } else {
-            return static::update($this->values(false), ...static::byKey($key));
+            static::update($this->values(false), ...static::byKey($key));
+            return true;
         }
     }
 
@@ -249,15 +197,7 @@ abstract class Model
 
     public function columns()
     {
-        $columns = array_merge($this->fillableColumns(), $this->guarded);
-
-        if (is_array(static::primaryKey())) {
-            $columns = array_merge(static::primaryKey(), $columns);
-        } else {
-            $columns[] = static::primaryKey();
-        }
-
-        return $columns;
+        return array_merge(static::primaryKey(), $this->fillableColumns(), $this->guarded);
     }
 
     public function fillableColumns()
@@ -268,6 +208,26 @@ abstract class Model
             $fillable[] = is_int($k) ? $v : $k;
         }
 
-        return $fillable;
+        assert(empty(array_intersect($fillable, $this->guarded)), 'Fillable and guarded columns must not intersect');
+        return array_diff($fillable, $this->guarded);
+    }
+
+    protected static function byKey($key)
+    {
+        if (!is_array($key)) {
+            $key = [static::primaryKey()[0] => $key];
+        }
+
+        // Remove extra columns that don't belong in the primary key
+        $key = array_intersect_key($key, array_flip(static::primaryKey()));
+
+        if (count($key) != count(static::primaryKey())) {
+            throw new InvalidArgumentException('Incomplete key');
+        }
+
+        $keys = array_map(fn($key) => "$key = ?", array_keys($key));
+        $query = implode(' AND ', $keys);
+
+        return [$query, ...array_values($key)];
     }
 }

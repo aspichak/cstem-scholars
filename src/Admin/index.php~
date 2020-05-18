@@ -4,4 +4,5 @@ require_once '../includes/init.php';
 
 User::authorize('admin');
 
+// TODO
 echo HTML::template('admin/index.php');

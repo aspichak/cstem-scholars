@@ -70,6 +70,12 @@ class Application extends Model
         parent::__construct($form, $fillGuardedColumns);
     }
 
+    public static function all($query = '', ...$params)
+    {
+        $query = ($query) ? "($query) AND status != 'draft'" : "status != 'draft'";
+        return parent::all($query, ...$params);
+    }
+
     public function fill($form, $fillGuardedColumns = [])
     {
         $this->hasAgreedToTerms = (($form['terms'] ?? '') == 'agree');

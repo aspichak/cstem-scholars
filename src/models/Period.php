@@ -40,11 +40,13 @@ class Period extends Model
             $errors['advisorDeadline'] = 'Advisor deadline cannot precede the application deadline';
         }
 
-        if (Period::exists('beginDate <= ? AND advisorDeadline >= ?', $this->beginDate, $this->beginDate)) {
+        $query = 'beginDate <= :date AND advisorDeadline >= :date AND id != :id';
+
+        if (Period::exists($query, ['date' => $this->beginDate, 'id' => $this->id ?? 0])) {
             $errors['beginDate'] = 'Start date cannot be within an existing period window';
         }
 
-        if (Period::exists('beginDate <= ? AND advisorDeadline >= ?', $this->advisorDeadline, $this->advisorDeadline)) {
+        if (Period::exists($query, ['date' => $this->advisorDeadline, 'id' => $this->id ?? 0])) {
             $errors['advisorDeadline'] = 'Review deadline cannot be within an existing period window';
         }
 
