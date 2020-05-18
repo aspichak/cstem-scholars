@@ -5,29 +5,33 @@ services:
   website:
     container_name: webserver
     depends_on:
-        - db
+      - db
     restart: always
     build:
-        context: ./
+      context: ./
     ports:
-        - "80:80"
-        - "443:443"
+      - "80:80"
+      - "443:443"
     networks:
-        - bridge
+      - bridge
 
   db:
     container_name: database
     build:
-        context: ./
-        dockerfile: Dockerfile-db
+      context: ./
+      dockerfile: Dockerfile-db
     restart: always
     environment:
-        - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=researchGrant
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_ALLOW_EMPTY_PASSWORD=no
+      - MYSQL_USER=dbUser
+      - MYSQL_PASSWORD=superSecret
     ports:
-        - "3306:3306"
+      - "3306:3306"
     networks:
-        - bridge
+      - bridge
 
 networks:
-    bridge:
-        name: cstem-scholars-network
+  bridge:
+    name: cstem-scholars-network
