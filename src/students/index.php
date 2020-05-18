@@ -70,7 +70,6 @@ if (HTTP::isPost() && $application->isValid() ) {
             HTTP::redirect('thank_you.php');
         }
     } catch (Exception $e) {
-        // TODO: Uploaded attachment was not deleted
         DB::rollback();
         throw $e;
     }

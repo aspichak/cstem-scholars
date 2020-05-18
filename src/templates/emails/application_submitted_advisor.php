@@ -1,6 +1,7 @@
 <?php
 
 $layout = 'emails/layout.php';
+// TODO: Wrong link shown to advisors
 ?>
 
 <p>Hello <?= e($application->advisorName) ?>, </p>

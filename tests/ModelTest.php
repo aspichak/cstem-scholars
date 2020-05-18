@@ -291,12 +291,4 @@ final class ModelTest extends TestCase
         $m = TestModel::first('1=0');
         $this->assertEquals(null, $m);
     }
-
-    public function testNormalizeKey()
-    {
-        $this->assertEquals(['id' => 'hello'], TestModel::normalizeKey('hello'));
-        $this->assertEquals(['id' => 'hello'], TestModel::normalizeKey(['id' => 'hello']));
-        $this->assertEquals(['id' => 'hello'], TestModel::normalizeKey(['id' => 'hello', 'bad' => 'key']));
-        $this->assertEquals(['id' => null], TestModel::normalizeKey(['bad' => 'key']));
-    }
 }

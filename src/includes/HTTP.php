@@ -4,9 +4,19 @@ abstract class HTTP
 {
     private static $flash = null;
 
+    public static function method()
+    {
+        return self::post('_method') ?? $_SERVER['REQUEST_METHOD'];
+    }
+
+    public static function isGet()
+    {
+        return self::method() == 'GET';
+    }
+
     public static function isPost()
     {
-        return $_SERVER['REQUEST_METHOD'] == 'POST';
+        return self::method() == 'POST';
     }
 
     public static function get($param = null, $default = null)
@@ -41,19 +51,15 @@ abstract class HTTP
 
     public static function error($body = 'Fatal error', $code = 400, $title = 'Error')
     {
-        $_SESSION['errtitle'] = $title;
-        $_SESSION['errbody'] = $body;
-        $_SESSION['errcode'] = $code;
-
-        // TODO: Move error page
-        HTTP::redirect("/includes/errorPage/errorPage.php");
+        http_response_code($code);
+        exit(HTML::template('error.php', ['body' => $body, 'title' => $title]));
     }
 
     public static function flash()
     {
         if (isset($_SESSION['flash'])) {
             self::$flash = unserialize($_SESSION['flash']);
-            $_SESSION['flash'] = null;
+            unset($_SESSION['flash']);
         }
 
         return self::$flash;

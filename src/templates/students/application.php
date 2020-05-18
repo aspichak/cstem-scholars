@@ -22,14 +22,14 @@
 
     <div class="form">
         <h1>Grant Fund Application<span>Undergraduate Research</span><span>*All Fields Required</span></h1>
-            <?php if (HTTP::isPost() && (!$application->isValid() || !$file->isValid())) { ?>
+            <?php if (HTTP::isPost() && !$application->isValid()) { ?>
                 <div class="error message">
                     <h2>We were unable to submit your application.</h2>
                     <p>Please review your application for errors and try again.</p>
                 </div>
             <?php } ?>
 
-            <?php if (HTTP::post('save') && $application->isValid() && $file->isValid()) { ?>
+            <?php if (HTTP::post('save') && $application->isValid()) { ?>
                 <div class="success message">
                     <h2>Your application has been saved!</h2>
                     <p>You can come back any time before the deadline to submit your application. Be sure to have your
@@ -44,9 +44,9 @@
 
             <div class="section"><span>1</span>Basic Details</div>
             <div class="inner-wrap">
-                <label>Your Full Name: <?= $form->input('text', 'name', ['disabled']) ?></label>
-                <label>Email Address:  <?= $form->input('text', 'email', ['required']) ?></label>
-                <label>Project Title:  <?= $form->input('text', 'title', ['required']) ?></label>
+                <label>Your Full Name: <?= $form->text('name', ['disabled']) ?></label>
+                <label>Email Address:  <?= $form->email('email', ['required']) ?></label>
+                <label>Project Title:  <?= $form->text('title', ['required']) ?></label>
             </div>
 
             <div class="section"><span>2</span>Major &amp; GPA</div>
@@ -58,12 +58,12 @@
 
                 <label>
                     GPA:
-                    <?= $form->input('number', 'gpa', ['min' => 1, 'max' => 4, 'step' => 0.01, 'required']) ?>
+                    <?= $form->number('gpa', ['min' => 1, 'max' => 4, 'step' => 0.1, 'required']) ?>
                 </label>
 
                 <label>
                     Expected Graduation Date:
-                    <?= $form->input('date', 'graduationDate', ['required']) ?>
+                    <?= $form->date('graduationDate', ['required']) ?>
                 </label>
             </div>
 
@@ -71,18 +71,18 @@
             <div class="inner-wrap">
                 <label>
                     Advisor Name:
-                    <?= $form->input('text', 'advisorName', ['list' => 'advisorNames', 'required']) ?>
+                    <?= $form->text('advisorName', ['list' => 'advisorNames', 'required']) ?>
                 </label>
 
                 <label>
                     Advisor Email:
-                    <?= $form->input('text', 'advisorEmail', ['list' => 'advisorEmails', 'required']) ?>
+                    <?= $form->text('advisorEmail', ['list' => 'advisorEmails', 'required']) ?>
                 </label>
 
                 <datalist id="advisorNames">
                     <?php
                     foreach (User::advisors() as $advisor) {
-                        echo HTML::tag('option', $advisor->name, ['value' => $advisor->name]);
+                        echo tag('option', $advisor->name, ['value' => $advisor->name]);
                     }
                     ?>
                 </datalist>
@@ -90,7 +90,7 @@
                 <datalist id="advisorEmails">
                     <?php
                     foreach (User::advisors() as $advisor) {
-                        echo HTML::tag('option', $advisor->email, ['value' => $advisor->email]);
+                        echo tag('option', $advisor->email, ['value' => $advisor->email]);
                     }
                     ?>
                 </datalist>
@@ -120,21 +120,17 @@
 
                 <label>
                     Total budget amount:
-                    <?= $form->input('number', 'totalBudget', ['min' => 0, 'step' => 0.01, 'required']) ?>
+                    <?= $form->money('totalBudget', ['required']) ?>
                 </label>
 
                 <label>
                     Requested budget amount from EWU:
-                    <?= $form->input(
-                        'number',
-                        'requestedBudget',
-                        ['min' => 0, 'max' => 2000, 'step' => 0.01, 'required']
-                    ) ?>
+                    <?= $form->money('requestedBudget', ['max' => 2000, 'required']) ?>
                 </label>
 
                 <label>
                     Please list any other funding sources you have:
-                    <?= $form->input('text', 'fundingSources', ['required']) ?>
+                    <?= $form->text('fundingSources', ['required']) ?>
                 </label>
 
                 <!-- THIS IS WHERE USER INPUT FOR BUDGET SHEET GOES

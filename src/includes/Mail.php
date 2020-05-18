@@ -4,6 +4,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 class Mail
 {
+    // TODO: configure
     public static function prepare($to, $subject, $body)
     {
         $mail = new PHPMailer;

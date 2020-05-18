@@ -116,7 +116,7 @@ class DB
     {
         $columns = [];
 
-        foreach ($values as $k => $v) {
+        foreach (array_keys($values) as $k) {
             $columns[] = "`$k` = ?";
         }
 

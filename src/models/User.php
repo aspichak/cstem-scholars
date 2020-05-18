@@ -17,6 +17,7 @@ class User extends Model
             'isAdmin'
         ];
 
+        // TODO: Move to fillable or protect
         $this->id = $form['id'] ?? null;
         parent::__construct($form, $fillGuardedColumns);
     }
@@ -49,6 +50,15 @@ class User extends Model
                 'Unauthorized Access'
             );
         }
+    }
+
+    public function save()
+    {
+        $this->isAdmin = $this->isAdmin ?? false;
+        $this->isAdvisor = $this->isAdvisor ?? false;
+        $this->isReviewer = $this->isReviewer ?? false;
+
+        return parent::save();
     }
 
     public function isAdmin()

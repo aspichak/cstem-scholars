@@ -99,11 +99,3 @@ function render($template, $v = null)
     require path($template);
     return ob_get_clean();
 }
-
-/**
- * @deprecated Use HTTP::url() instead
- */
-function url($path) {
-    return BASE_URL . '/' . $path;
-}
-
