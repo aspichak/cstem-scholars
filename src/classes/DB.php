@@ -128,28 +128,6 @@ class DB
             ) > 0;
     }
 
-    /**
-     * @deprecated
-     */
-    public static function insertOrUpdate($table, $values, $where, ...$params) {
-        $count = self::count($table, $where, ...$params);
-
-        // Check that we didn't change more than 1 record
-        assert($count <= 1, "Expected 0 or 1 records for insertOrUpdate, received $count");
-
-        if ($count == 0) {
-            self::insert($table, $values);
-        } else {
-            self::update($table, $values, $where, ...$params);
-        }
-    }
-
-    public static function replace($table, $values)
-    {
-        $valuesFragment = self::makeValueList($values);
-        return self::execute("REPLACE INTO $table $valuesFragment", array_values($values)) > 0;
-    }
-
     // Returns number of deleted records
     public static function delete($table, $where, ...$params)
     {

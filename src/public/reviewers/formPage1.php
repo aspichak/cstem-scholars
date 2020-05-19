@@ -93,7 +93,7 @@ if( $form['learn'] != '' ) {
     $form['QATotal'] = $form['learn'] + $form['justified'] + $form['method'] + $form['time'] + $form['project'] + $form['budget'];
     if (validate($form, $validators)) {
         saveReview($form, true);
-        redirect('ReviewStudents.php');
+        HTTP::redirect('ReviewStudents.php');
     }
 }
 

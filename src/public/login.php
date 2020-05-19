@@ -13,7 +13,7 @@ if (isset($_REQUEST['logout'])) {
     phpCAS::logout();
     $_SESSION = array();
     session_destroy();
-    redirect('/');
+    HTTP::redirect('/');
 }
 
 // Production code block. uses CAS
