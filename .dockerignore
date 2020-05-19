@@ -14,6 +14,3 @@ src/composer.lock
 # ignore our base dev config files
 src/config.php
 src/config.sample.php
-
-# containers are prod only
-src/dev
