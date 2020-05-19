@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../src/includes/init.php';
+require_once __DIR__ . '/../src/init.php';
 require_once __DIR__ . '/SchemaTest.php';
 
 final class ApplicationModelTest extends SchemaTest

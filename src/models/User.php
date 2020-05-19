@@ -4,7 +4,7 @@ use Respect\Validation\ValidatorFunction as v;
 
 class User extends Model
 {
-    public $id, $email, $name, $isAdvisor, $isReviewer, $isAdmin;
+    public $id, $email, $name, $isAdvisor = 0, $isReviewer = 0, $isAdmin = 0;
     protected static $primaryKey = 'email';
 
     public function __construct($form = [], $fillGuardedColumns = false)
@@ -54,9 +54,9 @@ class User extends Model
 
     public function save()
     {
-        $this->isAdmin = $this->isAdmin ?? false;
-        $this->isAdvisor = $this->isAdvisor ?? false;
-        $this->isReviewer = $this->isReviewer ?? false;
+        $this->isAdmin = ($this->isAdmin) ? 1 : 0;
+        $this->isAdvisor = ($this->isAdvisor) ? 1 : 0;
+        $this->isReviewer = ($this->isReviewer) ? 1 : 0;
 
         return parent::save();
     }

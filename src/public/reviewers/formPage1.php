@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-require_once '../includes/init.php';
+require_once '../../init.php';
 
 use Respect\Validation\Validator as v;
 use Respect\Validation\Exceptions\ValidationException;
@@ -93,7 +93,7 @@ if( $form['learn'] != '' ) {
     $form['QATotal'] = $form['learn'] + $form['justified'] + $form['method'] + $form['time'] + $form['project'] + $form['budget'];
     if (validate($form, $validators)) {
         saveReview($form, true);
-        redirect('ReviewStudents.php');
+        HTTP::redirect('ReviewStudents.php');
     }
 }
 
