@@ -3,8 +3,6 @@
 define('DEBUG', true);
 define('BASE_URL', 'http://localhost');
 define('ADMIN_EMAIL', 'admin@example.edu');
-define('UPLOAD_DIR', __DIR__ . '/uploads');
-define('ALLOWED_UPLOAD_EXTENSIONS', ['pdf', 'xls', 'xlsx', 'doc', 'docx', 'txt', 'jpg', 'jpeg']);
 
 if (isset($is_login)) {
     require_once __DIR__ . "/vendor/apereo/phpcas/CAS.php";
