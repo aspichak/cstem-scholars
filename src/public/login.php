@@ -1,9 +1,8 @@
 <?php
 
 $is_login = true;
-require_once __DIR__ . "/includes/init.php";
-require_once __DIR__ . "/config.php";
-require_once __DIR__ . "/vendor/apereo/phpcas/CAS.php";
+require_once __DIR__ . "/../init.php";
+require_once __DIR__ . "/../vendor/apereo/phpcas/CAS.php";
 
 function whitelist($value, $allowedValues, $default = null)
 {
@@ -51,63 +50,63 @@ $type = $_GET["id"];
 if ($type == "admin") {
     // ADMIN PAGE LOGIN
     if ($user->isAdmin()) {
-        header("location:/Admin/index.php");
+        HTTP::redirect('admin/');
     } else {
-        error(
-            'Admin',
+        HTTP::error(
             'You are not an admin for the CSTEM Undergraduate Research Grant.',
-            401
+            401,
+            'Admin'
         );
     }
 } elseif ($type == 'student') {
     // STUDENT PAGE LOGIN
     if (!$user->isStudent()) {
-        error(
-            'Student Application',
+        HTTP::error(
             'You are not an EWU student and are not eligible to apply for the CSTEM Research Grant.',
-            401
-        );;
+            401,
+            'Student Application'
+        );
     } elseif (Period::current() != null) {
-        header("location:/students");
+        HTTP::redirect('students/');
     } else {
-        error(
-            'Student Application',
+        HTTP::error(
             'The CSTEM Research Grant application has been closed. Please check back at a later date.',
-            403
+            403,
+            'Student Application'
         );
     }
 } elseif ($type == 'advisor') {
     // ADVISOR PAGE LOGIN
     if ($user->isStudent()) {
-        error(
-            'Advisor Approval',
+        HTTP::error(
             'You are not a faculty advisor for Eastern\'s CSTEM research grant.',
-            401
+            401,
+            'Advisor Approval'
         );
     } elseif (Period::currentForAdvisors() != null) {
         if ($user->isAdvisor()) {
             header("location:faculty/facultylandingpage.php");
         } else {
-            error(
-                'Advisor Approval',
+            HTTP::error(
                 'Currently there are no applications needing approval. Please check back later.',
-                204
+                204,
+                'Advisor Approval'
             );
         }
     } else {
-        error(
-            'Advisor Approval',
+        HTTP::error(
             'The deadline has passed for approving students applications.',
-            204
+            204,
+            'Advisor Approval'
         );
     }
 } elseif ($type == "reviewer") {
     // REVIEWER PAGE LOGIN
     if ($user->isStudent()) {
-        error(
-            'Application Reviewal',
+        HTTP::error(
             'You are not a reviewer for Eastern\'s CSTEM Research Grant application.',
-            401
+            401,
+            'Application Reviewal'
         );
     }
     if ($user->isReviewer()) {
@@ -117,10 +116,10 @@ if ($type == "admin") {
             header("location:infoPages/closedReviewer.php");
         }
     } else {
-        error(
-            'Application Reviewal',
+        HTTP::error(
             'You are not a reviewer for Eastern\'s CSTEM Research Grant application.',
-            401
+            401,
+            'Application Reviewal'
         );
     }
 }

@@ -1,8 +1,7 @@
 <?php
 
-require_once '../includes/init.php';
+require_once '../../init.php';
 User::authorize('student');
-
 $period = Period::current();
 ?>
 <!DOCTYPE HTML>

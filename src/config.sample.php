@@ -12,7 +12,7 @@ if (isset($is_login)) {
     define('CAS_VERSION', CAS_VERSION_2_0);
     define('CAS_HOSTNAME', 'localhost');
     define('CAS_PORT', 443);
-    define('CAS_URI', 'cas.php?');
+    define('CAS_URI', '/dev/cas.php?');
     define('CAS_CA_CERT', null);
 }
 

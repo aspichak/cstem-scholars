@@ -1,0 +1,260 @@
+5870 .START (2020-05-18 19:21:46) phpCAS-1.3.8 ****************** [CAS.php:475]
+5870 .=> phpCAS::setNoCasServerValidation() [login.php:23]
+5870 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+5870 .<= ''
+5870 .=> CAS_Client::handleLogoutRequests(true, array ()) [CAS.php:1298]
+5870 .|    Not a logout request [Client.php:1744]
+5870 .<= ''
+5870 .=> phpCAS::forceAuthentication() [login.php:29]
+5870 .|    => CAS_Client::forceAuthentication() [CAS.php:1120]
+5870 .|    |    => CAS_Client::isAuthenticated() [Client.php:1286]
+5870 .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1398]
+5870 .|    |    |    |    no user found [Client.php:1640]
+5870 .|    |    |    <= false
+5870 .|    |    |    no ticket found [Client.php:1499]
+5870 .|    |    <= false
+5870 .|    |    => CAS_Client::redirectToCas(false) [Client.php:1295]
+5870 .|    |    |    => CAS_Client::getServerLoginURL(false, false) [Client.php:1661]
+5870 .|    |    |    |    => CAS_Client::getURL() [Client.php:342]
+5870 .|    |    |    |    |    Final URI: https://localhost/login.php?id=student [Client.php:3585]
+5870 .|    |    |    |    <= 'https://localhost/login.php?id=student'
+5870 .|    |    |    <= 'https://localhost/dev/cas.php?login&service=https%3A%2F%2Flocalhost%2Flogin.php%3Fid%3Dstudent'
+5870 .|    |    |    Redirect to : https://localhost/dev/cas.php?login&service=https%3A%2F%2Flocalhost%2Flogin.php%3Fid%3Dstudent [Client.php:1668]
+5870 .|    |    |    exit()
+5870 .|    |    |    -
+5870 .|    |    -
+5870 .|    -
+C525 .START (2020-05-18 19:21:48) phpCAS-1.3.8 ****************** [CAS.php:475]
+C525 .=> phpCAS::setNoCasServerValidation() [login.php:23]
+C525 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+C525 .<= ''
+C525 .=> CAS_Client::handleLogoutRequests(true, array ()) [CAS.php:1298]
+C525 .|    Not a logout request [Client.php:1744]
+C525 .<= ''
+C525 .=> phpCAS::forceAuthentication() [login.php:29]
+C525 .|    => CAS_Client::forceAuthentication() [CAS.php:1120]
+C525 .|    |    => CAS_Client::isAuthenticated() [Client.php:1286]
+C525 .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1398]
+C525 .|    |    |    |    no user found [Client.php:1640]
+C525 .|    |    |    <= false
+C525 .|    |    |    CAS 2.0 ticket `ST-Alexander Spichak::aspichak@eagles.ewu.edu' is present [Client.php:1451]
+C525 .|    |    |    => CAS_Client::validateCAS20('', NULL, NULL, false) [Client.php:1454]
+C525 .|    |    |    |     [Client.php:3216]
+C525 .|    |    |    |    => CAS_Client::getServerServiceValidateURL() [Client.php:3222]
+C525 .|    |    |    |    |    => CAS_Client::getURL() [Client.php:453]
+C525 .|    |    |    |    |    |    Final URI: https://localhost/login.php?id=student [Client.php:3585]
+C525 .|    |    |    |    |    <= 'https://localhost/login.php?id=student'
+C525 .|    |    |    |    <= 'https://localhost/dev/cas.php?serviceValidate&service=https%3A%2F%2Flocalhost%2Flogin.php%3Fid%3Dstudent'
+C525 .|    |    |    |    => CAS_Client::_readURL('https://localhost/dev/cas.php?serviceValidate&service=https%3A%2F%2Flocalhost%2Flogin.php%3Fid%3Dstudent&ticket=ST-Alexander+Spichak%3A%3Aaspichak%40eagles.ewu.edu', NULL, NULL, NULL) [Client.php:3237]
+C525 .|    |    |    |    |    => CAS_Request_CurlRequest::sendRequest() [AbstractRequest.php:242]
+C525 .|    |    |    |    |    |    Response Body: 
+C525 .|    |    |    |    |    |    
+C525 .|    |    |    |    |    |            <cas:serviceResponse xmlns:cas="http://www.yale.edu/tp/cas">
+C525 .|    |    |    |    |    |                <cas:authenticationSuccess>
+C525 .|    |    |    |    |    |                    <cas:user>aspichak</cas:user>
+C525 .|    |    |    |    |    |                    <cas:attributes>
+C525 .|    |    |    |    |    |                        <cas:Ewuid>00335065</cas:Ewuid>
+C525 .|    |    |    |    |    |                        <cas:UserType>Student</cas:UserType>
+C525 .|    |    |    |    |    |                        <cas:Email>aspichak@eagles.ewu.edu</cas:Email>
+C525 .|    |    |    |    |    |                        <cas:FirstName>Alexander</cas:FirstName>
+C525 .|    |    |    |    |    |                        <cas:LastName>Spichak</cas:LastName>
+C525 .|    |    |    |    |    |                    </cas:attributes>
+C525 .|    |    |    |    |    |                </cas:authenticationSuccess>
+C525 .|    |    |    |    |    |            </cas:serviceResponse>
+C525 .|    |    |    |    |    |        
+C525 .|    |    |    |    |    |     [CurlRequest.php:84]
+C525 .|    |    |    |    |    <= true
+C525 .|    |    |    |    <= true
+C525 .|    |    |    |    => CAS_Client::_readExtraAttributesCas20(DOMNodeList) [Client.php:3301]
+C525 .|    |    |    |    |    Found nested jasig style attributes [Client.php:3383]
+C525 .|    |    |    |    |    Attribute [Ewuid] = 00335065 [Client.php:3389]
+C525 .|    |    |    |    |    Attribute [UserType] = Student [Client.php:3389]
+C525 .|    |    |    |    |    Attribute [Email] = aspichak@eagles.ewu.edu [Client.php:3389]
+C525 .|    |    |    |    |    Attribute [FirstName] = Alexander [Client.php:3389]
+C525 .|    |    |    |    |    Attribute [LastName] = Spichak [Client.php:3389]
+C525 .|    |    |    |    <= ''
+C525 .|    |    |    |    => CAS_ProxyChain_AllowedList::isProxyListAllowed(array ()) [Client.php:3313]
+C525 .|    |    |    |    |    No proxies were found in the response [AllowedList.php:81]
+C525 .|    |    |    |    <= true
+C525 .|    |    |    |    => CAS_Client::_renameSession('ST-Alexander Spichak::aspichak@eagles.ewu.edu') [Client.php:3331]
+C525 .|    |    |    |    |    Killing session: 6150eb6b72c64ad571eb92d88210696e7db9e8941da1e15b5690ea4dc6545892 [Client.php:3718]
+C525 .|    |    |    |    |    Starting session: 6150eb6b72c64ad571eb92d88210696e7db9e8941da1e15b5690ea4dc6545892 [Client.php:3722]
+C525 .|    |    |    |    |    Restoring old session vars [Client.php:3725]
+C525 .|    |    |    |    <= ''
+C525 .|    |    |    <= true
+C525 .|    |    |    CAS 2.0 ticket `ST-Alexander Spichak::aspichak@eagles.ewu.edu' was validated [Client.php:1457]
+C525 .|    |    |    => CAS_Client::getURL() [Client.php:1523]
+C525 .|    |    |    <= 'https://localhost/login.php?id=student'
+C525 .|    |    |    Prepare redirect to : https://localhost/login.php?id=student [Client.php:1523]
+C525 .|    |    |    => CAS_Client::getURL() [Client.php:1525]
+C525 .|    |    |    <= 'https://localhost/login.php?id=student'
+C525 .|    |    |    exit()
+C525 .|    |    |    -
+C525 .|    |    -
+C525 .|    -
+DAD8 .START (2020-05-18 19:21:49) phpCAS-1.3.8 ****************** [CAS.php:475]
+DAD8 .=> phpCAS::setNoCasServerValidation() [login.php:23]
+DAD8 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+DAD8 .<= ''
+DAD8 .=> CAS_Client::handleLogoutRequests(true, array ()) [CAS.php:1298]
+DAD8 .|    Not a logout request [Client.php:1744]
+DAD8 .<= ''
+DAD8 .=> phpCAS::forceAuthentication() [login.php:29]
+DAD8 .|    => CAS_Client::forceAuthentication() [CAS.php:1120]
+DAD8 .|    |    => CAS_Client::isAuthenticated() [Client.php:1286]
+DAD8 .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1398]
+DAD8 .|    |    |    |    user = `aspichak' [Client.php:1627]
+DAD8 .|    |    |    <= true
+DAD8 .|    |    |    user was already authenticated, no need to look for tickets [Client.php:1421]
+DAD8 .|    |    <= true
+DAD8 .|    |    no need to authenticate [Client.php:1288]
+DAD8 .|    <= true
+DAD8 .<= ''
+0F44 .START (2020-05-18 19:21:52) phpCAS-1.3.8 ****************** [CAS.php:475]
+0F44 .=> phpCAS::setNoCasServerValidation() [login.php:23]
+0F44 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+0F44 .<= ''
+0F44 .=> CAS_Client::handleLogoutRequests(true, array ()) [CAS.php:1298]
+0F44 .|    Not a logout request [Client.php:1744]
+0F44 .<= ''
+0F44 .=> phpCAS::forceAuthentication() [login.php:29]
+0F44 .|    => CAS_Client::forceAuthentication() [CAS.php:1120]
+0F44 .|    |    => CAS_Client::isAuthenticated() [Client.php:1286]
+0F44 .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1398]
+0F44 .|    |    |    |    user = `aspichak' [Client.php:1627]
+0F44 .|    |    |    <= true
+0F44 .|    |    |    user was already authenticated, no need to look for tickets [Client.php:1421]
+0F44 .|    |    <= true
+0F44 .|    |    no need to authenticate [Client.php:1288]
+0F44 .|    <= true
+0F44 .<= ''
+1C65 .START (2020-05-18 19:22:05) phpCAS-1.3.8 ****************** [CAS.php:475]
+1C65 .=> phpCAS::setNoCasServerValidation() [login.php:23]
+1C65 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+1C65 .<= ''
+1C65 .=> CAS_Client::handleLogoutRequests(true, array ()) [CAS.php:1298]
+1C65 .|    Not a logout request [Client.php:1744]
+1C65 .<= ''
+1C65 .=> phpCAS::forceAuthentication() [login.php:29]
+1C65 .|    => CAS_Client::forceAuthentication() [CAS.php:1120]
+1C65 .|    |    => CAS_Client::isAuthenticated() [Client.php:1286]
+1C65 .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1398]
+1C65 .|    |    |    |    no user found [Client.php:1640]
+1C65 .|    |    |    <= false
+1C65 .|    |    |    no ticket found [Client.php:1499]
+1C65 .|    |    <= false
+1C65 .|    |    => CAS_Client::redirectToCas(false) [Client.php:1295]
+1C65 .|    |    |    => CAS_Client::getServerLoginURL(false, false) [Client.php:1661]
+1C65 .|    |    |    |    => CAS_Client::getURL() [Client.php:342]
+1C65 .|    |    |    |    |    Final URI: https://localhost/login.php?id=student [Client.php:3585]
+1C65 .|    |    |    |    <= 'https://localhost/login.php?id=student'
+1C65 .|    |    |    <= 'https://localhost/dev/cas.php?login&service=https%3A%2F%2Flocalhost%2Flogin.php%3Fid%3Dstudent'
+1C65 .|    |    |    Redirect to : https://localhost/dev/cas.php?login&service=https%3A%2F%2Flocalhost%2Flogin.php%3Fid%3Dstudent [Client.php:1668]
+1C65 .|    |    |    exit()
+1C65 .|    |    |    -
+1C65 .|    |    -
+1C65 .|    -
+B47C .START (2020-05-18 19:22:10) phpCAS-1.3.8 ****************** [CAS.php:475]
+B47C .=> phpCAS::setNoCasServerValidation() [login.php:23]
+B47C .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+B47C .<= ''
+B47C .=> CAS_Client::handleLogoutRequests(true, array ()) [CAS.php:1298]
+B47C .|    Not a logout request [Client.php:1744]
+B47C .<= ''
+B47C .=> phpCAS::forceAuthentication() [login.php:29]
+B47C .|    => CAS_Client::forceAuthentication() [CAS.php:1120]
+B47C .|    |    => CAS_Client::isAuthenticated() [Client.php:1286]
+B47C .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1398]
+B47C .|    |    |    |    no user found [Client.php:1640]
+B47C .|    |    |    <= false
+B47C .|    |    |    CAS 2.0 ticket `ST-Alexander Spichak::aspichak@eagles.ewu.edu' is present [Client.php:1451]
+B47C .|    |    |    => CAS_Client::validateCAS20('', NULL, NULL, false) [Client.php:1454]
+B47C .|    |    |    |     [Client.php:3216]
+B47C .|    |    |    |    => CAS_Client::getServerServiceValidateURL() [Client.php:3222]
+B47C .|    |    |    |    |    => CAS_Client::getURL() [Client.php:453]
+B47C .|    |    |    |    |    |    Final URI: https://localhost/login.php?id=student [Client.php:3585]
+B47C .|    |    |    |    |    <= 'https://localhost/login.php?id=student'
+B47C .|    |    |    |    <= 'https://localhost/dev/cas.php?serviceValidate&service=https%3A%2F%2Flocalhost%2Flogin.php%3Fid%3Dstudent'
+B47C .|    |    |    |    => CAS_Client::_readURL('https://localhost/dev/cas.php?serviceValidate&service=https%3A%2F%2Flocalhost%2Flogin.php%3Fid%3Dstudent&ticket=ST-Alexander+Spichak%3A%3Aaspichak%40eagles.ewu.edu', NULL, NULL, NULL) [Client.php:3237]
+B47C .|    |    |    |    |    => CAS_Request_CurlRequest::sendRequest() [AbstractRequest.php:242]
+B47C .|    |    |    |    |    |    Response Body: 
+B47C .|    |    |    |    |    |    
+B47C .|    |    |    |    |    |            <cas:serviceResponse xmlns:cas="http://www.yale.edu/tp/cas">
+B47C .|    |    |    |    |    |                <cas:authenticationSuccess>
+B47C .|    |    |    |    |    |                    <cas:user>aspichak</cas:user>
+B47C .|    |    |    |    |    |                    <cas:attributes>
+B47C .|    |    |    |    |    |                        <cas:Ewuid>00335065</cas:Ewuid>
+B47C .|    |    |    |    |    |                        <cas:UserType>Student</cas:UserType>
+B47C .|    |    |    |    |    |                        <cas:Email>aspichak@eagles.ewu.edu</cas:Email>
+B47C .|    |    |    |    |    |                        <cas:FirstName>Alexander</cas:FirstName>
+B47C .|    |    |    |    |    |                        <cas:LastName>Spichak</cas:LastName>
+B47C .|    |    |    |    |    |                    </cas:attributes>
+B47C .|    |    |    |    |    |                </cas:authenticationSuccess>
+B47C .|    |    |    |    |    |            </cas:serviceResponse>
+B47C .|    |    |    |    |    |        
+B47C .|    |    |    |    |    |     [CurlRequest.php:84]
+B47C .|    |    |    |    |    <= true
+B47C .|    |    |    |    <= true
+B47C .|    |    |    |    => CAS_Client::_readExtraAttributesCas20(DOMNodeList) [Client.php:3301]
+B47C .|    |    |    |    |    Found nested jasig style attributes [Client.php:3383]
+B47C .|    |    |    |    |    Attribute [Ewuid] = 00335065 [Client.php:3389]
+B47C .|    |    |    |    |    Attribute [UserType] = Student [Client.php:3389]
+B47C .|    |    |    |    |    Attribute [Email] = aspichak@eagles.ewu.edu [Client.php:3389]
+B47C .|    |    |    |    |    Attribute [FirstName] = Alexander [Client.php:3389]
+B47C .|    |    |    |    |    Attribute [LastName] = Spichak [Client.php:3389]
+B47C .|    |    |    |    <= ''
+B47C .|    |    |    |    => CAS_ProxyChain_AllowedList::isProxyListAllowed(array ()) [Client.php:3313]
+B47C .|    |    |    |    |    No proxies were found in the response [AllowedList.php:81]
+B47C .|    |    |    |    <= true
+B47C .|    |    |    |    => CAS_Client::_renameSession('ST-Alexander Spichak::aspichak@eagles.ewu.edu') [Client.php:3331]
+B47C .|    |    |    |    |    Killing session: 6150eb6b72c64ad571eb92d88210696e7db9e8941da1e15b5690ea4dc6545892 [Client.php:3718]
+B47C .|    |    |    |    |    Starting session: 6150eb6b72c64ad571eb92d88210696e7db9e8941da1e15b5690ea4dc6545892 [Client.php:3722]
+B47C .|    |    |    |    |    Restoring old session vars [Client.php:3725]
+B47C .|    |    |    |    <= ''
+B47C .|    |    |    <= true
+B47C .|    |    |    CAS 2.0 ticket `ST-Alexander Spichak::aspichak@eagles.ewu.edu' was validated [Client.php:1457]
+B47C .|    |    |    => CAS_Client::getURL() [Client.php:1523]
+B47C .|    |    |    <= 'https://localhost/login.php?id=student'
+B47C .|    |    |    Prepare redirect to : https://localhost/login.php?id=student [Client.php:1523]
+B47C .|    |    |    => CAS_Client::getURL() [Client.php:1525]
+B47C .|    |    |    <= 'https://localhost/login.php?id=student'
+B47C .|    |    |    exit()
+B47C .|    |    |    -
+B47C .|    |    -
+B47C .|    -
+A5C8 .START (2020-05-18 19:22:11) phpCAS-1.3.8 ****************** [CAS.php:475]
+A5C8 .=> phpCAS::setNoCasServerValidation() [login.php:23]
+A5C8 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+A5C8 .<= ''
+A5C8 .=> CAS_Client::handleLogoutRequests(true, array ()) [CAS.php:1298]
+A5C8 .|    Not a logout request [Client.php:1744]
+A5C8 .<= ''
+A5C8 .=> phpCAS::forceAuthentication() [login.php:29]
+A5C8 .|    => CAS_Client::forceAuthentication() [CAS.php:1120]
+A5C8 .|    |    => CAS_Client::isAuthenticated() [Client.php:1286]
+A5C8 .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1398]
+A5C8 .|    |    |    |    user = `aspichak' [Client.php:1627]
+A5C8 .|    |    |    <= true
+A5C8 .|    |    |    user was already authenticated, no need to look for tickets [Client.php:1421]
+A5C8 .|    |    <= true
+A5C8 .|    |    no need to authenticate [Client.php:1288]
+A5C8 .|    <= true
+A5C8 .<= ''
+D937 .START (2020-05-18 19:22:15) phpCAS-1.3.8 ****************** [CAS.php:475]
+D937 .=> phpCAS::setNoCasServerValidation() [login.php:23]
+D937 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+D937 .<= ''
+D937 .=> CAS_Client::handleLogoutRequests(true, array ()) [CAS.php:1298]
+D937 .|    Not a logout request [Client.php:1744]
+D937 .<= ''
+D937 .=> phpCAS::forceAuthentication() [login.php:29]
+D937 .|    => CAS_Client::forceAuthentication() [CAS.php:1120]
+D937 .|    |    => CAS_Client::isAuthenticated() [Client.php:1286]
+D937 .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1398]
+D937 .|    |    |    |    user = `aspichak' [Client.php:1627]
+D937 .|    |    |    <= true
+D937 .|    |    |    user was already authenticated, no need to look for tickets [Client.php:1421]
+D937 .|    |    <= true
+D937 .|    |    no need to authenticate [Client.php:1288]
+D937 .|    <= true
+D937 .<= ''

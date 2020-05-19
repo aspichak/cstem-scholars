@@ -1,7 +1,7 @@
 <?php
 
-require 'includes/init.php';
-//DEBUG or exit('You are not authorized to access this page');
+require '../../init.php';
+DEBUG or exit('You are not authorized to access this page');
 
 $url = filter_var(HTTP::get('service'), FILTER_VALIDATE_URL);
 $url .= (strstr($url, '?') == false) ? '?' : '&';

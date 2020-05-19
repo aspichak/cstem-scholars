@@ -17,13 +17,12 @@ RUN /usr/bin/composer update -o --no-dev
 
 # copy over the website
 COPY src/ /var/www/html/
-COPY src/prod/config.ini /var/www/html/
-COPY src/prod/config.php /var/www/html/
+COPY docker/config.php /var/www/html/
 
 # copy over our php.ini
 # we do this last so composer runs with default settings and the opcache preloaded
 # gets to run after our libraries are downloaded and isntalled
-COPY src/prod/php.ini 	/usr/local/etc/php/
+COPY docker/php.ini 	/usr/local/etc/php/
 
 EXPOSE 80/tcp
 EXPOSE 443/tcp

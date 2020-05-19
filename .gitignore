@@ -2,11 +2,9 @@
 src/.idea
 src/.vscode/
 src/config.php
-src/students/uploads/
 src/vendor/
 src/composer.lock
 docker notes.txt
 ssh info.txt
-src/.idea/dataSources.xml
 .phpunit.result.cache
 src/phpCAS.log

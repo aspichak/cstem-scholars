@@ -1,6 +1,6 @@
 <?php
 
-require_once '../includes/init.php';
+require_once '../../init.php';
 
 use Respect\Validation\Validator as v;
 use Respect\Validation\Exceptions\ValidationException;

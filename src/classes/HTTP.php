@@ -55,14 +55,14 @@ abstract class HTTP
         exit(HTML::template('error.php', ['body' => $body, 'title' => $title]));
     }
 
-    public static function flash()
+    public static function flash($key = null)
     {
         if (isset($_SESSION['flash'])) {
             self::$flash = unserialize($_SESSION['flash']);
             unset($_SESSION['flash']);
         }
 
-        return self::$flash;
+        return self::$flash[$key] ?? self::$flash;
     }
 
     public static function url($path) {
