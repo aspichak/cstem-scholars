@@ -1,23 +1,35 @@
 FROM php:7.4.4-apache
 
-#update our certificates for cas, just incase
+#--------------------------------------------------------------------------------------------
+# system config and updates
+# update our certificates for cas, just incase
 RUN update-ca-certificates
 
+#--------------------------------------------------------------------------------------------
+# php config
 # Run apt update and install some dependancies needed for docker-php-ext
 RUN apt update && apt install -y apt-utils sendmail mariadb-client unzip zip libsqlite3-dev libsqlite3-0
 
 # install php extensions
 RUN docker-php-ext-install pdo pdo_mysql pdo_sqlite mysqli opcache
 
+#--------------------------------------------------------------------------------------------
+# apache server config
 # Change Apache DocumentRoot to serve from /src/public
 RUN sed -ri -e 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/*.conf
+# enable http headers
+RUN a2enmod headers
 
-#install and run composer - setup to cache for docker
+#--------------------------------------------------------------------------------------------
+# composer block
+# install and run composer - setup to cache for docker
 COPY src/composer.json /var/www/html/
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 RUN /usr/bin/composer install -o --no-dev
 RUN /usr/bin/composer update -o --no-dev
 
+#--------------------------------------------------------------------------------------------
+# website specific block
 # copy over the website
 COPY src/ /var/www/html/
 COPY docker/config.php /var/www/html/
