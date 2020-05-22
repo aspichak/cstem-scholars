@@ -12,8 +12,9 @@ create table `Period`
 
 create table `User`
 (
+    `ewuID` int primary key,
     `name` varchar(50) null,
-    `email` varchar(50) not null primary key,
+    `email` varchar(50) not null,
     `isAdvisor` boolean default false,
     `isReviewer` boolean default false,
     `isAdmin` boolean default false
@@ -25,14 +26,12 @@ create table `Application`
         primary key,
     `studentID` int not null,
     `periodID` int not null,
-    `name` varchar(50) null,
     `email` varchar(50) null,
     `title` varchar(140) null,
     `major` varchar(30) null,
     `gpa` double null,
     `graduationDate` date null,
-    `advisorName` varchar(50) null,
-    `advisorEmail` varchar(50) null,
+    `advisorID` int null,
     `description` text null,
     `timeline` text null,
     `justification` text null,
@@ -42,7 +41,10 @@ create table `Application`
     `attachment` varchar(100) null,
     `status` varchar(30) not null,
     `additionalInformationRequested` boolean default false,
-    foreign key (advisorEmail) references User(email)
+    foreign key (studentID) references User(ewuID)
+        on update cascade
+        on delete cascade ,
+    foreign key (advisorID) references User(ewuID)
         on update cascade
         on delete set null,
     foreign key (periodID) references Period(id)
@@ -53,7 +55,7 @@ create table `Application`
 create table `Review`
 (
     `id` int auto_increment primary key,
-    `reviewerID` varchar(50) null,
+    `reviewerID` int not null,
     `applicationID` int not null,
     `periodID` int not null,
     `comments` text null,
@@ -65,7 +67,7 @@ create table `Review`
     `q6` int null,
     `fundingRecommended` int null,
     `submitted` boolean not null default false,
-    foreign key (reviewerID) references User(email)
+    foreign key (reviewerID) references User(ewuID)
         on update cascade
         on delete cascade,
     foreign key (applicationID) references Application(id)
