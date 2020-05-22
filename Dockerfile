@@ -19,6 +19,10 @@ RUN docker-php-ext-install pdo pdo_mysql pdo_sqlite mysqli opcache
 RUN sed -ri -e 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/*.conf
 # enable http headers module
 RUN a2enmod headers
+# set server tokens to prod
+RUN sed -ri -e 's!ServerTokens OS!ServerTokens Prod!g' /etc/apache2/conf-enabled/security.conf
+# disable server signatures
+RUN sed -ri -e 's!ServerSignature On!ServerSignature Off!g' /etc/apache2/conf-enabled/security.conf
 # disallow content sniffing, dogs are banned :P
 RUN sed -ri -e 's!#Header set X-Content-Type-Options: "nosniff"!Header set X-Content-Type-Options: "nosniff"!g' /etc/apache2/conf-enabled/security.conf
 # ban embedding this page in another
