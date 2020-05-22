@@ -27,13 +27,10 @@ RUN sed -ri -e 's!ServerSignature On!ServerSignature Off!g' /etc/apache2/conf-en
 RUN sed -ri -e 's!#Header set X-Content-Type-Options: "nosniff"!Header set X-Content-Type-Options: "nosniff"!g' /etc/apache2/conf-enabled/security.conf
 # ban embedding this page in another
 RUN sed -ri -e 's!#Header set X-Frame-Options: "sameorigin"!Header set X-Frame-Options: "deny"!g' /etc/apache2/conf-enabled/security.conf
-# enables some level of builtin cross side scripting protection
-RUN sed -ri '$iHeader set X-XSS-Protection "1; mode=block"\n' /etc/apache2/conf-enabled/security.conf
 # gets rid of referrer head, for the extra paranoid
 RUN sed -ri '$iHeader set Referrer-Policy "no-referrer"\n' /etc/apache2/conf-enabled/security.conf
-# changes site cookies to be HttpOnly, lax for sites. use the second one if the site is https
-RUN sed -i '$iHeader edit Set-Cookie ^(.*)$ $1;HttpOnly;SameSite=Lax\n' /etc/apache2/conf-enabled/security.conf
-#RUN sed -i '$iHeader edit Set-Cookie ^(.*)$ $1;HttpOnly;Secure;SameSite=Lax\n' /etc/apache2/conf-enabled/security.conf
+# changes site cookies to be HttpOnly, lax for sites. already set for php
+#RUN sed -i '$iHeader edit Set-Cookie ^(.*)$ $1;HttpOnly;SameSite=Lax\n' /etc/apache2/conf-enabled/security.conf
 # force https connections only
 RUN sed -i '$iHeader set Strict-Transport-Security "max-age=31536000; includeSubDomains"\n' /etc/apache2/conf-enabled/security.conf
 # Content security policy this doesn't work
