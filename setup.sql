@@ -19,11 +19,9 @@ create table `User`
     `email` varchar(50) not null,
     `isAdvisor` boolean default false,
     `isReviewer` boolean default false,
-    `isAdmin` boolean default false
+    `isAdmin` boolean default false,
+    index(email)
 );
-
-create index idx_email
-ON User (ewuID, email);
 
 create table `Application`
 (
