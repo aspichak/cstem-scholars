@@ -22,6 +22,9 @@ create table `User`
     `isAdmin` boolean default false
 );
 
+create index idx_email
+ON User (ewuID, email);
+
 create table `Application`
 (
     `id` int auto_increment
