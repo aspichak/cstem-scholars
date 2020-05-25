@@ -14,3 +14,6 @@ src/composer.lock
 # ignore our base dev config files
 src/config.php
 src/config.sample.php
+
+# the containers should only be used for deployment with our current build cycle so axing this from docker
+src/dev/CAS.php
