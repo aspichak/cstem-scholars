@@ -98,8 +98,6 @@ if( $form['learn'] != '' ) {
 }
 
 ?>
-
-<!-- ALL OF THIS IS GOING TO BE PUR INTO THE TEMPLATE FOLDER -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
