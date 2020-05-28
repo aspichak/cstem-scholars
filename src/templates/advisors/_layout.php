@@ -40,29 +40,10 @@ $user = User::current();
 </header>
 
 <nav class="sidebar">
-    <?php if ($user->isAdvisor()) { ?>
         <p>Advisor</p>
         <ul>
             <li><a href="../advisors/">Dashboard</a></li>
         </ul>
-    <?php } ?>
-
-    <?php if ($user->isReviewer()) { ?>
-        <p>Reviewer</p>
-        <ul>
-            <li><a href="../reviewers/">Dashboard</a></li>
-        </ul>
-    <?php } ?>
-
-    <?php if ($user->isAdmin()) { ?>
-        <p>Admin</p>
-        <ul>
-            <li><a href="../admin/">Dashboard</a></li>
-            <li><a href="../admin/periods.php">Periods</a></li>
-            <li><a href="../admin/applications.php">Applications</a></li>
-            <li><a href="../admin/users.php">Users</a></li>
-        </ul>
-    <?php } ?>
 
     <ul>
         <li><a href="../logout.php">Log out</a></li>
