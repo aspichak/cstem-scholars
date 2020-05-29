@@ -27,16 +27,8 @@ User::authorize('reviewer');
 </form>
 <?php
 
-//get most recent table for ApplicationsTest
-$deadline = DB::selectSingle('Settings')['Deadline'];
-$temp = explode("-", $deadline);
-$year = $temp[0];
-$month = $temp[1];
-$appTable = 'applications' . $month . $year; #Applications022020
-$revTable = 'reviewedapps' . $month . $year; #ReviewedApps022020
-$email = $_SESSION["email"];
 
-$rows = DB::select($revTable, 'REmail = ?', $email);
+#$rows = DB::select($revTable, 'REmail = ?', $email);
 #will be used later to label # of application
 $ctr = 0;
 ?>
@@ -49,18 +41,25 @@ $ctr = 0;
         while ($i < count($rows)) {
             $row = $rows[$i];
             echo '<form role="form" method="post">';
-            $appNum = $row['ApplicationNum'];
-            $student = DB::selectSingle($appTable, 'ApplicationNum = ?', $appNum);
+            $appNum = $row->studentID;
+
+            #TODO
+            #get student information based on the application number[not working?]
+            #once we get the student, we will have to edit all the echos below
+            #also need to check if there is a 'status' or isSubmitted in DB for if statement on line 63
+            #are we supposed to be looking at applications or reviews? Or do we read from apps and save to review in DB
+            $student = DB::selectSingle('application', 'ApplicationNum = ?', $appNum);
             $ctr++;
+
             //only display applications that have not been reviewed
-            if ($row['Submitted'] != 1) {
-                $name = 'btn[' . $row['ApplicationNum'] . ']';
-                $appNum = $row['ApplicationNum'];
+            #if ($row->status != 'submitted') {
+                $name = 'btn[' . $row->id . ']';
+                $appNum = $row->id;
 
                 echo '<div class="inner-wrap">';
                 echo '<div class="section" for="my_checkbox"><span>' . $ctr . '</span>' . $student['PTitle'] . '</div>';
-                echo '<label for="' . $row['ApplicationNum'] . '" class="details">Show/Hide Details</label>';
-                echo '<input type="checkbox" id="' . $row['ApplicationNum'] . '" style="display:none;">';
+                echo '<label for="' . $appNum . '" class="details">Show/Hide Details</label>';
+                echo '<input type="checkbox" id="' . $appNum . '" style="display:none;">';
                 echo '<div id="hidden">';
                 echo '<label>Title <textarea placeholder="' . $student['PTitle'] . '" style="resize: none" ></textarea></label>';
                 echo '<label>Objective: <textarea placeholder="' . $student['Objective'] . '" style="resize: none" ></textarea></label>';
@@ -79,7 +78,7 @@ $ctr = 0;
                 echo '<input type="hidden" value=' . $row['ApplicationNum'] . ' name="appNum" id="appNum"/>';
                 echo '<button type="submit" name="' . $name . '" formaction=\'../reviewers/formPage1.php\'"> Review Application: ' . $row['ApplicationNum'] . '</button>';
                 echo '</div>';
-            }
+            #}
             $i++;
             echo '</form>';
         }

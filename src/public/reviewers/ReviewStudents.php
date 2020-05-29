@@ -2,89 +2,26 @@
 
 require_once '../../init.php';
 
-use Respect\Validation\Validator as v;
-use Respect\Validation\Exceptions\ValidationException;
-
 User::authorize('reviewer');
+
+// TODO: Make a section in DB for reviewerEmail
+# get the current deadline for scholarship
+$periods = Period::all( '1 ORDER BY beginDate DESC' );
+$deadline = $periods[0]->deadline;
+#get all the applications assigned to this reviewer (currently advisor 05/28/2020)
+$applications = Application::all( 'advisorEmail = ?', User::current()->email );
+#date( 'M j, Y', strtotime($deadline)); prints period in M:D:Y format
+
+
+$c = new ModelController(Review::class);
+#naming rows to match previous code in landing_layout
+#we are loading landing_layout and transfering over $applications as $rows, $deadline, and the form
+$c->index('reviewer/landing_layout.php', ['rows' => $applications, 'deadline' => $deadline, 'form' => $c->form()]);
+$c->create();
+
+#$ROWS, $ROW, $DEADLINE, $FORM ARE OBJECTS, NOT ARRAYS
+# $row->studentID NOT $row['studentID']
+
+#echo HTML::template('reviewer/landing_layout.php', ['index' => ]);
+echo HTML::template('reviewer/landing_layout.php');
 ?>
-<!DOCTYPE HTML>
-<html lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Student Reviews</title>
-    <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
-
-    <link rel="stylesheet" href="css/ReviewStudents.css">
-</head>
-
-<body>
-<form role="form" method="post" align="right">
-    <div class=logout>
-        <div class="button-section">
-            <button type="submit" class="button" name="logout" formaction="../index.php?logout=true">Logout</button>
-        </div>
-    </div>
-</form>
-<?php
-
-//get most recent table for ApplicationsTest
-$deadline = DB::selectSingle('Settings')['Deadline'];
-$temp = explode("-", $deadline);
-$year = $temp[0];
-$month = $temp[1];
-$appTable = 'applications' . $month . $year; #Applications022020
-$revTable = 'reviewedapps' . $month . $year; #ReviewedApps022020
-$email = $_SESSION["email"];
-
-$rows = DB::select($revTable, 'REmail = ?', $email);
-#will be used later to label # of application
-$ctr = 0;
-?>
-
-<div class="form">
-    <h1>Students for Review<span>Grant applications</span></h1>
-    <div class="button-section">
-        <?php
-        $i = 0;
-        while ($i < count($rows)) {
-            $row = $rows[$i];
-            echo '<form role="form" method="post">';
-            $appNum = $row['ApplicationNum'];
-            $student = DB::selectSingle($appTable, 'ApplicationNum = ?', $appNum);
-            $ctr++;
-            //only display applications that have not been reviewed
-            if ($row['Submitted'] != 1) {
-                $name = 'btn[' . $row['ApplicationNum'] . ']';
-                $appNum = $row['ApplicationNum'];
-
-                echo '<div class="inner-wrap">';
-                echo '<div class="section" for="my_checkbox"><span>' . $ctr . '</span>' . $student['PTitle'] . '</div>';
-                echo '<label for="' . $row['ApplicationNum'] . '" class="details">Show/Hide Details</label>';
-                echo '<input type="checkbox" id="' . $row['ApplicationNum'] . '" style="display:none;">';
-                echo '<div id="hidden">';
-                echo '<label>Title <textarea placeholder="' . $student['PTitle'] . '" style="resize: none" ></textarea></label>';
-                echo '<label>Objective: <textarea placeholder="' . $student['Objective'] . '" style="resize: none" ></textarea></label>';
-                echo '<label>Anticipated Results: <textarea placeholder="' . $student['Anticipatedresults'] . '" style="resize: none"></textarea></label>';
-                echo '<label>Estimated timeline: <textarea placeholder="' . $student['Timeline'] . '" style="resize: none"></textarea></label>';
-                echo '<label>Budget and planned spending: <textarea placeholder="' . $student['Justification'] . '"style="resize: none"></textarea></label>';
-                echo '<label>Total budget amount:<input type="text" placeholder="' . $student['Budget'] . '"/></label>';
-                echo '<label>Requested budget amount from EWU:<input type="text" placeholder="' . $student['RequestedBudget'] . '"/></label>';
-                ?>
-                <p>
-                    <a href="<?= url('download.php?file=' . $student['BudgetFilePath']) ?>">Budget Spreadsheet</a>
-                </p>
-                <?php
-                echo '<label>Other funding sources available: <input type="text" placeholder="' . $student['FundingSources'] . '"/></label>';
-                echo '</div>';
-                echo '<input type="hidden" value=' . $row['ApplicationNum'] . ' name="appNum" id="appNum"/>';
-                echo '<button type="submit" name="' . $name . '" formaction=\'../reviewers/formPage1.php\'"> Review Application: ' . $row['ApplicationNum'] . '</button>';
-                echo '</div>';
-            }
-            $i++;
-            echo '</form>';
-        }
-        ?>
-    </div>
-</div>
-</body>
-</html>
