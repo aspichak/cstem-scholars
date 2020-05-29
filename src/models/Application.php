@@ -76,6 +76,11 @@ class Application extends Model
         return parent::all($query, ...$params);
     }
 
+    public static function forAdvisor($advisor)
+    {
+        return Application::all('advisorEmail = ? AND status = submitted', $advisor);
+    }
+
     public function fill($form, $fillGuardedColumns = [])
     {
         $this->hasAgreedToTerms = (($form['terms'] ?? '') == 'agree');
