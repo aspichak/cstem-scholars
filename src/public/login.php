@@ -85,7 +85,7 @@ if ($type == "admin") {
         );
     } elseif (Period::currentForAdvisors() != null) {
         if ($user->isAdvisor()) {
-            header("location:faculty/facultylandingpage.php");
+            header("location:advisor/index.php");
         } else {
             HTTP::error(
                 'Currently there are no applications needing approval. Please check back later.',
