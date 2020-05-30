@@ -17,4 +17,4 @@ if ($c->action() == 'update') {
     $m->save();
 }
 
-echo HTML::template('advisor/applications.php', ['application' => $c->model()]);
+echo HTML::template('advisors/applications.php', ['application' => $c->model()]);
