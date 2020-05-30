@@ -42,7 +42,7 @@ $user = User::current();
 <nav class="sidebar">
         <p>Advisor</p>
         <ul>
-            <li><a href="../advisors/">Dashboard</a></li>
+            <li><a href="../advisors/applications.php">Applications</a></li>
         </ul>
 
     <ul>
