@@ -85,7 +85,7 @@ if ($type == "admin") {
         );
     } elseif (Period::currentForAdvisors() != null) {
         if ($user->isAdvisor()) {
-            HTTP::redirect('advisors/index.php');
+            HTTP::redirect('advisors/');
         } else {
             HTTP::error(
                 'Currently there are no applications needing approval. Please check back later.',
