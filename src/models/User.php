@@ -45,13 +45,38 @@ class User extends Model
 
     public static function authorize($role, $allow = true)
     {
-        if (!User::current() || !User::current()->hasRole($role) || !$allow) {
+        if (!self::current() || !self::current()->hasRole($role) || !$allow) {
             HTTP::error(
                 'You are not authorized to access this page.',
                 401,
                 'Unauthorized Access'
             );
         }
+    }
+
+    public static function login($id, $name, $email)
+    {
+        if (!$id || !$name || !$email) {
+            throw new InvalidArgumentException('All arguments for User::login must be non-empty');
+        }
+
+        $_SESSION['id'] = $id;
+        $_SESSION['name'] = $name;
+        $_SESSION['email'] = $email;
+
+        $user = self::current();
+
+        if (!self::exists('email = ?', $email)) {
+            $user->save();
+        }
+
+        return $user;
+    }
+
+    public static function logout()
+    {
+        unset($_SESSION);
+        session_destroy();
     }
 
     public function save()

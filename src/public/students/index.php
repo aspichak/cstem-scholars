@@ -8,6 +8,8 @@ $user = User::current();
 $period = Period::current();
 
 if (!$period) {
+    User::logout();
+
     HTTP::error(
         'The CSTEM Research Grant application has been closed. Please check back at a later date.',
         200,
@@ -16,7 +18,7 @@ if (!$period) {
 }
 
 $application =
-    Application::first('studentID = ? AND periodID = ?', $user->id, $period->id) ??
+    Application::first('email = ? AND periodID = ?', $user->email, $period->id) ??
     new Application(
         [
             'name'      => $user->name,
@@ -34,7 +36,6 @@ if (HTTP::post('submit') && $application->status == 'draft') {
 
 $form = new Form($application);
 
-// TODO: Show error if email send fails
 if (HTTP::isPost() && $application->isValid() ) {
     DB::beginTransaction();
 
