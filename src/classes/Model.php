@@ -94,7 +94,7 @@ abstract class Model
 
     public static function exists($where = '', ...$params)
     {
-        return static::count($where, ...$params);
+        return static::count($where, ...$params) > 0;
     }
 
     public static function insert($values)
