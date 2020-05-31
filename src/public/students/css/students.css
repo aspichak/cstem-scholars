@@ -51,7 +51,12 @@ body {
     margin-bottom: 15px;
 }
 
-.form input[type="text"], .form input[type="email"], .form textarea, .form select {
+.form input[type="text"],
+.form input[type="email"],
+.form input[type="number"],
+.form input[type="date"],
+.form textarea,
+.form select {
     display: block;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -120,7 +125,9 @@ body {
     font-size: 15px;
 }
 
-.form input[type="button"]:hover, .form input[type="submit"]:hover {
+.form input[type="button"]:hover,
+.form input[type="submit"]:hover,
+button[type="submit"]:hover {
     background: #2A6881;
     -moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
     -webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);

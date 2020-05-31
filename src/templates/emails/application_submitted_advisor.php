@@ -1,13 +1,12 @@
 <?php
 
 $layout = 'emails/layout.php';
-// TODO: Wrong link shown to advisors
 ?>
 
 <p>Hello <?= e($application->advisorName) ?>, </p>
 <p>
     A CSTEM Scholars application is available for your review. Go to
-    <?= HTML::link(BASE_URL . '/reviewers/ReviewStudents.php', BASE_URL . '/reviewers/ReviewStudents.php') ?>
+    <?= HTML::link(BASE_URL . '/advisors/', BASE_URL . '/advisors/') ?>
     to review it. Here are the details:
 </p>
 

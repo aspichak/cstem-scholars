@@ -78,10 +78,7 @@ class Form
         $attributes['value'] = $attributes['value'] ?? $this->value($name);
         $attributes = $this->appendErrorClass($name, $attributes);
 
-        $res = HTML::tag('input', null, $attributes);
-        $res .= $this->errorIfEnabled($name);
-
-        return $res;
+        return HTML::tag('input', null, $attributes) . $this->errorIfEnabled($name);
     }
 
     public function text($name, $attributes = [])
@@ -122,10 +119,7 @@ class Form
         $attributes['id'] = $name;
         $attributes = $this->appendErrorClass($name, $attributes);
 
-        $res = HTML::tag('textarea', $this->value($name), $attributes);
-        $res .= $this->errorIfEnabled($name);
-
-        return $res;
+        return HTML::tag('textarea', $this->value($name), $attributes) . $this->errorIfEnabled($name);
     }
 
     public function checkbox($name, $value = '1', $attributes = [])
@@ -182,7 +176,7 @@ class Form
             return null;
         }
 
-        $res = '<ul class="errors">';
+        $res = '<ul class="error">';
 
         foreach ($this->model->errors() as $column => $error) {
             $res .= HTML::tag('li', $error, ['class' => $column]);

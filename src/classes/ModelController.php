@@ -89,7 +89,6 @@ class ModelController
             Form::assertCsrfToken();
             $this->done = $this->model->fill($this->key(), true)->save();
             $this->error = !$this->done();
-            var_dump($this->model->save());
             return $this->done;
         }
 

@@ -67,7 +67,7 @@ class DB
      */
     public static function selectSingle($table, $conditions = '', ...$params)
     {
-        return self::select($table, $conditions = '', ...$params)->fetch();
+        return self::select($table, $conditions, ...$params)->fetch();
     }
 
     /**
