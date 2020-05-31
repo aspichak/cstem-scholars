@@ -1,7 +1,7 @@
 <?php
 
 $title = 'Advisor Dashboard';
-$layout = 'advisors/_layout.php';
+$layout = 'admin/_layout.php';
 ?>
 
 <h1>Advisor Dashboard</h1>

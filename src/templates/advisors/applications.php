@@ -1,7 +1,7 @@
 <?php
 
 $title = 'Applications';
-$layout = 'advisors/_layout.php';
+$layout = 'admin/_layout.php';
 ?>
 
 <h1>Applications</h1>

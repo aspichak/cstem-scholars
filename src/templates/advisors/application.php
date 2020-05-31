@@ -1,7 +1,7 @@
 <?php
 
 $title = 'View application';
-$layout = 'advisors/_layout.php';
+$layout = 'admin/_layout.php';
 ?>
 
 <h1><?= e($application->title) ?></h1>
