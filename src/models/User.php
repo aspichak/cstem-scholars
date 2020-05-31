@@ -11,7 +11,7 @@ class User extends Model
     {
         $this->fillable = [
             'email' => v::email()->length(null, 50)->setName('Email address'),
-            'name'  => v::length(2, 50)->setName('Name'),
+            'name' => v::length(2, 50)->setName('Name'),
             'isAdvisor',
             'isReviewer',
             'isAdmin'
@@ -29,8 +29,8 @@ class User extends Model
         $user = self::get(HTTP::session('email')) ??
             new User(
                 [
-                    'id'    => HTTP::session('id'),
-                    'name'  => HTTP::session('name'),
+                    'id' => HTTP::session('id'),
+                    'name' => HTTP::session('name'),
                     'email' => HTTP::session('email')
                 ], true
             );
@@ -41,6 +41,16 @@ class User extends Model
     public static function advisors()
     {
         return self::select('isAdvisor = 1');
+    }
+
+    public static function reviewers()
+    {
+        return self::select('isReviewer = 1');
+    }
+
+    public static function reviewersNotCurrentUser()
+    {
+        return self::select('isReviewer = 1 AND email != ?');
     }
 
     public static function authorize($role, $allow = true)

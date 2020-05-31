@@ -34,3 +34,15 @@ $layout = 'admin/_layout.php';
 
 <p>Budget Table:</p>
 <p>Coming soon!</p>
+
+<form method="POST">
+    <?= $form->csrf() ?>
+
+<!--    <label>Name: <?= $form->text('name', ['required']) ?></label>
+    <label>Email: <?= $form->email('email', ['required']) ?></label> -->
+
+    <p>Roles:</p>
+    <label><?= $form->checkbox('isAdvisor') ?> Advisor</label><br>
+
+    <button type="submit">Submit</button>
+</form>
