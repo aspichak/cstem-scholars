@@ -18,10 +18,10 @@ $layout = 'admin/_layout.php';
 
     <?php foreach ($users as $u) { ?>
         <tr>
-            <td><?= e($u->name) ?></td>
-            <td><?= e($u->email) ?></td>
+            <td><?= linkTo("user.php?id={$u->email}", e($u->name)) ?></td>
+            <td><?= mailTo(e($u->email)) ?></td>
             <td><?= implode(', ', $u->roles()) ?></td>
-            <td><?= actionButtons('user.php', $u->key()) ?></td>
+            <td class="button-group"><?= actionButtons('user.php', $u->key()) ?></td>
         </tr>
     <?php } ?>
 </table>

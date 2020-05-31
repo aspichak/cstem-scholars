@@ -6,7 +6,7 @@ $title = 'Periods';
 $layout = 'admin/_layout.php';
 ?>
 
-<h1>Periods</h1>
+<h1>Application Periods</h1>
 
 <?php
 if ($form->errors()) {
@@ -26,11 +26,11 @@ if ($form->errors()) {
     <tr>
         <form method="POST">
             <?= $form->csrf() ?>
-            <td><?= $form->date('beginDate') ?></td>
-            <td><?= $form->date('deadline') ?></td>
-            <td><?= $form->date('advisorDeadline') ?></td>
-            <td><?= $form->money('budget', ['required']) ?></td>
-            <td><button type="submit">Add</button></td>
+            <td><?= $form->date('beginDate', ['required']) ?></td>
+            <td><?= $form->date('deadline', ['required']) ?></td>
+            <td><?= $form->date('advisorDeadline', ['required']) ?></td>
+            <td><?= $form->money('budget', ['size' => 6, 'required']) ?></td>
+            <td><button type="submit">Create</button></td>
         </form>
     </tr>
 
@@ -40,7 +40,7 @@ if ($form->errors()) {
             <td><?= date('M j, Y', strtotime($p->deadline)) ?></td>
             <td><?= date('M j, Y', strtotime($p->advisorDeadline)) ?></td>
             <td>$<?= number_format($p->budget, 2) ?></td>
-            <td><?= actionButtons('periods.php', $p->key()) ?></td>
+            <td class="button-group"><?= actionButtons('periods.php', $p->key()) ?></td>
         </tr>
     <?php } ?>
 </table>

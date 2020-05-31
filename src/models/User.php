@@ -11,14 +11,12 @@ class User extends Model
     {
         $this->fillable = [
             'email' => v::email()->length(null, 50)->setName('Email address'),
-            'name' => v::length(2, 50)->setName('Name'),
+            'name'  => v::length(2, 50)->setName('Name'),
             'isAdvisor',
             'isReviewer',
             'isAdmin'
         ];
 
-        // TODO: Move to fillable or protect
-        $this->id = $form['id'] ?? null;
         parent::__construct($form, $fillGuardedColumns);
     }
 
@@ -28,10 +26,14 @@ class User extends Model
             return null;
         }
 
-        $user = self::get(HTTP::session('email')) ?? new User();
-        $user->id = HTTP::session('id');
-        $user->name = HTTP::session('name');
-        $user->email = HTTP::session('email');
+        $user = self::get(HTTP::session('email')) ??
+            new User(
+                [
+                    'id'    => HTTP::session('id'),
+                    'name'  => HTTP::session('name'),
+                    'email' => HTTP::session('email')
+                ], true
+            );
 
         return $user;
     }

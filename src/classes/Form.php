@@ -182,7 +182,7 @@ class Form
             return null;
         }
 
-        $res = '<ul class="errors">';
+        $res = '<ul class="error">';
 
         foreach ($this->model->errors() as $column => $error) {
             $res .= HTML::tag('li', $error, ['class' => $column]);

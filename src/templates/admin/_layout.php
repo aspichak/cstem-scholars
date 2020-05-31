@@ -7,74 +7,55 @@ $user = User::current();
 <html lang="en">
 <head>
     <title><?= $title ?> - CSTEM Research Grant Admininstrator</title>
-    <link rel="stylesheet" href="https://newcss.net/lite.css">
-    <style>
-        button.delete {
-            background-color: #b30f23;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="date"],
-        input[type="number"] {
-            border-color: #ccc;
-            display: block;
-        }
-
-        form.delete {
-            display: inline-block;
-        }
-
-        a.edit {
-            padding-right: 0.5em;
-        }
-
-        pre {
-            white-space: pre-wrap;
-        }
-    </style>
+    <link rel="stylesheet" href="../admin.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector("#menu-button").addEventListener("click", function () {
+                document.querySelector("#menu").classList.toggle("shown");
+            });
+        });
+    </script>
 </head>
 <body>
-<header>
-    <!-- Header content -->
-</header>
 
-<nav class="sidebar">
+<button id="menu-button" title="Menu"><i class="icon menu-light"></i> Menu</button>
+
+<nav class="sidebar" id="menu">
+    <div class="logo">
+        <img src="../images/logo.svg" alt="EWU Logo" width="128" height="128">
+    </div>
+
     <?php if ($user->isAdvisor()) { ?>
         <p>Advisor</p>
         <ul>
-            <li><a href="../advisors/">Dashboard</a></li>
+            <li><a href="../advisors/"><i class="icon check-square-light"></i>Accept Applications</a></li>
         </ul>
     <?php } ?>
 
     <?php if ($user->isReviewer()) { ?>
         <p>Reviewer</p>
         <ul>
-            <li><a href="../reviewers/">Dashboard</a></li>
+            <li><a href="../reviewers/"><i class="icon list-light"></i>Review Applications</a></li>
         </ul>
     <?php } ?>
 
     <?php if ($user->isAdmin()) { ?>
-        <p>Admin</p>
+        <p>Administrator</p>
         <ul>
-            <li><a href="../admin/">Dashboard</a></li>
-            <li><a href="../admin/periods.php">Periods</a></li>
-            <li><a href="../admin/applications.php">Applications</a></li>
-            <li><a href="../admin/users.php">Users</a></li>
+            <li><a href="../admin/"><i class="icon grid-light"></i>Dashboard</a></li>
+            <li><a href="../admin/periods.php"><i class="icon calendar-light"></i>Periods</a></li>
+            <li><a href="../admin/applications.php"><i class="icon file-text-light"></i>Applications</a></li>
+            <li><a href="../admin/users.php"><i class="icon users-light"></i>Users</a></li>
         </ul>
     <?php } ?>
 
     <ul>
-        <li><a href="../logout.php">Log out</a></li>
+        <li><a href="../logout.php"><i class="icon log-out-light"></i>Log out</a></li>
     </ul>
 </nav>
 
-<section class="content">
+<main class="content">
     <?= $content ?>
-</section>
-
-<footer>
-    <!-- Footer content -->
-</footer>
+</main>
 </body>
 </html>
