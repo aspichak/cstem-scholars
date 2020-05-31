@@ -31,8 +31,8 @@
     </header>
     <!-- Container (About Section) -->
     <div class="w3-content w3-container w3-padding-32" id="about">
-        <h3 class="w3-center">ABOUT RESEARCH GRANT</h3>
-        <p>CSTEM Scholars is a new program to provide funding for students to be supported in a strong faculty-mentored
+        <h3 class="w3-center">ABOUT CSTEM SCHOLARS</h3>
+        <p>CSTEM Scholars provides funding support for students engaged in faculty-mentored
             research or creative experience.
             The program is funded by donors to the CSTEM Student-Faculty Undergraduate Research and Creative Activities
             Fund, with the goal to provide research support across all majors in CSTEM.
@@ -46,30 +46,29 @@
         <h3 class="w3-center">REQUIREMENTS</h3>
         <ul>
             <li>All applicants must be enrolled at least half-time, be in good academic standing and engaged in a CSTEM
-                research project
+                research or creative project;
             </li>
-            <li>Students may only receive one CSTEM Scholar award each academic year</li>
-            <li>Applicants must be within two years of completing their degree</li>
-            <li>CSTEM faculty mentors are required for all applicants</li>
-            <li>A one-page final report is required from all funded students. The report is due on the first day of
-                classes for the Fall quarter.
+            <li>Students may only receive one CSTEM Scholar award each academic year;</li>
+            <li>Applicants must be within two years of completing their degree;</li>
+            <li>CSTEM faculty mentors are required for all applicants;</li>
+            <li>A one-page final report is required from all funded students and is due on the tenth day of
+                classes the quarter after receiving the award;
             </li>
             <li>Awardees are expected to present their project at the EWU Student Research and Creative Works Symposium
-                in May
+                in May.
             </li>
         </ul>
     </div>
 
     <div class="w3-content w3-container w3-padding-32" id="process">
-        <h3 class="w3-center">APPLICATION PROCESS</h3>
+        <h3 class="w3-center">APPLICATION AND AWARD PROCESS</h3>
         <ul>
-            <li>Review and meet all eligibility requirements</li>
-            <li>Complete the online application before the deadline</li>
+            <li>Review and meet all eligibility requirements;</li>
+            <li>Complete the online application before the deadline;</li>
             <li>Students will be selected by a panel including the department chairs and deans, and will be notified of
-                funding on or before the first day of the spring quarter
+                funding on or before the first day of the quarter following their application;
             </li>
-            <li>Award recipients will conduct research during the spring, and/or summer terms</li>
-            <li>All awarded funds will be administered through the student's home department</li>
+            <li>All awarded funds will be administered through the student's home department.</li>
         </ul>
     </div>
 
