@@ -75,7 +75,8 @@ class User extends Model
 
     public static function logout()
     {
-        unset($_SESSION['id'], $_SESSION['name'], $_SESSION['email']);
+        unset($_SESSION);
+        session_destroy();
     }
 
     public function save()

@@ -8,6 +8,8 @@ $user = User::current();
 $period = Period::current();
 
 if (!$period) {
+    User::logout();
+
     HTTP::error(
         'The CSTEM Research Grant application has been closed. Please check back at a later date.',
         200,
