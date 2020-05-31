@@ -12,6 +12,14 @@ $c->read();
 
 if ($c->action() == 'update') {
     // TODO: award/reject application
+    $m = $c->model();
+    $m->status = 'submitted';
+    $m->save();
+}
+
+if ($c->done()) {
+    // TODO: Show success/error message
+    HTTP::redirect('../admin/periods.php');
 }
 
 echo HTML::template('advisors/application.php', ['application' => $c->model()]);
