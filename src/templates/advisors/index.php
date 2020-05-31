@@ -6,5 +6,4 @@ $layout = 'advisors/_layout.php';
 
 <h1>Advisor Dashboard</h1>
 
-<p>Landing page for advisors</p>
-
+<p>This page shows applications (filling in more later)</p>
