@@ -51,7 +51,12 @@ body {
     margin-bottom: 15px;
 }
 
-.form input[type="text"], .form input[type="email"], .form textarea, .form select {
+.form input[type="text"],
+.form input[type="email"],
+.form input[type="number"],
+.form input[type="date"],
+.form textarea,
+.form select {
     display: block;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
