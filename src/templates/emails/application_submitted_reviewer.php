@@ -6,7 +6,7 @@ $layout = 'emails/layout.php';
     <p>Hello <?= e($application->advisorName) ?>, </p>
     <p>
         A CSTEM Scholars application is available for your review. Go to
-        <?= HTML::link(BASE_URL . '/advisors/', BASE_URL . '/advisors/') ?>
+        <?= HTML::link(BASE_URL . '/reviwers/', BASE_URL . '/reviewers/') ?>
         to review it. Here are the details:
     </p>
 

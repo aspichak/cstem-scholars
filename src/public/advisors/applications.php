@@ -10,19 +10,12 @@ function UniqueRandomNumbersWithinRange($min, $max, $quantity)
     shuffle($numbers);
     return array_slice($numbers, 0, $quantity);
 }
+$applications = Application::all('advisorEmail = ? AND status = submitted', User::current()->email);
 
 $c = new ModelController(Application::class);
 
 // grabbing all applications assigned to an advisor that are only submitted
-$c->index(
-    'advisors/applications.php',
-    [
-        'applications' => Application::all(
-            'advisorEmail = ? AND status = submitted',
-            User::current()->email
-        )
-    ]
-);
+$c->index('advisors/applications.php', ['applications' => $applications]);
 $c->read();
 
 // update block
@@ -98,11 +91,11 @@ if ($c->action() == 'update') {
 
     // email advisors
     Mail::send(
-        $r1->email,
+        $r1->reviewerID,
         'CSTEM Scholars Grant Application In need of Review',
         HTML::template(
             'emails/application_submitted_reviewer.php',
-            ['application' => $application, 'period' => $period]
+            ['application' => $application, 'period' => $period, 'review' => $r1]
         )
     );
     $m->status = 'submitted';
