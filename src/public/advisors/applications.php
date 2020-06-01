@@ -27,9 +27,12 @@ if ($c->action() == 'update') {
 
     if (User::current()->isReviewer() && count($reviewers) == 2) {
         $reviewers = User::reviewers()->fetchAll();
-    } elseif (count($reviewers) < 3) {
+    }
+    if (count($reviewers) < 3) {
         return;
-    } elseif (count($reviewers) == 3) {
+    }
+    // we should always have 3 or more reviewers here
+    if (count($reviewers) == 3) {
         $r1 = Review(
             [
                 'periodID' => Period::current()->id,
@@ -90,7 +93,7 @@ if ($c->action() == 'update') {
                 )
             );*/
 
-    // email advisors
+    // email reviewers
     Mail::send(
         $r1->reviewerID,
         'CSTEM Scholars Grant Application In need of Review',
