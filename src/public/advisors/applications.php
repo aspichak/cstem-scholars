@@ -10,7 +10,8 @@ function UniqueRandomNumbersWithinRange($min, $max, $quantity)
     shuffle($numbers);
     return array_slice($numbers, 0, $quantity);
 }
-$applications = Application::all('advisorEmail = ? AND status = submitted', User::current()->email);
+$email = User::current()->email;
+$applications = Application::all('advisorEmail = ? AND status = \'submitted\'', $email);
 
 $c = new ModelController(Application::class);
 
