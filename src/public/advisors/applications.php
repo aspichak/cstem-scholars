@@ -29,100 +29,40 @@ if ($c->action() == 'update') {
     if (User::current()->isReviewer() && count($reviewers) == 2) {
         $reviewers = User::reviewers()->fetchAll();
     }
-    if (count($reviewers) < 3) {
+    if (count($reviewers) == 0) {
         // TODO: error message for less then three reviewers
-        return;
+        HTTP::error("There are no reviewers in the system", 200);
     }
     $period = Period::current();
-    // we should always have 3 or more reviewers here
-    if (count($reviewers) == 3) {
-        $r1 = new Review(
+    // we should always have at least one reviwer here
+    $reviews = array();
+    $numReviews = count($reviewers);
+    if ($numReviews > 3)
+        $numReviews = 3;
+    $x = UniqueRandomNumbersWithinRange(0, count($reviewers) - 1, $numReviews);
+    foreach($x as $i) {
+        $review = new Review(
             [
                 'periodID' => $period->id,
-                'reviewerID' => $reviewers[0]->email,
+                'reviewerID' => $reviewers[$i]->email,
                 'applicationID' => $application->id,
             ], true
         );
-        $r2 = new Review(
-            [
-                'periodID' => $period->id,
-                'reviewerID' => $reviewers[1]->email,
-                'applicationID' => $application->id,
-            ], true
-        );
-        $r3 = new Review(
-            [
-                'periodID' => $period->id,
-                'reviewerID' => $reviewers[2]->email,
-                'applicationID' => $application->id,
-            ], true
-        );
-    } else { // handle case of more then 3. this may wind up being three but that's ok
-        $x = UniqueRandomNumbersWithinRange(0, count($reviewers) - 1, 3);
-        $r1 = new Review(
-            [
-                'periodID' => $period->id,
-                'reviewerID' => $reviewers[$x[0]]->email,
-                'applicationID' => $application->id,
-            ], true
-        );
-        $r2 = new Review(
-            [
-                'periodID' => $period->id,
-                'reviewerID' => $reviewers[$x[1]]->email,
-                'applicationID' => $application->id,
-            ], true
-        );
-        $r3 = new Review(
-            [
-                'periodID' => $period->id,
-                'reviewerID' => $reviewers[$x[2]]->email,
-                'applicationID' => $application->id,
-            ], true
+        $review->save(false);
+        Mail::send(
+            $review->reviewerID,
+            'CSTEM Scholars Grant Application In need of Review',
+            HTML::template(
+                'emails/application_submitted_reviewer.php',
+                ['application' => $application, 'period' => $period, 'review' => $review]
+            )
         );
     }
 
-    $r1->save(false);
-    $r2->save(false);
-    $r3->save(false);
-
-    /*// Email the student
-            Mail::send(
-                $application->email,
-                'CSTEM Scholars Grant Application Submitted',
-                HTML::template(
-                    'emails/application_submitted_student.php',
-                    ['application' => $application, 'period' => $period]
-                )
-            );*/
-
-    // email reviewers
-    Mail::send(
-        $r1->reviewerID,
-        'CSTEM Scholars Grant Application In need of Review',
-        HTML::template(
-            'emails/application_submitted_reviewer.php',
-            ['application' => $application, 'period' => $period, 'review' => $r1]
-        )
-    );
-    Mail::send(
-        $r2->reviewerID,
-        'CSTEM Scholars Grant Application In need of Review',
-        HTML::template(
-            'emails/application_submitted_reviewer.php',
-            ['application' => $application, 'period' => $period, 'review' => $r2]
-        )
-    );
-    Mail::send(
-        $r3->reviewerID,
-        'CSTEM Scholars Grant Application In need of Review',
-        HTML::template(
-            'emails/application_submitted_reviewer.php',
-            ['application' => $application, 'period' => $period, 'review' => $r3]
-        )
-    );
     $application->status = 'pending_review';
     $application->save(false);
+
+    // TODO: handle errors with a message instead of just redirecting no matter what
     HTTP::redirect('../advisors/applications.php');
 } // end update block
 
