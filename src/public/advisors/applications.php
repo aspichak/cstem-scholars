@@ -21,7 +21,8 @@ $c->read();
 
 // update block
 if ($c->action() == 'update') {
-    $m = $c->model();
+    $application = $c->model();
+    $application = Application::first('id=?', HTTP::get('id'));
     $reviewers = User::reviewersNotCurrentUser()->fetchAll();
 
     if (User::current()->isReviewer() && count($reviewers) == 2) {
@@ -31,25 +32,26 @@ if ($c->action() == 'update') {
         // TODO: error message for less then three reviewers
         return;
     }
+    $period = Period::current();
     // we should always have 3 or more reviewers here
     if (count($reviewers) == 3) {
         $r1 = new Review(
             [
-                'periodID' => Period::current()->id,
+                'periodID' => $period->id,
                 'reviewerID' => $reviewers[0]->email,
                 'applicationID' => $c->model()->id,
             ], true
         );
         $r2 = new Review(
             [
-                'periodID' => Period::current()->id,
+                'periodID' => $period->id,
                 'reviewerID' => $reviewers[1]->email,
                 'applicationID' => $c->model()->id,
             ], true
         );
         $r3 = new Review(
             [
-                'periodID' => Period::current()->id,
+                'periodID' => $period->id,
                 'reviewerID' => $reviewers[2]->email,
                 'applicationID' => $c->model()->id,
             ], true
@@ -58,21 +60,21 @@ if ($c->action() == 'update') {
         $x = UniqueRandomNumbersWithinRange(0, count($reviewers) - 1, 3);
         $r1 = new Review(
             [
-                'periodID' => Period::current()->id,
+                'periodID' => $period->id,
                 'reviewerID' => $reviewers[$x[0]]->email,
                 'applicationID' => $c->model()->id,
             ], true
         );
         $r2 = new Review(
             [
-                'periodID' => Period::current()->id,
+                'periodID' => $period->id,
                 'reviewerID' => $reviewers[$x[1]]->email,
                 'applicationID' => $c->model()->id,
             ], true
         );
         $r3 = new Review(
             [
-                'periodID' => Period::current()->id,
+                'periodID' => $period->id,
                 'reviewerID' => $reviewers[$x[2]]->email,
                 'applicationID' => $c->model()->id,
             ], true
@@ -118,8 +120,8 @@ if ($c->action() == 'update') {
             ['application' => $application, 'period' => $period, 'review' => $r3]
         )
     );
-    $m->status = 'submitted';
-    $m->save();
+    $application->status = 'submitted';
+    $application->save();
 } // end update block
 
 if ($c->done()) {
