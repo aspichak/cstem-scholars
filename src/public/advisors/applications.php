@@ -33,48 +33,48 @@ if ($c->action() == 'update') {
     }
     // we should always have 3 or more reviewers here
     if (count($reviewers) == 3) {
-        $r1 = Review(
+        $r1 = new Review(
             [
                 'periodID' => Period::current()->id,
-                'reviewerID' => $reviewers[0],
-                'applicationID' => $c->model()['id'],
+                'reviewerID' => $reviewers[0]->email,
+                'applicationID' => $c->model()->id,
             ], true
         );
-        $r2 = Review(
+        $r2 = new Review(
             [
                 'periodID' => Period::current()->id,
-                'reviewerID' => $reviewers[1],
-                'applicationID' => $c->model()['id'],
+                'reviewerID' => $reviewers[1]->email,
+                'applicationID' => $c->model()->id,
             ], true
         );
-        $r3 = Review(
+        $r3 = new Review(
             [
                 'periodID' => Period::current()->id,
-                'reviewerID' => $reviewers[2],
-                'applicationID' => $c->model()['id'],
+                'reviewerID' => $reviewers[2]->email,
+                'applicationID' => $c->model()->id,
             ], true
         );
     } else { // handle case of more then 3. this may wind up being three but that's ok
         $x = UniqueRandomNumbersWithinRange(0, count($reviewers) - 1, 3);
-        $r1 = Review(
+        $r1 = new Review(
             [
                 'periodID' => Period::current()->id,
-                'reviewerID' => $reviewers[$x[0]],
-                'applicationID' => $c->model()['id'],
+                'reviewerID' => $reviewers[$x[0]]->email,
+                'applicationID' => $c->model()->id,
             ], true
         );
-        $r2 = Review(
+        $r2 = new Review(
             [
                 'periodID' => Period::current()->id,
-                'reviewerID' => $reviewers[$x[1]],
-                'applicationID' => $c->model()['id'],
+                'reviewerID' => $reviewers[$x[1]]->email,
+                'applicationID' => $c->model()->id,
             ], true
         );
-        $r3 = Review(
+        $r3 = new Review(
             [
                 'periodID' => Period::current()->id,
-                'reviewerID' => $reviewers[$x[2]],
-                'applicationID' => $c->model()['id'],
+                'reviewerID' => $reviewers[$x[2]]->email,
+                'applicationID' => $c->model()->id,
             ], true
         );
     }
