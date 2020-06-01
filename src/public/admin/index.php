@@ -4,4 +4,4 @@ require_once '../../init.php';
 
 User::authorize('admin');
 
-echo HTML::template('admin/index.php');
+echo HTML::template('reviewer/index_layout.php');
