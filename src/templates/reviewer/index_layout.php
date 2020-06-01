@@ -1,7 +1,7 @@
 <?php
 
 $title = 'Reviewer Dashboard';
-$layout = 'reviewer/_layout.php';
+$layout = 'admin/_layout.php';
 ?>
 
 <h1>Reviewer Dashboard</h1>

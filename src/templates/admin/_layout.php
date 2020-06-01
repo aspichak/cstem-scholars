@@ -35,6 +35,7 @@ $user = User::current();
     <?php if ($user->isReviewer()) { ?>
         <p>Reviewer</p>
         <ul>
+            <li><a href="../admin/"><i class="icon grid-light"></i>Dashboard</a></li>
             <li><a href="../reviewers/"><i class="icon list-light"></i>Review Applications</a></li>
         </ul>
     <?php } ?>
