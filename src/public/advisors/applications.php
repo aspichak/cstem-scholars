@@ -26,7 +26,7 @@ if ($c->action() == 'update') {
     $application = Application::first('id=?', HTTP::get('id'));
     $reviewers = User::reviewersNotCurrentUser()->fetchAll();
 
-    if (User::current()->isReviewer() && count($reviewers) == 2) {
+    if (User::current()->isReviewer() && count($reviewers) <= 2) {
         $reviewers = User::reviewers()->fetchAll();
     }
     if (count($reviewers) == 0) {
