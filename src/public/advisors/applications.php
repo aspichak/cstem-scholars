@@ -40,21 +40,24 @@ if ($c->action() == 'update') {
             [
                 'periodID' => $period->id,
                 'reviewerID' => $reviewers[0]->email,
-                'applicationID' => $c->model()->id,
+                'applicationID' => $application->id,
+                'submitted' => 0,
             ], true
         );
         $r2 = new Review(
             [
                 'periodID' => $period->id,
                 'reviewerID' => $reviewers[1]->email,
-                'applicationID' => $c->model()->id,
+                'applicationID' => $application->id,
+                'submitted' => 0,
             ], true
         );
         $r3 = new Review(
             [
                 'periodID' => $period->id,
                 'reviewerID' => $reviewers[2]->email,
-                'applicationID' => $c->model()->id,
+                'applicationID' => $application->id,
+                'submitted' => 0,
             ], true
         );
     } else { // handle case of more then 3. this may wind up being three but that's ok
@@ -63,21 +66,24 @@ if ($c->action() == 'update') {
             [
                 'periodID' => $period->id,
                 'reviewerID' => $reviewers[$x[0]]->email,
-                'applicationID' => $c->model()->id,
+                'applicationID' => $application->id,
+                'submitted' => 0,
             ], true
         );
         $r2 = new Review(
             [
                 'periodID' => $period->id,
                 'reviewerID' => $reviewers[$x[1]]->email,
-                'applicationID' => $c->model()->id,
+                'applicationID' => $application->id,
+                'submitted' => 0,
             ], true
         );
         $r3 = new Review(
             [
                 'periodID' => $period->id,
                 'reviewerID' => $reviewers[$x[2]]->email,
-                'applicationID' => $c->model()->id,
+                'applicationID' => $application->id,
+                'submitted' => 0,
             ], true
         );
     }
