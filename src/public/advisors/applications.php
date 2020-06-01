@@ -123,11 +123,7 @@ if ($c->action() == 'update') {
     );
     $application->status = 'pending_review';
     $application->save(false);
-} // end update block
-
-if ($c->done()) {
-    // TODO: Show success/error message
     HTTP::redirect('../advisors/applications.php');
-}
+} // end update block
 
 echo HTML::template('advisors/application.php', ['application' => $c->model(), 'form' => $c->form()]);
