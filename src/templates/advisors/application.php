@@ -37,12 +37,5 @@ $layout = 'admin/_layout.php';
 
 <form method="POST">
     <?= $form->csrf() ?>
-
-<!--    <label>Name: <?= $form->text('name', ['required']) ?></label>
-    <label>Email: <?= $form->email('email', ['required']) ?></label> -->
-
-    <p>Roles:</p>
-    <label><?= $form->checkbox('isAdvisor') ?> Advisor</label><br>
-
-    <button type="submit">Submit</button>
+    <button type="submit">Accept</button>
 </form>

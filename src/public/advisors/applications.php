@@ -21,7 +21,6 @@ $c->read();
 
 // update block
 if ($c->action() == 'update') {
-    // TODO: assign reviewers and send emails
     $m = $c->model();
     $reviewers = User::reviewersNotCurrentUser()->fetchAll();
 
@@ -29,6 +28,7 @@ if ($c->action() == 'update') {
         $reviewers = User::reviewers()->fetchAll();
     }
     if (count($reviewers) < 3) {
+        // TODO: error message for less then three reviewers
         return;
     }
     // we should always have 3 or more reviewers here
@@ -100,6 +100,22 @@ if ($c->action() == 'update') {
         HTML::template(
             'emails/application_submitted_reviewer.php',
             ['application' => $application, 'period' => $period, 'review' => $r1]
+        )
+    );
+    Mail::send(
+        $r2->reviewerID,
+        'CSTEM Scholars Grant Application In need of Review',
+        HTML::template(
+            'emails/application_submitted_reviewer.php',
+            ['application' => $application, 'period' => $period, 'review' => $r2]
+        )
+    );
+    Mail::send(
+        $r3->reviewerID,
+        'CSTEM Scholars Grant Application In need of Review',
+        HTML::template(
+            'emails/application_submitted_reviewer.php',
+            ['application' => $application, 'period' => $period, 'review' => $r3]
         )
     );
     $m->status = 'submitted';

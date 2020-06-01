@@ -50,7 +50,7 @@ class User extends Model
 
     public static function reviewersNotCurrentUser()
     {
-        return self::select('isReviewer = 1 AND email != ?');
+        return self::select('isReviewer = 1 AND email != ?', User::current()->email);
     }
 
     public static function authorize($role, $allow = true)
