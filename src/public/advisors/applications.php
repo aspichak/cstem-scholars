@@ -128,7 +128,7 @@ if ($c->action() == 'update') {
         )
     );
     $application->status = 'pending_review';
-    $application->save();
+    $application->save(false);
 } // end update block
 
 if ($c->done()) {

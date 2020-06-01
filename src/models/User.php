@@ -89,13 +89,13 @@ class User extends Model
         session_destroy();
     }
 
-    public function save()
+    public function save($withValidations = true)
     {
         $this->isAdmin = ($this->isAdmin) ? 1 : 0;
         $this->isAdvisor = ($this->isAdvisor) ? 1 : 0;
         $this->isReviewer = ($this->isReviewer) ? 1 : 0;
 
-        return parent::save();
+        return parent::save($withValidations);
     }
 
     public function isAdmin()
