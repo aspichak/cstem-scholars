@@ -22,6 +22,7 @@ $c->read();
 // update block
 if ($c->action() == 'update') {
     $application = $c->model();
+    // TODO: remove the following line in future after ModelController fixed
     $application = Application::first('id=?', HTTP::get('id'));
     $reviewers = User::reviewersNotCurrentUser()->fetchAll();
 
@@ -120,7 +121,7 @@ if ($c->action() == 'update') {
             ['application' => $application, 'period' => $period, 'review' => $r3]
         )
     );
-    $application->status = 'submitted';
+    $application->status = 'pending_review';
     $application->save();
 } // end update block
 
