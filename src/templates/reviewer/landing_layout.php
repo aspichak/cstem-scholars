@@ -43,40 +43,36 @@ $ctr = 0;
             echo '<form role="form" method="post">';
             $appNum = $row->studentID;
 
-            #TODO
-            #get student information based on the application number[not working?]
-            #once we get the student, we will have to edit all the echos below
-            #also need to check if there is a 'status' or isSubmitted in DB for if statement on line 63
-            #are we supposed to be looking at applications or reviews? Or do we read from apps and save to review in DB
-            $student = DB::selectSingle('application', 'ApplicationNum = ?', $appNum);
             $ctr++;
 
             //only display applications that have not been reviewed
+            // WILL NEED TO REIMPLEMENT THIS ONCE THE ACTUAL REVIEW PAGE IS FINISHED
             #if ($row->status != 'submitted') {
                 $name = 'btn[' . $row->id . ']';
                 $appNum = $row->id;
 
                 echo '<div class="inner-wrap">';
-                echo '<div class="section" for="my_checkbox"><span>' . $ctr . '</span>' . $student['PTitle'] . '</div>';
+                echo '<div class="section" for="my_checkbox"><span>' . $ctr . '</span>' . $row->title . '</div>';
                 echo '<label for="' . $appNum . '" class="details">Show/Hide Details</label>';
                 echo '<input type="checkbox" id="' . $appNum . '" style="display:none;">';
                 echo '<div id="hidden">';
-                echo '<label>Title <textarea placeholder="' . $student['PTitle'] . '" style="resize: none" ></textarea></label>';
-                echo '<label>Objective: <textarea placeholder="' . $student['Objective'] . '" style="resize: none" ></textarea></label>';
-                echo '<label>Anticipated Results: <textarea placeholder="' . $student['Anticipatedresults'] . '" style="resize: none"></textarea></label>';
-                echo '<label>Estimated timeline: <textarea placeholder="' . $student['Timeline'] . '" style="resize: none"></textarea></label>';
-                echo '<label>Budget and planned spending: <textarea placeholder="' . $student['Justification'] . '"style="resize: none"></textarea></label>';
-                echo '<label>Total budget amount:<input type="text" placeholder="' . $student['Budget'] . '"/></label>';
-                echo '<label>Requested budget amount from EWU:<input type="text" placeholder="' . $student['RequestedBudget'] . '"/></label>';
+                echo '<label>Title <textarea placeholder="' . $row->title . '" style="resize: none" ></textarea></label>';
+                echo '<label>Objective & Results: <textarea placeholder="' . $row->description. '" style="resize: none" ></textarea></label>';
+                echo '<label>Estimated timeline: <textarea placeholder="' . $row->timeline . '" style="resize: none"></textarea></label>';
+                echo '<label>Budget and planned spending: <textarea placeholder="' . $row->justification . '"style="resize: none"></textarea></label>';
+                echo '<label>Total budget amount:<input type="text" placeholder="' . $row->totalBudget. '"/></label>';
+                echo '<label>Requested budget amount from EWU:<input type="text" placeholder="' . $row->requestedBudget . '"/></label>';
                 ?>
+                <!--   TODO: NEED TO REPLACE WITH TABLE TO LOAD JQUERY INTO
                 <p>
                     <a href="<?= url('download.php?file=' . $student['BudgetFilePath']) ?>">Budget Spreadsheet</a>
                 </p>
+                -->
                 <?php
-                echo '<label>Other funding sources available: <input type="text" placeholder="' . $student['FundingSources'] . '"/></label>';
+                echo '<label>Other funding sources available: <input type="text" placeholder="' . $row->fundingSources . '"/></label>';
                 echo '</div>';
-                echo '<input type="hidden" value=' . $row['ApplicationNum'] . ' name="appNum" id="appNum"/>';
-                echo '<button type="submit" name="' . $name . '" formaction=\'../reviewers/formPage1.php\'"> Review Application: ' . $row['ApplicationNum'] . '</button>';
+                echo '<input type="hidden" value=' . $appNum . ' name="appNum" id="appNum"/>';
+                echo '<button type="submit" name="' . $name . '" formaction=\'../reviewers/formPage1.php\'"> Review Application: ' . $appNum . '</button>';
                 echo '</div>';
             #}
             $i++;
