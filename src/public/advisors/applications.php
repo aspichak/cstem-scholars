@@ -41,7 +41,6 @@ if ($c->action() == 'update') {
                 'periodID' => $period->id,
                 'reviewerID' => $reviewers[0]->email,
                 'applicationID' => $application->id,
-                'submitted' => 0,
             ], true
         );
         $r2 = new Review(
@@ -49,7 +48,6 @@ if ($c->action() == 'update') {
                 'periodID' => $period->id,
                 'reviewerID' => $reviewers[1]->email,
                 'applicationID' => $application->id,
-                'submitted' => 0,
             ], true
         );
         $r3 = new Review(
@@ -57,7 +55,6 @@ if ($c->action() == 'update') {
                 'periodID' => $period->id,
                 'reviewerID' => $reviewers[2]->email,
                 'applicationID' => $application->id,
-                'submitted' => 0,
             ], true
         );
     } else { // handle case of more then 3. this may wind up being three but that's ok
@@ -67,7 +64,6 @@ if ($c->action() == 'update') {
                 'periodID' => $period->id,
                 'reviewerID' => $reviewers[$x[0]]->email,
                 'applicationID' => $application->id,
-                'submitted' => 0,
             ], true
         );
         $r2 = new Review(
@@ -75,7 +71,6 @@ if ($c->action() == 'update') {
                 'periodID' => $period->id,
                 'reviewerID' => $reviewers[$x[1]]->email,
                 'applicationID' => $application->id,
-                'submitted' => 0,
             ], true
         );
         $r3 = new Review(
@@ -83,14 +78,13 @@ if ($c->action() == 'update') {
                 'periodID' => $period->id,
                 'reviewerID' => $reviewers[$x[2]]->email,
                 'applicationID' => $application->id,
-                'submitted' => 0,
             ], true
         );
     }
 
-    $r1->save();
-    $r2->save();
-    $r3->save();
+    $r1->save(false);
+    $r2->save(false);
+    $r3->save(false);
 
     /*// Email the student
             Mail::send(
