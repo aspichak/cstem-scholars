@@ -29,7 +29,7 @@ if ($form->errors()) {
             <td><?= $form->date('beginDate', ['required']) ?></td>
             <td><?= $form->date('deadline', ['required']) ?></td>
             <td><?= $form->date('advisorDeadline', ['required']) ?></td>
-            <td><?= $form->money('budget', ['size' => 6, 'required']) ?></td>
+            <td><?= $form->money('budget', ['required']) ?></td>
             <td><button type="submit">Create</button></td>
         </form>
     </tr>

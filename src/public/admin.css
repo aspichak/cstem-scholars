@@ -60,6 +60,14 @@ input[type="number"] {
     transition: border .2s ease-in-out, box-shadow .2s ease-in-out;
 }
 
+input[type="number"] {
+    width: 7em;
+}
+
+input[type="date"] {
+    width: 8em;
+}
+
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="date"]:focus,
@@ -211,6 +219,7 @@ input.error {
     display: inline-block;
     vertical-align: middle;
     margin: 0 4px;
+    font-size: 0;
 }
 
 .icon.calendar {

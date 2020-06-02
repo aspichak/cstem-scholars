@@ -2,7 +2,7 @@
 
 function editButton($url, $key)
 {
-    return HTML::link(modelURL($url, $key), '<i class="icon edit-white"></i>', ['class' => 'edit button', 'title' => 'Edit']);
+    return HTML::link(modelURL($url, $key), '<i class="icon edit-white">Edit</i>', ['class' => 'edit button', 'title' => 'Edit']);
 }
 
 function deleteButton($url, $key)
@@ -15,7 +15,7 @@ function deleteButton($url, $key)
             <input type=\"hidden\" name=\"csrfToken\" value=\"$csrf\">
             <button type=\"submit\" name=\"_method\" value=\"DELETE\" class=\"delete\"
                     onclick=\"return confirm('Are you sure?')\" title=\"Delete\">
-                <i class=\"icon delete-white\"></i>
+                <i class=\"icon delete-white\">Delete</i>
             </button>
         </form>
     ";
