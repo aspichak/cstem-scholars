@@ -20,7 +20,7 @@ $c->index('advisors/applications.php', ['applications' => $applications]);
 $c->read();
 
 // update block
-if ($c->action() == 'update') {
+if ($c->action() == 'update' && HTTP::post('buttonName')=="accept") {
     $application = $c->model();
     // TODO: remove the following line in future after ModelController fixed
     $application = Application::first('id=?', HTTP::get('id'));
@@ -82,6 +82,8 @@ elseif ($c->action() == 'update' && HTTP::post('buttonName')=="reject") {
 
     $application->status = 'rejected';
     $application->save(false);
+
+    HTTP::redirect('../advisors/applications.php');
 }
 
 echo HTML::template('advisors/application.php', ['application' => $c->model(), 'form' => $c->form()]);
