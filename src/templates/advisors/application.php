@@ -37,5 +37,6 @@ $layout = 'admin/_layout.php';
 
 <form method="POST">
     <?= $form->csrf() ?>
-    <button type="submit">Accept</button>
+    <button name="buttonName" type="submit" value="accept">Accept</button>
+    <button name="buttonName" type="submit" value="reject">Reject</button>
 </form>

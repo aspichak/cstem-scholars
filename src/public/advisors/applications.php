@@ -53,7 +53,7 @@ if ($c->action() == 'update') {
             $review->reviewerID,
             'CSTEM Scholars Grant Application In need of Review',
             HTML::template(
-                'emails/application_submitted_reviewer.php',
+                'emails/application_advisor_accepted.php',
                 ['application' => $application, 'period' => $period, 'review' => $review]
             )
         );
@@ -65,5 +65,23 @@ if ($c->action() == 'update') {
     // TODO: handle errors with a message instead of just redirecting no matter what
     HTTP::redirect('../advisors/applications.php');
 } // end update block
+elseif ($c->action() == 'update' && HTTP::post('buttonName')=="reject") {
+    $application = $c->model();
+    // TODO: remove the following line in future after ModelController fixed
+    $application = Application::first('id=?', HTTP::get('id'));
+    $period = Period::current();
+
+    Mail::send(
+        $application->email,
+        'Your CSTEM Scholars Grant Application Status Update',
+        HTML::template(
+            'emails/application_advisor_accepted.php',
+            ['application' => $application, 'period' => $period]
+        )
+    );
+
+    $application->status = 'rejected';
+    $application->save(false);
+}
 
 echo HTML::template('advisors/application.php', ['application' => $c->model(), 'form' => $c->form()]);
