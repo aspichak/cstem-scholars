@@ -154,9 +154,9 @@ abstract class Model
         return $this;
     }
 
-    public function save()
+    public function save($withValidations = true)
     {
-        if (!$this->isValid()) {
+        if ($withValidations && !$this->isValid()) {
             return false;
         }
 

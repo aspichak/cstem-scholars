@@ -100,13 +100,13 @@ class Application extends Model
         return $errors;
     }
 
-    public function save()
+    public function save($withValidations = true)
     {
         if (!in_array($this->status, self::VALID_STATES)) {
             throw new InvalidArgumentException("Invalid application status: \"{$this->status}\"");
         }
 
-        return parent::save();
+        return parent::save($withValidations);
     }
 
     public function reviews()

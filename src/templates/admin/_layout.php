@@ -28,7 +28,7 @@ $user = User::current();
     <?php if ($user->isAdvisor()) { ?>
         <p>Advisor</p>
         <ul>
-            <li><a href="../advisors/"><i class="icon check-square-light"></i>Accept Applications</a></li>
+            <li><a href="../advisors/applications.php"><i class="icon check-square-light"></i>Accept Applications</a></li>
         </ul>
     <?php } ?>
 

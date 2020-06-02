@@ -1,4 +1,6 @@
-CREATE DATABASE IF NOT EXISTS researchGrant;
+CREATE DATABASE IF NOT EXISTS researchGrant
+    CHARACTER SET = 'utf8mb4'
+    COLLATE = 'utf8mb4_general_ci';
 USE researchGrant;
 
 create table `Period`
