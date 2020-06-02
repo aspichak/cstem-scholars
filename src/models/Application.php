@@ -122,4 +122,5 @@ class Application extends Model
             return 'There doesn\'t appear to be an advisor associated with that email';
         }
     }
+
 }
