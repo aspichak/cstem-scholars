@@ -75,7 +75,7 @@ elseif ($c->action() == 'update' && HTTP::post('buttonName')=="reject") {
         $application->email,
         'Your CSTEM Scholars Grant Application Status Update',
         HTML::template(
-            'emails/application_advisor_accepted.php',
+            'emails/application_advisor_rejected.php',
             ['application' => $application, 'period' => $period]
         )
     );
