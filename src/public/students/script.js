@@ -93,9 +93,9 @@ $(document).ready( function() {
 
 function addRow( tblBody, rowNum ){
     let generalRow= '<tr id="rowNum' + rowNum + '">' +
-                    '<td><input id="item' + rowNum + '"  type="text" width="25%"/></td>' +
-                    '<td><input id="itemDesc' + rowNum + '"type="text" width="50%"/></td>' +
-                    '<td><input id="itemCost' + rowNum + '"type="text" width="25%"/></td>' +
+                    '<td><input name="budgetTable[' + rowNum + '][item]" type="text" width="25%"/></td>' +
+                    '<td><input name="budgetTable[' + rowNum + '][itemDesc]" type="text" width="50%"/></td>' +
+                    '<td><input name="budgetTable[' + rowNum + '][itemCost]" type="text" width="25%"/></td>' +
                     '</tr>';
 
     tblBody.append(generalRow);

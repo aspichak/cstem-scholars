@@ -45,6 +45,12 @@ a:hover {
     color: #2975D0;
 }
 
+blockquote {
+    border-left: 4px solid #000;
+    padding-left: 1em;
+    margin-left: 1em;
+}
+
 input, button {
     font: inherit;
 }

@@ -21,7 +21,7 @@ class Form
             $form = HTTP::post();
 
             foreach ($form as $k => $v) {
-                if (!in_array($k, $unescaped)) {
+                if (!in_array($k, $unescaped) && is_string($v)) {
                     $form[$k] = HTML::escape($v);
                 }
             }

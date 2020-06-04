@@ -10,6 +10,16 @@ function tag($tag, $text = null, $attributes = [])
     return HTML::tag($tag, $text, $attributes);
 }
 
+function input($type, $name, $value, $attributes = [])
+{
+    $attributes['type'] = $type;
+    $attributes['name'] = $name;
+    $attributes['id'] = $name;
+    $attributes['value'] = e($value);
+
+    return tag('input', null, $attributes);
+}
+
 function linkTo($url, $text, $attributes = [])
 {
     return HTML::link($url, $text, $attributes);
