@@ -20,6 +20,6 @@ $layout = 'admin/_layout.php';
             <td><?= HTML::link("../admin/applications.php?id={$a->id}", e($a->title)) ?></td>
             <td><?= e($a->status) ?></td>
         </tr>
-    <?php
+        <?php
     } ?>
 </table>

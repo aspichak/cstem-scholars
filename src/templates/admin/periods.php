@@ -45,6 +45,6 @@ if ($form->errors()) {
             <td>$<?= number_format($p->budget, 2) ?></td>
             <td class="button-group"><?= actionButtons('periods.php', $p->key()) ?></td>
         </tr>
-    <?php
+        <?php
     } ?>
 </table>

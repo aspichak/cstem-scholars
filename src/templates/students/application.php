@@ -76,7 +76,7 @@
                 <h2>We were unable to submit your application.</h2>
                 <p>Please review your application for errors and try again.</p>
             </div>
-        <?php
+            <?php
         } ?>
 
         <?php
@@ -91,7 +91,7 @@
                     </strong>
                 </p>
             </div>
-        <?php
+            <?php
         } ?>
 
         <div class="section"><span>1</span>Basic Details</div>
@@ -211,7 +211,7 @@
                                 ['min' => 0, 'step' => 0.01]
                             ) ?></td>
                     </tr>
-                <?php
+                    <?php
                 } ?>
             </table>
         </div>
@@ -240,7 +240,7 @@
                 <button type="submit" class="button" name="save" value="save" formnovalidate>Save and Continue
                     Later
                 </button>
-            <?php
+                <?php
             } ?>
         </div>
     </div>

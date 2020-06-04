@@ -47,7 +47,7 @@ $layout = 'admin/_layout.php';
             <td><?= e($row->itemDesc) ?></td>
             <td>$<?= e($row->itemCost) ?></td>
         </tr>
-    <?php
+        <?php
     } ?>
 </table>
 

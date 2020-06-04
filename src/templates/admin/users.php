@@ -24,6 +24,6 @@ $layout = 'admin/_layout.php';
             <td><?= implode(', ', $u->roles()) ?></td>
             <td class="button-group"><?= actionButtons('user.php', $u->key()) ?></td>
         </tr>
-    <?php
+        <?php
     } ?>
 </table>

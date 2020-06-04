@@ -32,7 +32,7 @@ $user = User::current();
             <li><a href="../advisors/applications.php"><i class="icon check-square-light"></i>Accept Applications</a>
             </li>
         </ul>
-    <?php
+        <?php
     } ?>
 
     <?php
@@ -41,7 +41,7 @@ $user = User::current();
         <ul>
             <li><a href="../reviewers/"><i class="icon list-light"></i>Review Applications</a></li>
         </ul>
-    <?php
+        <?php
     } ?>
 
     <?php
@@ -53,7 +53,7 @@ $user = User::current();
             <li><a href="../admin/applications.php"><i class="icon file-text-light"></i>Applications</a></li>
             <li><a href="../admin/users.php"><i class="icon users-light"></i>Users</a></li>
         </ul>
-    <?php
+        <?php
     } ?>
 
     <ul>
