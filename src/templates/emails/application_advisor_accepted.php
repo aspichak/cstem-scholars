@@ -36,4 +36,4 @@ $layout = 'emails/layout.php';
 
     <div class="label">Requested Budget:</div>
     <p>$<?= e($application->requestedBudget) ?></p>
-<?php
+<?= $advisorComment ?>

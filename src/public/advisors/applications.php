@@ -1,6 +1,7 @@
 <?php
 
 require_once '../../init.php';
+require_once '../../helpers/html.php';
 
 User::authorize('advisor');
 
@@ -10,6 +11,7 @@ function UniqueRandomNumbersWithinRange($min, $max, $quantity)
     shuffle($numbers);
     return array_slice($numbers, 0, $quantity);
 }
+
 $email = User::current()->email;
 $applications = Application::all('advisorEmail = ? AND status = \'submitted\'', $email);
 
@@ -20,7 +22,7 @@ $c->index('advisors/applications.php', ['applications' => $applications]);
 $c->read();
 
 // update block
-if ($c->action() == 'update') {
+if ($c->action() == 'update' && HTTP::post('buttonName') == "accept") {
     $application = $c->model();
     // TODO: remove the following line in future after ModelController fixed
     $application = Application::first('id=?', HTTP::get('id'));
@@ -37,10 +39,11 @@ if ($c->action() == 'update') {
     // we should always have at least one reviwer here
     $reviews = array();
     $numReviews = count($reviewers);
-    if ($numReviews > 3)
+    if ($numReviews > 3) {
         $numReviews = 3;
+    }
     $x = UniqueRandomNumbersWithinRange(0, count($reviewers) - 1, $numReviews);
-    foreach($x as $i) {
+    foreach ($x as $i) {
         $review = new Review(
             [
                 'periodID' => $period->id,
@@ -49,15 +52,39 @@ if ($c->action() == 'update') {
             ], true
         );
         $review->save(false);
+
+        $reviewerComment = HTTP::post('reviewerComment');
+        if ($reviewerComment !== '') {
+            $reviewerComment = "<p>You advisor has given the following comment on it: " . e($reviewerComment) . "</p>";
+        }
         Mail::send(
             $review->reviewerID,
             'CSTEM Scholars Grant Application In need of Review',
             HTML::template(
-                'emails/application_submitted_reviewer.php',
-                ['application' => $application, 'period' => $period, 'review' => $review]
+                'emails/application_advisor_accepted.php',
+                [
+                    'application' => $application,
+                    'period' => $period,
+                    'review' => $review,
+                    'reviewerComment' => $reviewerComment
+                ]
             )
         );
     }
+
+    $studentComment = HTTP::post('studentComment');
+    if ($studentComment !== '') {
+        $studentComment = "<p>You advisor has given the following comment on it: " . e($studentComment) . "</p>";
+    }
+
+    Mail::send(
+        $application->email,
+        'Your CSTEM Scholars Grant Application Status Update',
+        HTML::template(
+            'emails/application_advisor_student_acceptedphp',
+            ['application' => $application, 'period' => $period, 'studentComment' => $studentComment]
+        )
+    );
 
     $application->status = 'pending_review';
     $application->save(false);
@@ -65,5 +92,30 @@ if ($c->action() == 'update') {
     // TODO: handle errors with a message instead of just redirecting no matter what
     HTTP::redirect('../advisors/applications.php');
 } // end update block
+elseif ($c->action() == 'update' && HTTP::post('buttonName') == "reject") {
+    $application = $c->model();
+    // TODO: remove the following line in future after ModelController fixed
+    $application = Application::first('id=?', HTTP::get('id'));
+    $period = Period::current();
+
+    $studentComment = HTTP::post('studentComment');
+    if ($studentComment !== '') {
+        $studentComment = "<p>You advisor has given the following comment on it: " . e($studentComment) . "</p>";
+    }
+
+    Mail::send(
+        $application->email,
+        'Your CSTEM Scholars Grant Application Status Update',
+        HTML::template(
+            'emails/application_advisor_student_rejected.php',
+            ['application' => $application, 'period' => $period, 'studentComment' => $studentComment]
+        )
+    );
+
+    $application->status = 'rejected';
+    $application->save(false);
+
+    HTTP::redirect('../advisors/applications.php');
+}
 
 echo HTML::template('advisors/application.php', ['application' => $c->model(), 'form' => $c->form()]);
