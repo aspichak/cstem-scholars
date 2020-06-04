@@ -18,7 +18,7 @@ $applications = Application::all('advisorEmail = ? AND status = \'submitted\'', 
 $c = new ModelController(Application::class);
 
 // grabbing all applications assigned to an advisor that are only submitted
-$c->index('advisors/applications.php', ['applications' => $applications]);
+$c->index('advisors/applications.php', ['applications' => $applications, 'period' => Period::current()]);
 $c->read();
 
 // update block
@@ -118,4 +118,7 @@ elseif ($c->action() == 'update' && HTTP::post('buttonName') == "reject") {
     HTTP::redirect('../advisors/applications.php');
 }
 
-echo HTML::template('advisors/application.php', ['application' => $c->model(), 'form' => $c->form()]);
+echo HTML::template(
+    'advisors/application.php',
+    ['application' => $c->model(), 'form' => $c->form(), 'period' => Period::current()]
+);
