@@ -6,7 +6,7 @@ $title = 'View application Status';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="../../public/students/css/students.css">
+    <link rel="stylesheet" href="css/student.css">
 </head>
 <body>
 <main class="content">

@@ -17,7 +17,7 @@ if (!$period) {
     );
 }
 
-if (Application::exists('studentID=? AND periodID=?', $user->email, $period->id)) {
+if (Application::exists('email=? AND periodID=?', $user->email, $period->id)==true) {
     HTTP::redirect('status.php');
 }
 
