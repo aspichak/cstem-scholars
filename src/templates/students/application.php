@@ -7,6 +7,22 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="script.js"></script>
     <script>
+        $(document).on("focusout", "#advisorName, #advisorEmail", function() {
+            var names = $("#advisorNames option").map(function() { return this.value; }).get();
+            var emails = $("#advisorEmails option").map(function() { return this.value; }).get();
+
+            var nameIndex = names.indexOf(this.value);
+            var emailIndex = emails.indexOf(this.value);
+
+            if (nameIndex != -1) {
+                $("#advisorEmail").val(emails[nameIndex]);
+            }
+
+            if (emailIndex != -1) {
+                $("#advisorName").val(names[emailIndex]);
+            }
+        });
+
         $(function() {
             updateTable($('#budget-table tr').eq(3));
         });
@@ -110,7 +126,7 @@
                 <datalist id="advisorNames">
                     <?php
                     foreach (User::advisors() as $advisor) {
-                        echo tag('option', $advisor->name, ['value' => $advisor->name]);
+                        echo tag('option', e($advisor->name), ['value' => e($advisor->name)]);
                     }
                     ?>
                 </datalist>
@@ -118,7 +134,7 @@
                 <datalist id="advisorEmails">
                     <?php
                     foreach (User::advisors() as $advisor) {
-                        echo tag('option', $advisor->email, ['value' => $advisor->email]);
+                        echo tag('option', e($advisor->email), ['value' => e($advisor->email)]);
                     }
                     ?>
                 </datalist>
