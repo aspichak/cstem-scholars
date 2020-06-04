@@ -7,3 +7,4 @@ $layout = 'emails/layout.php';
 <p>
     We're sorry but your application <?= e($application->title) ?> for <?= e($period->deadline) ?> has been rejected.
 </p>
+<?= $studentComment ?>
