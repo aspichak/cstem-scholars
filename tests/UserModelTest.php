@@ -19,11 +19,13 @@ final class UserModelTest extends SchemaTest
     {
         $this->assertInstanceOf(User::class, new User());
 
-        $user = new User([
-            'name' => 'Alice Archer',
-            'email' => 'alice@example.edu',
-            'isAdmin' => true
-        ]);
+        $user = new User(
+            [
+                'name' => 'Alice Archer',
+                'email' => 'alice@example.edu',
+                'isAdmin' => true
+            ]
+        );
 
         $this->assertCount(0, $user->errors());
         $this->assertTrue($user->save());
@@ -100,12 +102,14 @@ final class UserModelTest extends SchemaTest
 
     public function testUserSave()
     {
-        $user = new User([
-            'name' => 'Robert Baker',
-            'email' => 'robert@example.edu',
-            'isAdmin' => true,
-            'isReviewer' => false
-        ]);
+        $user = new User(
+            [
+                'name' => 'Robert Baker',
+                'email' => 'robert@example.edu',
+                'isAdmin' => true,
+                'isReviewer' => false
+            ]
+        );
 
         $this->assertTrue($user->save());
 

@@ -42,7 +42,7 @@ class DB
         if (sizeof($params) == 1 && is_array($params[0])) {
             $params = $params[0];
         }
-        
+
         $stmt = self::pdo()->prepare($query);
         $stmt->execute($params);
 

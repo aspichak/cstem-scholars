@@ -81,64 +81,75 @@
     <h1>Grant Fund Application<span>Faculty Approval</span></h1>
     <h4>Please review the student's application to confirm their project is relevant to the STEM program and that they
         meet the academic standard required to be considered for this grant.</h4>
-    <form method="post" action="formsubmit.php?id=<?php echo $id ?>">
+    <form method="post" action="formsubmit.php?id=<?php
+    echo $id ?>">
         <a href='grantRequirements.php' target='_blank'>View Grant Requirements</a>
         <div class="section"><br>Student's Name:</div>
         <div class="inner-section">
-            <p><?php echo htmlSpecialChars($sName) ?></p>
+            <p><?php
+                echo htmlSpecialChars($sName) ?></p>
         </div>
 
         <div class="section"><br>Student's Email:</div>
 
         <div class="inner-section">
-            <p><?php echo htmlSpecialChars($sEmail) ?></p>
+            <p><?php
+                echo htmlSpecialChars($sEmail) ?></p>
         </div>
 
         <div class="section"><br>Project Title:</div>
 
         <div class="inner-section">
-            <p><?php echo htmlSpecialChars($pTitle); ?></p>
+            <p><?php
+                echo htmlSpecialChars($pTitle); ?></p>
         </div>
 
         <div class="section"><br>Student's Major:</div>
 
         <div class="inner-section">
-            <p><?php echo htmlSpecialChars($major) ?></p>
+            <p><?php
+                echo htmlSpecialChars($major) ?></p>
         </div>
 
         <div class="section"><br>Student's GPA:</div>
 
         <div class="inner-section">
-            <p><?php echo htmlSpecialChars($gpa) ?></p>
+            <p><?php
+                echo htmlSpecialChars($gpa) ?></p>
         </div>
 
         <div class="section"><br>Student's Estimated Graduation Date:</div>
 
         <div class="inner-section">
-            <p><?php echo htmlSpecialChars($gradDate) ?></p>
+            <p><?php
+                echo htmlSpecialChars($gradDate) ?></p>
         </div>
 
         <div class="section"><br>Project Objective:</div>
 
         <div class="inner-section">
-            <p><?php echo htmlSpecialChars($pObjective); ?></p>
+            <p><?php
+                echo htmlSpecialChars($pObjective); ?></p>
         </div>
 
         <div class="section"><br>Project Timeline:</div>
 
         <div class="inner-section">
-            <p><?php echo htmlSpecialChars($timeline); ?></p>
+            <p><?php
+                echo htmlSpecialChars($timeline); ?></p>
         </div>
 
         <div class="section"><br>Project Budget:</div>
 
         <div class="inner-section">
-            <p><?php echo htmlSpecialChars($budget); ?></p>
+            <p><?php
+                echo htmlSpecialChars($budget); ?></p>
         </div>
         <div class="section"><br>Requested Budget:</div>
 
         <div class="inner-section">
-            <p><?php echo htmlSpecialChars($requested); ?></p>
+            <p><?php
+                echo htmlSpecialChars($requested); ?></p>
         </div>
 
         <a href="<?= url('download.php?file=' . $filePath) ?>">Budget Spreadsheet</a>
@@ -146,12 +157,14 @@
         <div class="section"><br>Anticipated Results:</div>
 
         <div class="inner-section">
-            <p><?php echo htmlSpecialChars($results); ?></p>
+            <p><?php
+                echo htmlSpecialChars($results); ?></p>
         </div>
         <div class="section"><br>Project Justification:</div>
 
         <div class="inner-section">
-            <p><?php echo htmlSpecialChars($justification); ?></p>
+            <p><?php
+                echo htmlSpecialChars($justification); ?></p>
         </div>
         <h4><br>If the application requires changes, any comments will be sent to the student as feedback.</h4>
         <div class="comment-section">Comments:</div>

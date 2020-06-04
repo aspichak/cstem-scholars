@@ -17,16 +17,20 @@ if (!$period) {
     );
 }
 
+if (Application::exists('studentID=? AND periodID=?', $user->email, $period->id)) {
+    //
+}
+
 $application =
     Application::first('email = ? AND periodID = ?', $user->email, $period->id) ??
     new Application(
         [
-            'name'      => $user->name,
-            'email'     => $user->email,
+            'name' => $user->name,
+            'email' => $user->email,
             'studentID' => $user->id,
-            'periodID'  => $period->id,
-            'status'    => 'draft',
-            'terms'     => HTTP::post('terms')
+            'periodID' => $period->id,
+            'status' => 'draft',
+            'terms' => HTTP::post('terms')
         ], true
     );
 
@@ -39,15 +43,14 @@ $form = new Form($application);
 if (HTTP::isPost()) {
     $table = HTTP::post('budgetTable');
     // Remove empty rows from the budget table
-    $table = array_values(array_filter($table, fn ($row) => !empty(implode('', array_values($row)))));
+    $table = array_values(array_filter($table, fn($row) => !empty(implode('', array_values($row)))));
     $application->budgetTable = json_encode($table);
 }
 
-if (HTTP::isPost() && $application->isValid() ) {
+if (HTTP::isPost() && $application->isValid()) {
     DB::beginTransaction();
 
     try {
-
         $application->save();
 
         if ($application->status == 'submitted') {
@@ -87,7 +90,7 @@ echo HTML::template(
     'students/application.php',
     [
         'application' => $application,
-        'form'        => $form,
-        'period'      => $period
+        'form' => $form,
+        'period' => $period
     ]
 );

@@ -2,7 +2,11 @@
 
 function editButton($url, $key)
 {
-    return HTML::link(modelURL($url, $key), '<i class="icon edit-white">Edit</i>', ['class' => 'edit button', 'title' => 'Edit']);
+    return HTML::link(
+        modelURL($url, $key),
+        '<i class="icon edit-white">Edit</i>',
+        ['class' => 'edit button', 'title' => 'Edit']
+    );
 }
 
 function deleteButton($url, $key)

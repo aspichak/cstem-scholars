@@ -58,7 +58,8 @@ User::authorize('advisor');
     <h1>Grant Fund Application<span>Faculty Approval</span></h1>
 
     <form>
-        <h2>All applications must be approved by <?php echo $deadline[0]; ?></h2>
+        <h2>All applications must be approved by <?php
+            echo $deadline[0]; ?></h2>
         <h3>Applications Pending Aproval</h3>
 
         <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
@@ -69,7 +70,8 @@ User::authorize('advisor');
                 <th>Application Status</th>
                 <th>View Application</th>
             </tr>
-            <?php foreach ($applications as $value) {
+            <?php
+            foreach ($applications as $value) {
                 $num = $value["AdvisorApproved"];
                 if ($num == 1) {
                     $status = "Approved";
@@ -93,20 +95,30 @@ User::authorize('advisor');
 
                 ?>
                 <tr>
-                    <td><?php echo $results[1]; ?></td>
-                    <td><?php echo $student[2]; ?></td>
-                    <td><?php echo $results[2]; ?></td>
-                    <td><font color=#c70505><?php echo $status ?></font></td>
-                    <?php if ($num == 1 || $num == 2 || $num == 3) { ?>
+                    <td><?php
+                        echo $results[1]; ?></td>
+                    <td><?php
+                        echo $student[2]; ?></td>
+                    <td><?php
+                        echo $results[2]; ?></td>
+                    <td><font color=#c70505><?php
+                            echo $status ?></font></td>
+                    <?php
+                    if ($num == 1 || $num == 2 || $num == 3) { ?>
                         <td>
                             <button type="button" disabled>Submitted</button>
                         </td>
-                    <?php } else { ?>
-                        <td><a href=facultyform.php?id=<?php echo $newValue ?>>
-                                <button type="button">View</button></a></td>
-                    <?php } ?>
+                    <?php
+                    } else { ?>
+                        <td><a href=facultyform.php?id=<?php
+                            echo $newValue ?>>
+                                <button type="button">View</button>
+                            </a></td>
+                    <?php
+                    } ?>
                 </tr>
-            <?php } ?>
+            <?php
+            } ?>
         </table>
         <br>
     </form>

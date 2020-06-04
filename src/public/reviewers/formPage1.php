@@ -15,7 +15,7 @@ $month = $temp[1];
 $reviewedApplicationsTable = 'reviewedapps' . $month . $year;
 
 // Store Application Number into $_SESSION so we can access later. Disappears otherwise.
-if( post('appNum') ){
+if (post('appNum')) {
     $_SESSION['revAppID'] = post('appNum');
 }
 
@@ -80,7 +80,7 @@ function saveReview($form, $isSubmitted)
         'Submitted' => $isSubmitted ? 1 : 0
     ];
 
-    DB::update($reviewedApplicationsTable, $reviewedApplication, 'ApplicationNum = ?', $_SESSION['revAppID'] );
+    DB::update($reviewedApplicationsTable, $reviewedApplication, 'ApplicationNum = ?', $_SESSION['revAppID']);
 }
 
 $state = null;
@@ -89,7 +89,7 @@ $state = null;
 $app_id = post('appNum');
 
 #Ensures no error pops up when form is first loaded since Q1-Q6 will be empty
-if( $form['learn'] != '' ) {
+if ($form['learn'] != '') {
     $form['QATotal'] = $form['learn'] + $form['justified'] + $form['method'] + $form['time'] + $form['project'] + $form['budget'];
     if (validate($form, $validators)) {
         saveReview($form, true);
@@ -115,8 +115,10 @@ if( $form['learn'] != '' ) {
             <form role="form" method="post" id="reused_form">
                 <div class="row">
                     <div class="col-sm-12 form-group">
-                        <input type="hidden" name="app" value=<?php echo $app_id; ?>/>
-                        <label>Please Verify Application ID: <?php echo $app_id; ?></label>
+                        <input type="hidden" name="app" value=<?php
+                        echo $app_id; ?>/>
+                        <label>Please Verify Application ID: <?php
+                            echo $app_id; ?></label>
                         <label>Does the project demonstrate experiential learning in a CSTEM discipline?</label>
                         <p>
                             <label class="radio-inline"><input type="radio" name="learn" value="0">0</label>
@@ -173,14 +175,15 @@ if( $form['learn'] != '' ) {
                             <div class="col-sm-12 form-group">
                                 <label for="comments"> Quality Assessment Comments:</label>
                                 <textarea class="form-control" type="textarea" name="qual_comments"
-                                          placeholder="Your Comments" maxlength="6000" rows="7" style="resize: none" ></textarea>
+                                          placeholder="Your Comments" maxlength="6000" rows="7"
+                                          style="resize: none"></textarea>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12 form-group">
                                 <button type="submit" class="button" name="submitButton"
                                         onclick="return confirm('Are you sure you want to submit?')"
-                                        >Submit
+                                >Submit
                                 </button>
                             </div>
                         </div>

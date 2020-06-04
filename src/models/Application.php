@@ -27,8 +27,8 @@ class Application extends Model
     ];
 
     public $name, $email, $title, $major, $gpa, $graduationDate, $advisorName, $advisorEmail, $description,
-           $timeline, $justification, $totalBudget, $requestedBudget, $fundingSources, $studentID, $periodID,
-           $status, $budgetTable;
+        $timeline, $justification, $totalBudget, $requestedBudget, $fundingSources, $studentID, $periodID,
+        $status, $budgetTable;
 
     private $hasAgreedToTerms = false;
 
@@ -36,27 +36,27 @@ class Application extends Model
     {
         $this->fillable = [
             // Basic Details
-            'email'           => v::email()->length(null, 50)->setName('Email address'),
-            'title'           => v::length(3, 140)->setName('Project title'),
+            'email' => v::email()->length(null, 50)->setName('Email address'),
+            'title' => v::length(3, 140)->setName('Project title'),
 
             // Major & GPA
-            'major'           => v::in(self::DEPARTMENTS)->setTemplate('Invalid major'),
-            'gpa'             => v::number()->min(1.0)->max(4.0)->setName('GPA'),
-            'graduationDate'  => v::date()->between('today', '+3 years')->setName('Expected Graduation Date'),
+            'major' => v::in(self::DEPARTMENTS)->setTemplate('Invalid major'),
+            'gpa' => v::number()->min(1.0)->max(4.0)->setName('GPA'),
+            'graduationDate' => v::date()->between('today', '+3 years')->setName('Expected Graduation Date'),
 
             // Advisor Information
-            'advisorName'     => v::length(3, 50)->setName('Advisor name'),
-            'advisorEmail'    => 'Application::validateAdvisorEmail',
+            'advisorName' => v::length(3, 50)->setName('Advisor name'),
+            'advisorEmail' => 'Application::validateAdvisorEmail',
 
             // Objective & Results
-            'description'     => v::length(3, 6000)->setName('Objective'),
-            'timeline'        => v::length(3, 2000)->setName('Timeline'),
+            'description' => v::length(3, 6000)->setName('Objective'),
+            'timeline' => v::length(3, 2000)->setName('Timeline'),
 
             // Budget
-            'justification'   => v::length(3, 2000)->setName('Budget description'),
-            'totalBudget'     => v::number()->min(1)->setName('Budget amount'),
+            'justification' => v::length(3, 2000)->setName('Budget description'),
+            'totalBudget' => v::number()->min(1)->setName('Budget amount'),
             'requestedBudget' => v::number()->min(1)->max(2000)->setName('Requested amount'),
-            'fundingSources'  => v::length(3, 140)->setName('Funding sources')
+            'fundingSources' => v::length(3, 140)->setName('Funding sources')
         ];
 
         $this->guarded = [
@@ -104,8 +104,8 @@ class Application extends Model
             }
 
             $error = (v::length(3, 140)->setName('Item'))($row->item) ??
-                     (v::length(null, 140)->setName('Item Description'))($row->itemDesc) ??
-                     (v::number()->min(0)->setName('Item Cost'))($row->itemCost);
+                (v::length(null, 140)->setName('Item Description'))($row->itemDesc) ??
+                (v::number()->min(0)->setName('Item Cost'))($row->itemCost);
 
             if ($error) {
                 $errors['budgetTable'] = $error;

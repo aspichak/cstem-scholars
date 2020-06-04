@@ -11,7 +11,8 @@ $layout = 'emails/layout.php';
     </p>
 
     <div class="label">Student Name:</div>
-    <p><?= e($application->name) ?> &lt;<a href="mailto:<?= e($application->email) ?>"><?= e($application->email) ?></a>&gt;</p>
+    <p><?= e($application->name) ?> &lt;<a href="mailto:<?= e($application->email) ?>"><?= e($application->email) ?></a>&gt;
+    </p>
 
     <div class="label">Project Title:</div>
     <p><?= e($application->title) ?></p>

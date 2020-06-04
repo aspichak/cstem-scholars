@@ -30,11 +30,14 @@ if ($form->errors()) {
             <td><?= $form->date('deadline', ['required']) ?></td>
             <td><?= $form->date('advisorDeadline', ['required']) ?></td>
             <td><?= $form->money('budget', ['required']) ?></td>
-            <td><button type="submit">Create</button></td>
+            <td>
+                <button type="submit">Create</button>
+            </td>
         </form>
     </tr>
 
-    <?php foreach ($periods as $p) { ?>
+    <?php
+    foreach ($periods as $p) { ?>
         <tr>
             <td><?= date('M j, Y', strtotime($p->beginDate)) ?></td>
             <td><?= date('M j, Y', strtotime($p->deadline)) ?></td>
@@ -42,5 +45,6 @@ if ($form->errors()) {
             <td>$<?= number_format($p->budget, 2) ?></td>
             <td class="button-group"><?= actionButtons('periods.php', $p->key()) ?></td>
         </tr>
-    <?php } ?>
+    <?php
+    } ?>
 </table>
