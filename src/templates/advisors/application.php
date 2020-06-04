@@ -33,7 +33,21 @@ $layout = 'admin/_layout.php';
 <p>Requested budget amount: <?= e($application->requestedBudget) ?></p>
 
 <p>Budget Table:</p>
-<p>Coming soon!</p>
+<table id="budget-table">
+    <tr>
+        <th style="width: 30%">Item</th>
+        <th style="width: 50%">Description</th>
+        <th style="width: 15%">Cost</th>
+    </tr>
+
+    <?php foreach ($application->budgetTable() as $row) { ?>
+        <tr>
+            <td><?= e($row->item) ?></td>
+            <td><?= e($row->itemDesc) ?></td>
+            <td>$<?= e($row->itemCost) ?></td>
+        </tr>
+    <?php } ?>
+</table>
 
 <label>Comments to be appended to emails. These are all optional.</label><br>
 <form method="POST">
