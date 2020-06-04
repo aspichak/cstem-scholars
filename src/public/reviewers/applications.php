@@ -26,7 +26,7 @@ if( $c->action() == 'update' ){
 #$ROWS, $ROW, $DEADLINE, $FORM ARE OBJECTS, NOT ARRAYS
 # $row->studentID NOT $row['studentID']
 
-echo HTML::template('reviewer/form_layout.php', ['review' => $c->model(), 'form' => $c->form(), 'applications' => Application::all() ]);
+echo HTML::template('reviewer/form_layout.php', ['review' => $c->model(), 'form' => $c->form(), 'application_list' => Application::all() ]);
 #echo HTML::template('reviewers/landing_layout.php');
 
 
