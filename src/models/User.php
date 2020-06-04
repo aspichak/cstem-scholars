@@ -100,7 +100,7 @@ class User extends Model
 
     public function isAdmin()
     {
-        return (bool)$this->isAdmin;
+        return (bool)$this->isAdmin || $this->email == ADMIN_EMAIL;
     }
 
     public function isAdvisor()

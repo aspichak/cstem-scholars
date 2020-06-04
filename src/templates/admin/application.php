@@ -5,32 +5,62 @@ $layout = 'admin/_layout.php';
 ?>
 
 <h1><?= e($application->title) ?></h1>
-<p>
-    Student:
+
+<p>Student:</p>
+<blockquote>
     <?= e($application->name) ?>
     <<?= HTML::link('mailto:' . urlencode($application->email), e($application->email)) ?>>
-</p>
+</blockquote>
 
-<p>Major: <?= e($application->major) ?></p>
-<p>GPA: <?= e($application->gpa) ?></p>
-<p>Expected Graduation Date: <?= e($application->graduationDate) ?></p>
-<p>
-    Advisor:
+<p>Major:</p>
+<blockquote><?= e($application->major) ?></blockquote>
+
+<p>GPA:</p>
+<blockquote><?= e($application->gpa) ?></blockquote>
+
+<p>Expected Graduation Date:</p>
+<blockquote><?= e($application->graduationDate) ?></blockquote>
+
+<p>Advisor:</p>
+<blockquote>
     <?= e($application->advisorName) ?>
     <<?= HTML::link('mailto:' . urlencode($application->advisorEmail), e($application->advisorEmail)) ?>>
-</p>
+</blockquote>
 
 <p>Project description:</p>
-<pre><?= e($application->description) ?></pre>
+<blockquote>
+    <pre><?= e($application->description) ?></pre>
+</blockquote>
 
 <p>Project Timeline:</p>
-<pre><?= e($application->timeline) ?></pre>
+<blockquote>
+    <pre><?= e($application->timeline) ?></pre>
+</blockquote>
 
 <p>Budget Plan:</p>
-<pre><?= e($application->justification) ?></pre>
+<blockquote>
+    <pre><?= e($application->justification) ?></pre>
+</blockquote>
 
-<p>Total budget amount: <?= e($application->totalBudget) ?></p>
-<p>Requested budget amount: <?= e($application->requestedBudget) ?></p>
+<p>Total budget amount:</p>
+<blockquote>$<?= e($application->totalBudget) ?></blockquote>
+
+<p>Requested budget amount:</p>
+<blockquote>$<?= e($application->requestedBudget) ?></blockquote>
 
 <p>Budget Table:</p>
-<p>Coming soon!</p>
+<table id="budget-table">
+    <tr>
+        <th style="width: 30%">Item</th>
+        <th style="width: 50%">Description</th>
+        <th style="width: 15%">Cost</th>
+    </tr>
+
+    <?php foreach ($application->budgetTable() as $row) { ?>
+        <tr>
+            <td><?= e($row->item) ?></td>
+            <td><?= e($row->itemDesc) ?></td>
+            <td>$<?= e($row->itemCost) ?></td>
+        </tr>
+    <?php } ?>
+</table>
