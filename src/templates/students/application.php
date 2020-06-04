@@ -6,6 +6,34 @@
     <link href="css/students.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="script.js"></script>
+    <script>
+        $(function() {
+            updateTable($('#budget-table tr').eq(3));
+        });
+
+        $(document).on("focusout", "#budget-table input", function() {
+            updateTable($('#budget-table tr').eq(3));
+        });
+
+        function updateTable(row) {
+            if (row.length == 0) return true;
+
+            var nextRow = row.next("tr");
+            var isRowEmpty = true;
+
+            row.find("input").each(function () {
+                isRowEmpty &= !this.value;
+            });
+
+            if (updateTable(nextRow) && isRowEmpty) {
+                nextRow.hide();
+            } else {
+                nextRow.show();
+            }
+
+            return isRowEmpty;
+        }
+    </script>
 </head>
 <body>
 
@@ -52,7 +80,7 @@
             <div class="section"><span>2</span>Major &amp; GPA</div>
             <div class="inner-wrap">
                 <label>
-                    Your Major: 
+                    Your Major:
                     <?= $form->select('major', array_combine(Application::DEPARTMENTS, Application::DEPARTMENTS)) ?>
                 </label>
 
@@ -99,8 +127,8 @@
             <div class="section"><span>4</span>Objective & Results</div>
             <div class="inner-wrap">
                 <label>
-                    Provide a brief description of the project, including a statement of the problem and/or objective 
-                    of the project, an explanation of the importance of the project, and a statement of work that 
+                    Provide a brief description of the project, including a statement of the problem and/or objective
+                    of the project, an explanation of the importance of the project, and a statement of work that
                     briefly describes your methodology and expected outcomes. (6000 characters max)
                     <?= $form->textarea('description', ['maxlength' => 6000, 'rows' => 12, 'required']) ?>
                 </label>
@@ -133,26 +161,29 @@
                     <?= $form->text('fundingSources', ['required']) ?>
                 </label>
 
-                <!-- THIS IS WHERE USER INPUT FOR BUDGET SHEET GOES
-                     going to need to run verification on the three cols
-                -->
                 <br>
-                <label>
-                    <div id="tblText">
+                <p>Please break down your funding into an itemized list (10 items max)</p>
+                <?= $form->error('budgetTable') ?>
 
-                    </div>
-                    <div id="table">
+                <table id="budget-table">
+                    <tr>
+                        <th style="width: 30%">Item</th>
+                        <th style="width: 50%">Description</th>
+                        <th style="width: 15%">Cost</th>
+                    </tr>
 
-                    </div>
-                    <div id="btn">
-                        <button id="increment" >+</button>
-                        <button id="decrement" >-</button>
-                    </div>
-                    <div id="notification-box">
+                    <?php
 
-                    </div>
-                </label>
-
+                    $table = $application->budgetTable();
+                    foreach (range(0, 9) as $i) {
+                    ?>
+                        <tr>
+                            <td><?= input('text', "budgetTable[$i][item]", $table[$i]->item ?? '') ?></td>
+                            <td><?= input('text', "budgetTable[$i][itemDesc]", $table[$i]->itemDesc ?? '') ?></td>
+                            <td><?= input('number', "budgetTable[$i][itemCost]", $table[$i]->itemCost ?? '', ['min' => 0, 'step' => 0.01]) ?></td>
+                        </tr>
+                    <?php } ?>
+                </table>
             </div>
 
             <div class="section"><span>8</span>Terms and Conditions</div>

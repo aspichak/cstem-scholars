@@ -1,5 +1,7 @@
 body {
     background: #8B0000;
+    font: 15px Helvetica, sans-serif;
+    line-height: 1.5;
 }
 
 .form {
@@ -41,12 +43,11 @@ body {
 .form h1 > span {
     display: block;
     margin-top: 2px;
-    font: 13px Arial, Helvetica, sans-serif;
+    font: 14px Helvetica, sans-serif;
 }
 
 .form label {
     display: block;
-    font: 13px Arial, Helvetica, sans-serif;
     color: #000000;
     margin-bottom: 15px;
 }
@@ -137,7 +138,6 @@ button[type="submit"]:hover {
 .form .privacy-policy {
     float: right;
     width: 250px;
-    font: 12px Arial, Helvetica, sans-serif;
     color: #000000;
     margin-top: 10px;
     text-align: right;
@@ -178,19 +178,17 @@ button[type="submit"]:hover {
 }
 
 .message.success {
-    color: #3c763d;
-    background-color: #dff0d8;
-    border: 3px solid #d6e9c6;
-    border-radius: 3px;
+    color: #fbfff7;
+    background-color: #3c763d;
+    border-radius: 4px;
     padding: 1em 3em;
     display: block;
 }
 
 .message.error {
-    color: #a94442;
-    background-color: #f2dede;
-    border: 3px solid #ebccd1;
-    border-radius: 3px;
+    color: #faf3f3;
+    background-color: #b1413d;
+    border-radius: 4px;
     padding: 1em 3em;
     display: block;
     font-weight: normal;
@@ -201,7 +199,9 @@ button[type="submit"]:hover {
     color: #990000;
 }
 
-/* not showing up? */
+table {
+    width: 100%;
+}
 
 #notification-box {
     position: fixed;

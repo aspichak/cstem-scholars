@@ -28,7 +28,7 @@ class Application extends Model
 
     public $name, $email, $title, $major, $gpa, $graduationDate, $advisorName, $advisorEmail, $description,
            $timeline, $justification, $totalBudget, $requestedBudget, $fundingSources, $studentID, $periodID,
-           $status, $attachment;
+           $status, $budgetTable;
 
     private $hasAgreedToTerms = false;
 
@@ -64,7 +64,8 @@ class Application extends Model
             'studentID',
             'periodID',
             'status',
-            'attachment'
+            'attachment',
+            'budgetTable'
         ];
 
         parent::__construct($form, $fillGuardedColumns);
@@ -97,6 +98,28 @@ class Application extends Model
             $errors['terms'] = 'You must agree to Terms and Conditions';
         }
 
+        foreach ($this->budgetTable() as $row) {
+            if (empty($row->item) && empty($row->itemDesc) && empty($row->itemCost)) {
+                continue;
+            }
+
+            $error = (v::length(3, 140)->setName('Item'))($row->item) ??
+                     (v::length(null, 140)->setName('Item Description'))($row->itemDesc) ??
+                     (v::number()->min(0)->setName('Item Cost'))($row->itemCost);
+
+            if ($error) {
+                $errors['budgetTable'] = $error;
+            }
+        }
+
+        if (count($this->budgetTable()) > 10) {
+            $errors['budgetTable'] = 'Too many entries in the budget table';
+        }
+
+        if ($this->status != 'draft' && !$this->budgetTable()) {
+            $errors['budgetTable'] = 'Budget table must contain at least one item';
+        }
+
         return $errors;
     }
 
@@ -112,6 +135,11 @@ class Application extends Model
     public function reviews()
     {
         return Review::all('applicationID = ?', $this->id);
+    }
+
+    public function budgetTable()
+    {
+        return json_decode($this->budgetTable) ?? [];
     }
 
     public static function validateAdvisorEmail($email)

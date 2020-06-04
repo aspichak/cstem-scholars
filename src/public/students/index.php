@@ -36,6 +36,13 @@ if (HTTP::post('submit') && $application->status == 'draft') {
 
 $form = new Form($application);
 
+if (HTTP::isPost()) {
+    $table = HTTP::post('budgetTable');
+    // Remove empty rows from the budget table
+    $table = array_values(array_filter($table, fn ($row) => !empty(implode('', array_values($row)))));
+    $application->budgetTable = json_encode($table);
+}
+
 if (HTTP::isPost() && $application->isValid() ) {
     DB::beginTransaction();
 
