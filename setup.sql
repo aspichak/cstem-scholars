@@ -43,7 +43,6 @@ create table `Application`
     `fundingSources` text null,
     `budgetTable` text null,
     `status` varchar(30) not null,
-    `additionalInformationRequested` boolean default false,
     foreign key (advisorEmail) references User(email)
         on update cascade
         on delete set null,
