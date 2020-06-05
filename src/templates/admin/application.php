@@ -17,7 +17,7 @@ $layout = 'admin/_layout.php';
     <h2>Award</h2>
 
     <form method="POST">
-        <?= tag('input', null, ['type' => 'hidden', 'name' => 'csrfToken', 'value' => Form::csrfToken()]) ?>
+        <?= input('hidden', 'csrfToken', Form::csrfToken()) ?>
 
         <div class="form-group">
             <label for="message">Message (optional):</label><br>
@@ -37,7 +37,7 @@ $layout = 'admin/_layout.php';
     <h2>Reject</h2>
 
     <form method="POST">
-        <?= tag('input', null, ['type' => 'hidden', 'name' => 'csrfToken', 'value' => Form::csrfToken()]) ?>
+        <?= input('hidden', 'csrfToken', Form::csrfToken()) ?>
 
         <div class="form-group">
             <label for="reason">Reason (required):</label><br>
