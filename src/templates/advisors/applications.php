@@ -13,11 +13,15 @@ $layout = 'admin/_layout.php';
     <th>Status</th>
     </thead>
 
-    <?php foreach ($applications as $a) { ?>
-        <tr>
-            <td><?= e($a->name) ?></td>
-            <td><?= HTML::link("../advisors/applications.php?id={$a->id}", e($a->title)) ?></td>
-            <td><?= e($a->status) ?></td>
-        </tr>
-    <?php } ?>
+    <?php
+    foreach ($applications as $a) {
+        if ($a->periodID == $period->id) { ?>
+            <tr>
+                <td><?= e($a->name) ?></td>
+                <td><?= HTML::link("../advisors/applications.php?id={$a->id}", e($a->title)) ?></td>
+                <td><?= e($a->status) ?></td>
+            </tr>
+            <?php
+        }
+    } ?>
 </table>

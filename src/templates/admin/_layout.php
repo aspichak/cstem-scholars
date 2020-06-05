@@ -9,7 +9,7 @@ $user = User::current();
     <title><?= $title ?> - CSTEM Research Grant Admininstrator</title>
     <link rel="stylesheet" href="../admin.css">
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             document.querySelector("#menu-button").addEventListener("click", function () {
                 document.querySelector("#menu").classList.toggle("shown");
             });
@@ -25,21 +25,27 @@ $user = User::current();
         <img src="../images/logo.svg" alt="EWU Logo" width="128" height="128">
     </div>
 
-    <?php if ($user->isAdvisor()) { ?>
+    <?php
+    if ($user->isAdvisor()) { ?>
         <p>Advisor</p>
         <ul>
-            <li><a href="../advisors/applications.php"><i class="icon check-square-light"></i>Accept Applications</a></li>
+            <li><a href="../advisors/applications.php"><i class="icon check-square-light"></i>Accept Applications</a>
+            </li>
         </ul>
-    <?php } ?>
+        <?php
+    } ?>
 
-    <?php if ($user->isReviewer()) { ?>
+    <?php
+    if ($user->isReviewer()) { ?>
         <p>Reviewer</p>
         <ul>
             <li><a href="../reviewers/"><i class="icon list-light"></i>Review Applications</a></li>
         </ul>
-    <?php } ?>
+        <?php
+    } ?>
 
-    <?php if ($user->isAdmin()) { ?>
+    <?php
+    if ($user->isAdmin()) { ?>
         <p>Administrator</p>
         <ul>
             <li><a href="../admin/"><i class="icon grid-light"></i>Dashboard</a></li>
@@ -47,7 +53,8 @@ $user = User::current();
             <li><a href="../admin/applications.php"><i class="icon file-text-light"></i>Applications</a></li>
             <li><a href="../admin/users.php"><i class="icon users-light"></i>Users</a></li>
         </ul>
-    <?php } ?>
+        <?php
+    } ?>
 
     <ul>
         <li><a href="../logout.php"><i class="icon log-out-light"></i>Log out</a></li>

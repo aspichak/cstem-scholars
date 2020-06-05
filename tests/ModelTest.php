@@ -12,7 +12,7 @@ class TestModel extends Model
     function __construct($form = [])
     {
         $this->fillable = ['foo', 'bar'];
-        $this->guarded  = ['baz'];
+        $this->guarded = ['baz'];
 
         // $this->bar should not be overwritten by Model::__construct();
         $this->bar = 'unfilled';
@@ -27,7 +27,7 @@ class ValidatedModel extends Model
     function __construct($form = [])
     {
         $this->fillable = [
-            'foo' => v::number()->setName('foo'), 
+            'foo' => v::number()->setName('foo'),
             'bar' => fn($v) => ($v == 'valid') ? null : 'bar is not valid'
         ];
 
@@ -50,7 +50,7 @@ class BadModel extends Model
 {
     // Both $fillable and $guarded contain 'bar', which should not be allowed
     protected $fillable = ['foo', 'bar'];
-    protected $guarded  = ['bar', 'baz'];
+    protected $guarded = ['bar', 'baz'];
 }
 
 class NullModel extends Model

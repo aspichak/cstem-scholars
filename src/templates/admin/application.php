@@ -56,11 +56,13 @@ $layout = 'admin/_layout.php';
         <th style="width: 15%">Cost</th>
     </tr>
 
-    <?php foreach ($application->budgetTable() as $row) { ?>
+    <?php
+    foreach ($application->budgetTable() as $row) { ?>
         <tr>
             <td><?= e($row->item) ?></td>
             <td><?= e($row->itemDesc) ?></td>
             <td>$<?= e($row->itemCost) ?></td>
         </tr>
-    <?php } ?>
+        <?php
+    } ?>
 </table>

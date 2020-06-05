@@ -65,7 +65,8 @@ abstract class HTTP
         return self::$flash[$key] ?? self::$flash;
     }
 
-    public static function url($path) {
+    public static function url($path)
+    {
         return BASE_URL . '/' . $path;
     }
 

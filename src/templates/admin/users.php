@@ -16,12 +16,14 @@ $layout = 'admin/_layout.php';
         <th></th>
     </tr>
 
-    <?php foreach ($users as $u) { ?>
+    <?php
+    foreach ($users as $u) { ?>
         <tr>
             <td><?= linkTo("user.php?id={$u->email}", e($u->name)) ?></td>
             <td><?= mailTo(e($u->email)) ?></td>
             <td><?= implode(', ', $u->roles()) ?></td>
             <td class="button-group"><?= actionButtons('user.php', $u->key()) ?></td>
         </tr>
-    <?php } ?>
+        <?php
+    } ?>
 </table>

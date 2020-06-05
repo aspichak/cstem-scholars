@@ -25,7 +25,7 @@
  *                   [item0, itemDesc0, itemCost0, item1, itemDesc1, itemCost1, ... , itemN, itemDescN, itemCostN]
  *      removeRow  - Removes a generalRow from the table. If there is only the default row, then it will do nothing.
  */
-$(document).ready( function() {
+$(document).ready(function () {
 
 
     const MAX_ROWS = 5;
@@ -33,15 +33,15 @@ $(document).ready( function() {
     const D_TOOLTIP = 'Must include at least ONE item';
     const I_TOOLTIP = 'Maximum number of items reached [ ' + MAX_ROWS + ' items ]';
     const DISPLAY_TEXT = 'Please break down your funding into an itemized list [ Maximum Items: ' + MAX_ROWS + ' ]';
-    const HEADER_ROW =   '<tr><th>Item</th>' +
-                         '<th>Description</th>' +
-                         '<th>Cost</th></tr>';
+    const HEADER_ROW = '<tr><th>Item</th>' +
+        '<th>Description</th>' +
+        '<th>Cost</th></tr>';
 
-    const COLGROUP =    '<colgroup>'+
-                        '<col width="25%">' +
-                        '<col width="50%">' +
-                        '<col width="25%">' +
-                        '</colgroup>';
+    const COLGROUP = '<colgroup>' +
+        '<col width="25%">' +
+        '<col width="50%">' +
+        '<col width="25%">' +
+        '</colgroup>';
 
     //tracks currentRow for assigning unique id's to rows and columns
     let currentRow = 0;
@@ -50,64 +50,64 @@ $(document).ready( function() {
     $('#tblText').append(DISPLAY_TEXT);
 
     // generate table
-    let tblBody = $(document.createElement('table')).attr("align","left")
-                                                              .append(COLGROUP)
-                                                              .appendTo('#table');
+    let tblBody = $(document.createElement('table')).attr("align", "left")
+        .append(COLGROUP)
+        .appendTo('#table');
 
     // set the styling for the table
-    tblBody.css({"width":"100%",
-                        "border-collapse":"collapse",
-                        "margin":"auto",
-                        "background-color":"f7f7f7" });
+    tblBody.css({
+        "width": "100%",
+        "border-collapse": "collapse",
+        "margin": "auto",
+        "background-color": "f7f7f7"
+    });
 
     // append the headerRow and a single default generalRow to the table
-    $('#table').append( tblBody );
-    tblBody.append( HEADER_ROW );
-    addRow( tblBody, currentRow );
+    $('#table').append(tblBody);
+    tblBody.append(HEADER_ROW);
+    addRow(tblBody, currentRow);
 
     // click event to generate new rows
-    $('#increment').click( function(event) {
+    $('#increment').click(function (event) {
         event.preventDefault(); // make button independent from the form
-        if( currentRow < MAX_ADDITIONAL_ROWS ) {
+        if (currentRow < MAX_ADDITIONAL_ROWS) {
             currentRow++;
             addRow(tblBody, currentRow);
-        }
-        else{
-            notification( I_TOOLTIP, 1500 );
+        } else {
+            notification(I_TOOLTIP, 1500);
         }
     });
 
     // click event to decrement rows up to default
-    $('#decrement').click( function(event) {
+    $('#decrement').click(function (event) {
         event.preventDefault();
-        if( currentRow > 0) {
+        if (currentRow > 0) {
             removeRow(currentRow);
             currentRow--;
-        }
-        else{
-            notification( D_TOOLTIP, 1500 );
+        } else {
+            notification(D_TOOLTIP, 1500);
         }
 
     });
 });
 
-function addRow( tblBody, rowNum ){
-    let generalRow= '<tr id="rowNum' + rowNum + '">' +
-                    '<td><input name="budgetTable[' + rowNum + '][item]" type="text" width="25%"/></td>' +
-                    '<td><input name="budgetTable[' + rowNum + '][itemDesc]" type="text" width="50%"/></td>' +
-                    '<td><input name="budgetTable[' + rowNum + '][itemCost]" type="text" width="25%"/></td>' +
-                    '</tr>';
+function addRow(tblBody, rowNum) {
+    let generalRow = '<tr id="rowNum' + rowNum + '">' +
+        '<td><input name="budgetTable[' + rowNum + '][item]" type="text" width="25%"/></td>' +
+        '<td><input name="budgetTable[' + rowNum + '][itemDesc]" type="text" width="50%"/></td>' +
+        '<td><input name="budgetTable[' + rowNum + '][itemCost]" type="text" width="25%"/></td>' +
+        '</tr>';
 
     tblBody.append(generalRow);
 }
 
-function removeRow( rowNum ){
+function removeRow(rowNum) {
     $('#rowNum' + rowNum).remove();
 }
 
-function notification( tooltip_text, time ){
-    $("<p>" + tooltip_text + "</p>").appendTo('#notification-box').fadeTo(time, 1, function() {
-        $(this).fadeTo(1000, 0, function() {
+function notification(tooltip_text, time) {
+    $("<p>" + tooltip_text + "</p>").appendTo('#notification-box').fadeTo(time, 1, function () {
+        $(this).fadeTo(1000, 0, function () {
             $(this).remove()
         });
     });

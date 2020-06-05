@@ -69,7 +69,8 @@
         </ul>
         <ul class="farright" style="list-style-type:none">
             <li class="a">
-                <a href="https://sites.ewu.edu/instructional-technology/learning-management-system" style="text-decoration: none;">
+                <a href="https://sites.ewu.edu/instructional-technology/learning-management-system"
+                   style="text-decoration: none;">
                     Canvas</a>
             </li>
             <li class="b">

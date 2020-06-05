@@ -1,28 +1,28 @@
 @font-face {
     font-family: 'Inter';
-    font-style:  normal;
+    font-style: normal;
     font-weight: 400;
     font-display: swap;
     src: url("Inter-Light.woff2") format("woff2"),
-        url("Inter-Light.woff") format("woff");
+    url("Inter-Light.woff") format("woff");
 }
 
 @font-face {
     font-family: 'Inter';
-    font-style:  italic;
+    font-style: italic;
     font-weight: 400;
     font-display: swap;
     src: url("Inter-LightItalic.woff2") format("woff2"),
-        url("Inter-LightItalic.woff") format("woff");
+    url("Inter-LightItalic.woff") format("woff");
 }
 
 @font-face {
     font-family: 'Inter';
-    font-style:  normal;
+    font-style: normal;
     font-weight: 700;
     font-display: swap;
     src: url("Inter-Medium.woff2") format("woff2"),
-        url("Inter-Medium.woff") format("woff");
+    url("Inter-Medium.woff") format("woff");
 }
 
 body {
@@ -128,7 +128,7 @@ table {
     width: 100%;
 }
 
-td,th {
+td, th {
     border-bottom: 1px solid #dee2e6;
     padding: 6px 16px;
 }
@@ -346,7 +346,7 @@ form.panel h1:first-child {
 
     .sidebar {
         display: none;
-        box-shadow: 0 0 32px 0 rgba(0,0,0,0.7);
+        box-shadow: 0 0 32px 0 rgba(0, 0, 0, 0.7);
     }
 
     .shown {

@@ -11,37 +11,39 @@ final class ApplicationModelTest extends SchemaTest
     {
         parent::setUp();
 
-        DB::pdo()->exec("
+        DB::pdo()->exec(
+            "
             INSERT INTO User (name, email, isAdvisor, isReviewer, isAdmin) 
             VALUES ('Advisor', 'advisor@email.com', true, false, false);
-        ");
+        "
+        );
 
         $this->validApp = [
             // Basic Details
-            'name'            => 'Assigned Name',
-            'email'           => 'valid@email.com',
-            'title'           => 'Valid Project Title',
+            'name' => 'Assigned Name',
+            'email' => 'valid@email.com',
+            'title' => 'Valid Project Title',
 
             // Major & GPA
-            'major'           => 'Computer Science',
-            'gpa'             => '4.0',
-            'graduationDate'  => date('Y-m-d', strtotime('+1 year')),
+            'major' => 'Computer Science',
+            'gpa' => '4.0',
+            'graduationDate' => date('Y-m-d', strtotime('+1 year')),
 
             // Advisor Information
-            'advisorName'     => 'Ad Visor',
-            'advisorEmail'    => 'advisor@email.com',
+            'advisorName' => 'Ad Visor',
+            'advisorEmail' => 'advisor@email.com',
 
             // Objective & Results
-            'description'     => 'Valid project description',
-            'timeline'        => 'Valid timeline',
+            'description' => 'Valid project description',
+            'timeline' => 'Valid timeline',
 
             // Budget
-            'justification'   => 'Valid budget justification',
-            'totalBudget'     => 123.45,
+            'justification' => 'Valid budget justification',
+            'totalBudget' => 123.45,
             'requestedBudget' => '123.45',
-            'fundingSources'  => 'Valid sources',
+            'fundingSources' => 'Valid sources',
 
-            'terms'           => 'agree'
+            'terms' => 'agree'
         ];
     }
 
@@ -57,10 +59,10 @@ final class ApplicationModelTest extends SchemaTest
 
         $this->assertNull($app->name);
 
-        $app->name      = 'Student Name';
+        $app->name = 'Student Name';
         $app->studentID = '007123456';
-        $app->periodID  = 1;
-        $app->status    = 'submitted';
+        $app->periodID = 1;
+        $app->status = 'submitted';
 
         $this->assertCount(0, $app->errors());
         $this->assertTrue($app->save());
@@ -79,9 +81,9 @@ final class ApplicationModelTest extends SchemaTest
 
         $app = new Application($invalidApp);
         $app->studentID = '007123456';
-        $app->periodID  = 1;
-        $app->status    = 'submitted';
-        
+        $app->periodID = 1;
+        $app->status = 'submitted';
+
         $this->assertFalse($app->save());
         $this->assertNull($app->id);
         $this->assertCount(1, $app->errors());
