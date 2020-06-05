@@ -8,41 +8,44 @@ $layout = 'admin/_layout.php';
 
 <?php if ($error) echo tag('div', $error, ['class' => 'error']) ?>
 
-<div class="tab-group">
-    <div class="tab">
-        <h2>Award</h2>
+<ul class="tabs">
+    <li><a class="active" href="#award">Award</a></li>
+    <li><a href="#reject">Reject</a></li>
+</ul>
 
-        <form method="POST">
-            <?= tag('input', null, ['type' => 'hidden', 'name' => 'csrfToken', 'value' => Form::csrfToken()]) ?>
+<div class="tab" id="award">
+    <h2>Award</h2>
 
-            <div class="form-group">
-                <label for="message">Message (optional):</label><br>
-                <textarea name="message" cols="80" rows="10"></textarea>
-            </div>
+    <form method="POST">
+        <?= tag('input', null, ['type' => 'hidden', 'name' => 'csrfToken', 'value' => Form::csrfToken()]) ?>
 
-            <div class="form-group">
-                <label for="message">Amount awarded:</label><br>
-                <input type="number" name="amount">
-            </div>
+        <div class="form-group">
+            <label for="message">Message (optional):</label><br>
+            <textarea name="message" id="message" rows="10" style="width: 100%"></textarea>
+        </div>
 
-            <button type="submit" name="action" value="award">Award</button>
-        </form>
-    </div>
+        <div class="form-group">
+            <label for="amount">Amount awarded:</label><br>
+            <input type="number" name="amount" id="amount" min="0" step="0.01">
+        </div>
 
-    <div class="tab">
-        <h2>Reject</h2>
+        <button type="submit" name="action" value="award">Award</button>
+    </form>
+</div>
 
-        <form method="POST">
-            <?= tag('input', null, ['type' => 'hidden', 'name' => 'csrfToken', 'value' => Form::csrfToken()]) ?>
+<div class="tab" id="reject">
+    <h2>Reject</h2>
 
-            <div class="form-group">
-                <label for="message">Reason:</label><br>
-                <textarea name="reason" cols="80" rows="10"></textarea>
-            </div>
+    <form method="POST">
+        <?= tag('input', null, ['type' => 'hidden', 'name' => 'csrfToken', 'value' => Form::csrfToken()]) ?>
 
-            <button type="submit" name="action" value="reject" class="danger">Reject</button>
-        </form>
-    </div>
+        <div class="form-group">
+            <label for="reason">Reason (required):</label><br>
+            <textarea name="reason" id="reason" rows="10" style="width: 100%"></textarea>
+        </div>
+
+        <button type="submit" name="action" value="reject" class="danger">Reject</button>
+    </form>
 </div>
 
 <h2>Application</h2>
