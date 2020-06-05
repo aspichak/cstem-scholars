@@ -18,7 +18,8 @@ class ModelController
     public function __construct($modelClass)
     {
         $this->modelClass = $modelClass;
-        $this->model = new $modelClass(HTTP::post());
+        $this->model = $this->hasKey() ? $modelClass::get($this->key()) : new $modelClass();
+        $this->model->fill(HTTP::post());
     }
 
     public function action()

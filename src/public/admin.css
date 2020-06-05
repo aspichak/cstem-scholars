@@ -58,7 +58,8 @@ input, button {
 input[type="text"],
 input[type="email"],
 input[type="date"],
-input[type="number"] {
+input[type="number"],
+textarea {
     border: 1px solid #bdc3c7;
     border-radius: 3px;
     padding: 6px 12px;
@@ -77,7 +78,8 @@ input[type="date"] {
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="date"]:focus,
-input[type="number"]:focus {
+input[type="number"]:focus,
+textarea:focus {
     border: 1px solid #20a0f6;
     outline: none;
     box-shadow: 0 0 0 3px #e0f2ff;
@@ -110,7 +112,7 @@ button:focus, .button:focus {
     box-shadow: 0 0 0 3px rgba(52, 73, 94, 0.3);
 }
 
-button.delete {
+button.delete, button.danger {
     background-color: #b30f23;
 }
 
@@ -144,18 +146,54 @@ th {
     text-align: right;
 }
 
-ul.error {
-    line-height: 1.75;
+.message {
+    border-radius: 4px;
+    padding: 16px 32px;
+    margin: 32px 0;
+}
+
+.success {
+    color: #fbfff7;
+    background-color: #428943;
+    border-radius: 4px;
+    padding: 16px 32px;
+}
+
+.error {
     background-color: #e74c3c;
-    border: 2px solid #e74c3c;
     color: #fff;
     border-radius: 4px;
     padding: 16px 32px;
+}
+
+ul.error {
+    line-height: 1.75;
     list-style-type: none;
 }
 
 input.error {
     border-color: #e74c3c;
+}
+
+.tab {
+    background: #f9f9fc;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 16px 32px 32px 32px;
+    margin: 16px auto;
+    box-shadow: 0 1px 8px 0 rgba(0,0,0,0.1);
+}
+
+.review {
+    background: #ffe6b5;
+    padding: 32px;
+    margin: 16px auto;
+}
+
+.review header {
+    background: #ffffff;
+    padding: 16px;
+    margin: -32px -32px 0 -32px;
 }
 
 .sidebar {
@@ -304,7 +342,8 @@ form.panel h1:first-child {
 .panel input[type="text"],
 .panel input[type="email"],
 .panel input[type="date"],
-.panel input[type="number"] {
+.panel input[type="number"],
+.panel textarea {
     width: 100%;
     box-sizing: border-box;
 }

@@ -2,9 +2,13 @@
 
 $title = 'Applications';
 $layout = 'admin/_layout.php';
+
+helper('message_flash');
 ?>
 
 <h1>Applications</h1>
+
+<?= messageFlash() ?>
 
 <table>
     <thead>
