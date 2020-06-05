@@ -81,7 +81,7 @@ if ($c->action() == 'update' && HTTP::post('buttonName') == "accept") {
         $application->email,
         'Your CSTEM Scholars Grant Application Status Update',
         HTML::template(
-            'emails/application_advisor_student_acceptedphp',
+            'emails/application_advisor_student_accepted.php',
             ['application' => $application, 'period' => $period, 'studentComment' => $studentComment]
         )
     );

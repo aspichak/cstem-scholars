@@ -17,7 +17,9 @@ if (!$period) {
     );
 }
 
-if (Application::exists('email=? AND periodID=?', $user->email, $period->id)==true) {
+if (Application::exists('email=? AND periodID=?', $user->email, $period->id)==true &&
+    !(Application::first('email = ? AND periodID = ?', $user->email, $period->id)=='submitted' ||
+        Application::first('email = ? AND periodID = ?', $user->email, $period->id)=='draft') ) {
     HTTP::redirect('status.php');
 }
 
