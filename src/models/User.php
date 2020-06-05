@@ -26,14 +26,11 @@ class User extends Model
             return null;
         }
 
-        $user = self::get(HTTP::session('email')) ??
-            new User(
-                [
-                    'id' => HTTP::session('id'),
-                    'name' => HTTP::session('name'),
-                    'email' => HTTP::session('email')
-                ], true
-            );
+        $user = self::get(HTTP::session('email')) ?? new User();
+
+        $user->id = HTTP::session('id');
+        $user->name = HTTP::session('name');
+        $user->email = HTTP::session('email');
 
         return $user;
     }

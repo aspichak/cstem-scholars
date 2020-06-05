@@ -63,6 +63,7 @@ final class ApplicationModelTest extends SchemaTest
         $app->studentID = '007123456';
         $app->periodID = 1;
         $app->status = 'submitted';
+        $app->budgetTable = json_encode([['item' => 'Budget Item 1', 'itemDesc' => '', 'itemCost' => 1.99]]);
 
         $this->assertCount(0, $app->errors());
         $this->assertTrue($app->save());
@@ -83,6 +84,7 @@ final class ApplicationModelTest extends SchemaTest
         $app->studentID = '007123456';
         $app->periodID = 1;
         $app->status = 'submitted';
+        $app->budgetTable = json_encode([['item' => 'Budget Item 1', 'itemDesc' => '', 'itemCost' => 1.99]]);
 
         $this->assertFalse($app->save());
         $this->assertNull($app->id);
