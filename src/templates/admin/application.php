@@ -21,12 +21,12 @@ $layout = 'admin/_layout.php';
 
         <div class="form-group">
             <label for="message">Message (optional):</label><br>
-            <textarea name="message" id="message" rows="10" style="width: 100%"></textarea>
+            <?= textarea('message', HTTP::post('message'), ['rows' => 10, 'style' => 'width: 100%']) ?>
         </div>
 
         <div class="form-group">
             <label for="amount">Amount awarded:</label><br>
-            <input type="number" name="amount" id="amount" min="0" step="0.01">
+            <?= input('number', 'amount', HTTP::post('amount'), ['min' => 0, 'step' => 0.01]) ?>
         </div>
 
         <button type="submit" name="action" value="award">Award</button>
@@ -41,7 +41,7 @@ $layout = 'admin/_layout.php';
 
         <div class="form-group">
             <label for="reason">Reason (required):</label><br>
-            <textarea name="reason" id="reason" rows="10" style="width: 100%"></textarea>
+            <?= textarea('reason', HTTP::post('reason'), ['rows' => 10, 'style' => 'width: 100%']) ?>
         </div>
 
         <button type="submit" name="action" value="reject" class="danger">Reject</button>
@@ -121,10 +121,10 @@ $layout = 'admin/_layout.php';
     <section class="review">
 
         <?php
-            if (!$review->submitted) {
-                echo tag('p', 'This review is not yet submitted');
-            } else {
-        ?>
+        if (!$review->submitted) {
+            echo tag('p', 'This review is not yet submitted');
+        } else {
+            ?>
 
             <?php foreach (Review::QUESTIONS as $i => $q) { ?>
                 <p><?= $q ?></p>

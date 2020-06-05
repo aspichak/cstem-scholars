@@ -20,6 +20,14 @@ function input($type, $name, $value, $attributes = [])
     return tag('input', null, $attributes);
 }
 
+function textarea($name, $value, $attributes = [])
+{
+    $attributes['name'] = $name;
+    $attributes['id'] = $name;
+
+    return tag('textarea', e($value), $attributes);
+}
+
 function linkTo($url, $text, $attributes = [])
 {
     return HTML::link($url, $text, $attributes);
