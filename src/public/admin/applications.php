@@ -14,6 +14,8 @@ $c->index('admin/applications.php', ['applications' => Application::all()]);
 $c->read();
 
 if ($c->action() == 'update') {
+    Form::assertCsrfToken();
+    
     if (HTTP::post('action') == 'award') {
         $error = (v::number()->min(0)->setName('Amount Awarded'))(HTTP::post('amount'));
 
