@@ -13,6 +13,7 @@ $application = $v;
         <<?= HTML::link('mailto:' . urlencode($application->email), e($application->email)) ?>>
     </p>
 
+    <p><strong>Student ID:</strong> <?= e($application->studentID()) ?></p>
     <p><strong>Major:</strong> <?= e($application->major) ?></p>
     <p><strong>GPA:</strong> <?= e($application->gpa) ?></p>
     <p><strong>Graduating:</strong> <?= date("M j, Y", strtotime($application->graduationDate)) ?></p>

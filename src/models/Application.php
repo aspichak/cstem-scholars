@@ -143,6 +143,11 @@ class Application extends Model
         return json_decode($this->budgetTable) ?? [];
     }
 
+    public function studentID()
+    {
+        return str_pad($this->studentID, 8, '0', STR_PAD_LEFT);
+    }
+
     public static function validateAdvisorEmail($email)
     {
         if (User::count('email = ? AND isAdvisor = 1', $email)) {
