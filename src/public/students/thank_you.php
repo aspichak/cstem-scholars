@@ -19,7 +19,7 @@ $period = Period::current();
 <form role="form" method="post" align="right">
     <div class="logout">
         <div class="button-section">
-            <button type="submit" class="button" name="logout" formaction="../index.php?logout=true">Logout</button>
+            <button type="submit" class="button" name="logout" formaction="../logout.php">Logout</button>
         </div>
     </div>
 </form>
