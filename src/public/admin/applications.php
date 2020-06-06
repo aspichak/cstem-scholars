@@ -63,6 +63,8 @@ if ($c->action() == 'update') {
             HTTP::redirect('../admin/applications.php', ['success' => 'Rejection email sent']);
         }
     }
+} elseif (HTTP::get('id')!=null) {
+    $c->index('admin/applications.php', ['applications' => Application::all(), 'id' => HTTP::get('id')]);
 }
 
 echo HTML::template('admin/application.php', ['application' => $application, 'error' => $error]);

@@ -7,7 +7,7 @@ helper('message_flash');
 helper('application_status_label');
 ?>
 
-<h1>Applications</h1>
+<h1>Applications for Period: <?= Period::get($id)->beginDate ?></h1>
 
 <?= messageFlash() ?>
 
