@@ -2,6 +2,8 @@
 
 $title = 'Applications';
 $layout = 'admin/_layout.php';
+
+helper('application_status_label');
 ?>
 
 <h1>Applications</h1>
@@ -19,7 +21,7 @@ $layout = 'admin/_layout.php';
             <tr>
                 <td><?= e($a->name) ?></td>
                 <td><?= HTML::link("../advisors/applications.php?id={$a->id}", e($a->title)) ?></td>
-                <td><?= e($a->status) ?></td>
+                <td><?= applicationStatus($a) ?></td>
             </tr>
             <?php
         }

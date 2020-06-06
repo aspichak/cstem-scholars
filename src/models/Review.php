@@ -48,4 +48,9 @@ class Review extends Model
     {
         return Application::get($this->applicationID);
     }
+
+    public function reviewer()
+    {
+        return User::get($this->reviewerID);
+    }
 }

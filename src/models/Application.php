@@ -28,7 +28,7 @@ class Application extends Model
 
     public $name, $email, $title, $major, $gpa, $graduationDate, $advisorName, $advisorEmail, $description,
         $timeline, $justification, $totalBudget, $requestedBudget, $fundingSources, $studentID, $periodID,
-        $status, $budgetTable;
+        $status, $budgetTable, $amountAwarded;
 
     private $hasAgreedToTerms = false;
 
@@ -65,7 +65,8 @@ class Application extends Model
             'periodID',
             'status',
             'attachment',
-            'budgetTable'
+            'budgetTable',
+            'amountAwarded'
         ];
 
         parent::__construct($form, $fillGuardedColumns);
@@ -140,6 +141,11 @@ class Application extends Model
     public function budgetTable()
     {
         return json_decode($this->budgetTable) ?? [];
+    }
+
+    public function studentID()
+    {
+        return str_pad($this->studentID, 8, '0', STR_PAD_LEFT);
     }
 
     public static function validateAdvisorEmail($email)

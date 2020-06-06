@@ -8,11 +8,30 @@ $user = User::current();
 <head>
     <title><?= $title ?> - CSTEM Research Grant Admininstrator</title>
     <link rel="stylesheet" href="../admin.css">
+    <script src="/jquery-3.5.1.slim.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelector("#menu-button").addEventListener("click", function () {
-                document.querySelector("#menu").classList.toggle("shown");
-            });
+        $(function () {
+            var activeTab = $("ul.tabs a.active");
+
+            $(".tab h2:first-child").hide();
+            $(".tab").hide();
+            $(activeTab.attr("href")).show();
+        });
+
+        $(document).on("click", "#menu-button", function (e) {
+            $("#menu").toggleClass("shown");
+        });
+
+        $(document).on("click", "ul.tabs li a", function (e) {
+            var activeTab = $(this).parents("ul.tabs").find(".active");
+
+            activeTab.removeClass("active");
+            $(activeTab.attr("href")).hide();
+
+            $(this).addClass("active");
+            $(this.hash).show();
+
+            e.preventDefault();
         });
     </script>
 </head>

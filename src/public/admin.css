@@ -58,7 +58,9 @@ input, button {
 input[type="text"],
 input[type="email"],
 input[type="date"],
-input[type="number"] {
+input[type="number"],
+textarea {
+    box-sizing: border-box;
     border: 1px solid #bdc3c7;
     border-radius: 3px;
     padding: 6px 12px;
@@ -71,13 +73,14 @@ input[type="number"] {
 }
 
 input[type="date"] {
-    width: 8em;
+    width: 10em;
 }
 
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="date"]:focus,
-input[type="number"]:focus {
+input[type="number"]:focus,
+textarea:focus {
     border: 1px solid #20a0f6;
     outline: none;
     box-shadow: 0 0 0 3px #e0f2ff;
@@ -110,7 +113,7 @@ button:focus, .button:focus {
     box-shadow: 0 0 0 3px rgba(52, 73, 94, 0.3);
 }
 
-button.delete {
+button.delete, button.danger {
     background-color: #b30f23;
 }
 
@@ -144,18 +147,76 @@ th {
     text-align: right;
 }
 
-ul.error {
-    line-height: 1.75;
+.message {
+    border-radius: 4px;
+    padding: 16px 32px;
+    margin: 32px 0;
+}
+
+.success {
+    color: #fbfff7;
+    background-color: #428943;
+    border-radius: 4px;
+    padding: 16px 32px;
+}
+
+.error {
     background-color: #e74c3c;
-    border: 2px solid #e74c3c;
     color: #fff;
     border-radius: 4px;
     padding: 16px 32px;
+}
+
+ul.error {
+    line-height: 1.75;
     list-style-type: none;
 }
 
 input.error {
     border-color: #e74c3c;
+}
+
+ul.tabs {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+ul.tabs li {
+    display: inline-block;
+}
+
+ul.tabs li a {
+    color: #000;
+    font-size: 18px;
+    background: #f3f2f1;
+    display: block;
+    padding: 10px 26px;
+}
+
+ul.tabs li a.active {
+    background: #fff;
+    border: 1px solid #bdc3c7;
+    border-bottom: 0;
+    padding: 16px 32px;
+}
+
+.tab {
+    border: 1px solid #bdc3c7;
+    padding: 16px 32px 32px 32px;
+    margin-top: -1px;
+}
+
+.review {
+    background: #ffe6b5;
+    padding: 32px;
+    margin: 16px auto;
+}
+
+.review header {
+    background: #ffffff;
+    padding: 16px;
+    margin: -32px -32px 0 -32px;
 }
 
 .sidebar {
@@ -304,7 +365,8 @@ form.panel h1:first-child {
 .panel input[type="text"],
 .panel input[type="email"],
 .panel input[type="date"],
-.panel input[type="number"] {
+.panel input[type="number"],
+.panel textarea {
     width: 100%;
     box-sizing: border-box;
 }
@@ -316,6 +378,43 @@ form.panel h1:first-child {
 .inline.error {
     font-style: italic;
     color: #9a0505;
+}
+
+.app-status {
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 5px 8px;
+    margin-left: 8px;
+}
+
+.app-status.draft {
+    background: #eff0f1;
+    color: #454a4d;
+}
+
+.app-status.submitted {
+    background: #dbd5e9;
+    color: #3d2375;
+}
+
+.app-status.pending_review {
+    background: #fff7bf;
+    color: #594d00;
+}
+
+.app-status.reviewed {
+    background: #d2e2f1;
+    color: #144e81;
+}
+
+.app-status.rejected {
+    background: #f6d7d2;
+    color: #942514;
+}
+
+.app-status.awarded {
+    background: #cce2d8;
+    color: #005a30;
 }
 
 #menu-button {

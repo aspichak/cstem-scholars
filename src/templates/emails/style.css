@@ -346,6 +346,10 @@ hr {
     }
 }
 
+.app-details strong {
+    display: block;
+}
+
 .label {
     font-weight: bold;
 }
