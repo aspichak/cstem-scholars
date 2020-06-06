@@ -1,6 +1,7 @@
 <?php
 
 require_once '../../init.php';
+
 use Respect\Validation\ValidatorFunction as v;
 
 User::authorize('admin');
@@ -10,7 +11,7 @@ $application = $c->model();
 $error = null;
 
 // TODO: Filter applications by period, student name, email, status, etc.
-$c->index('admin/applications.php', ['applications' => Application::all()]);
+$c->index('admin/applications.php', ['applications' => Application::all(), 'id' => Period::current()->id]);
 $c->read();
 
 if ($c->action() == 'update') {

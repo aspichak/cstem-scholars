@@ -19,12 +19,14 @@ helper('application_status_label');
     </thead>
 
     <?php
-    foreach ($applications as $a) { ?>
-        <tr>
-            <td><?= e($a->name) ?></td>
-            <td><?= HTML::link("../admin/applications.php?id={$a->id}", e($a->title)) ?></td>
-            <td><?= applicationStatus($a) ?></td>
-        </tr>
-        <?php
+    foreach ($applications as $a) {
+        if ($a->periodID == $id) { ?>
+            <tr>
+                <td><?= e($a->name) ?></td>
+                <td><?= HTML::link("../admin/applications.php?id={$a->id}", e($a->title)) ?></td>
+                <td><?= applicationStatus($a) ?></td>
+            </tr>
+            <?php
+        }
     } ?>
 </table>

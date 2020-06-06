@@ -6,7 +6,8 @@ $layout = 'admin/_layout.php';
 
 <h1><?= e($application->title) ?></h1>
 
-<?php if ($error) echo tag('div', $error, ['class' => 'message error']) ?>
+<?php
+if ($error) echo tag('div', $error, ['class' => 'message error']) ?>
 
 <ul class="tabs">
     <li><a class="active" href="#award">Award</a></li>
@@ -54,7 +55,8 @@ $layout = 'admin/_layout.php';
 
 <h2>Reviews</h2>
 
-<?php foreach ($application->reviews() as $review) { ?>
+<?php
+foreach ($application->reviews() as $review) { ?>
 
     <p><strong><?= e($review->reviewer()->name) ?></strong>:</p>
     <section class="review">
@@ -65,10 +67,12 @@ $layout = 'admin/_layout.php';
         } else {
             ?>
 
-            <?php foreach (Review::QUESTIONS as $i => $q) { ?>
+            <?php
+            foreach (Review::QUESTIONS as $i => $q) { ?>
                 <p><?= $q ?></p>
                 <blockquote><?= e($review->{'q' . ($i + 1)}) ?> / 3</blockquote>
-            <?php } ?>
+            <?php
+            } ?>
 
             <p>Comments:</p>
             <blockquote>
@@ -78,8 +82,10 @@ $layout = 'admin/_layout.php';
             <p>Recommend funding?</p>
             <blockquote><?= $review->fundingRecommended ? 'Yes' : 'No' ?></blockquote>
 
-        <?php } ?>
+        <?php
+        } ?>
 
     </section>
 
-<?php } ?>
+<?php
+} ?>

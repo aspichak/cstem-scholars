@@ -11,7 +11,7 @@ helper('application_status_label');
 </head>
 <body>
 <main class="content">
-    <h1>Application: <?= e($application->title) ?><br> </h1>
+    <h1>Application: <?= e($application->title) ?><br></h1>
     <?= HTML::template('application_details.php', $application) ?>
 </main>
 </body>
