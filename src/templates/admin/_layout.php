@@ -23,8 +23,7 @@ $user = User::current();
         });
 
         $(document).on("click", "ul.tabs li a", function (e) {
-            var tabs = $(this).parents("ul.tabs");
-            var activeTab = tabs.find(".active");
+            var activeTab = $(this).parents("ul.tabs").find(".active");
 
             activeTab.removeClass("active");
             $(activeTab.attr("href")).hide();
