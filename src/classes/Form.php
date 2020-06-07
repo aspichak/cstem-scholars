@@ -47,7 +47,7 @@ class Form
 
     public static function csrfToken()
     {
-        return md5(session_id());
+        return md5(session_id() . $_SERVER['REQUEST_URI']);
     }
 
     public static function assertCsrfToken()
