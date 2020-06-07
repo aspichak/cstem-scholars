@@ -143,7 +143,7 @@ $application = $application_list[$appNum];
             <br>
         </p>
         <label>Quality Assessment Comments:</label><br>
-            <?= $form->textarea( 'comments', ['maxlength' => 6000, 'rows' => 6, 'required'] ) ?>
+        <?= $form->textarea( 'comments', ['maxlength' => 6000, 'rows' => 6, 'required'] ) ?>
         <div class="button-section">
             <button type="submit" class="button" name="submit" value="submit">Submit</button>
         </div>
