@@ -46,58 +46,86 @@ $application = $application_list[$appNum];
     <?= 'merp' ?>
     <div class="form">
         <label>Does the project demonstrate experiential learning in a CSTEM discipline?</label>
-        <br>
-        <?= $form->radio('q1', 1, [] ) ?>
-        <!--<p>
-            <label class="radio-inline"><input type="radio" name="learn" value="0">0</label>
-            <label class="radio-inline"><input type="radio" name="learn" value="1">1</label>
-            <label class="radio-inline"><input type="radio" name="learn" value="2">2</label>
-            <label class="radio-inline"><input type="radio" name="learn" value="3">3</label>
-        </p>-->
+        <p>
+            <?= $form->radio('q1', 1, ['value = "0"'] ) ?>
+            <label>0</label>
+            <?= $form->radio('q1', 1, ['value = "1"'] ) ?>
+            <label>1</label>
+            <?= $form->radio('q1', 1, ['value = "2"'] ) ?>
+            <label>2</label>
+            <?= $form->radio('q1', 1, ['value = "3"'] ) ?>
+            <label>3</label>
+            <br>
+        </p>
         <label>Is the budget justified in the project description, including realistic?</label>
         <p>
-            <label class="radio-inline"><input type="radio" name="justified" value="0">0</label>
-            <label class="radio-inline"><input type="radio" name="justified" value="1">1</label>
-            <label class="radio-inline"><input type="radio" name="justified" value="2">2</label>
-            <label class="radio-inline"><input type="radio" name="justified" value="3">3</label>
+            <?= $form->radio('q2', 1, ['value = "0"'] ) ?>
+            <label>0</label>
+            <?= $form->radio('q2', 1, ['value = "1"'] ) ?>
+            <label>1</label>
+            <?= $form->radio('q2', 1, ['value = "2"'] ) ?>
+            <label>2</label>
+            <?= $form->radio('q2', 1, ['value = "3"'] ) ?>
+            <label>3</label>
+            <br>
         </p>
         <label>Are the proposed methods appropriate to achieve the goals?</label>
         <p>
-            <label class="radio-inline"><input type="radio" name="method" value="0">0</label>
-            <label class="radio-inline"><input type="radio" name="method" value="1">1</label>
-            <label class="radio-inline"><input type="radio" name="method" value="2">2</label>
-            <label class="radio-inline"><input type="radio" name="method" value="3">3</label>
+            <?= $form->radio('q3', 1, ['value = "0"'] ) ?>
+            <label>0</label>
+            <?= $form->radio('q3', 1, ['value = "1"'] ) ?>
+            <label>1</label>
+            <?= $form->radio('q3', 1, ['value = "2"'] ) ?>
+            <label>2</label>
+            <?= $form->radio('q3', 1, ['value = "3"'] ) ?>
+            <label>3</label>
+            <br>
         </p>
         <label>Is the timeline proposed reasonable?(Too little? Too much?)</label>
         <p>
-            <label class="radio-inline"><input type="radio" name="time" value="0">0</label>
-            <label class="radio-inline"><input type="radio" name="time" value="1">1</label>
-            <label class="radio-inline"><input type="radio" name="time" value="2">2</label>
-            <label class="radio-inline"><input type="radio" name="time" value="3">3</label>
+            <?= $form->radio('q4', 1, ['value = "0"'] ) ?>
+            <label>0</label>
+            <?= $form->radio('q4', 1, ['value = "1"'] ) ?>
+            <label>1</label>
+            <?= $form->radio('q4', 1, ['value = "2"'] ) ?>
+            <label>2</label>
+            <?= $form->radio('q4', 1, ['value = "3"'] ) ?>
+            <label>3</label>
+            <br>
         </p>
         <label>Is the project well explained (including rationale) and justified?</label>
         <p>
-            <label class="radio-inline"><input type="radio" name="project" value="0">0</label>
-            <label class="radio-inline"><input type="radio" name="project" value="1">1</label>
-            <label class="radio-inline"><input type="radio" name="project" value="2">2</label>
-            <label class="radio-inline"><input type="radio" name="project" value="3">3</label>
+            <?= $form->radio('q5', 1, ['value = "0"'] ) ?>
+            <label>0</label>
+            <?= $form->radio('q5', 1, ['value = "1"'] ) ?>
+            <label>1</label>
+            <?= $form->radio('q5', 1, ['value = "2"'] ) ?>
+            <label>2</label>
+            <?= $form->radio('q5', 1, ['value = "3"'] ) ?>
+            <label>3</label>
+            <br>
         </p>
         <label>Does the budget only include eligible activities (supplies, equipment, field travel,
             conference travel)?</label>
         <p>
-            <label class="radio-inline"><input type="radio" name="budget" value="0">0</label>
-            <label class="radio-inline"><input type="radio" name="budget" value="1">1</label>
-            <label class="radio-inline"><input type="radio" name="budget" value="2">2</label>
-            <label class="radio-inline"><input type="radio" name="budget" value="3">3</label>
+            <?= $form->radio('q6', 1, ['value = "0"'] ) ?>
+            <label>0</label>
+            <?= $form->radio('q6', 1, ['value = "1"'] ) ?>
+            <label>1</label>
+            <?= $form->radio('q6', 1, ['value = "2"'] ) ?>
+            <label>2</label>
+            <?= $form->radio('q6', 1, ['value = "3"'] ) ?>
+            <label>3</label>
+            <br>
         </p>
         <label>Based on eligibility and quality scores, RECOMMEND one of the following
             categories</label>
         <p>
-            <label class="radio-inline"><input type="radio" name="fund" value="0">Do Not
-                Fund</label>
-            <label class="radio-inline"><input type="radio" name="fund" value="1">Fund if
-                Possible</label>
-            <label class="radio-inline"><input type="radio" name="fund" value="2">Fund</label>
+            <?= $form->radio('fundingRecommended', 1, ['value = "1"'] ) ?>
+            <label>Yes</label>
+            <?= $form->radio('fundingRecommended', 1, ['value = "0"'] ) ?>
+            <label>No</label>
+            <br>
         </p>
         <div class="row">
             <div class="col-sm-12 form-group">
