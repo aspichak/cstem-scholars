@@ -201,6 +201,16 @@ button[type="submit"]:hover {
 
 table {
     width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+}
+
+.app-details td {
+    border: 1px solid #cccccc;
+    padding: 4px 8px;
 }
 
 #notification-box {
@@ -219,4 +229,8 @@ table {
     color: white;
     font-size: .9em;
     display: none;
+}
+
+pre {
+    white-space: pre-wrap;
 }
