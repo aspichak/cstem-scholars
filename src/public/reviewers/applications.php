@@ -4,12 +4,8 @@ require_once '../../init.php';
 
 User::authorize('reviewer');
 
-// TODO: Make a section in DB for reviewerEmail
-# get the current deadline for scholarship
-$periods = Period::all('1 ORDER BY beginDate DESC');
-$deadline = $periods[0]->deadline;
-#get all the applications assigned to this reviewer (currently advisor 05/28/2020)
-$applications = Application::all('advisorEmail = ?', User::current()->email);
+// TODO: get all the applications assigned to this reviewer (currently advisor 05/28/2020)
+
 
 
 $c = new ModelController(Review::class);
@@ -21,7 +17,9 @@ $c->read();
 
 if( $c->action() == 'update' ){
     // award/reject
+    $review = $c->model();
 }
+
 
 #$ROWS, $ROW, $DEADLINE, $FORM ARE OBJECTS, NOT ARRAYS
 # $row->studentID NOT $row['studentID']

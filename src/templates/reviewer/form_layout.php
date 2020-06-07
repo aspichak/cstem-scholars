@@ -36,14 +36,29 @@ $application = $application_list[$appNum];
 <p>Requested budget amount: <?= e($application->requestedBudget) ?></p>
 
 <p>Budget Table:</p>
-<p>Coming soon!</p>
+<table id="budget-table">
+    <tr>
+        <th style="width: 30%">Item</th>
+        <th style="width: 50%">Description</th>
+        <th style="width: 15%">Cost</th>
+    </tr>
+
+    <?php
+    foreach ($application->budgetTable() as $row) { ?>
+        <tr>
+            <td><?= e($row->item) ?></td>
+            <td><?= e($row->itemDesc) ?></td>
+            <td>$<?= e($row->itemCost) ?></td>
+        </tr>
+        <?php
+    } ?>
+</table>
 
 <br>
 <h2> REVIEW FORM </h2>
 
 <form method="POST" enctype="multipart/form-data">
     <?= $form->csrf() ?>
-    <?= 'merp' ?>
     <div class="form">
         <label>Does the project demonstrate experiential learning in a CSTEM discipline?</label>
         <p>
@@ -127,23 +142,10 @@ $application = $application_list[$appNum];
             <label>No</label>
             <br>
         </p>
-        <div class="row">
-            <div class="col-sm-12 form-group">
-                <label for="comments"> Quality Assessment Comments:</label>
-                <br>
-                <textarea class="form-control" type="textarea" name="qual_comments"
-                          placeholder="Your Comments" maxlength="6000" rows="7" style="resize: none" ></textarea>
-            </div>
+        <label>Quality Assessment Comments:</label><br>
+            <?= $form->textarea( 'comments', ['maxlength' => 6000, 'rows' => 6, 'required'] ) ?>
+        <div class="button-section">
+            <button type="submit" class="button" name="submit" value="submit">Submit</button>
         </div>
     </div>
 </form>
-<!--                            still need?
-<div class="row">
-    <div class="col-sm-12 form-group">
-        <button type="submit" class="button" name="submitButton"
-                onclick="return confirm('Are you sure you want to submit?')"
-        >Submit
-        </button>
-    </div>
-</div>
--->
