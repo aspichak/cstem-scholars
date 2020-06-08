@@ -2,6 +2,9 @@
 
 require_once '../../init.php';
 
-User::authorize('admin');
+User::authorize('reviewer');
+
 
 echo HTML::template('reviewer/index_layout.php');
+
+
