@@ -19,6 +19,11 @@ class ModelController
     {
         $this->modelClass = $modelClass;
         $this->model = $this->hasKey() ? $modelClass::get($this->key()) : new $modelClass();
+
+        if (!$this->model) {
+            HTTP::error('Resource does not exist', 404);
+        }
+
         $this->model->fill(HTTP::post());
     }
 
