@@ -8,7 +8,7 @@ class Form
     /**
      * Form constructor. The model will be filled with values from a POST request at this point.
      *
-     * @param Model &$model    A reference to the model used to pre-fill inputs. The original model object will be
+     * @param Model &$model A reference to the model used to pre-fill inputs. The original model object will be
      *                         filled with POST form data using magic of references.
      * @param array $unescaped List of columns that WILL NOT be HTML-escaped before saving to database.
      */
@@ -21,7 +21,7 @@ class Form
             $form = HTTP::post();
 
             foreach ($form as $k => $v) {
-                if (!in_array($k, $unescaped)) {
+                if (!in_array($k, $unescaped) && is_string($v)) {
                     $form[$k] = HTML::escape($v);
                 }
             }
@@ -47,7 +47,7 @@ class Form
 
     public static function csrfToken()
     {
-        return md5(session_id());
+        return md5(session_id() . $_SERVER['REQUEST_URI']);
     }
 
     public static function assertCsrfToken()
@@ -78,10 +78,7 @@ class Form
         $attributes['value'] = $attributes['value'] ?? $this->value($name);
         $attributes = $this->appendErrorClass($name, $attributes);
 
-        $res = HTML::tag('input', null, $attributes);
-        $res .= $this->errorIfEnabled($name);
-
-        return $res;
+        return HTML::tag('input', null, $attributes) . $this->errorIfEnabled($name);
     }
 
     public function text($name, $attributes = [])
@@ -122,10 +119,7 @@ class Form
         $attributes['id'] = $name;
         $attributes = $this->appendErrorClass($name, $attributes);
 
-        $res = HTML::tag('textarea', $this->value($name), $attributes);
-        $res .= $this->errorIfEnabled($name);
-
-        return $res;
+        return HTML::tag('textarea', $this->value($name), $attributes) . $this->errorIfEnabled($name);
     }
 
     public function checkbox($name, $value = '1', $attributes = [])
@@ -173,7 +167,8 @@ class Form
     public function error($name, $tag = 'div')
     {
         $error = $this->model->errors()[$name] ?? null;
-        return (HTTP::isPost() && $error) ? HTML::tag($tag, $error, ['class' => 'inline error']) : '';
+        return (HTTP::isPost() && $error) ?
+            HTML::tag($tag, '<i class="warning-sign"></i> ' . $error, ['class' => 'inline error']) : '';
     }
 
     public function errors()
@@ -182,7 +177,7 @@ class Form
             return null;
         }
 
-        $res = '<ul class="errors">';
+        $res = '<ul class="error">';
 
         foreach ($this->model->errors() as $column => $error) {
             $res .= HTML::tag('li', $error, ['class' => $column]);

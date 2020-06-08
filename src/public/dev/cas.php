@@ -4,11 +4,11 @@ require '../../init.php';
 DEBUG or exit('You are not authorized to access this page');
 
 $url = filter_var(HTTP::get('service'), FILTER_VALIDATE_URL);
-$url .= (strstr($url, '?') == false) ? '?' : '&';
+$url .= strstr($url, '?') ? '&' : '?';
 
 if (HTTP::get('login') !== null) {
     if (HTTP::isPost()) {
-        $name  = HTTP::post('name');
+        $name = HTTP::post('name');
         $email = HTTP::post('email');
 
         $expires = time() + 60 * 60 * 24 * 30; // 30 days
@@ -21,13 +21,15 @@ if (HTTP::get('login') !== null) {
     $ticket = HTTP::get('ticket', null);
 
     if (!$ticket || $ticket == 'ST-invalid') {
-        exit("
+        exit(
+        "
             <cas:serviceResponse xmlns:cas=\"http://www.yale.edu/tp/cas\">
                 <cas:authenticationFailure code=\"INVALID_TICKET\">
                     Ticket $ticket not recognized
                 </cas:authenticationFailure>
             </cas:serviceResponse>
-        ");
+        "
+        );
     }
 
     $ticket = preg_replace('/^ST-/', '', $ticket);
@@ -37,7 +39,8 @@ if (HTTP::get('login') !== null) {
     $id = '00' . str_pad(hexdec(crc32($email)) % 1000000, 6, '0', STR_PAD_LEFT);
     $userType = 'Student';
 
-    exit("
+    exit(
+    "
         <cas:serviceResponse xmlns:cas=\"http://www.yale.edu/tp/cas\">
             <cas:authenticationSuccess>
                 <cas:user>$username</cas:user>
@@ -50,7 +53,8 @@ if (HTTP::get('login') !== null) {
                 </cas:attributes>
             </cas:authenticationSuccess>
         </cas:serviceResponse>
-    ");
+    "
+    );
 } elseif (HTTP::get('invalid') !== null) {
     HTTP::redirect("{$url}ticket=ST-invalid");
 } else {
@@ -121,7 +125,7 @@ if (HTTP::get('login') !== null) {
 <body>
 <h1>Developer Login</h1>
 <form method="POST">
-    <label>Name  <input type="text" name="name" value="<?= HTTP::cookie('cas_name') ?>" required></label>
+    <label>Name <input type="text" name="name" value="<?= HTTP::cookie('cas_name') ?>" required></label>
     <label>Email <input type="email" name="email" value="<?= HTTP::cookie('cas_email') ?>" required></label>
     <button type="submit">Login</button>
     <a href="?invalid&service=<?= $url ?>">› Issue an invalid ticket</a>

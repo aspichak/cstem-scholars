@@ -5,7 +5,7 @@ use Respect\Validation\ValidatorFunction as v;
 class Review extends Model
 {
     public $id, $comments, $q1, $q2, $q3, $q4, $q5, $q6, $fundingRecommended,
-           $reviewerID, $applicationID, $periodID, $submitted;
+        $reviewerID, $applicationID, $periodID, $submitted;
 
     public const QUESTIONS = [
         'Does the project demonstrate experiential learning in a CSTEM discipline?',
@@ -39,20 +39,18 @@ class Review extends Model
         parent::__construct($form, $fillGuardedColumns);
     }
 
+    public function save($withValidations = true)
+    {
+        return parent::save($withValidations);
+    }
+
     public function application()
     {
         return Application::get($this->applicationID);
     }
 
-    public static function all($query = '', ...$params)
+    public function reviewer()
     {
-        $query = ($query) ? "($query) AND status != 'draft'" : "status != 'draft'";
-        return parent::all($query, ...$params);
-    }
-
-    public static function getAll()
-    {
-        $query = 'SELECT * FROM';
-        return parent::r_all($query);
+        return User::get($this->reviewerID);
     }
 }

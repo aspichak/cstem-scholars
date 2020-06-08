@@ -37,10 +37,12 @@ $date = date("M j, Y", strtotime($deadline));
 
 <!-- First Parallax Image with Logo Text -->
 <form method="POST">
-    <?php include_once 'infoHeader.php';?>
+    <?php
+    include_once 'infoHeader.php'; ?>
     <!-- Container (About Section) -->
     <div class="w3-content w3-container w3-padding-32" id="about">
-        <h3 class="w3-center">The grant application is still open to students. Check back after <?php echo $date ?> for
+        <h3 class="w3-center">The grant application is still open to students. Check back after <?php
+            echo $date ?> for
             new applications to review.</h3>
         <p></p>
     </div>
@@ -55,7 +57,8 @@ $date = date("M j, Y", strtotime($deadline));
     <!--<footer class="w3-center w3-black w3-padding-64 w3-opacity ">
       <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
     </footer>-->
-    <?php include_once 'infoFooter.php';?>
+    <?php
+    include_once 'infoFooter.php'; ?>
 </form>
 </body>
 </html>

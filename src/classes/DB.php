@@ -42,7 +42,7 @@ class DB
         if (sizeof($params) == 1 && is_array($params[0])) {
             $params = $params[0];
         }
-        
+
         $stmt = self::pdo()->prepare($query);
         $stmt->execute($params);
 
@@ -61,23 +61,13 @@ class DB
     }
 
     /**
-     * Prepare a select query and return a PDOStatement object.
-     *
-     * Example: DB::select('Advisor, 'AEmail = ? OR AName = ?', 'alex@ewu.edu', 'Alex');
-     */
-    public static function r_select($table, $conditions = '', ...$params)
-    {
-        return self::query("SELECT * FROM $table");
-    }
-
-    /**
      * Select a single row (all columns) from $table satisfying $conditions.
      *
      * Example: DB::selectSingle('Advisor, 'AEmail = ? OR AName = ?', 'alex@ewu.edu', 'Alex');
      */
     public static function selectSingle($table, $conditions = '', ...$params)
     {
-        return self::select($table, $conditions = '', ...$params)->fetch();
+        return self::select($table, $conditions, ...$params)->fetch();
     }
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+helper('application_status_label');
+
 $title = 'Applications';
 $layout = 'admin/_layout.php';
 ?>
@@ -20,7 +22,7 @@ $layout = 'admin/_layout.php';
             <td><?= e($a->name) ?></td>
             <td><?= HTML::link("../reviewers/applications.php?id={$a->id}", e($a->title)) ?></td>
             <td><?= e($a->advisorName) ?></td>
-            <td><?= e('Pending Review') ?></td>
+            <td><?= applicationStatus($a) ?></td>
         </tr>
         <!-- MIGHT NEED ANOTHER CONDITIONAL FOR STATUS AFTER REVIEWER SUBMITS -->
         <?php } ?>

@@ -5,32 +5,87 @@ $layout = 'admin/_layout.php';
 ?>
 
 <h1><?= e($application->title) ?></h1>
-<p>
-    Student:
-    <?= e($application->name) ?>
-    <<?= HTML::link('mailto:' . urlencode($application->email), e($application->email)) ?>>
-</p>
 
-<p>Major: <?= e($application->major) ?></p>
-<p>GPA: <?= e($application->gpa) ?></p>
-<p>Expected Graduation Date: <?= e($application->graduationDate) ?></p>
-<p>
-    Advisor:
-    <?= e($application->advisorName) ?>
-    <<?= HTML::link('mailto:' . urlencode($application->advisorEmail), e($application->advisorEmail)) ?>>
-</p>
+<?php
+if ($error) echo tag('div', $error, ['class' => 'message error']) ?>
 
-<p>Project description:</p>
-<pre><?= e($application->description) ?></pre>
+<ul class="tabs">
+    <li><a class="active" href="#award">Award</a></li>
+    <li><a href="#reject">Reject</a></li>
+</ul>
 
-<p>Project Timeline:</p>
-<pre><?= e($application->timeline) ?></pre>
+<div class="tab" id="award">
+    <h2>Award</h2>
 
-<p>Budget Plan:</p>
-<pre><?= e($application->justification) ?></pre>
+    <form method="POST">
+        <?= input('hidden', 'csrfToken', Form::csrfToken()) ?>
 
-<p>Total budget amount: <?= e($application->totalBudget) ?></p>
-<p>Requested budget amount: <?= e($application->requestedBudget) ?></p>
+        <div class="form-group">
+            <label for="message">Message (optional):</label><br>
+            <?= textarea('message', HTTP::post('message'), ['rows' => 10, 'style' => 'width: 100%']) ?>
+        </div>
 
-<p>Budget Table:</p>
-<p>Coming soon!</p>
+        <div class="form-group">
+            <label for="amount">Amount awarded:</label><br>
+            <?= input('number', 'amount', HTTP::post('amount'), ['min' => 0, 'step' => 0.01, 'required']) ?>
+        </div>
+
+        <button type="submit" name="action" value="award">Award</button>
+    </form>
+</div>
+
+<div class="tab" id="reject">
+    <h2>Reject</h2>
+
+    <form method="POST">
+        <?= input('hidden', 'csrfToken', Form::csrfToken()) ?>
+
+        <div class="form-group">
+            <label for="reason">Reason (required):</label><br>
+            <?= textarea('reason', HTTP::post('reason'), ['rows' => 10, 'style' => 'width: 100%', 'required']) ?>
+        </div>
+
+        <button type="submit" name="action" value="reject" class="danger">Reject</button>
+    </form>
+</div>
+
+<h2>Application</h2>
+
+<?= HTML::template('application_details.php', $application) ?>
+
+<h2>Reviews</h2>
+
+<?php
+foreach ($application->reviews() as $review) { ?>
+
+    <p><strong><?= e($review->reviewer()->name) ?></strong>:</p>
+    <section class="review">
+
+        <?php
+        if (!$review->submitted) {
+            echo tag('p', 'This review is not yet submitted');
+        } else {
+            ?>
+
+            <?php
+            foreach (Review::QUESTIONS as $i => $q) { ?>
+                <p><?= $q ?></p>
+                <blockquote><?= e($review->{'q' . ($i + 1)}) ?> / 3</blockquote>
+                <?php
+            } ?>
+
+            <p>Comments:</p>
+            <blockquote>
+                <pre><?= $review->comments ? e($review->comments) : 'No comment' ?></pre>
+            </blockquote>
+
+            <p>Recommend funding?</p>
+            <blockquote><?= $review->fundingRecommended ? 'Yes' : 'No' ?></blockquote>
+
+            <?php
+        } ?>
+
+    </section>
+
+    <?php
+} ?>

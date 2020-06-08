@@ -1,6 +1,7 @@
 <?php
 
 helper('crud');
+helper('money');
 
 $title = 'Periods';
 $layout = 'admin/_layout.php';
@@ -29,18 +30,22 @@ if ($form->errors()) {
             <td><?= $form->date('beginDate', ['required']) ?></td>
             <td><?= $form->date('deadline', ['required']) ?></td>
             <td><?= $form->date('advisorDeadline', ['required']) ?></td>
-            <td><?= $form->money('budget', ['size' => 6, 'required']) ?></td>
-            <td><button type="submit">Create</button></td>
+            <td><?= $form->money('budget', ['required']) ?></td>
+            <td>
+                <button type="submit">Create</button>
+            </td>
         </form>
     </tr>
 
-    <?php foreach ($periods as $p) { ?>
+    <?php
+    foreach ($periods as $p) { ?>
         <tr>
             <td><?= date('M j, Y', strtotime($p->beginDate)) ?></td>
             <td><?= date('M j, Y', strtotime($p->deadline)) ?></td>
             <td><?= date('M j, Y', strtotime($p->advisorDeadline)) ?></td>
-            <td>$<?= number_format($p->budget, 2) ?></td>
+            <td><?= usd($p->budget) ?></td>
             <td class="button-group"><?= actionButtons('periods.php', $p->key()) ?></td>
         </tr>
-    <?php } ?>
+        <?php
+    } ?>
 </table>

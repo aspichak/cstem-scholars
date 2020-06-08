@@ -17,8 +17,6 @@ class User extends Model
             'isAdmin'
         ];
 
-        // TODO: Move to fillable or protect
-        $this->id = $form['id'] ?? null;
         parent::__construct($form, $fillGuardedColumns);
     }
 
@@ -29,6 +27,7 @@ class User extends Model
         }
 
         $user = self::get(HTTP::session('email')) ?? new User();
+
         $user->id = HTTP::session('id');
         $user->name = HTTP::session('name');
         $user->email = HTTP::session('email');
@@ -41,9 +40,19 @@ class User extends Model
         return self::select('isAdvisor = 1');
     }
 
+    public static function reviewers()
+    {
+        return self::select('isReviewer = 1');
+    }
+
+    public static function reviewersNotCurrentUser()
+    {
+        return self::select('isReviewer = 1 AND email != ?', User::current()->email);
+    }
+
     public static function authorize($role, $allow = true)
     {
-        if (!User::current() || !User::current()->hasRole($role) || !$allow) {
+        if (!self::current() || !self::current()->hasRole($role) || !$allow) {
             HTTP::error(
                 'You are not authorized to access this page.',
                 401,
@@ -52,18 +61,43 @@ class User extends Model
         }
     }
 
-    public function save()
+    public static function login($id, $name, $email)
+    {
+        if (!$id || !$name || !$email) {
+            throw new InvalidArgumentException('All arguments for User::login must be non-empty');
+        }
+
+        $_SESSION['id'] = $id;
+        $_SESSION['name'] = $name;
+        $_SESSION['email'] = $email;
+
+        $user = self::current();
+
+        if (!self::exists('email = ?', $email)) {
+            $user->save();
+        }
+
+        return $user;
+    }
+
+    public static function logout()
+    {
+        unset($_SESSION);
+        session_destroy();
+    }
+
+    public function save($withValidations = true)
     {
         $this->isAdmin = ($this->isAdmin) ? 1 : 0;
         $this->isAdvisor = ($this->isAdvisor) ? 1 : 0;
         $this->isReviewer = ($this->isReviewer) ? 1 : 0;
 
-        return parent::save();
+        return parent::save($withValidations);
     }
 
     public function isAdmin()
     {
-        return (bool)$this->isAdmin;
+        return (bool)$this->isAdmin || $this->email == ADMIN_EMAIL;
     }
 
     public function isAdvisor()

@@ -8,11 +8,31 @@ $user = User::current();
 <head>
     <title><?= $title ?> - CSTEM Research Grant Admininstrator</title>
     <link rel="stylesheet" href="../admin.css">
+    <link rel="stylesheet" href="../app_status.css">
+    <script src="/jquery-3.5.1.slim.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelector("#menu-button").addEventListener("click", function () {
-                document.querySelector("#menu").classList.toggle("shown");
-            });
+        $(function () {
+            var activeTab = $("ul.tabs a.active");
+
+            $(".tab h2:first-child").hide();
+            $(".tab").hide();
+            $(activeTab.attr("href")).show();
+        });
+
+        $(document).on("click", "#menu-button", function (e) {
+            $("#menu").toggleClass("shown");
+        });
+
+        $(document).on("click", "ul.tabs li a", function (e) {
+            var activeTab = $(this).parents("ul.tabs").find(".active");
+
+            activeTab.removeClass("active");
+            $(activeTab.attr("href")).hide();
+
+            $(this).addClass("active");
+            $(this.hash).show();
+
+            e.preventDefault();
         });
     </script>
 </head>
@@ -25,22 +45,27 @@ $user = User::current();
         <img src="../images/logo.svg" alt="EWU Logo" width="128" height="128">
     </div>
 
-    <?php if ($user->isAdvisor()) { ?>
+    <?php
+    if ($user->isAdvisor()) { ?>
         <p>Advisor</p>
         <ul>
-            <li><a href="../advisors/"><i class="icon check-square-light"></i>Accept Applications</a></li>
+            <li><a href="../advisors/applications.php"><i class="icon check-square-light"></i>Accept Applications</a>
+            </li>
         </ul>
-    <?php } ?>
+        <?php
+    } ?>
 
-    <?php if ($user->isReviewer()) { ?>
+    <?php
+    if ($user->isReviewer()) { ?>
         <p>Reviewer</p>
         <ul>
-            <li><a href="../reviewers/"><i class="icon grid-light"></i>Dashboard</a></li>
-            <li><a href="../reviewers/applications.php"><i class="icon list-light"></i>Review Applications</a></li>
+            <li><a href="../reviewers/"><i class="icon list-light"></i>Review Applications</a></li>
         </ul>
-    <?php } ?>
+        <?php
+    } ?>
 
-    <?php if ($user->isAdmin()) { ?>
+    <?php
+    if ($user->isAdmin()) { ?>
         <p>Administrator</p>
         <ul>
             <li><a href="../admin/"><i class="icon grid-light"></i>Dashboard</a></li>
@@ -48,7 +73,8 @@ $user = User::current();
             <li><a href="../admin/applications.php"><i class="icon file-text-light"></i>Applications</a></li>
             <li><a href="../admin/users.php"><i class="icon users-light"></i>Users</a></li>
         </ul>
-    <?php } ?>
+        <?php
+    } ?>
 
     <ul>
         <li><a href="../logout.php"><i class="icon log-out-light"></i>Log out</a></li>

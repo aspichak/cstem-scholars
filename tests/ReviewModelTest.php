@@ -18,16 +18,18 @@ final class ReviewModelTest extends SchemaTest
     {
         $this->assertInstanceOf(Review::class, new Review());
 
-        $review = new Review([
-            'q1' => '0',
-            'q2' => '0',
-            'q3' => '0',
-            'q4' => '0',
-            'q5' => '0',
-            'q6' => '0',
-            'comments' => '',
-            'fundingRecommended' => true
-        ]);
+        $review = new Review(
+            [
+                'q1' => '0',
+                'q2' => '0',
+                'q3' => '0',
+                'q4' => '0',
+                'q5' => '0',
+                'q6' => '0',
+                'comments' => '',
+                'fundingRecommended' => true
+            ]
+        );
 
         $review->applicationID = 0;
         $review->periodID = 0;
@@ -41,10 +43,12 @@ final class ReviewModelTest extends SchemaTest
 
     public function testInvalidPeriod()
     {
-        $review = new Review([
-            'q1' => '99',
-            'q2' => '-99'
-        ]);
+        $review = new Review(
+            [
+                'q1' => '99',
+                'q2' => '-99'
+            ]
+        );
 
         $this->assertCount(7, $review->errors());
     }

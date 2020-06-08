@@ -1,28 +1,28 @@
 @font-face {
     font-family: 'Inter';
-    font-style:  normal;
+    font-style: normal;
     font-weight: 400;
     font-display: swap;
     src: url("Inter-Light.woff2") format("woff2"),
-        url("Inter-Light.woff") format("woff");
+    url("Inter-Light.woff") format("woff");
 }
 
 @font-face {
     font-family: 'Inter';
-    font-style:  italic;
+    font-style: italic;
     font-weight: 400;
     font-display: swap;
     src: url("Inter-LightItalic.woff2") format("woff2"),
-        url("Inter-LightItalic.woff") format("woff");
+    url("Inter-LightItalic.woff") format("woff");
 }
 
 @font-face {
     font-family: 'Inter';
-    font-style:  normal;
+    font-style: normal;
     font-weight: 700;
     font-display: swap;
     src: url("Inter-Medium.woff2") format("woff2"),
-        url("Inter-Medium.woff") format("woff");
+    url("Inter-Medium.woff") format("woff");
 }
 
 body {
@@ -45,6 +45,12 @@ a:hover {
     color: #2975D0;
 }
 
+blockquote {
+    border-left: 4px solid #000;
+    padding-left: 1em;
+    margin-left: 1em;
+}
+
 input, button {
     font: inherit;
 }
@@ -52,7 +58,10 @@ input, button {
 input[type="text"],
 input[type="email"],
 input[type="date"],
-input[type="number"] {
+input[type="number"],
+textarea,
+select {
+    box-sizing: border-box;
     border: 1px solid #bdc3c7;
     border-radius: 3px;
     padding: 6px 12px;
@@ -60,10 +69,24 @@ input[type="number"] {
     transition: border .2s ease-in-out, box-shadow .2s ease-in-out;
 }
 
+select {
+    display: inline-block;
+}
+
+input[type="number"] {
+    width: 7em;
+}
+
+input[type="date"] {
+    width: 10em;
+}
+
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="date"]:focus,
-input[type="number"]:focus {
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
     border: 1px solid #20a0f6;
     outline: none;
     box-shadow: 0 0 0 3px #e0f2ff;
@@ -96,7 +119,7 @@ button:focus, .button:focus {
     box-shadow: 0 0 0 3px rgba(52, 73, 94, 0.3);
 }
 
-button.delete {
+button.delete, button.danger {
     background-color: #b30f23;
 }
 
@@ -114,7 +137,7 @@ table {
     width: 100%;
 }
 
-td,th {
+td, th {
     border-bottom: 1px solid #dee2e6;
     padding: 6px 16px;
 }
@@ -126,22 +149,85 @@ th {
     border-bottom: 2px solid #dee2e6;
 }
 
+.na {
+    font-style: italic;
+    color: gray;
+}
+
 .actions {
     text-align: right;
 }
 
-ul.error {
-    line-height: 1.75;
+.message {
+    border-radius: 4px;
+    padding: 16px 32px;
+    margin: 32px 0;
+}
+
+.success {
+    color: #fbfff7;
+    background-color: #428943;
+    border-radius: 4px;
+    padding: 16px 32px;
+}
+
+.message.error, ul.error {
     background-color: #e74c3c;
-    border: 2px solid #e74c3c;
     color: #fff;
     border-radius: 4px;
     padding: 16px 32px;
+}
+
+ul.error {
+    line-height: 1.75;
     list-style-type: none;
 }
 
 input.error {
     border-color: #e74c3c;
+}
+
+ul.tabs {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+ul.tabs li {
+    display: inline-block;
+}
+
+ul.tabs li a {
+    color: #000;
+    font-size: 18px;
+    background: #f3f2f1;
+    display: block;
+    padding: 10px 26px;
+}
+
+ul.tabs li a.active {
+    background: #fff;
+    border: 1px solid #bdc3c7;
+    border-bottom: 0;
+    padding: 16px 32px;
+}
+
+.tab {
+    border: 1px solid #bdc3c7;
+    padding: 16px 32px 32px 32px;
+    margin-top: -1px;
+}
+
+.review {
+    background: #ffe6b5;
+    padding: 32px;
+    margin: 16px auto;
+}
+
+.review header {
+    background: #ffffff;
+    padding: 16px;
+    margin: -32px -32px 0 -32px;
 }
 
 .sidebar {
@@ -211,6 +297,7 @@ input.error {
     display: inline-block;
     vertical-align: middle;
     margin: 0 4px;
+    font-size: 0;
 }
 
 .icon.calendar {
@@ -289,7 +376,8 @@ form.panel h1:first-child {
 .panel input[type="text"],
 .panel input[type="email"],
 .panel input[type="date"],
-.panel input[type="number"] {
+.panel input[type="number"],
+.panel textarea {
     width: 100%;
     box-sizing: border-box;
 }
@@ -331,7 +419,7 @@ form.panel h1:first-child {
 
     .sidebar {
         display: none;
-        box-shadow: 0 0 32px 0 rgba(0,0,0,0.7);
+        box-shadow: 0 0 32px 0 rgba(0, 0, 0, 0.7);
     }
 
     .shown {

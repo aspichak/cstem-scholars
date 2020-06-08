@@ -39,27 +39,12 @@ abstract class Model
         return $stmt;
     }
 
-    public static function r_select($query = '', ...$params)
-    {
-        $stmt = DB::r_select(static::table(), $query, ...$params);
-        $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, static::class);
-        return $stmt;
-    }
-
     /**
      * Returns an array of Model objects.
      */
     public static function all($query = '', ...$params)
     {
         return static::select($query, ...$params)->fetchAll();
-    }
-
-    /**
-     * Returns an array of Model objects.
-     */
-    public static function r_all($query = '', ...$params)
-    {
-        return static::r_select($query, ...$params)->fetchAll();
     }
 
     /**
@@ -109,7 +94,7 @@ abstract class Model
 
     public static function exists($where = '', ...$params)
     {
-        return static::count($where, ...$params);
+        return static::count($where, ...$params) > 0;
     }
 
     public static function insert($values)
@@ -169,11 +154,11 @@ abstract class Model
         return $this;
     }
 
-    public function save()
+    public function save($withValidations = true)
     {
-        #if (!$this->isValid()) {
-        #    return false;
-        #}
+        if ($withValidations && !$this->isValid()) {
+            return false;
+        }
 
         $key = $this->key();
 
