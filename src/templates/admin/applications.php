@@ -16,7 +16,7 @@ helper('money');
 <form id="periods" method="get">
     <select name="periodID" id="periodID">
         <?php
-        foreach (Period::all() as $p) {
+        foreach (Period::all('1 ORDER BY beginDate DESC') as $p) {
             echo '<option value="' . $p->id . '">' . $p->beginDate . '</option>';
         }
         ?>
