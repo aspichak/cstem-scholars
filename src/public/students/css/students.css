@@ -194,9 +194,23 @@ button[type="submit"]:hover {
     font-weight: normal;
 }
 
-.error {
+input.error, textarea.error {
+    border: 1px solid rgb(239, 96, 85) !important;
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.15) !important;
+}
+
+.inline.error {
     font-weight: bold;
-    color: #990000;
+    color: #bf3222;
+}
+
+.warning-sign {
+    display: inline-block;
+    vertical-align: middle;
+    width: 16px;
+    height: 18px;
+    background: url("../warning-triangle.svg") no-repeat;
+    background-size: 15px 15px;
 }
 
 table {

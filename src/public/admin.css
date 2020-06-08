@@ -160,7 +160,7 @@ th {
     padding: 16px 32px;
 }
 
-.error {
+.message.error, ul.error {
     background-color: #e74c3c;
     color: #fff;
     border-radius: 4px;

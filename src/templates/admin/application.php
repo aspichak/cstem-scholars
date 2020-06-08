@@ -26,7 +26,7 @@ $layout = 'admin/_layout.php';
 
         <div class="form-group">
             <label for="amount">Amount awarded:</label><br>
-            <?= input('number', 'amount', HTTP::post('amount'), ['min' => 0, 'step' => 0.01]) ?>
+            <?= input('number', 'amount', HTTP::post('amount'), ['min' => 0, 'step' => 0.01, 'required']) ?>
         </div>
 
         <button type="submit" name="action" value="award">Award</button>
@@ -41,7 +41,7 @@ $layout = 'admin/_layout.php';
 
         <div class="form-group">
             <label for="reason">Reason (required):</label><br>
-            <?= textarea('reason', HTTP::post('reason'), ['rows' => 10, 'style' => 'width: 100%']) ?>
+            <?= textarea('reason', HTTP::post('reason'), ['rows' => 10, 'style' => 'width: 100%', 'required']) ?>
         </div>
 
         <button type="submit" name="action" value="reject" class="danger">Reject</button>

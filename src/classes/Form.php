@@ -8,7 +8,7 @@ class Form
     /**
      * Form constructor. The model will be filled with values from a POST request at this point.
      *
-     * @param Model &$model A reference to the model used to pre-fill inputs. The original model object will be
+     * @param Model &$model    A reference to the model used to pre-fill inputs. The original model object will be
      *                         filled with POST form data using magic of references.
      * @param array $unescaped List of columns that WILL NOT be HTML-escaped before saving to database.
      */
@@ -167,7 +167,8 @@ class Form
     public function error($name, $tag = 'div')
     {
         $error = $this->model->errors()[$name] ?? null;
-        return (HTTP::isPost() && $error) ? HTML::tag($tag, $error, ['class' => 'inline error']) : '';
+        return (HTTP::isPost() && $error) ?
+            HTML::tag($tag, '<i class="warning-sign"></i> ' . $error, ['class' => 'inline error']) : '';
     }
 
     public function errors()
