@@ -9,9 +9,9 @@ User::authorize('admin');
 $c = new ModelController(Application::class);
 $application = $c->model();
 $error = null;
-
+$period = HTTP::get('period', Period::current()->id);
 // TODO: Filter applications by period, student name, email, status, etc.
-$c->index('admin/applications.php', ['applications' => Application::all(), 'id' => Period::current()->id]);
+$c->index('admin/applications.php', ['applications' => Application::all(), 'period' => $period]);
 $c->read();
 
 if ($c->action() == 'update') {
@@ -63,8 +63,6 @@ if ($c->action() == 'update') {
             HTTP::redirect('../admin/applications.php', ['success' => 'Rejection email sent']);
         }
     }
-} elseif (HTTP::get('id')!=null) {
-    $c->index('admin/applications.php', ['applications' => Application::all(), 'id' => HTTP::get('id')]);
 }
 
 echo HTML::template('admin/application.php', ['application' => $application, 'error' => $error]);
