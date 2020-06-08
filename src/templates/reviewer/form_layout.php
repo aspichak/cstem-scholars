@@ -29,84 +29,58 @@ foreach( $application_list as $a ){
     <div class="form">
         <label>Does the project demonstrate experiential learning in a CSTEM discipline?</label>
         <p>
-            <?= $form->radio('q1', 1, ['value = "0"'] ) ?>
-            <label>0</label>
-            <?= $form->radio('q1', 1, ['value = "1"'] ) ?>
-            <label>1</label>
-            <?= $form->radio('q1', 1, ['value = "2"'] ) ?>
-            <label>2</label>
-            <?= $form->radio('q1', 1, ['value = "3"'] ) ?>
-            <label>3</label>
+            <label><?= $form->radio('q1', 0) ?> 0</label>
+            <label><?= $form->radio('q1', 1) ?> 1</label>
+            <label><?= $form->radio('q1', 2) ?> 2</label>
+            <label><?= $form->radio('q1', 3) ?> 3</label>
             <br>
         </p>
         <label>Is the budget justified in the project description, including realistic?</label>
         <p>
-            <?= $form->radio('q2', 1, ['value = "0"'] ) ?>
-            <label>0</label>
-            <?= $form->radio('q2', 1, ['value = "1"'] ) ?>
-            <label>1</label>
-            <?= $form->radio('q2', 1, ['value = "2"'] ) ?>
-            <label>2</label>
-            <?= $form->radio('q2', 1, ['value = "3"'] ) ?>
-            <label>3</label>
+            <label><?= $form->radio('q2', 0) ?> 0</label>
+            <label><?= $form->radio('q2', 1) ?> 1</label>
+            <label><?= $form->radio('q2', 2) ?> 2</label>
+            <label><?= $form->radio('q2', 3) ?> 3</label>
             <br>
         </p>
         <label>Are the proposed methods appropriate to achieve the goals?</label>
         <p>
-            <?= $form->radio('q3', 1, ['value = "0"'] ) ?>
-            <label>0</label>
-            <?= $form->radio('q3', 1, ['value = "1"'] ) ?>
-            <label>1</label>
-            <?= $form->radio('q3', 1, ['value = "2"'] ) ?>
-            <label>2</label>
-            <?= $form->radio('q3', 1, ['value = "3"'] ) ?>
-            <label>3</label>
+            <label><?= $form->radio('q3', 0) ?> 0</label>
+            <label><?= $form->radio('q3', 1) ?> 1</label>
+            <label><?= $form->radio('q3', 2) ?> 2</label>
+            <label><?= $form->radio('q3', 3) ?> 3</label>
             <br>
         </p>
         <label>Is the timeline proposed reasonable?(Too little? Too much?)</label>
         <p>
-            <?= $form->radio('q4', 1, ['value = "0"'] ) ?>
-            <label>0</label>
-            <?= $form->radio('q4', 1, ['value = "1"'] ) ?>
-            <label>1</label>
-            <?= $form->radio('q4', 1, ['value = "2"'] ) ?>
-            <label>2</label>
-            <?= $form->radio('q4', 1, ['value = "3"'] ) ?>
-            <label>3</label>
+            <label><?= $form->radio('q4', 0) ?> 0</label>
+            <label><?= $form->radio('q4', 1) ?> 1</label>
+            <label><?= $form->radio('q4', 2) ?> 2</label>
+            <label><?= $form->radio('q4', 3) ?> 3</label>
             <br>
         </p>
         <label>Is the project well explained (including rationale) and justified?</label>
         <p>
-            <?= $form->radio('q5', 1, ['value = "0"'] ) ?>
-            <label>0</label>
-            <?= $form->radio('q5', 1, ['value = "1"'] ) ?>
-            <label>1</label>
-            <?= $form->radio('q5', 1, ['value = "2"'] ) ?>
-            <label>2</label>
-            <?= $form->radio('q5', 1, ['value = "3"'] ) ?>
-            <label>3</label>
+            <label><?= $form->radio('q5', 0) ?> 0</label>
+            <label><?= $form->radio('q5', 1) ?> 1</label>
+            <label><?= $form->radio('q5', 2) ?> 2</label>
+            <label><?= $form->radio('q5', 3) ?> 3</label>
             <br>
         </p>
         <label>Does the budget only include eligible activities (supplies, equipment, field travel,
             conference travel)?</label>
         <p>
-            <?= $form->radio('q6', 1, ['value = "0"'] ) ?>
-            <label>0</label>
-            <?= $form->radio('q6', 1, ['value = "1"'] ) ?>
-            <label>1</label>
-            <?= $form->radio('q6', 1, ['value = "2"'] ) ?>
-            <label>2</label>
-            <?= $form->radio('q6', 1, ['value = "3"'] ) ?>
-            <label>3</label>
+            <label><?= $form->radio('q6', 0) ?> 0</label>
+            <label><?= $form->radio('q6', 1) ?> 1</label>
+            <label><?= $form->radio('q6', 2) ?> 2</label>
+            <label><?= $form->radio('q6', 3) ?> 3</label>
             <br>
         </p>
         <label>Based on eligibility and quality scores, RECOMMEND one of the following
             categories</label>
         <p>
-            <?= $form->radio('fundingRecommended', 1, ['value = "1"'] ) ?>
-            <label>Yes</label>
-            <?= $form->radio('fundingRecommended', 1, ['value = "0"'] ) ?>
-            <label>No</label>
+            <label><?= $form->radio('fundingRecommended', 1) ?> Yes</label>
+            <label><?= $form->radio('fundingRecommended', 1) ?> No</label>
             <br>
         </p>
         <label>Quality Assessment Comments:</label><br>

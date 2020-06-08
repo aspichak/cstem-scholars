@@ -48,7 +48,7 @@ if( $c->action() == 'update' ){
 
     #}
 }
-echo HTML::template('reviewer/form_layout.php', ['review' => $c->model(), 'form' => $c->form(), 'application_list' => Application::all() ]);
+echo HTML::template('reviewer/form_layout.php', ['review' => $c->model(), 'form' => $c->form()->disableInlineErrors(), 'application_list' => Application::all() ]);
 #echo HTML::template('reviewers/landing_layout.php');
 
 

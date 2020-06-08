@@ -20,12 +20,12 @@ class Review extends Model
     {
         $this->fillable = [
             'comments' => v::length(null, 2000)->setName('Comments'),
-            'q1' => v::intVal()->between(0, 3),
-            'q2' => v::intVal()->between(0, 3),
-            'q3' => v::intVal()->between(0, 3),
-            'q4' => v::intVal()->between(0, 3),
-            'q5' => v::intVal()->between(0, 3),
-            'q6' => v::intVal()->between(0, 3),
+            'q1' => v::intVal()->between(0, 3)->setName('Question 1'),
+            'q2' => v::intVal()->between(0, 3)->setName('Question 2'),
+            'q3' => v::intVal()->between(0, 3)->setName('Question 3'),
+            'q4' => v::intVal()->between(0, 3)->setName('Question 4'),
+            'q5' => v::intVal()->between(0, 3)->setName('Question 5'),
+            'q6' => v::intVal()->between(0, 3)->setName('Question 6'),
             'fundingRecommended' => v::boolVal()
         ];
 
