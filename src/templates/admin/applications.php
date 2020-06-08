@@ -15,8 +15,10 @@ helper('money');
 <label for="periodID">Choose a period:</label>
 <form id="periods" method="get">
     <select name="periodID" id="periodID">
-        <option value="1">Period 1</option>
-        <option value="2">Period 2</option>
+        <?php
+        foreach (Period::all() as $p)
+            echo '<option value="'.$p->id.'">'.$p->beginDate.'</option>';
+        ?>
     </select>
     <input type="submit" name="periodIDbutton" value="Change Period">
 </form>
