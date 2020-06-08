@@ -9,7 +9,7 @@ User::authorize('admin');
 $c = new ModelController(Application::class);
 $application = $c->model();
 $error = null;
-$period = HTTP::get('period', Period::current()->id);
+$period = HTTP::get('periodID', Period::current()->id);
 // TODO: Filter applications by period, student name, email, status, etc.
 $c->index('admin/applications.php', ['applications' => Application::all(), 'period' => $period]);
 $c->read();

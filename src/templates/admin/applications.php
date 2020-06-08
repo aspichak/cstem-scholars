@@ -11,17 +11,13 @@ helper('application_status_label');
 
 <?= messageFlash() ?>
 
-<script language="JavaScript">
-    function SelectRedirect() {
-        window.location = string.concat(window.location.href, "?id=" , document.getElementById('periodSelect').value);
-    }
-</script>
-
-<label for="periods">Choose a period:</label>
-<select id="periodSelect" onchange="SelectRedirect">
+<label for="periodID">Choose a period:</label>
+<form id="periods" method="get">
+<select id="periodID">
     <option value="1">Period 1</option>
     <option value="2">Period 2</option>
 </select>
+</form>
 
 <table>
     <thead>
