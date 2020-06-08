@@ -35,7 +35,7 @@ if (HTTP::post('submit') && $application->status == 'draft') {
 $form = new Form($application);
 
 // TODO: Show error if email send fails
-if (HTTP::isPost() && $application->isValid() ) {
+if (HTTP::isPost() ) {#&& $application->isValid() ) {
     DB::beginTransaction();
 
     try {

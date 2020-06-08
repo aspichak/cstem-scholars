@@ -3,8 +3,17 @@
 $title = 'Review Application';
 $layout = 'admin/_layout.php';
 
-$appNum = $review->id - 1;
-$application = $application_list[$appNum];
+
+$appNum = HTTP::get('id');
+$application = null;
+$count = 0;
+foreach( $application_list as $a ){
+    if( $a->id == $appNum ){
+        $application = $a;
+    }
+}
+
+
 ?>
 
 <h1><?= e($application->title) ?></h1>

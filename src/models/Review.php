@@ -49,4 +49,10 @@ class Review extends Model
         $query = ($query) ? "($query) AND status != 'draft'" : "status != 'draft'";
         return parent::all($query, ...$params);
     }
+
+    public static function getAll()
+    {
+        $query = 'SELECT * FROM';
+        return parent::r_all($query);
+    }
 }

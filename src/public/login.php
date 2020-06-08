@@ -111,7 +111,7 @@ if ($type == "admin") {
     }
     if ($user->isReviewer()) {
         if (Period::currentForAdvisors() != null) {
-            header("location:/reviewers/ReviewStudents.php");
+            header("location:/reviewers/index.php");
         } else {
             header("location:infoPages/closedReviewer.php");
         }

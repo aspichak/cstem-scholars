@@ -61,6 +61,16 @@ class DB
     }
 
     /**
+     * Prepare a select query and return a PDOStatement object.
+     *
+     * Example: DB::select('Advisor, 'AEmail = ? OR AName = ?', 'alex@ewu.edu', 'Alex');
+     */
+    public static function r_select($table, $conditions = '', ...$params)
+    {
+        return self::query("SELECT * FROM $table");
+    }
+
+    /**
      * Select a single row (all columns) from $table satisfying $conditions.
      *
      * Example: DB::selectSingle('Advisor, 'AEmail = ? OR AName = ?', 'alex@ewu.edu', 'Alex');
