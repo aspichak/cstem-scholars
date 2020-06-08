@@ -17,24 +17,23 @@ if (!$period) {
     );
 }
 
-if (Application::exists('email=? AND periodID=?', $user->email, $period->id) == true &&
-    !(Application::first('email = ? AND periodID = ?', $user->email, $period->id) == 'submitted' ||
-        Application::first('email = ? AND periodID = ?', $user->email, $period->id) == 'draft')) {
-//    HTTP::redirect('status.php');
+$application = Application::first('email = ? AND periodID = ?', $user->email, $period->id);
+
+if ($application && !in_array($application->status, ['draft', 'submitted'])) {
+    echo HTML::template('students/status.php', ['application' => $application]);
+    exit();
 }
 
-$application =
-    Application::first('email = ? AND periodID = ?', $user->email, $period->id) ??
-    new Application(
-        [
-            'name' => $user->name,
-            'email' => $user->email,
-            'studentID' => $user->id,
-            'periodID' => $period->id,
-            'status' => 'draft',
-            'terms' => HTTP::post('terms')
-        ], true
-    );
+$application ??= new Application(
+    [
+        'name'      => $user->name,
+        'email'     => $user->email,
+        'studentID' => $user->id,
+        'periodID'  => $period->id,
+        'status'    => 'draft',
+        'terms'     => HTTP::post('terms')
+    ], true
+);
 
 if (HTTP::post('submit') && $application->status == 'draft') {
     $application->status = 'submitted';
