@@ -71,7 +71,7 @@ foreach ($application->reviews() as $review) { ?>
             foreach (Review::QUESTIONS as $i => $q) { ?>
                 <p><?= $q ?></p>
                 <blockquote><?= e($review->{'q' . ($i + 1)}) ?> / 3</blockquote>
-            <?php
+                <?php
             } ?>
 
             <p>Comments:</p>
@@ -82,10 +82,10 @@ foreach ($application->reviews() as $review) { ?>
             <p>Recommend funding?</p>
             <blockquote><?= $review->fundingRecommended ? 'Yes' : 'No' ?></blockquote>
 
-        <?php
+            <?php
         } ?>
 
     </section>
 
-<?php
+    <?php
 } ?>
