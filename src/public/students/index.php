@@ -26,12 +26,12 @@ if ($application && !in_array($application->status, ['draft', 'submitted'])) {
 
 $application ??= new Application(
     [
-        'name'      => $user->name,
-        'email'     => $user->email,
+        'name' => $user->name,
+        'email' => $user->email,
         'studentID' => $user->id,
-        'periodID'  => $period->id,
-        'status'    => 'draft',
-        'terms'     => HTTP::post('terms')
+        'periodID' => $period->id,
+        'status' => 'draft',
+        'terms' => HTTP::post('terms')
     ], true
 );
 

@@ -21,12 +21,14 @@ helper('application_status_label');
     </div>
 </form>
 <main class="form">
-    <h1>Application: <?= e($application->title) ?><br> </h1>
+    <h1>Application: <?= e($application->title) ?><br></h1>
     <?= HTML::template('application_details.php', $application) ?>
 
-    <?php if ($application->status == 'submitted') { ?>
+    <?php
+    if ($application->status == 'submitted') { ?>
         <div class="message success">Make Corrections</div>
-    <?php } ?>
+    <?php
+    } ?>
 </main>
 </body>
 </html>

@@ -11,7 +11,8 @@ helper('application_status_label');
 <?php
 if ($period == null) { ?>
     <p>There is currently no ongoing period.</p>
-<?php } else { ?>
+<?php
+} else { ?>
     <table>
         <thead>
         <th>Student Name</th>
@@ -31,5 +32,5 @@ if ($period == null) { ?>
             }
         } ?>
     </table>
-<?php
+    <?php
 } ?>
