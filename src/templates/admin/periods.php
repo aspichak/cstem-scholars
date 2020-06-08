@@ -1,6 +1,7 @@
 <?php
 
 helper('crud');
+helper('money');
 
 $title = 'Periods';
 $layout = 'admin/_layout.php';
@@ -42,7 +43,7 @@ if ($form->errors()) {
             <td><?= date('M j, Y', strtotime($p->beginDate)) ?></td>
             <td><?= date('M j, Y', strtotime($p->deadline)) ?></td>
             <td><?= date('M j, Y', strtotime($p->advisorDeadline)) ?></td>
-            <td>$<?= number_format($p->budget, 2) ?></td>
+            <td><?= usd($p->budget) ?></td>
             <td class="button-group"><?= actionButtons('periods.php', $p->key()) ?></td>
         </tr>
         <?php

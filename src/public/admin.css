@@ -143,6 +143,11 @@ th {
     border-bottom: 2px solid #dee2e6;
 }
 
+.na {
+    font-style: italic;
+    color: gray;
+}
+
 .actions {
     text-align: right;
 }
