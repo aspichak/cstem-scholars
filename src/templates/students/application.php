@@ -60,7 +60,7 @@
 <form>
     <div class="logout">
         <div class="button-section">
-            <button type="submit" class="button" name="logout" formaction="../logout.php">Logout</button>
+            <button type="submit" class="button" name="logout" formaction="../logout.php">Log Out</button>
         </div>
     </div>
 </form>
@@ -90,6 +90,15 @@
                         Please note that your application is not submitted and will not be reviewed until you do so.
                     </strong>
                 </p>
+            </div>
+            <?php
+        } ?>
+
+        <?php
+        if (!HTTP::isPost() && $application->status == 'submitted') { ?>
+            <div class="success message">
+                <h2>Your application was submitted for review.</h2>
+                <p>You may still make changes to it before your advisor accepts your application.</p>
             </div>
             <?php
         } ?>

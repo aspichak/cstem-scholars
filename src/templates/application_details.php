@@ -1,6 +1,7 @@
 <?php
 
 helper('application_status_label');
+helper('money');
 $application = $v;
 ?>
 
@@ -49,7 +50,7 @@ $application = $v;
             <tr>
                 <td><?= e($row->item) ?></td>
                 <td><?= e($row->itemDesc) ?></td>
-                <td>$<?= e($row->itemCost) ?></td>
+                <td><?= usd($row->itemCost) ?></td>
             </tr>
             <?php
         } ?>

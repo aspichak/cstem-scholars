@@ -194,13 +194,38 @@ button[type="submit"]:hover {
     font-weight: normal;
 }
 
-.error {
-    font-weight: bold;
-    color: #990000;
+input.error, textarea.error {
+    border: 1px solid rgb(239, 96, 85) !important;
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.15) !important;
+}
+
+.inline.error {
+    font-style: italic;
+    color: #bf3222;
+}
+
+.warning-sign {
+    display: inline-block;
+    vertical-align: middle;
+    width: 13px;
+    height: 16px;
+    background: url("../warning-triangle.svg") no-repeat;
+    background-size: 13px 13px;
+    margin-right: 4px;
 }
 
 table {
     width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+}
+
+.app-details td {
+    border: 1px solid #cccccc;
+    padding: 4px 8px;
 }
 
 #notification-box {
@@ -219,4 +244,8 @@ table {
     color: white;
     font-size: .9em;
     display: none;
+}
+
+pre {
+    white-space: pre-wrap;
 }

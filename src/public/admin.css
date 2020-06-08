@@ -143,6 +143,11 @@ th {
     border-bottom: 2px solid #dee2e6;
 }
 
+.na {
+    font-style: italic;
+    color: gray;
+}
+
 .actions {
     text-align: right;
 }
@@ -160,7 +165,7 @@ th {
     padding: 16px 32px;
 }
 
-.error {
+.message.error, ul.error {
     background-color: #e74c3c;
     color: #fff;
     border-radius: 4px;
@@ -378,43 +383,6 @@ form.panel h1:first-child {
 .inline.error {
     font-style: italic;
     color: #9a0505;
-}
-
-.app-status {
-    font-weight: bold;
-    text-transform: uppercase;
-    padding: 5px 8px;
-    margin-left: 8px;
-}
-
-.app-status.draft {
-    background: #eff0f1;
-    color: #454a4d;
-}
-
-.app-status.submitted {
-    background: #dbd5e9;
-    color: #3d2375;
-}
-
-.app-status.pending_review {
-    background: #fff7bf;
-    color: #594d00;
-}
-
-.app-status.reviewed {
-    background: #d2e2f1;
-    color: #144e81;
-}
-
-.app-status.rejected {
-    background: #f6d7d2;
-    color: #942514;
-}
-
-.app-status.awarded {
-    background: #cce2d8;
-    color: #005a30;
 }
 
 #menu-button {
