@@ -13,7 +13,7 @@ helper('application_status_label');
 
 <label for="periodID">Choose a period:</label>
 <form id="periods" method="get">
-    <select name="periodID">
+    <select name="periodID" id="periodID">
         <option value="1">Period 1</option>
         <option value="2">Period 2</option>
     </select>
