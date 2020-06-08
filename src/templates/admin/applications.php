@@ -13,10 +13,11 @@ helper('application_status_label');
 
 <label for="periodID">Choose a period:</label>
 <form id="periods" method="get">
-<select id="periodID">
-    <option value="1">Period 1</option>
-    <option value="2">Period 2</option>
-</select>
+    <select name="periodID">
+        <option value="1">Period 1</option>
+        <option value="2">Period 2</option>
+    </select>
+    <input type="submit" name="periodIDbutton" value="Change Period">
 </form>
 
 <table>
