@@ -3,8 +3,14 @@
 require_once '../../init.php';
 
 $c = new ModelController(Review::class);
+$review = $c->model();
+$application = $review->application();
 
-User::authorize('reviewer', $c->action() == 'index' || $c->model()->reviewerID == User::current()->email);
+User::authorize('reviewer',
+                $c->action() == 'index' ||
+                ($review->reviewerID == User::current()->email &&
+                $application->status == 'pending_review')
+);
 
 #This will take us to applications_layout, transferring over reviews as $reviews and apps as $apps
 $c->index(
@@ -16,11 +22,7 @@ $c->index(
 if( $c->action() == 'update' ){
 
     #get the filled out review form and change its submit status from 0 to 1
-    $review = $c->model();
     $review->submitted = 1;
-
-    #use applicationID to get the current application we are reviewing
-    $application = $review->application();
 
     #if the review is successfully saved in the review table in DB
     if ($review->save()) {
