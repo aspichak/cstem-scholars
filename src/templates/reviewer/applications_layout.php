@@ -15,7 +15,10 @@ $layout = 'admin/_layout.php';
     <th>Advisor</th>
     <th>Status</th>
     </thead>
-
+    <!--
+        $reviews: list of all reviews from 'Review::all('reviewerID = ?', User::current()->email)' in applications.php
+        $apps:    list of all applications from 'Application::all()' in applications.php
+    -->
     <?php foreach ($reviews as $r) { ?>
         <?php if( $r->submitted == 0 ){ ?>
             <?php
@@ -33,7 +36,6 @@ $layout = 'admin/_layout.php';
             <td><?= e($a->advisorName) ?></td>
             <td><?= applicationStatus($a) ?></td>
         </tr>
-        <!-- MIGHT NEED ANOTHER CONDITIONAL FOR STATUS AFTER REVIEWER SUBMITS -->
         <?php } ?>
     <?php } ?>
 </table>

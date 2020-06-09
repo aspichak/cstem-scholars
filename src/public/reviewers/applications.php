@@ -5,25 +5,42 @@ require_once '../../init.php';
 User::authorize('reviewer');
 
 $c = new ModelController(Review::class);
-#naming rows to match previous code in landing_layout
-#we are loading landing_layout and transfering over $applications as $rows, $deadline, and the form
-$c->index('reviewer/applications_layout.php', ['reviews' => Review::all('reviewerID = ?', User::current()->email) , 'apps' => Application::all()]);
 
+#This will take us to applications_layout, transferring over reviews as $reviews and apps as $apps
+$c->index(
+    'reviewer/applications_layout.php',
+    [
+        'reviews' => Review::all('reviewerID = ?', User::current()->email),
+        'apps' => Application::all()
+    ]);
 
+# if we are updating the block [submit]
 if( $c->action() == 'update' ){
 
+    #get the filled out review form and change its submit status from 0 to 1
     $review = $c->model();
     $review->submitted = 1;
 
-    #use applicationID to grab reference to the application, might not need
+    #use applicationID to get the current application we are reviewing
     $application = Application::first('id=?', $review->applicationID);
 
+    #if the review is successfully saved in the review table in DB
     if ($review->save()) {
+        #update the applications status, save, then redirect back to the list of applications
         $application->status = 'reviewed';
         $application->save(false);
         HTTP::redirect('../reviewers/applications.php');
     }
 }
-echo HTML::template('reviewer/form_layout.php', ['review' => $c->model(), 'form' => $c->form()->disableInlineErrors(), 'application_list' => Application::all() ]);
+
+#if we aren't updating, then we are filling out a form so go to form_layout
+#transferring over a black review form, and a list of all applications so we can find the current
+#application by it's applicationID
+echo HTML::template('reviewer/form_layout.php',
+    [
+        'review' => $c->model(),
+        'form' => $c->form()->disableInlineErrors(),
+        'application_list' => Application::all()
+    ]);
 
 
