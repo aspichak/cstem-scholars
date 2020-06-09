@@ -2,17 +2,15 @@
 
 require_once '../../init.php';
 
-User::authorize('reviewer');
-
 $c = new ModelController(Review::class);
+
+User::authorize('reviewer', $c->action() == 'index' || $c->model()->reviewerID == User::current()->email);
 
 #This will take us to applications_layout, transferring over reviews as $reviews and apps as $apps
 $c->index(
     'reviewer/applications_layout.php',
-    [
-        'reviews' => Review::all('reviewerID = ?', User::current()->email),
-        'apps' => Application::all()
-    ]);
+    ['reviews' => Review::all('reviewerID = ? AND submitted = 0', User::current()->email)]
+);
 
 # if we are updating the block [submit]
 if( $c->action() == 'update' ){
@@ -22,7 +20,7 @@ if( $c->action() == 'update' ){
     $review->submitted = 1;
 
     #use applicationID to get the current application we are reviewing
-    $application = Application::first('id=?', $review->applicationID);
+    $application = $review->application();
 
     #if the review is successfully saved in the review table in DB
     if ($review->save()) {
@@ -39,8 +37,8 @@ if( $c->action() == 'update' ){
 echo HTML::template('reviewer/form_layout.php',
     [
         'review' => $c->model(),
-        'form' => $c->form()->disableInlineErrors(),
-        'application_list' => Application::all()
-    ]);
+        'form' => $c->form()->disableInlineErrors()
+    ]
+);
 
 

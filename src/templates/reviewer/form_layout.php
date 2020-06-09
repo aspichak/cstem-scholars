@@ -2,18 +2,7 @@
 
 $title = 'Review Application';
 $layout = 'admin/_layout.php';
-
-
-$appNum = $review->applicationID;
-$application = null;
-$count = 0;
-foreach( $application_list as $a ){
-    if( $a->id == $appNum ){
-        $application = $a;
-    }
-}
-
-
+$application = $review->application();
 ?>
 
 <h1><?= e($application->title) ?></h1>
