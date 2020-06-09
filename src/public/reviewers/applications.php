@@ -8,8 +8,7 @@ $application = $review->application();
 
 User::authorize('reviewer',
                 $c->action() == 'index' ||
-                ($review->reviewerID == User::current()->email &&
-                $application->status == 'pending_review')
+                ($review->reviewerID == User::current()->email && !$review->submitted)
 );
 
 #This will take us to applications_layout, transferring over reviews as $reviews and apps as $apps
