@@ -27,8 +27,6 @@ $c->read();
 // update block
 if ($c->action() == 'update' && HTTP::post('buttonName') == "accept") {
     $application = $c->model();
-    // TODO: remove the following line in future after ModelController fixed
-    $application = Application::first('id=?', HTTP::get('id'));
     $reviewers = User::reviewersNotCurrentUser()->fetchAll();
 
     if (User::current()->isReviewer() && count($reviewers) <= 2) {
@@ -97,8 +95,6 @@ if ($c->action() == 'update' && HTTP::post('buttonName') == "accept") {
 } // end update block
 elseif ($c->action() == 'update' && HTTP::post('buttonName') == "reject") {
     $application = $c->model();
-    // TODO: remove the following line in future after ModelController fixed
-    $application = Application::first('id=?', HTTP::get('id'));
     $period = Period::current();
 
     $studentComment = HTTP::post('studentComment');
