@@ -1,5 +1,7 @@
 <?php
 
+helper('crud');
+
 $title = 'View application';
 $layout = 'admin/_layout.php';
 ?>
@@ -12,10 +14,11 @@ if ($error) echo tag('div', $error, ['class' => 'message error']) ?>
 <ul class="tabs">
     <li><a class="active" href="#award">Award</a></li>
     <li><a href="#reject">Reject</a></li>
+    <li><a class="delete-tab" href="#delete">Delete</a></li>
 </ul>
 
 <div class="tab" id="award">
-    <h2>Award</h2>
+    <h2>Award Application</h2>
 
     <form method="POST">
         <?= input('hidden', 'csrfToken', Form::csrfToken()) ?>
@@ -35,7 +38,7 @@ if ($error) echo tag('div', $error, ['class' => 'message error']) ?>
 </div>
 
 <div class="tab" id="reject">
-    <h2>Reject</h2>
+    <h2>Reject Application</h2>
 
     <form method="POST">
         <?= input('hidden', 'csrfToken', Form::csrfToken()) ?>
@@ -49,7 +52,19 @@ if ($error) echo tag('div', $error, ['class' => 'message error']) ?>
     </form>
 </div>
 
-<h2>Application</h2>
+<div class="tab" id="delete">
+    <h2>Delete Application</h2>
+
+    <p>
+        This will <strong>permanently delete</strong> the application. The student associated with this application will
+        <strong>not</strong> be notified. They will be able to fill out a new application if the application period
+        is still open.
+    </p>
+
+    <?= deleteButton('', $application->key()) ?>
+</div>
+
+<h2>Application Details</h2>
 
 <?= HTML::template('application_details.php', $application) ?>
 
@@ -57,8 +72,12 @@ if ($error) echo tag('div', $error, ['class' => 'message error']) ?>
 
 <?php
 foreach ($application->reviews() as $review) { ?>
+    <?php $reviewer = $review->reviewer() ?>
 
-    <p><strong><?= e($review->reviewer()->name) ?></strong>:</p>
+    <p>
+        <strong><?= e($reviewer->name) ?></strong>
+        <<?= HTML::link('mailto:' . urlencode($reviewer->email), e($reviewer->email)) ?>>:
+    </p>
     <section class="review">
 
         <?php
