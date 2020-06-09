@@ -4,7 +4,7 @@ $title = 'Review Application';
 $layout = 'admin/_layout.php';
 
 
-$appNum = HTTP::get('id');
+$appNum = $review->applicationID;
 $application = null;
 $count = 0;
 foreach( $application_list as $a ){
@@ -80,7 +80,7 @@ foreach( $application_list as $a ){
             categories</label>
         <p>
             <label><?= $form->radio('fundingRecommended', 1) ?> Yes</label>
-            <label><?= $form->radio('fundingRecommended', 1) ?> No</label>
+            <label><?= $form->radio('fundingRecommended', 0) ?> No</label>
             <br>
         </p>
         <label>Quality Assessment Comments:</label><br>

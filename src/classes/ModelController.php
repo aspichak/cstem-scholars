@@ -18,7 +18,7 @@ class ModelController
     public function __construct($modelClass)
     {
         $this->modelClass = $modelClass;
-        $this->model = $this->hasKey() ? $modelClass::get($this->key()) : new $modelClass();
+        $this->model = $this->hasKey() ? $modelClass::get($this->key()) : new $modelClass(HTTP::post());
 
         if (!$this->model) {
             HTTP::error('Resource does not exist', 404);
