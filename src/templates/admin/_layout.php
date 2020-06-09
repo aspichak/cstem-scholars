@@ -59,7 +59,7 @@ $user = User::current();
     if ($user->isReviewer()) { ?>
         <p>Reviewer</p>
         <ul>
-            <li><a href="../reviewers/"><i class="icon list-light"></i>Review Applications</a></li>
+            <li><a href="../reviewers/applications.php"><i class="icon list-light"></i>Review Applications</a></li>
         </ul>
         <?php
     } ?>
