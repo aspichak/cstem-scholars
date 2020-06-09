@@ -74,6 +74,9 @@ class User extends Model
         $user = self::current();
 
         if (!self::exists('email = ?', $email)) {
+            if (ADMIN_EMAIL == $email && !User::exists("isAdmin = 1")) {
+                $user->isAdmin = 1;
+            }
             $user->save();
         }
 
