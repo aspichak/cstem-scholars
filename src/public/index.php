@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="index.css">
+<link rel="icon" href="favicon.png" />
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <body>
 
