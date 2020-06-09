@@ -9,7 +9,9 @@ helper('application_status_label');
 <head>
     <title>Application Status</title>
     <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="../CSS/students.css">
     <link rel="stylesheet" href="../CSS/app_status.css">
+    <link rel="icon" href="../favicon.png" />
 </head>
 <body>
 <form>
@@ -22,12 +24,6 @@ helper('application_status_label');
 <main class="form">
     <h1>Application: <?= e($application->title) ?><br></h1>
     <?= HTML::template('application_details.php', $application) ?>
-
-    <?php
-    if ($application->status == 'submitted') { ?>
-        <div class="message success">Make Corrections</div>
-    <?php
-    } ?>
 </main>
 </body>
 </html>
