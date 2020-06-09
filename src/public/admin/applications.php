@@ -65,4 +65,8 @@ if ($c->action() == 'update') {
     }
 }
 
+if ($c->delete()) {
+    HTTP::redirect('applications.php');
+}
+
 echo HTML::template('admin/application.php', ['application' => $application, 'error' => $error]);
