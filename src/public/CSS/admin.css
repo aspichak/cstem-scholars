@@ -149,6 +149,19 @@ th {
     border-bottom: 2px solid #dee2e6;
 }
 
+dl {
+    margin-left: 20px;
+}
+
+dt {
+    font-weight: bold;
+}
+
+dd {
+    margin-left: 0;
+    margin-bottom: 16px;
+}
+
 .na {
     font-style: italic;
     color: gray;
@@ -336,6 +349,10 @@ ul.tabs li a.active {
 
 .icon.grid-light {
     background-image: url("../images/grid-light.svg");
+}
+
+.icon.help-circle-light {
+    background-image: url("images/help-circle-light.svg");
 }
 
 .icon.users-light {

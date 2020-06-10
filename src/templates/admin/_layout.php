@@ -84,6 +84,7 @@ $user = User::current();
     } ?>
 
     <ul>
+        <li><a href="../help.php"><i class="icon help-circle-light"></i>Help</a></li>
         <li><a href="../logout.php"><i class="icon log-out-light"></i>Log out</a></li>
     </ul>
 </nav>
