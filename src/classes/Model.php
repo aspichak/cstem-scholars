@@ -28,6 +28,13 @@ abstract class Model
         return is_array(static::$primaryKey) ? static::$primaryKey : [static::$primaryKey];
     }
 
+    public static function query($query = '', ...$params)
+    {
+        $stmt = DB::query($query, ...$params);
+        $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, static::class);
+        return $stmt;
+    }
+
     /**
      * Returns a PDOStatement object. Use PDOStatement::fetch() or
      * PDOStatement::fetchAll() to fetch objects one-by-one or all at once.
