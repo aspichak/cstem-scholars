@@ -149,6 +149,19 @@ th {
     border-bottom: 2px solid #dee2e6;
 }
 
+dl {
+    margin-left: 20px;
+}
+
+dt {
+    font-weight: bold;
+}
+
+dd {
+    margin-left: 0;
+    margin-bottom: 16px;
+}
+
 .na {
     font-style: italic;
     color: gray;
@@ -161,7 +174,7 @@ th {
 .message {
     border-radius: 4px;
     padding: 16px 32px;
-    margin: 32px 0;
+    margin: 16px 0;
 }
 
 .success {
@@ -169,6 +182,11 @@ th {
     background-color: #428943;
     border-radius: 4px;
     padding: 16px 32px;
+}
+
+.message.warning {
+    color: #2a1600;
+    background-color: #ffd99a;
 }
 
 .message.error, ul.error {
@@ -183,7 +201,7 @@ ul.error {
     list-style-type: none;
 }
 
-input.error {
+input.error, textarea.error {
     border-color: #e74c3c;
 }
 
@@ -216,6 +234,11 @@ ul.tabs li a.active {
     border: 1px solid #bdc3c7;
     padding: 16px 32px 32px 32px;
     margin-top: -1px;
+}
+
+.tabs .delete-tab {
+    color: #8B0000;
+    font-style: italic;
 }
 
 .review {
@@ -328,6 +351,10 @@ ul.tabs li a.active {
     background-image: url("../images/grid-light.svg");
 }
 
+.icon.help-circle-light {
+    background-image: url("../images/help-circle-light.svg");
+}
+
 .icon.users-light {
     background-image: url("../images/users-light.svg");
 }
@@ -406,6 +433,13 @@ form.panel h1:first-child {
     background-size: 20px 20px;
     width: 20px;
     height: 24px;
+}
+
+section.filter {
+    background: #f3f1f0;
+    border-radius: 4px;
+    padding: 16px;
+    margin-bottom: 16px;
 }
 
 @media (max-width: 1200px) {

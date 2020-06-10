@@ -4,14 +4,19 @@ require_once '../../init.php';
 
 use Respect\Validation\ValidatorFunction as v;
 
-User::authorize('admin');
-
 $c = new ModelController(Application::class);
 $application = $c->model();
+
+User::authorize('admin', $c->action() == 'index' || $application->status != 'draft');
+
 $error = null;
-$period = HTTP::get('periodID', Period::current()->id);
-// TODO: Filter applications by period, student name, email, status, etc.
-$c->index('admin/applications.php', ['applications' => Application::all(), 'period' => $period]);
+$selectedPeriodID = HTTP::get('periodID', Period::mostRecent()->id ?? null);
+
+$c->index(
+    'admin/applications.php',
+    ['applications' => Application::all('periodID = ?', $selectedPeriodID), 'selectedPeriodID' => $selectedPeriodID]
+);
+
 $c->read();
 
 if ($c->action() == 'update') {
@@ -45,6 +50,7 @@ if ($c->action() == 'update') {
         $error = (v::length(3, 1000)->setName('Rejection Reason'))(HTTP::post('reason'));
 
         if (!$error) {
+            $application->amountAwarded = 0;
             $application->status = 'rejected';
 
             Mail::send(
@@ -63,6 +69,10 @@ if ($c->action() == 'update') {
             HTTP::redirect('../admin/applications.php', ['success' => 'Rejection email sent']);
         }
     }
+}
+
+if ($c->delete()) {
+    HTTP::redirect('applications.php');
 }
 
 echo HTML::template('admin/application.php', ['application' => $application, 'error' => $error]);

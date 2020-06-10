@@ -28,6 +28,11 @@ class Period extends Model
         return self::first('beginDate <= :date AND advisorDeadline >= :date', ['date' => date('Y-m-d')]);
     }
 
+    public static function mostRecent()
+    {
+        return self::first('beginDate <= :date ORDER BY beginDate DESC', ['date' => date('Y-m-d')]);
+    }
+
     public function errors()
     {
         $errors = parent::errors();

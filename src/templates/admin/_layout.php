@@ -9,6 +9,7 @@ $user = User::current();
     <title><?= $title ?> - CSTEM Research Grant Admininstrator</title>
     <link rel="stylesheet" href="../CSS/admin.css">
     <link rel="stylesheet" href="../CSS/app_status.css">
+    <link rel="icon" href="../favicon.png" />
     <script src="/jquery-3.5.1.slim.min.js"></script>
     <script>
         $(function () {
@@ -17,6 +18,8 @@ $user = User::current();
             $(".tab h2:first-child").hide();
             $(".tab").hide();
             $(activeTab.attr("href")).show();
+
+            $("form#periods input[type='submit']").hide();
         });
 
         $(document).on("click", "#menu-button", function (e) {
@@ -33,6 +36,10 @@ $user = User::current();
             $(this.hash).show();
 
             e.preventDefault();
+        });
+
+        $(document).on("change", "select#periodID", function (e) {
+            location.href = "?periodID=" + $(this).val();
         });
     </script>
 </head>
@@ -77,6 +84,7 @@ $user = User::current();
     } ?>
 
     <ul>
+        <li><a href="../help.php"><i class="icon help-circle-light"></i>Help</a></li>
         <li><a href="../logout.php"><i class="icon log-out-light"></i>Log out</a></li>
     </ul>
 </nav>
