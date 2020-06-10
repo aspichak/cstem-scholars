@@ -3,9 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <style>
-        <?php include __DIR__ . '/style.css' ?>
-    </style>
+    <link rel="stylesheet" href="../CSS/emails.css">
 </head>
 <body>
 <span class="preheader">Your CSTEM Scholars application was successfully submitted.</span>
