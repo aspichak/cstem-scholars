@@ -209,7 +209,7 @@ input.error, textarea.error {
     vertical-align: middle;
     width: 13px;
     height: 16px;
-    background: url("../warning-triangle.svg") no-repeat;
+    background: url("../images/warning-triangle.svg") no-repeat;
     background-size: 13px 13px;
     margin-right: 4px;
 }
