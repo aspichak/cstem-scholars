@@ -171,6 +171,11 @@ th {
     padding: 16px 32px;
 }
 
+.message.warning {
+    color: #2a1600;
+    background-color: #fcb43b;
+}
+
 .message.error, ul.error {
     background-color: #e74c3c;
     color: #fff;
@@ -216,6 +221,11 @@ ul.tabs li a.active {
     border: 1px solid #bdc3c7;
     padding: 16px 32px 32px 32px;
     margin-top: -1px;
+}
+
+.tabs .delete-tab {
+    color: #8B0000;
+    font-style: italic;
 }
 
 .review {
@@ -406,6 +416,13 @@ form.panel h1:first-child {
     background-size: 20px 20px;
     width: 20px;
     height: 24px;
+}
+
+section.filter {
+    background: #f3f1f0;
+    border-radius: 4px;
+    padding: 16px;
+    margin-bottom: 16px;
 }
 
 @media (max-width: 1200px) {
