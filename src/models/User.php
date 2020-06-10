@@ -52,7 +52,11 @@ class User extends Model
 
     public static function authorize($role, $allow = true)
     {
-        if (!self::current() || !self::current()->hasRole($role) || !$allow) {
+        if (!is_array($role)) {
+            $role = [$role];
+        }
+
+        if (!self::current() || !array_intersect($role, self::current()->roles()) || !$allow) {
             HTTP::error(
                 'You are not authorized to access this page.',
                 401,
