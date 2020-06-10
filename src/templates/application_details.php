@@ -2,7 +2,9 @@
 
 helper('application_status_label');
 helper('money');
+
 $application = $v;
+$sum = array_reduce($application->budgetTable(), fn ($sum, $x) => $sum + $x->itemCost);
 ?>
 
 <section class="app-details">
@@ -54,5 +56,10 @@ $application = $v;
             </tr>
             <?php
         } ?>
+
+        <tr>
+            <td colspan="2"></td>
+            <td style="font-weight: bold"><?= usd($sum) ?></td>
+        </tr>
     </table>
 </section>
