@@ -9,9 +9,13 @@ User::authorize('admin');
 $c = new ModelController(Application::class);
 $application = $c->model();
 $error = null;
-$period = HTTP::get('periodID', Period::current()->id);
+$selectedPeriodID = HTTP::get('periodID', Period::mostRecent()->id ?? null);
 // TODO: Filter applications by period, student name, email, status, etc.
-$c->index('admin/applications.php', ['applications' => Application::all(), 'period' => $period]);
+$c->index(
+    'admin/applications.php',
+    ['applications' => Application::all('periodID = ?', $selectedPeriodID), 'selectedPeriodID' => $selectedPeriodID]
+);
+
 $c->read();
 
 if ($c->action() == 'update') {
