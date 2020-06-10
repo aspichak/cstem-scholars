@@ -4,13 +4,14 @@ require_once '../../init.php';
 
 use Respect\Validation\ValidatorFunction as v;
 
-User::authorize('admin');
-
 $c = new ModelController(Application::class);
 $application = $c->model();
+
+User::authorize('admin', $c->action() == 'index' || $application->status != 'draft');
+
 $error = null;
 $selectedPeriodID = HTTP::get('periodID', Period::mostRecent()->id ?? null);
-// TODO: Filter applications by period, student name, email, status, etc.
+
 $c->index(
     'admin/applications.php',
     ['applications' => Application::all('periodID = ?', $selectedPeriodID), 'selectedPeriodID' => $selectedPeriodID]
