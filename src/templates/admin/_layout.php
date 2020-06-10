@@ -18,6 +18,8 @@ $user = User::current();
             $(".tab h2:first-child").hide();
             $(".tab").hide();
             $(activeTab.attr("href")).show();
+
+            $("form#periods input[type='submit']").hide();
         });
 
         $(document).on("click", "#menu-button", function (e) {
@@ -34,6 +36,10 @@ $user = User::current();
             $(this.hash).show();
 
             e.preventDefault();
+        });
+
+        $(document).on("change", "select#periodID", function (e) {
+            location.href = "?periodID=" + $(this).val();
         });
     </script>
 </head>
