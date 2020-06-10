@@ -9,8 +9,7 @@ helper('application_status_label');
 <head>
     <title>Application Status</title>
     <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="css/students.css">
-    <link rel="stylesheet" href="../app_status.css">
+    <link rel="stylesheet" href="../CSS/app_status.css">
 </head>
 <body>
 <form>

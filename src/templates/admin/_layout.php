@@ -7,8 +7,8 @@ $user = User::current();
 <html lang="en">
 <head>
     <title><?= $title ?> - CSTEM Research Grant Admininstrator</title>
-    <link rel="stylesheet" href="../admin.css">
-    <link rel="stylesheet" href="../app_status.css">
+    <link rel="stylesheet" href="../CSS/admin.css">
+    <link rel="stylesheet" href="../CSS/app_status.css">
     <script src="/jquery-3.5.1.slim.min.js"></script>
     <script>
         $(function () {

@@ -1,9 +1,11 @@
 body {
     background: #8B0000;
+    font: 15px Helvetica, sans-serif;
+    line-height: 1.5;
 }
 
 .form {
-    max-width: 450px;
+    max-width: 1000px;
     padding: 30px;
     margin: 40px auto;
     background: #FFF;
@@ -41,18 +43,19 @@ body {
 .form h1 > span {
     display: block;
     margin-top: 2px;
-    font: 13px Arial, Helvetica, sans-serif;
+    font: 14px Helvetica, sans-serif;
 }
 
 .form label {
     display: block;
-    font: 13px Arial, Helvetica, sans-serif;
     color: #000000;
     margin-bottom: 15px;
 }
 
 .form input[type="text"],
 .form input[type="email"],
+.form input[type="number"],
+.form input[type="date"],
 .form textarea,
 .form select {
     display: block;
@@ -68,6 +71,7 @@ body {
     box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.33);
     -moz-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.33);
     -webkit-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.33);
+    resize: none;
 }
 
 .form .section {
@@ -90,8 +94,7 @@ body {
     margin-top: -3px;
 }
 
-.form button[type="button"],
-.form button[type="submit"] {
+.form button[type="button"], .form button[type="submit"] {
     background: #808080;
     padding: 8px 20px 8px 20px;
     border-radius: 5px;
@@ -124,7 +127,8 @@ body {
 }
 
 .form input[type="button"]:hover,
-.form input[type="submit"]:hover {
+.form input[type="submit"]:hover,
+button[type="submit"]:hover {
     background: #2A6881;
     -moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
     -webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
@@ -134,8 +138,114 @@ body {
 .form .privacy-policy {
     float: right;
     width: 250px;
-    font: 12px Arial, Helvetica, sans-serif;
     color: #000000;
     margin-top: 10px;
     text-align: right;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.message {
+    margin-bottom: 2em;
+}
+
+.message h2 {
+    font-size: 1.25em;
+}
+
+.message.success {
+    color: #fbfff7;
+    background-color: #3c763d;
+    border-radius: 4px;
+    padding: 1em 3em;
+    display: block;
+}
+
+.message.error {
+    color: #faf3f3;
+    background-color: #b1413d;
+    border-radius: 4px;
+    padding: 1em 3em;
+    display: block;
+    font-weight: normal;
+}
+
+input.error, textarea.error {
+    border: 1px solid rgb(239, 96, 85) !important;
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.15) !important;
+}
+
+.inline.error {
+    font-style: italic;
+    color: #bf3222;
+}
+
+.warning-sign {
+    display: inline-block;
+    vertical-align: middle;
+    width: 13px;
+    height: 16px;
+    background: url("../images/warning-triangle.svg") no-repeat;
+    background-size: 13px 13px;
+    margin-right: 4px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+}
+
+.app-details td {
+    border: 1px solid #cccccc;
+    padding: 4px 8px;
+}
+
+#notification-box {
+    position: fixed;
+    bottom: 1em;
+    left: 1em;
+    z-index: 999999;
+}
+
+#notification-box p {
+    background-color: rgba(0, 0, 0, .7);
+    width: 200px;
+    border-radius: 5px;
+    padding: .7em;
+    margin: .5em;
+    color: white;
+    font-size: .9em;
+    display: none;
+}
+
+pre {
+    white-space: pre-wrap;
 }
