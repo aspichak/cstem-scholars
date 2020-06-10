@@ -35,7 +35,8 @@
     <li>Three random reviewers are assigned to review the accepted application.</li>
     <li>Administrator makes the final decision to award or reject the application.</li>
     <li>
-        A follow-up email should be sent separately by the department funding the project with further instructions.
+        A follow-up email should be sent separately to each awarded student by the department funding the project with
+        further instructions.
     </li>
 </ol>
 
