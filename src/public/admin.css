@@ -161,7 +161,7 @@ th {
 .message {
     border-radius: 4px;
     padding: 16px 32px;
-    margin: 32px 0;
+    margin: 16px 0;
 }
 
 .success {
@@ -173,7 +173,7 @@ th {
 
 .message.warning {
     color: #2a1600;
-    background-color: #fcb43b;
+    background-color: #ffd99a;
 }
 
 .message.error, ul.error {
@@ -188,7 +188,7 @@ ul.error {
     list-style-type: none;
 }
 
-input.error {
+input.error, textarea.error {
     border-color: #e74c3c;
 }
 

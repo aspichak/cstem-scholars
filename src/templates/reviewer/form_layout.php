@@ -16,7 +16,7 @@ $application = $review->application();
 <form method="POST" enctype="multipart/form-data">
     <?= $form->csrf() ?>
     <div class="form">
-        <label>Does the project demonstrate experiential learning in a CSTEM discipline?</label>
+        <p>Does the project demonstrate experiential learning in a CSTEM discipline?</p>
         <p>
             <label><?= $form->radio('q1', 0) ?> 0</label>
             <label><?= $form->radio('q1', 1) ?> 1</label>
@@ -24,7 +24,8 @@ $application = $review->application();
             <label><?= $form->radio('q1', 3) ?> 3</label>
             <br>
         </p>
-        <label>Is the budget justified in the project description, including realistic?</label>
+
+        <p>Is the budget justified in the project description, including realistic?</p>
         <p>
             <label><?= $form->radio('q2', 0) ?> 0</label>
             <label><?= $form->radio('q2', 1) ?> 1</label>
@@ -32,7 +33,8 @@ $application = $review->application();
             <label><?= $form->radio('q2', 3) ?> 3</label>
             <br>
         </p>
-        <label>Are the proposed methods appropriate to achieve the goals?</label>
+
+        <p>Are the proposed methods appropriate to achieve the goals?</p>
         <p>
             <label><?= $form->radio('q3', 0) ?> 0</label>
             <label><?= $form->radio('q3', 1) ?> 1</label>
@@ -40,7 +42,8 @@ $application = $review->application();
             <label><?= $form->radio('q3', 3) ?> 3</label>
             <br>
         </p>
-        <label>Is the timeline proposed reasonable?(Too little? Too much?)</label>
+
+        <p>Is the timeline proposed reasonable?(Too little? Too much?)</p>
         <p>
             <label><?= $form->radio('q4', 0) ?> 0</label>
             <label><?= $form->radio('q4', 1) ?> 1</label>
@@ -48,7 +51,8 @@ $application = $review->application();
             <label><?= $form->radio('q4', 3) ?> 3</label>
             <br>
         </p>
-        <label>Is the project well explained (including rationale) and justified?</label>
+
+        <p>Is the project well explained (including rationale) and justified?</p>
         <p>
             <label><?= $form->radio('q5', 0) ?> 0</label>
             <label><?= $form->radio('q5', 1) ?> 1</label>
@@ -56,8 +60,9 @@ $application = $review->application();
             <label><?= $form->radio('q5', 3) ?> 3</label>
             <br>
         </p>
-        <label>Does the budget only include eligible activities (supplies, equipment, field travel,
-            conference travel)?</label>
+
+        <p>Does the budget only include eligible activities (supplies, equipment, field travel,
+            conference travel)?</p>
         <p>
             <label><?= $form->radio('q6', 0) ?> 0</label>
             <label><?= $form->radio('q6', 1) ?> 1</label>
@@ -65,15 +70,20 @@ $application = $review->application();
             <label><?= $form->radio('q6', 3) ?> 3</label>
             <br>
         </p>
-        <label>Based on eligibility and quality scores, RECOMMEND one of the following
-            categories</label>
+
+        <p>Based on eligibility and quality scores, RECOMMEND one of the following
+            categories</p>
         <p>
             <label><?= $form->radio('fundingRecommended', 1) ?> Yes</label>
             <label><?= $form->radio('fundingRecommended', 0) ?> No</label>
             <br>
         </p>
-        <label>Quality Assessment Comments:</label><br>
-        <?= $form->textarea( 'comments', ['maxlength' => 6000, 'rows' => 6, 'required'] ) ?>
+
+        <div class="form-group">
+            <label for="comments">Quality Assessment Comments:</label><br>
+            <?= $form->textarea('comments', ['maxlength' => 2000, 'rows' => 8, 'cols' => 80]) ?>
+        </div>
+
         <div class="button-section">
             <button type="submit" class="button" name="submit" value="submit">Submit</button>
         </div>
