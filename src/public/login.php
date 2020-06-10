@@ -41,11 +41,11 @@ if ($user->isAdmin()) {
 }
 
 if ($user->isAdvisor()) {
-    HTTP::redirect('advisors/');
+    HTTP::redirect('advisors/applications.php');
 }
 
 if ($user->isReviewer()) {
-    HTTP::redirect('reviewers/');
+    HTTP::redirect('reviewers/applications.php');
 }
 
 throw new RuntimeException('Unreachable');
