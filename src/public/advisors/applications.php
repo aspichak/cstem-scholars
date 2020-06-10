@@ -3,7 +3,12 @@
 require_once '../../init.php';
 require_once '../../helpers/html.php';
 
-User::authorize('advisor');
+$email = User::current()->email;
+$c = new ModelController(Application::class);
+
+User::authorize('advisor', $c->action() == 'index' ||
+                         ($c->model()->advisorEmail == $email &&
+                             $c->model()->status == 'submitted'));
 
 function UniqueRandomNumbersWithinRange($min, $max, $quantity)
 {
@@ -12,10 +17,8 @@ function UniqueRandomNumbersWithinRange($min, $max, $quantity)
     return array_slice($numbers, 0, $quantity);
 }
 
-$email = User::current()->email;
 $applications = Application::all('advisorEmail = ? AND status = \'submitted\'', $email);
 
-$c = new ModelController(Application::class);
 
 // grabbing all applications assigned to an advisor that are only submitted
 $c->index('advisors/applications.php', ['applications' => $applications, 'period' => Period::current()]);
@@ -24,8 +27,6 @@ $c->read();
 // update block
 if ($c->action() == 'update' && HTTP::post('buttonName') == "accept") {
     $application = $c->model();
-    // TODO: remove the following line in future after ModelController fixed
-    $application = Application::first('id=?', HTTP::get('id'));
     $reviewers = User::reviewersNotCurrentUser()->fetchAll();
 
     if (User::current()->isReviewer() && count($reviewers) <= 2) {
@@ -94,8 +95,6 @@ if ($c->action() == 'update' && HTTP::post('buttonName') == "accept") {
 } // end update block
 elseif ($c->action() == 'update' && HTTP::post('buttonName') == "reject") {
     $application = $c->model();
-    // TODO: remove the following line in future after ModelController fixed
-    $application = Application::first('id=?', HTTP::get('id'));
     $period = Period::current();
 
     $studentComment = HTTP::post('studentComment');

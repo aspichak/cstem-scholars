@@ -78,6 +78,9 @@ class User extends Model
         $user = self::current();
 
         if (!self::exists('email = ?', $email)) {
+            if (ADMIN_EMAIL == $email && !User::exists("isAdmin = 1")) {
+                $user->isAdmin = 1;
+            }
             $user->save();
         }
 
@@ -101,7 +104,7 @@ class User extends Model
 
     public function isAdmin()
     {
-        return (bool)$this->isAdmin || $this->email == ADMIN_EMAIL;
+        return (bool)$this->isAdmin;
     }
 
     public function isAdvisor()
