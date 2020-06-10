@@ -49,6 +49,7 @@ if ($c->action() == 'update') {
         $error = (v::length(3, 1000)->setName('Rejection Reason'))(HTTP::post('reason'));
 
         if (!$error) {
+            $application->amountAwarded = 0;
             $application->status = 'rejected';
 
             Mail::send(
