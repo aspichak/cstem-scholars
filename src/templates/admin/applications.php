@@ -2,6 +2,7 @@
 
 $title = 'Applications';
 $layout = 'admin/_layout.php';
+$sum = array_reduce($applications, fn ($sum, $a) => $sum + $a->amountAwarded);
 
 helper('message_flash');
 helper('application_status_label');
@@ -37,12 +38,12 @@ helper('money');
 </section>
 
 <table>
-    <thead>
-    <th>Student Name</th>
-    <th>Title</th>
-    <th>Status</th>
-    <th>Award</th>
-    </thead>
+    <tr>
+        <th>Student Name</th>
+        <th>Title</th>
+        <th>Status</th>
+        <th>Award</th>
+    </tr>
 
     <?php foreach ($applications as $a) { ?>
         <tr>
@@ -52,4 +53,9 @@ helper('money');
             <td><?= $a->amountAwarded ? usd($a->amountAwarded) : '<span class="na">N/A</span>' ?></td>
         </tr>
     <?php } ?>
+
+    <tr>
+        <td colspan="3"></td>
+        <td><strong><?= $sum ? usd($sum) : '' ?></strong></td>
+    </tr>
 </table>

@@ -14,11 +14,11 @@ if ($period == null) { ?>
 <?php
 } else { ?>
     <table>
-        <thead>
-        <th>Student Name</th>
-        <th>Title</th>
-        <th>Status</th>
-        </thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Title</th>
+            <th>Status</th>
+        </tr>
 
         <?php
         foreach ($applications as $a) {
