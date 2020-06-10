@@ -352,11 +352,7 @@ ul.tabs li a.active {
 }
 
 .icon.help-circle-light {
-    background-image: url("images/help-circle-light.svg");
-}
-
-.icon.help-circle-light {
-    background-image: url("images/help-circle-light.svg");
+    background-image: url("../images/help-circle-light.svg");
 }
 
 .icon.users-light {
