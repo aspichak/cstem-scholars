@@ -71,8 +71,7 @@ $application = $review->application();
             <br>
         </p>
 
-        <p>Based on eligibility and quality scores, RECOMMEND one of the following
-            categories</p>
+        <p>Based on eligibility and quality scores, would you recommend funding this project?</p>
         <p>
             <label><?= $form->radio('fundingRecommended', 1) ?> Yes</label>
             <label><?= $form->radio('fundingRecommended', 0) ?> No</label>
