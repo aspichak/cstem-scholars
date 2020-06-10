@@ -19,7 +19,7 @@ $layout = 'admin/_layout.php';
     <?php
     foreach ($users as $u) { ?>
         <tr>
-            <td><?= linkTo("user.php?id={$u->email}", e($u->name)) ?></td>
+            <td><?= linkTo("user.php?email={$u->email}", e($u->name)) ?></td>
             <td><?= mailTo(e($u->email)) ?></td>
             <td><?= implode(', ', $u->roles()) ?></td>
             <td class="button-group"><?= actionButtons('user.php', $u->key()) ?></td>
