@@ -39,7 +39,7 @@ function mailTo($email, $text = null, $attributes = [])
     return HTML::link("mailto:$email", $text, $attributes);
 }
 
-function template($template, $v)
+function template($template, $v = null)
 {
     return HTML::template($template, $v);
 }
