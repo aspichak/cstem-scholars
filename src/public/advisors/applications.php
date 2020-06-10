@@ -55,7 +55,7 @@ if ($c->action() == 'update' && HTTP::post('buttonName') == "accept") {
 
         $reviewerComment = HTTP::post('reviewerComment');
         if ($reviewerComment !== '') {
-            $reviewerComment = "<p>You advisor has given the following comment on it: " . e($reviewerComment) . "</p>";
+            $reviewerComment = "<p>Your advisor left the following comment on it: " . e($reviewerComment) . "</p>";
         }
         Mail::send(
             $review->reviewerID,
@@ -74,7 +74,7 @@ if ($c->action() == 'update' && HTTP::post('buttonName') == "accept") {
 
     $studentComment = HTTP::post('studentComment');
     if ($studentComment !== '') {
-        $studentComment = "<p>You advisor has given the following comment on it: " . e($studentComment) . "</p>";
+        $studentComment = "<p>Your advisor left the following comment on it: " . e($studentComment) . "</p>";
     }
 
     Mail::send(
@@ -100,7 +100,7 @@ elseif ($c->action() == 'update' && HTTP::post('buttonName') == "reject") {
 
     $studentComment = HTTP::post('studentComment');
     if ($studentComment !== '') {
-        $studentComment = "<p>You advisor has given the following comment on it: " . e($studentComment) . "</p>";
+        $studentComment = "<p>Your advisor left the following comment on it: " . e($studentComment) . "</p>";
     }
 
     Mail::send(
