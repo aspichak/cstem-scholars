@@ -305,43 +305,43 @@ ul.tabs li a.active {
 }
 
 .icon.calendar-light {
-    background-image: url("images/calendar-light.svg");
+    background-image: url("../images/calendar-light.svg");
 }
 
 .icon.check-square-light {
-    background-image: url("images/check-square-light.svg");
+    background-image: url("../images/check-square-light.svg");
 }
 
 .icon.delete-white {
-    background-image: url("images/delete-white.svg");
+    background-image: url("../images/delete-white.svg");
 }
 
 .icon.edit-white {
-    background-image: url("images/edit-white.svg");
+    background-image: url("../images/edit-white.svg");
 }
 
 .icon.file-text-light {
-    background-image: url("images/file-text-light.svg");
+    background-image: url("../images/file-text-light.svg");
 }
 
 .icon.grid-light {
-    background-image: url("images/grid-light.svg");
+    background-image: url("../images/grid-light.svg");
 }
 
 .icon.users-light {
-    background-image: url("images/users-light.svg");
+    background-image: url("../images/users-light.svg");
 }
 
 .icon.list-light {
-    background-image: url("images/list-light.svg");
+    background-image: url("../images/list-light.svg");
 }
 
 .icon.log-out-light {
-    background-image: url("images/log-out-light.svg");
+    background-image: url("../images/log-out-light.svg");
 }
 
 .icon.menu-light {
-    background-image: url("images/menu-light.svg");
+    background-image: url("../images/menu-light.svg");
 }
 
 .button-group {
