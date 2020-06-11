@@ -45,7 +45,11 @@ $layout = 'admin/_layout.php';
 
         <div class="form-group">
             <label for="studentComment">Reason (required):</label><br>
-            <?= textarea('studentComment', HTTP::post('studentComment'), ['rows' => 10, 'style' => 'width: 100%', 'required']) ?>
+            <?= textarea(
+                'studentComment',
+                HTTP::post('studentComment'),
+                ['rows' => 10, 'style' => 'width: 100%', 'required']
+            ) ?>
         </div>
 
         <button type="submit" name="buttonName" value="reject" class="danger">Reject</button>

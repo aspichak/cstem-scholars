@@ -4,7 +4,7 @@ helper('application_status_label');
 helper('money');
 
 $application = $v;
-$sum = array_reduce($application->budgetTable(), fn ($sum, $x) => $sum + $x->itemCost);
+$sum = array_reduce($application->budgetTable(), fn($sum, $x) => $sum + $x->itemCost);
 ?>
 
 <section class="app-details">

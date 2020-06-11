@@ -72,7 +72,8 @@ if ($error) echo tag('div', $error, ['class' => 'message error']) ?>
 
 <?php
 foreach ($application->reviews() as $review) { ?>
-    <?php $reviewer = $review->reviewer() ?>
+    <?php
+    $reviewer = $review->reviewer() ?>
 
     <p>
         <strong><?= e($reviewer->name) ?></strong>

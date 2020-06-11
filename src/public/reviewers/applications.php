@@ -6,9 +6,10 @@ $c = new ModelController(Review::class);
 $review = $c->model();
 $application = $review->application();
 
-User::authorize('reviewer',
-                $c->action() == 'index' ||
-                ($review->reviewerID == User::current()->email && !$review->submitted)
+User::authorize(
+    'reviewer',
+    $c->action() == 'index' ||
+    ($review->reviewerID == User::current()->email && !$review->submitted)
 );
 
 #This will take us to applications_layout, transferring over reviews as $reviews and apps as $apps
@@ -18,8 +19,7 @@ $c->index(
 );
 
 # if we are updating the block [submit]
-if( $c->action() == 'update' ){
-
+if ($c->action() == 'update') {
     #get the filled out review form and change its submit status from 0 to 1
     $review->submitted = 1;
 
@@ -35,7 +35,8 @@ if( $c->action() == 'update' ){
 #if we aren't updating, then we are filling out a form so go to form_layout
 #transferring over a black review form, and a list of all applications so we can find the current
 #application by it's applicationID
-echo HTML::template('reviewer/form_layout.php',
+echo HTML::template(
+    'reviewer/form_layout.php',
     [
         'review' => $c->model(),
         'form' => $c->form()->disableInlineErrors()

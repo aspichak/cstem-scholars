@@ -2,7 +2,7 @@
 
 $title = 'Applications';
 $layout = 'admin/_layout.php';
-$sum = array_reduce($applications, fn ($sum, $a) => $sum + $a->amountAwarded);
+$sum = array_reduce($applications, fn($sum, $a) => $sum + $a->amountAwarded);
 
 helper('message_flash');
 helper('application_status_label');
@@ -45,14 +45,16 @@ helper('money');
         <th>Award</th>
     </tr>
 
-    <?php foreach ($applications as $a) { ?>
+    <?php
+    foreach ($applications as $a) { ?>
         <tr>
             <td><?= e($a->name) ?></td>
             <td><?= HTML::link("../admin/applications.php?id={$a->id}", e($a->title)) ?></td>
             <td><?= applicationStatus($a) ?></td>
             <td><?= $a->amountAwarded ? usd($a->amountAwarded) : '<span class="na">N/A</span>' ?></td>
         </tr>
-    <?php } ?>
+    <?php
+    } ?>
 
     <tr>
         <td colspan="3"></td>
