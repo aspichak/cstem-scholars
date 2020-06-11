@@ -6,6 +6,9 @@
 **/.idea/**
 **/.vscode/**
 
+# don't copy tests. only run in dev anyways
+tests/**
+
 # ignore anything related to composer - it's run by the dockerfile
 src/vendor/*
 src/vendor/**
