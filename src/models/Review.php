@@ -39,11 +39,6 @@ class Review extends Model
         parent::__construct($form, $fillGuardedColumns);
     }
 
-    public function save($withValidations = true)
-    {
-        return parent::save($withValidations);
-    }
-
     public function application()
     {
         return Application::get($this->applicationID);
