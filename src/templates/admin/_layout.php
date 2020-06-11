@@ -9,7 +9,7 @@ $user = User::current();
     <title><?= $title ?> - CSTEM Research Grant Admininstrator</title>
     <link rel="stylesheet" href="../CSS/admin.css">
     <link rel="stylesheet" href="../CSS/app_status.css">
-    <link rel="icon" href="../favicon.png" />
+    <link rel="icon" href="../favicon.png"/>
     <script src="/jquery-3.5.1.slim.min.js"></script>
     <script>
         $(function () {

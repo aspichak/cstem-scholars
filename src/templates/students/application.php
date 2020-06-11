@@ -4,7 +4,7 @@
     <title>Application Form</title>
     <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
     <link href="../CSS/students.css" rel="stylesheet">
-    <link rel="icon" href="../favicon.png" />
+    <link rel="icon" href="../favicon.png"/>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="script.js"></script>
     <script>

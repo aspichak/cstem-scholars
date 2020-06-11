@@ -16,13 +16,16 @@ $layout = 'admin/_layout.php';
     <th>Status</th>
     </thead>
 
-    <?php foreach ($reviews as $r) { ?>
-        <?php $a = $r->application() ?>
+    <?php
+    foreach ($reviews as $r) { ?>
+        <?php
+        $a = $r->application() ?>
         <tr>
             <td><?= e($a->name) ?></td>
             <td><?= HTML::link("../reviewers/applications.php?id={$r->id}", e($a->title)) ?></td>
             <td><?= e($a->advisorName) ?></td>
             <td><?= applicationStatus($a) ?></td>
         </tr>
-    <?php } ?>
+    <?php
+    } ?>
 </table>

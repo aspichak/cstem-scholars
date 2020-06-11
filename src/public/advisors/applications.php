@@ -6,9 +6,12 @@ require_once '../../helpers/html.php';
 $email = User::current()->email;
 $c = new ModelController(Application::class);
 
-User::authorize('advisor', $c->action() == 'index' ||
-                         ($c->model()->advisorEmail == $email &&
-                             $c->model()->status == 'submitted'));
+User::authorize(
+    'advisor',
+    $c->action() == 'index' ||
+    ($c->model()->advisorEmail == $email &&
+        $c->model()->status == 'submitted')
+);
 
 function UniqueRandomNumbersWithinRange($min, $max, $quantity)
 {

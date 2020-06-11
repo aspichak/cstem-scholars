@@ -11,7 +11,7 @@ helper('application_status_label');
 <?php
 if ($period == null) { ?>
     <p>There is currently no ongoing period.</p>
-<?php
+    <?php
 } else { ?>
     <table>
         <tr>

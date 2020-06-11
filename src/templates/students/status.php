@@ -11,7 +11,7 @@ helper('application_status_label');
     <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../CSS/students.css">
     <link rel="stylesheet" href="../CSS/app_status.css">
-    <link rel="icon" href="../favicon.png" />
+    <link rel="icon" href="../favicon.png"/>
 </head>
 <body>
 <form>
