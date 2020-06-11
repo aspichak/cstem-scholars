@@ -27,6 +27,8 @@ services:
       - MYSQL_ALLOW_EMPTY_PASSWORD=no
       - MYSQL_USER=dbUser
       - MYSQL_PASSWORD=superSecret
+    volumes:
+    - dbData:/var/lib/mysql
     ports:
       - "3306:3306"
     networks:
@@ -35,3 +37,6 @@ services:
 networks:
   bridge:
     name: cstem-scholars-network
+
+volumes:
+  dbData: {}
