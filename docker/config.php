@@ -2,9 +2,7 @@
 
 define('DEBUG', false);
 define('BASE_URL', 'http://localhost');
-define('ADMIN_EMAIL', 'admin@example.edu');
-define('UPLOAD_DIR', __DIR__ . '/uploads');
-define('ALLOWED_UPLOAD_EXTENSIONS', ['pdf', 'xls', 'xlsx', 'doc', 'docx', 'txt', 'jpg', 'jpeg']);
+define('ADMIN_EMAIL', 'jnix1@eagles.ewu.edu');
 
 if (isset($is_login)) {
     require_once __DIR__ . "/vendor/apereo/phpcas/CAS.php";
