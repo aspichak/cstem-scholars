@@ -82,9 +82,6 @@
         <br><br><br>
     </div>
     <!-- Footer -->
-    <!--<footer class="w3-center w3-black w3-padding-64 w3-opacity ">
-      <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
-    </footer>-->
     <footer class="foot w3-center w3-dark-grey w3-padding-32">
         <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
         <br><br>
