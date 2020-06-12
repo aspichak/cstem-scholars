@@ -15,16 +15,8 @@ body, html {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-}
-
-/* First image (Logo. Full height) */
-
-.bgimg-1 {
-    background-image: url('../../images/ewu2.jpg');
+    background-image: url('../images/ewu2.jpg');
     min-height: 400px;
-    image-rendering: auto;
-    image-rendering: crisp-edges;
-    image-rendering: pixelated;
 }
 
 .w3-wide {
@@ -124,7 +116,7 @@ ul.facts li.priv:hover, li.access:hover, li.rules:hover {
 }
 
 .fa.fa-facebook:hover {
-    background-color: #3b5998;;
+    background-color: #3b5998;
     border-color: #3b5998;
 }
 

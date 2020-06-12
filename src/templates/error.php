@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<title><?= $title ?></title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-    <?php include __DIR__ . '/../public/CSS/error_page.css' ?>
-</style>
+<head>
+    <title><?= $title ?></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        <?php include __DIR__ . '/../public/CSS/error_page.css' ?>
+    </style>
+</head>
 <body>
 
 <!-- Navbar (sit on top) -->
@@ -41,9 +42,6 @@
     <br><br>
 </div>
 <!-- Footer -->
-<!--<footer class="w3-center w3-black w3-padding-64 w3-opacity ">
-  <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
-</footer>-->
 <footer class="foot w3-center w3-dark-grey w3-padding-32">
     <div class="social-media">
         <a href="https://www.facebook.com/ewueagles/">
