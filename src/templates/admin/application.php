@@ -8,8 +8,7 @@ $layout = 'admin/_layout.php';
 
 <h1><?= e($application->title) ?></h1>
 
-<?php
-if ($error) echo tag('div', $error, ['class' => 'message error']) ?>
+<?= $error ? tag('div', $error, ['class' => 'message error']) : '' ?>
 
 <ul class="tabs">
     <li><a class="active" href="#award">Award</a></li>
