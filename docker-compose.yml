@@ -28,7 +28,7 @@ services:
       - MYSQL_USER=dbUser
       - MYSQL_PASSWORD=superSecret
     volumes:
-    - dbData:/var/lib/mysql
+      - dbData:/var/lib/mysql
     ports:
       - "3306:3306"
     networks:
